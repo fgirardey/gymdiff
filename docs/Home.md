@@ -8,6 +8,7 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 - [[Roadmap]] — what comes next
 
 ## Design
+- [[Brand]] — logo, wordmark, app icon and usage rules
 - [[Tokens]] — colors, spacing, typography (mirrored in `ui/theme.slint`)
 - [[Design with Pencil]] — how the Pencil design files are organised
 

@@ -1,0 +1,2431 @@
+{
+  "version": "2.22",
+  "children": [
+    {
+      "type": "frame",
+      "id": "brM8T",
+      "x": 0,
+      "y": 0,
+      "name": "Logo / Crest",
+      "reusable": true,
+      "width": 128,
+      "height": 128,
+      "layout": "none",
+      "children": [
+        {
+          "type": "path",
+          "id": "Eybvd",
+          "x": 18.492977108084617,
+          "y": 3.806247464503045,
+          "name": "Shield",
+          "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+          "fill": "#0D1117",
+          "width": 89.76779831932772,
+          "height": 121.63375253549695
+        },
+        {
+          "type": "path",
+          "id": "EL2Mb",
+          "x": 19.765336424224863,
+          "y": 3.806247464503045,
+          "name": "Border",
+          "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+          "width": 88.49543900318749,
+          "height": 120.05754621848739,
+          "stroke": "#E6EDF3",
+          "strokeWidth": 2.492494929006085
+        },
+        {
+          "type": "path",
+          "id": "d0btR",
+          "x": 37.122596348884386,
+          "y": 21.14451695160823,
+          "name": "Up chevron",
+          "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+          "fill": "#3FB950",
+          "width": 52.603512025499846,
+          "height": 41.51309649376992
+        },
+        {
+          "type": "path",
+          "id": "niTgl",
+          "x": 37.122596348884386,
+          "y": 66.30377745580992,
+          "name": "Down chevron",
+          "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+          "fill": "#F85149",
+          "width": 52.603512025499846,
+          "height": 34.65754853665604
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Nobmm",
+      "x": 208,
+      "y": 0,
+      "name": "Logo / Lockup",
+      "reusable": true,
+      "gap": 20,
+      "alignItems": "center",
+      "children": [
+        {
+          "id": "Yt3Wn",
+          "type": "ref",
+          "ref": "brM8T",
+          "name": "Crest"
+        },
+        {
+          "type": "frame",
+          "id": "XbAWr",
+          "name": "Wordmark",
+          "children": [
+            {
+              "type": "text",
+              "id": "u1i8Q",
+              "name": "GYM",
+              "fill": "#E6EDF3",
+              "content": "GYM",
+              "fontFamily": "Barlow Condensed",
+              "fontSize": 112,
+              "fontWeight": "800",
+              "fontStyle": "italic"
+            },
+            {
+              "type": "text",
+              "id": "z325S",
+              "name": "DIFF",
+              "fill": "#3FB950",
+              "content": "DIFF",
+              "fontFamily": "Barlow Condensed",
+              "fontSize": 112,
+              "fontWeight": "800",
+              "fontStyle": "italic"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "WfOE6",
+      "x": 0,
+      "y": 288,
+      "name": "Brand / Logo",
+      "clip": true,
+      "width": 1760,
+      "fill": "#F2F1EC",
+      "layout": "vertical",
+      "gap": 48,
+      "padding": 64,
+      "children": [
+        {
+          "type": "frame",
+          "id": "hoT6W",
+          "name": "Header",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "type": "text",
+              "id": "w4qV3",
+              "name": "Section label",
+              "fill": "#6B6A64",
+              "content": "BRAND · LOGO",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 12,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "text",
+              "id": "k37v40",
+              "name": "Title",
+              "fill": "#16161A",
+              "content": "Crest",
+              "fontFamily": "Barlow Condensed",
+              "fontSize": 64,
+              "fontWeight": "800",
+              "fontStyle": "italic"
+            },
+            {
+              "type": "text",
+              "id": "jaI1a",
+              "name": "Intro",
+              "fill": "#4A4943",
+              "textGrowth": "fixed-width",
+              "width": 880,
+              "content": "A ranked-ladder shield holding a K/DA in two strokes: green chevron up for what you gained, red chevron down for what you gave away. The wordmark is Barlow Condensed ExtraBold Italic, “DIFF” in green. Components: Logo / Crest and Logo / Lockup.",
+              "lineHeight": 1.5,
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "YKVvm",
+          "name": "Lockup",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "Pqrvd",
+              "name": "Section label",
+              "fill": "#6B6A64",
+              "content": "LOCKUP",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 12,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "O1Prlb",
+              "name": "Tiles",
+              "width": "fill_container",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "oZegR",
+                  "name": "On dark",
+                  "width": "fill_container",
+                  "height": 320,
+                  "fill": "#0D1117",
+                  "cornerRadius": 16,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "id": "uYX7i",
+                      "type": "ref",
+                      "ref": "Nobmm",
+                      "name": "Lockup"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "K7239N",
+                  "name": "On light",
+                  "width": "fill_container",
+                  "height": 320,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 16,
+                  "stroke": "#E2E0D8",
+                  "strokeWidth": 1,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "id": "W69yO",
+                      "type": "ref",
+                      "ref": "Nobmm",
+                      "name": "Lockup",
+                      "descendants": {
+                        "u1i8Q": {
+                          "fill": "#0D1117"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "mREbZ",
+          "name": "Mark",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "FEJWD",
+              "name": "Section label",
+              "fill": "#6B6A64",
+              "content": "MARK",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 12,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "OvqZe",
+              "name": "Tiles",
+              "width": "fill_container",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "C3tQZ",
+                  "name": "Colour on dark",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ivVO9",
+                      "name": "Tile",
+                      "width": "fill_container",
+                      "height": 240,
+                      "fill": "#0D1117",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "eDogM",
+                          "type": "ref",
+                          "ref": "brM8T",
+                          "name": "Crest"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "cJ8cC",
+                      "name": "Caption",
+                      "fill": "#6B6A64",
+                      "content": "Colour on dark — Primary",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "kGrAM",
+                  "name": "Colour on light",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "L0IR0U",
+                      "name": "Tile",
+                      "width": "fill_container",
+                      "height": 240,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 16,
+                      "stroke": "#E2E0D8",
+                      "strokeWidth": 1,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "ZfLqa",
+                          "type": "ref",
+                          "ref": "brM8T",
+                          "name": "Crest"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "YUT03",
+                      "name": "Caption",
+                      "fill": "#6B6A64",
+                      "content": "Colour on light — Primary",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "GIqTc",
+                  "name": "Mono on dark",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "OJ3p7",
+                      "name": "Tile",
+                      "width": "fill_container",
+                      "height": 240,
+                      "fill": "#0D1117",
+                      "cornerRadius": 16,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "l8pNz",
+                          "type": "ref",
+                          "ref": "brM8T",
+                          "name": "Crest",
+                          "descendants": {
+                            "Eybvd": {
+                              "fill": "#00000000"
+                            },
+                            "EL2Mb": {
+                              "stroke": "#FFFFFF"
+                            },
+                            "d0btR": {
+                              "fill": "#FFFFFF"
+                            },
+                            "niTgl": {
+                              "fill": "#FFFFFF"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "YU87W",
+                      "name": "Caption",
+                      "fill": "#6B6A64",
+                      "content": "Mono on dark — Single colour",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "m8B7I",
+                  "name": "Mono on light",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "c66Gb",
+                      "name": "Tile",
+                      "width": "fill_container",
+                      "height": 240,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 16,
+                      "stroke": "#E2E0D8",
+                      "strokeWidth": 1,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "FoL1d",
+                          "type": "ref",
+                          "ref": "brM8T",
+                          "name": "Crest",
+                          "descendants": {
+                            "Eybvd": {
+                              "fill": "#00000000"
+                            },
+                            "EL2Mb": {
+                              "stroke": "#0D1117"
+                            },
+                            "d0btR": {
+                              "fill": "#0D1117"
+                            },
+                            "niTgl": {
+                              "fill": "#0D1117"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "w7oSG",
+                      "name": "Caption",
+                      "fill": "#6B6A64",
+                      "content": "Mono on light — Single colour",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Q5ktI",
+          "name": "App icon",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "gc3Gh",
+              "name": "Section label",
+              "fill": "#6B6A64",
+              "content": "APP ICON",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 12,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "text",
+              "id": "SRBG1",
+              "name": "Note",
+              "fill": "#4A4943",
+              "content": "The crest is the icon on its own — no tile, transparent background. Sizes for the Windows .ico: 256, 48, 32, 24, 16.",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "pIRF9",
+              "name": "Taskbars",
+              "width": "fill_container",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "GSPfE",
+                  "name": "Dark taskbar",
+                  "width": "fill_container",
+                  "fill": "#1C1C1C",
+                  "cornerRadius": 16,
+                  "gap": 40,
+                  "padding": [
+                    32,
+                    40
+                  ],
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "D5Q3mh",
+                      "name": "Size 64",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "AUs4U",
+                          "name": "Icon 64",
+                          "width": 64,
+                          "height": 64,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "NjC5y",
+                              "x": 9.246488554042308,
+                              "y": 1.9031237322515224,
+                              "name": "Shield",
+                              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+                              "fill": "#0D1117",
+                              "width": 44.88389915966386,
+                              "height": 60.816876267748476
+                            },
+                            {
+                              "type": "path",
+                              "id": "C3PWPZ",
+                              "x": 9.882668212112431,
+                              "y": 1.9031237322515224,
+                              "name": "Border",
+                              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+                              "width": 44.24771950159374,
+                              "height": 60.028773109243694,
+                              "stroke": "#E6EDF3",
+                              "strokeWidth": 1.2462474645030426
+                            },
+                            {
+                              "type": "path",
+                              "id": "ZOT87",
+                              "x": 18.561298174442193,
+                              "y": 10.572258475804116,
+                              "name": "Up chevron",
+                              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+                              "fill": "#3FB950",
+                              "width": 26.301756012749923,
+                              "height": 20.75654824688496
+                            },
+                            {
+                              "type": "path",
+                              "id": "CnCMg",
+                              "x": 18.561298174442193,
+                              "y": 33.15188872790496,
+                              "name": "Down chevron",
+                              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+                              "fill": "#F85149",
+                              "width": 26.301756012749923,
+                              "height": 17.32877426832802
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "VgRLf",
+                          "name": "Size",
+                          "fill": "#9A9A9A",
+                          "content": "64",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "C1o9Q9",
+                      "name": "Size 48",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "EmxII",
+                          "name": "Icon 48",
+                          "width": 48,
+                          "height": 48,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "dZngx",
+                              "x": 6.934866415531731,
+                              "y": 1.4273427991886418,
+                              "name": "Shield",
+                              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+                              "fill": "#0D1117",
+                              "width": 33.6629243697479,
+                              "height": 45.612657200811356
+                            },
+                            {
+                              "type": "path",
+                              "id": "q1Riu",
+                              "x": 7.4120011590843236,
+                              "y": 1.4273427991886418,
+                              "name": "Border",
+                              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+                              "width": 33.18578962619531,
+                              "height": 45.02157983193277,
+                              "stroke": "#E6EDF3",
+                              "strokeWidth": 0.9346855983772819
+                            },
+                            {
+                              "type": "path",
+                              "id": "gusXq",
+                              "x": 13.920973630831645,
+                              "y": 7.929193856853087,
+                              "name": "Up chevron",
+                              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+                              "fill": "#3FB950",
+                              "width": 19.726317009562443,
+                              "height": 15.56741118516372
+                            },
+                            {
+                              "type": "path",
+                              "id": "fIFJP",
+                              "x": 13.920973630831645,
+                              "y": 24.86391654592872,
+                              "name": "Down chevron",
+                              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+                              "fill": "#F85149",
+                              "width": 19.726317009562443,
+                              "height": 12.996580701246014
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "rRPwt",
+                          "name": "Size",
+                          "fill": "#9A9A9A",
+                          "content": "48",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "O7Hc2K",
+                      "name": "Size 32",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "HTrpn",
+                          "name": "Icon 32",
+                          "width": 32,
+                          "height": 32,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "vh0P8",
+                              "x": 4.623244277021154,
+                              "y": 0.9515618661257612,
+                              "name": "Shield",
+                              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+                              "fill": "#0D1117",
+                              "width": 22.44194957983193,
+                              "height": 30.408438133874238
+                            },
+                            {
+                              "type": "path",
+                              "id": "adCiX",
+                              "x": 4.941334106056216,
+                              "y": 0.9515618661257612,
+                              "name": "Border",
+                              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+                              "width": 22.12385975079687,
+                              "height": 30.014386554621847,
+                              "stroke": "#E6EDF3",
+                              "strokeWidth": 0.6231237322515213
+                            },
+                            {
+                              "type": "path",
+                              "id": "J9A2s",
+                              "x": 9.280649087221096,
+                              "y": 5.286129237902058,
+                              "name": "Up chevron",
+                              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+                              "fill": "#3FB950",
+                              "width": 13.150878006374962,
+                              "height": 10.37827412344248
+                            },
+                            {
+                              "type": "path",
+                              "id": "W6DV1",
+                              "x": 9.280649087221096,
+                              "y": 16.57594436395248,
+                              "name": "Down chevron",
+                              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+                              "fill": "#F85149",
+                              "width": 13.150878006374962,
+                              "height": 8.66438713416401
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "cYKdn",
+                          "name": "Size",
+                          "fill": "#9A9A9A",
+                          "content": "32",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "cS48s",
+                      "name": "Size 24",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "AUAAw",
+                          "name": "Icon 24",
+                          "width": 24,
+                          "height": 24,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "SUyTP",
+                              "x": 3.4674332077658656,
+                              "y": 0.7136713995943209,
+                              "name": "Shield",
+                              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+                              "fill": "#0D1117",
+                              "width": 16.83146218487395,
+                              "height": 22.806328600405678
+                            },
+                            {
+                              "type": "path",
+                              "id": "tXFGj",
+                              "x": 3.7060005795421618,
+                              "y": 0.7136713995943209,
+                              "name": "Border",
+                              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+                              "width": 16.592894813097654,
+                              "height": 22.510789915966384,
+                              "stroke": "#E6EDF3",
+                              "strokeWidth": 0.6
+                            },
+                            {
+                              "type": "path",
+                              "id": "nByDl",
+                              "x": 6.960486815415822,
+                              "y": 3.9645969284265434,
+                              "name": "Up chevron",
+                              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+                              "fill": "#3FB950",
+                              "width": 9.863158504781222,
+                              "height": 7.78370559258186
+                            },
+                            {
+                              "type": "path",
+                              "id": "E770IK",
+                              "x": 6.960486815415822,
+                              "y": 12.43195827296436,
+                              "name": "Down chevron",
+                              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+                              "fill": "#F85149",
+                              "width": 9.863158504781222,
+                              "height": 6.498290350623007
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "HkShB",
+                          "name": "Size",
+                          "fill": "#9A9A9A",
+                          "content": "24",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "N8tiG",
+                      "name": "Size 16",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "eHga0",
+                          "name": "Icon 16",
+                          "width": 16,
+                          "height": 16,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "eft8j",
+                              "x": 2.311622138510577,
+                              "y": 0.4757809330628806,
+                              "name": "Shield",
+                              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+                              "fill": "#0D1117",
+                              "width": 11.220974789915966,
+                              "height": 15.204219066937119
+                            },
+                            {
+                              "type": "path",
+                              "id": "x2M94J",
+                              "x": 2.470667053028108,
+                              "y": 0.4757809330628806,
+                              "name": "Border",
+                              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+                              "width": 11.061929875398436,
+                              "height": 15.007193277310924,
+                              "stroke": "#E6EDF3",
+                              "strokeWidth": 0.6
+                            },
+                            {
+                              "type": "path",
+                              "id": "r7ZZnD",
+                              "x": 4.640324543610548,
+                              "y": 2.643064618951029,
+                              "name": "Up chevron",
+                              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+                              "fill": "#3FB950",
+                              "width": 6.575439003187481,
+                              "height": 5.18913706172124
+                            },
+                            {
+                              "type": "path",
+                              "id": "c2Byo",
+                              "x": 4.640324543610548,
+                              "y": 8.28797218197624,
+                              "name": "Down chevron",
+                              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+                              "fill": "#F85149",
+                              "width": 6.575439003187481,
+                              "height": 4.332193567082005
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "cRriw",
+                          "name": "Size",
+                          "fill": "#9A9A9A",
+                          "content": "16",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "E7zf6N",
+                  "name": "Light taskbar",
+                  "width": "fill_container",
+                  "fill": "#EEF1F5",
+                  "cornerRadius": 16,
+                  "gap": 40,
+                  "padding": [
+                    32,
+                    40
+                  ],
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "D9TL0T",
+                      "name": "Size 64",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "DVi7s",
+                          "name": "Icon 64",
+                          "width": 64,
+                          "height": 64,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "bw5fQ",
+                              "x": 9.246488554042308,
+                              "y": 1.9031237322515224,
+                              "name": "Shield",
+                              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+                              "fill": "#0D1117",
+                              "width": 44.88389915966386,
+                              "height": 60.816876267748476
+                            },
+                            {
+                              "type": "path",
+                              "id": "o6JEH",
+                              "x": 9.882668212112431,
+                              "y": 1.9031237322515224,
+                              "name": "Border",
+                              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+                              "width": 44.24771950159374,
+                              "height": 60.028773109243694,
+                              "stroke": "#E6EDF3",
+                              "strokeWidth": 1.2462474645030426
+                            },
+                            {
+                              "type": "path",
+                              "id": "fjJgR",
+                              "x": 18.561298174442193,
+                              "y": 10.572258475804116,
+                              "name": "Up chevron",
+                              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+                              "fill": "#3FB950",
+                              "width": 26.301756012749923,
+                              "height": 20.75654824688496
+                            },
+                            {
+                              "type": "path",
+                              "id": "ZikIS",
+                              "x": 18.561298174442193,
+                              "y": 33.15188872790496,
+                              "name": "Down chevron",
+                              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+                              "fill": "#F85149",
+                              "width": 26.301756012749923,
+                              "height": 17.32877426832802
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "fqZ2P",
+                          "name": "Size",
+                          "fill": "#5F6368",
+                          "content": "64",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "rRCXP",
+                      "name": "Size 48",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "x8PWs",
+                          "name": "Icon 48",
+                          "width": 48,
+                          "height": 48,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "cmINi",
+                              "x": 6.934866415531731,
+                              "y": 1.4273427991886418,
+                              "name": "Shield",
+                              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+                              "fill": "#0D1117",
+                              "width": 33.6629243697479,
+                              "height": 45.612657200811356
+                            },
+                            {
+                              "type": "path",
+                              "id": "bvklo",
+                              "x": 7.4120011590843236,
+                              "y": 1.4273427991886418,
+                              "name": "Border",
+                              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+                              "width": 33.18578962619531,
+                              "height": 45.02157983193277,
+                              "stroke": "#E6EDF3",
+                              "strokeWidth": 0.9346855983772819
+                            },
+                            {
+                              "type": "path",
+                              "id": "rvUzc",
+                              "x": 13.920973630831645,
+                              "y": 7.929193856853087,
+                              "name": "Up chevron",
+                              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+                              "fill": "#3FB950",
+                              "width": 19.726317009562443,
+                              "height": 15.56741118516372
+                            },
+                            {
+                              "type": "path",
+                              "id": "g1f0e",
+                              "x": 13.920973630831645,
+                              "y": 24.86391654592872,
+                              "name": "Down chevron",
+                              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+                              "fill": "#F85149",
+                              "width": 19.726317009562443,
+                              "height": 12.996580701246014
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "RhwSk",
+                          "name": "Size",
+                          "fill": "#5F6368",
+                          "content": "48",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "MiGyZ",
+                      "name": "Size 32",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "fHLCf",
+                          "name": "Icon 32",
+                          "width": 32,
+                          "height": 32,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "C4qfMA",
+                              "x": 4.623244277021154,
+                              "y": 0.9515618661257612,
+                              "name": "Shield",
+                              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+                              "fill": "#0D1117",
+                              "width": 22.44194957983193,
+                              "height": 30.408438133874238
+                            },
+                            {
+                              "type": "path",
+                              "id": "N1oN1z",
+                              "x": 4.941334106056216,
+                              "y": 0.9515618661257612,
+                              "name": "Border",
+                              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+                              "width": 22.12385975079687,
+                              "height": 30.014386554621847,
+                              "stroke": "#E6EDF3",
+                              "strokeWidth": 0.6231237322515213
+                            },
+                            {
+                              "type": "path",
+                              "id": "P0YI1",
+                              "x": 9.280649087221096,
+                              "y": 5.286129237902058,
+                              "name": "Up chevron",
+                              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+                              "fill": "#3FB950",
+                              "width": 13.150878006374962,
+                              "height": 10.37827412344248
+                            },
+                            {
+                              "type": "path",
+                              "id": "PmPQb",
+                              "x": 9.280649087221096,
+                              "y": 16.57594436395248,
+                              "name": "Down chevron",
+                              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+                              "fill": "#F85149",
+                              "width": 13.150878006374962,
+                              "height": 8.66438713416401
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "OaAff",
+                          "name": "Size",
+                          "fill": "#5F6368",
+                          "content": "32",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "m0qN06",
+                      "name": "Size 24",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "ZH1QQ",
+                          "name": "Icon 24",
+                          "width": 24,
+                          "height": 24,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "b4cHrq",
+                              "x": 3.4674332077658656,
+                              "y": 0.7136713995943209,
+                              "name": "Shield",
+                              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+                              "fill": "#0D1117",
+                              "width": 16.83146218487395,
+                              "height": 22.806328600405678
+                            },
+                            {
+                              "type": "path",
+                              "id": "qQeUg",
+                              "x": 3.7060005795421618,
+                              "y": 0.7136713995943209,
+                              "name": "Border",
+                              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+                              "width": 16.592894813097654,
+                              "height": 22.510789915966384,
+                              "stroke": "#E6EDF3",
+                              "strokeWidth": 0.6
+                            },
+                            {
+                              "type": "path",
+                              "id": "UaZC8",
+                              "x": 6.960486815415822,
+                              "y": 3.9645969284265434,
+                              "name": "Up chevron",
+                              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+                              "fill": "#3FB950",
+                              "width": 9.863158504781222,
+                              "height": 7.78370559258186
+                            },
+                            {
+                              "type": "path",
+                              "id": "vru6o",
+                              "x": 6.960486815415822,
+                              "y": 12.43195827296436,
+                              "name": "Down chevron",
+                              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+                              "fill": "#F85149",
+                              "width": 9.863158504781222,
+                              "height": 6.498290350623007
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "iMecH",
+                          "name": "Size",
+                          "fill": "#5F6368",
+                          "content": "24",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "y9uhs",
+                      "name": "Size 16",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "X17OjD",
+                          "name": "Icon 16",
+                          "width": 16,
+                          "height": 16,
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "hz80O",
+                              "x": 2.311622138510577,
+                              "y": 0.4757809330628806,
+                              "name": "Shield",
+                              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+                              "fill": "#0D1117",
+                              "width": 11.220974789915966,
+                              "height": 15.204219066937119
+                            },
+                            {
+                              "type": "path",
+                              "id": "yIlTr",
+                              "x": 2.470667053028108,
+                              "y": 0.4757809330628806,
+                              "name": "Border",
+                              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+                              "width": 11.061929875398436,
+                              "height": 15.007193277310924,
+                              "stroke": "#E6EDF3",
+                              "strokeWidth": 0.6
+                            },
+                            {
+                              "type": "path",
+                              "id": "T06DHt",
+                              "x": 4.640324543610548,
+                              "y": 2.643064618951029,
+                              "name": "Up chevron",
+                              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+                              "fill": "#3FB950",
+                              "width": 6.575439003187481,
+                              "height": 5.18913706172124
+                            },
+                            {
+                              "type": "path",
+                              "id": "J1AmmQ",
+                              "x": 4.640324543610548,
+                              "y": 8.28797218197624,
+                              "name": "Down chevron",
+                              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+                              "fill": "#F85149",
+                              "width": 6.575439003187481,
+                              "height": 4.332193567082005
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "ZpI5l",
+                          "name": "Size",
+                          "fill": "#5F6368",
+                          "content": "16",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "O9hyO",
+          "name": "Rules",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "ZRRMO",
+              "name": "Section label",
+              "fill": "#6B6A64",
+              "content": "RULES",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 12,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "FQcwM",
+              "name": "Columns",
+              "width": "fill_container",
+              "gap": 40,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "e8NMa",
+                  "name": "Clear space",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "MjWuR",
+                      "name": "Title",
+                      "fill": "#16161A",
+                      "content": "Clear space",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "XCqRD",
+                      "name": "Body",
+                      "fill": "#4A4943",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Keep at least the height of one chevron free around the crest and the lockup.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "K7axh",
+                  "name": "Minimum size",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "GTban",
+                      "name": "Title",
+                      "fill": "#16161A",
+                      "content": "Minimum size",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "cPOsO",
+                      "name": "Body",
+                      "fill": "#4A4943",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Crest: 16 px. Lockup: 24 px high. Below 24 px use the crest alone.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "F1a1A",
+                  "name": "Colours",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ilUH8",
+                      "name": "Title",
+                      "fill": "#16161A",
+                      "content": "Colours",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "v6JvUY",
+                      "name": "Body",
+                      "fill": "#4A4943",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Green is always up, red always down — never swap them. Mono versions only where colour is impossible.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "P3CnG",
+                  "name": "Don’t",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Yy8UJ",
+                      "name": "Title",
+                      "fill": "#16161A",
+                      "content": "Don’t",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "K93Nw",
+                      "name": "Body",
+                      "fill": "#4A4943",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Don’t put the crest on a busy image, add effects, stretch it, or pair it with Riot logos or League art.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "YIWZG",
+      "x": 1920,
+      "y": 288,
+      "name": "Foundations",
+      "clip": true,
+      "width": 1760,
+      "fill": "$background",
+      "layout": "vertical",
+      "gap": 48,
+      "padding": 64,
+      "children": [
+        {
+          "type": "frame",
+          "id": "W7t9u6",
+          "name": "Header",
+          "width": "fill_container",
+          "gap": 20,
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "a1zHwG",
+              "type": "ref",
+              "ref": "Nobmm",
+              "name": "Lockup"
+            },
+            {
+              "type": "frame",
+              "id": "LgHzY",
+              "name": "Title",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "p03qG",
+                  "name": "Section label",
+                  "fill": "$text-secondary",
+                  "content": "FOUNDATIONS",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 12,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "text",
+                  "id": "UPvDz",
+                  "name": "Note",
+                  "fill": "$text-secondary",
+                  "content": "Mirrored in docs/Design/Tokens.md and crates/gymdiff-app/ui/theme.slint",
+                  "fontFamily": "$font-body",
+                  "fontSize": "$font-size-body",
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "zHi9u",
+          "name": "Colors",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 20,
+          "children": [
+            {
+              "type": "text",
+              "id": "wilLH",
+              "name": "Section label",
+              "fill": "$text-secondary",
+              "content": "COLORS",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 12,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "T8aQ4",
+              "name": "Swatches",
+              "width": "fill_container",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ejYOB",
+                  "name": "Swatch background",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-m",
+                      "id": "bbs8W",
+                      "name": "Chip",
+                      "fill": "$background",
+                      "width": "fill_container",
+                      "height": 88,
+                      "stroke": "$border",
+                      "strokeWidth": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "OFGQl",
+                      "name": "Token",
+                      "fill": "$text-primary",
+                      "content": "background",
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "s9CxDG",
+                      "name": "Value",
+                      "fill": "$text-secondary",
+                      "content": "#0D1117",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "M6Noa",
+                      "name": "Usage",
+                      "fill": "$text-secondary",
+                      "content": "Window background",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "poWcn",
+                  "name": "Swatch surface",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-m",
+                      "id": "V7FuZ4",
+                      "name": "Chip",
+                      "fill": "$surface",
+                      "width": "fill_container",
+                      "height": 88,
+                      "stroke": "$border",
+                      "strokeWidth": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "Fs17d",
+                      "name": "Token",
+                      "fill": "$text-primary",
+                      "content": "surface",
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "r1FBc1",
+                      "name": "Value",
+                      "fill": "$text-secondary",
+                      "content": "#161B22",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "JsrJ9",
+                      "name": "Usage",
+                      "fill": "$text-secondary",
+                      "content": "Cards, panels",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "wbtmc",
+                  "name": "Swatch border",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-m",
+                      "id": "KI5kS",
+                      "name": "Chip",
+                      "fill": "$border",
+                      "width": "fill_container",
+                      "height": 88,
+                      "stroke": "$border",
+                      "strokeWidth": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "Z5g4tR",
+                      "name": "Token",
+                      "fill": "$text-primary",
+                      "content": "border",
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "M2v52",
+                      "name": "Value",
+                      "fill": "$text-secondary",
+                      "content": "#30363D",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "ttPaq",
+                      "name": "Usage",
+                      "fill": "$text-secondary",
+                      "content": "Dividers, outlines",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "lNOsN",
+                  "name": "Swatch text-primary",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-m",
+                      "id": "X2dc3F",
+                      "name": "Chip",
+                      "fill": "$text-primary",
+                      "width": "fill_container",
+                      "height": 88,
+                      "stroke": "$border",
+                      "strokeWidth": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "N3ciWU",
+                      "name": "Token",
+                      "fill": "$text-primary",
+                      "content": "text-primary",
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "y41gBm",
+                      "name": "Value",
+                      "fill": "$text-secondary",
+                      "content": "#E6EDF3",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "lu1PZ",
+                      "name": "Usage",
+                      "fill": "$text-secondary",
+                      "content": "Main text",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "H6O8E",
+                  "name": "Swatch text-secondary",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-m",
+                      "id": "T5otp",
+                      "name": "Chip",
+                      "fill": "$text-secondary",
+                      "width": "fill_container",
+                      "height": 88,
+                      "stroke": "$border",
+                      "strokeWidth": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "N9M86",
+                      "name": "Token",
+                      "fill": "$text-primary",
+                      "content": "text-secondary",
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "PGYds",
+                      "name": "Value",
+                      "fill": "$text-secondary",
+                      "content": "#8B949E",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "X7VQ6q",
+                      "name": "Usage",
+                      "fill": "$text-secondary",
+                      "content": "Labels, secondary",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "M8di4",
+                  "name": "Swatch accent",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-m",
+                      "id": "V2kwYb",
+                      "name": "Chip",
+                      "fill": "$accent",
+                      "width": "fill_container",
+                      "height": 88,
+                      "stroke": "$border",
+                      "strokeWidth": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "a5ECCH",
+                      "name": "Token",
+                      "fill": "$text-primary",
+                      "content": "accent",
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "btJlR",
+                      "name": "Value",
+                      "fill": "$text-secondary",
+                      "content": "#3FB950",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "V7Sft",
+                      "name": "Usage",
+                      "fill": "$text-secondary",
+                      "content": "Brand, highlights",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "uzi1K",
+                  "name": "Swatch success",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-m",
+                      "id": "M5UWWY",
+                      "name": "Chip",
+                      "fill": "$success",
+                      "width": "fill_container",
+                      "height": 88,
+                      "stroke": "$border",
+                      "strokeWidth": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "V5V46K",
+                      "name": "Token",
+                      "fill": "$text-primary",
+                      "content": "success",
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "IdT1R",
+                      "name": "Value",
+                      "fill": "$text-secondary",
+                      "content": "#3FB950",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "KW24k",
+                      "name": "Usage",
+                      "fill": "$text-secondary",
+                      "content": "Kills, gains, connected",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "DICUr",
+                  "name": "Swatch danger",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-m",
+                      "id": "rD7qd",
+                      "name": "Chip",
+                      "fill": "$danger",
+                      "width": "fill_container",
+                      "height": 88,
+                      "stroke": "$border",
+                      "strokeWidth": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "IFnfb",
+                      "name": "Token",
+                      "fill": "$text-primary",
+                      "content": "danger",
+                      "fontFamily": "$font-body",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "y7XhR",
+                      "name": "Value",
+                      "fill": "$text-secondary",
+                      "content": "#F85149",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "AiNUT",
+                      "name": "Usage",
+                      "fill": "$text-secondary",
+                      "content": "Deaths, losses, errors",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "DXeg7",
+          "name": "Typography",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 20,
+          "children": [
+            {
+              "type": "text",
+              "id": "VcloC",
+              "name": "Section label",
+              "fill": "$text-secondary",
+              "content": "TYPOGRAPHY",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 12,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "j9Swok",
+              "name": "Scale",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "WYCSY",
+                  "name": "font-size-display",
+                  "width": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 32,
+                  "padding": [
+                    0,
+                    0,
+                    20,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "GDFLU",
+                      "name": "Meta",
+                      "width": 280,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "jxrpV",
+                          "name": "Token",
+                          "fill": "$text-primary",
+                          "content": "font-size-display",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "zoEsA",
+                          "name": "Spec",
+                          "fill": "$text-secondary",
+                          "content": "Barlow Condensed 800 Italic · 40px",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "IAslX",
+                      "name": "Sample",
+                      "fill": "$text-primary",
+                      "content": "24:13  ·  12 / 3 / 8",
+                      "fontFamily": "$font-display",
+                      "fontSize": "$font-size-display",
+                      "fontWeight": "800",
+                      "fontStyle": "italic"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "NvSJy",
+                  "name": "font-size-title",
+                  "width": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 32,
+                  "padding": [
+                    0,
+                    0,
+                    20,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "injTt",
+                      "name": "Meta",
+                      "width": 280,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "SDvUH",
+                          "name": "Token",
+                          "fill": "$text-primary",
+                          "content": "font-size-title",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Z84k7E",
+                          "name": "Spec",
+                          "fill": "$text-secondary",
+                          "content": "Barlow Condensed 700 Italic · 20px",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "bYEqM",
+                      "name": "Sample",
+                      "fill": "$text-primary",
+                      "content": "Champion select",
+                      "fontFamily": "$font-display",
+                      "fontSize": "$font-size-title",
+                      "fontWeight": "700",
+                      "fontStyle": "italic"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "bg2dZ",
+                  "name": "font-size-body",
+                  "width": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 32,
+                  "padding": [
+                    0,
+                    0,
+                    20,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "slJwz",
+                      "name": "Meta",
+                      "width": 280,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ejPB8",
+                          "name": "Token",
+                          "fill": "$text-primary",
+                          "content": "font-size-body",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "iUJtY",
+                          "name": "Spec",
+                          "fill": "$text-secondary",
+                          "content": "Inter 400 · 14px",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "OJbxd",
+                      "name": "Sample",
+                      "fill": "$text-primary",
+                      "content": "Connected · In game — +1.2k gold at 15:00",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-body"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "zRJd2",
+          "name": "Spacing & radius",
+          "width": "fill_container",
+          "gap": 64,
+          "children": [
+            {
+              "type": "frame",
+              "id": "o5kCP",
+              "name": "Spacing",
+              "layout": "vertical",
+              "gap": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "kMVq0",
+                  "name": "Section label",
+                  "fill": "$text-secondary",
+                  "content": "SPACING",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 12,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "frame",
+                  "id": "MClys",
+                  "name": "Steps",
+                  "gap": 32,
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "iVBta",
+                      "name": "space-xs",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "rectangle",
+                          "id": "aXvZh",
+                          "name": "Bar",
+                          "fill": "$accent",
+                          "width": 4,
+                          "height": 32
+                        },
+                        {
+                          "type": "text",
+                          "id": "xvkWy",
+                          "name": "Token",
+                          "fill": "$text-secondary",
+                          "content": "space-xs · 4",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "hkI7P",
+                      "name": "space-s",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "rectangle",
+                          "id": "b6ZC2",
+                          "name": "Bar",
+                          "fill": "$accent",
+                          "width": 8,
+                          "height": 32
+                        },
+                        {
+                          "type": "text",
+                          "id": "dav49",
+                          "name": "Token",
+                          "fill": "$text-secondary",
+                          "content": "space-s · 8",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "U31Er3",
+                      "name": "space-m",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "rectangle",
+                          "id": "gkjSb",
+                          "name": "Bar",
+                          "fill": "$accent",
+                          "width": 16,
+                          "height": 32
+                        },
+                        {
+                          "type": "text",
+                          "id": "FoBmg",
+                          "name": "Token",
+                          "fill": "$text-secondary",
+                          "content": "space-m · 16",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "i6mOY",
+                      "name": "space-l",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "rectangle",
+                          "id": "Xgpfo",
+                          "name": "Bar",
+                          "fill": "$accent",
+                          "width": 24,
+                          "height": 32
+                        },
+                        {
+                          "type": "text",
+                          "id": "HAGRs",
+                          "name": "Token",
+                          "fill": "$text-secondary",
+                          "content": "space-l · 24",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "DUA7f",
+              "name": "Radius",
+              "layout": "vertical",
+              "gap": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "EOBbO",
+                  "name": "Section label",
+                  "fill": "$text-secondary",
+                  "content": "RADIUS",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 12,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "frame",
+                  "id": "r0rzbp",
+                  "name": "Sample",
+                  "gap": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": "$radius-m",
+                      "id": "Cj7nm",
+                      "name": "Box",
+                      "fill": "$surface",
+                      "width": 64,
+                      "height": 64,
+                      "stroke": "$border",
+                      "strokeWidth": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "oCjie",
+                      "name": "Token",
+                      "fill": "$text-secondary",
+                      "content": "radius-m · 8",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "background": {
+      "type": "color",
+      "value": "#0D1117"
+    },
+    "surface": {
+      "type": "color",
+      "value": "#161B22"
+    },
+    "border": {
+      "type": "color",
+      "value": "#30363D"
+    },
+    "text-primary": {
+      "type": "color",
+      "value": "#E6EDF3"
+    },
+    "text-secondary": {
+      "type": "color",
+      "value": "#8B949E"
+    },
+    "accent": {
+      "type": "color",
+      "value": "#3FB950"
+    },
+    "success": {
+      "type": "color",
+      "value": "#3FB950"
+    },
+    "danger": {
+      "type": "color",
+      "value": "#F85149"
+    },
+    "space-xs": {
+      "type": "number",
+      "value": 4
+    },
+    "space-s": {
+      "type": "number",
+      "value": 8
+    },
+    "space-m": {
+      "type": "number",
+      "value": 16
+    },
+    "space-l": {
+      "type": "number",
+      "value": 24
+    },
+    "radius-m": {
+      "type": "number",
+      "value": 8
+    },
+    "font-size-body": {
+      "type": "number",
+      "value": 14
+    },
+    "font-size-title": {
+      "type": "number",
+      "value": 20
+    },
+    "font-size-display": {
+      "type": "number",
+      "value": 40
+    },
+    "font-display": {
+      "type": "string",
+      "value": "Barlow Condensed"
+    },
+    "font-body": {
+      "type": "string",
+      "value": "Inter"
+    }
+  },
+  "fileToken": "cdfa3f0f-9494-4fb1-b76f-1be028de3488"
+}

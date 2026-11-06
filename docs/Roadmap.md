@@ -6,7 +6,10 @@
 - [x] Simulator with scenario replay
 - [x] CI on Windows and macOS with a Windows build artifact
 - [ ] Write the [[Vision]]
-- [ ] Create `design/gymdiff.pen` with the `Foundations` page and real [[Tokens]]
+- [x] Create `design/gymdiff.pen` with the `Foundations` page and real [[Tokens]]
+- [x] Brand: logo and app icon ([[Brand]])
+- [ ] Bundle the brand fonts (Barlow Condensed, Inter) in the app
+- [ ] Windows app icon (`.ico` from `design/brand/`) embedded in the executable
 - [ ] First validation on the Windows PC (checklist in [[Windows testing]])
 - [ ] Register the project on the Riot developer portal ([[Riot policies]])
 

@@ -6,7 +6,8 @@ Pencil design files for GymDiff. This folder is the **design memory** of the pro
 
 | File | Content |
 |---|---|
-| `gymdiff.pen` | Main design file (create it from Pencil: *New file* → save here) |
+| `gymdiff.pen` | Main design file |
+| `brand/` | Logo files exported from the `Logo / *` components (see [`docs/Design/Brand.md`](../docs/Design/Brand.md)) |
 
 Add more `.pen` files only if the main one becomes hard to navigate (e.g. `overlay.pen` for in-game overlays).
 
