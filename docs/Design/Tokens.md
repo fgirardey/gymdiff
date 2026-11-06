@@ -17,6 +17,7 @@ Colours come from the brand direction chosen in Pencil (see [[Brand]]): a K/DA r
 | `accent` | `#3fb950` | Brand accent, highlights |
 | `success` | `#3fb950` | Kills, gains, connected |
 | `danger` | `#f85149` | Deaths, losses, disconnected, errors |
+| `warning` | `#d29922` | Partial workouts, sessions with some workouts missed |
 
 `accent` and `success` share a value on purpose (green is the brand colour), but keep the roles separate in code.
 
@@ -39,6 +40,7 @@ Colours come from the brand direction chosen in Pencil (see [[Brand]]): a K/DA r
 | `font-size-body` | 14px | Body text |
 | `font-size-title` | 20px | Titles |
 | `font-size-display` | 40px | Big numbers (clock, stats) |
+| `font-size-hero` | 96px | The one number to read from a distance (workout step count, plank countdown) |
 
 Font families (Pencil variables `font-display` and `font-body`):
 
