@@ -37,7 +37,8 @@ Endpoints used:
 |---|---|---|
 | `GET /lol-gameflow/v1/gameflow-phase` | JSON string: `None`, `Lobby`, `Matchmaking`, `ReadyCheck`, `ChampSelect`, `GameStart`, `InProgress`, `Reconnect`, `WaitingForStats`, `PreEndOfGame`, `EndOfGame` | [[Client status]] |
 | `GET /lol-champ-select/v1/session` *(planned)* | Champion select session; `myTeam[].assignedPosition` | [[Post-game workout]] (role) |
-| `GET /lol-end-of-game/v1/eog-stats-block` *(planned)* | End-of-game stats of every player | [[Post-game workout]] |
+| `GET /lol-end-of-game/v1/eog-stats-block` *(planned)* | End-of-game stats of every player (position field to confirm) | [[Post-game workout]] |
+| `GET /lol-match-history/v1/games/{gameId}` *(planned, fallback)* | Game details, including positions computed by Riot | [[Post-game workout]] (role) |
 
 ### WebSocket events (not used yet)
 - URL: `wss://127.0.0.1:<port>/`, same Basic auth
@@ -69,6 +70,9 @@ Endpoints (under `/liveclientdata/`):
 Used today: `gamestats` → `gameTime` ([[Client status]]).
 
 Implementation: `gymdiff-lol/src/live_client.rs` (models), `gymdiff-lol/src/client.rs` (HTTP).
+
+## Data Dragon (remote, static)
+Riot's static CDN for game assets: `https://ddragon.leagueoflegends.com`. No key. Used for champion images ([[ADR-0004 Champion images from Data Dragon]]).
 
 ## Riot Games API (remote)
 Not used yet. Needs an API key from the Riot developer portal and a registered product. If an endpoint exists both in the Riot API and in the LCU, Riot requires using the Riot API.

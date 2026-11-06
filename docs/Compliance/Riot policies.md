@@ -27,7 +27,8 @@ Products must not:
 - The developer policy only explicitly approves overlays showing **static data available before the game**.
 - Rule of thumb: if a feature tells the player something about opponents they could not see themselves, or tracks timers for them, it is out.
 
-## Monetization (if ever)
+## Monetization
+GymDiff will never be monetized ([[Vision#Non-goals]]). For reference:
 - A **free tier** is mandatory; paid content must be transformative.
 - No betting or gambling.
 - The product must be approved/acknowledged on the developer portal before monetizing.

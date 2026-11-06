@@ -1,0 +1,96 @@
+---
+status: draft
+---
+
+# Screens
+
+Map of the app's screens and how the player moves between them. Each screen's behaviour is specified in its feature note; this note only fixes the structure. Pencil frames follow the names in [[#Frames]].
+
+## Window
+- **Compact portrait**: 400 × 640 logical pixels by default. Meant to sit next to the League client or on a second screen, and to be readable from a distance while exercising (big numbers).
+- One window. No overlay in the MVP (see [[Vision]]).
+
+## Layout
+```
+┌────────────────────────────────────┐
+│ ◆ GYMDIFF     ● Connected · Lobby ⓘ│  top bar
+├────────────────────────────────────┤
+│                                    │
+│              History               │
+│        (or About, from ⓘ)          │
+│                                    │
+│                                    │
+└────────────────────────────────────┘
+```
+- **No sidebar.** **History** is the main screen and takes the full width (400 px).
+- **Top bar** (52 px), on every screen except Welcome: the Crest and the "GYMDIFF" wordmark on the left; on the right the connection dot and client phase (replaces the current [[Client status]] card) and an **About** button (ⓘ, marked with `accent` while About is shown).
+- **About** opens from the ⓘ button and has a "‹ History" link back. There is no other navigation.
+- The window opens on **History**. Navigation never changes on its own.
+- **Workout modal**: when a game ends and its workout is ready, a **prompt** opens over History, like a matchmaking "match found" prompt: a centred dialog with a big round **Start workout** button, what is due, and Later / Skip workout (see [[Post-game workout#Prompt ("Workout ready")]]). Once started, the steps open as a **sheet** rising over History: full width, from just under the top bar to the bottom of the window, rounded top corners, header "POST-GAME WORKOUT" and a close button (×). Closing it returns to History. If About is shown when the workout is ready, the app goes back to History first.
+
+## Screens
+| Screen | Access | Content | Feature |
+|---|---|---|---|
+| **Welcome** | first launch only (no top bar) | Shown once, at first launch: the principle (main stat → burpees, secondary stat → squats, deaths → plank), the health warning, Riot's disclaimer, a "Let's go" button | [[First launch]] |
+| **History** | main screen, default | All games grouped by session, newest first, one workout card per game (game portraits on the left). Also shows the game that just ended while its workout is computed, and games without a workout | [[History]] |
+| **Workout** (modal over History) | on its own, or Start on a pending card | Opens on its own when a workout is ready, or from **Start** on a pending card: prompt → steps → summary. All its states are in [[Post-game workout]] | [[Post-game workout]] |
+| **About** | ⓘ in the top bar | `AboutSlint` (required, see [[ADR-0001 Native UI with Slint]]), Riot's "Legal Jibber Jabber" disclaimer, app version | — |
+
+The computation of every number stays **inline** in each workout step (stat, target, cap) and in an expanded History card: there is no detail screen.
+
+Later (not in the MVP): **Settings** (difficulty, targets), from a button in the top bar. Unbuilt screens are not shown, not even disabled.
+
+```mermaid
+flowchart LR
+    Start([App start]) --> F{First launch?}
+    F -- yes --> W[Welcome]
+    W -- Let's go --> S
+    F -- no --> S[History]
+    S <--> A[About]
+    A -- New workout ready --> S
+    EOG([New workout ready]) --> M[Workout modal]
+    S -- Start on a pending card --> M
+    M -- Close / summary done --> S
+```
+
+## Frames
+In `design/gymdiff.pen`, at 400 × 640. First sketches, to validate. Every screen except Welcome is an instance of the `App shell / Top bar / Default` component with its `Content` slot replaced. Modal frames show the prompt or the sheet over a dimmed copy of `History / Main / Nominal`.
+
+The canvas is laid out along the user flow: one row per stage, left to right in the order the player sees the screens, with arrows labelled by the action that leads to the next frame ("Let's go", "Start workout", "Close", …).
+
+**Components** (top)
+| Frame | Shows |
+|---|---|
+| `App shell / Top bar / Default` | The top bar (Crest, wordmark, connection status, About button), reusable component |
+| `Champion portrait` | Played + linked champion placeholder, reusable component ([[Champion portraits]]) |
+| `Exercise icon / <Burpee, Squat, Plank> / <16, 28, 56>` | Exercise pictograms, reusable components (generated in Pencil) |
+
+**1 · First launch → first game**
+| Frame | Shows |
+|---|---|
+| `First launch / Welcome / Default` | Welcome screen |
+| `History / Main / Empty` | No game stored yet |
+| `History / Main / Computing` | A game just ended: "Game over · Computing your workout…" card on top |
+
+**2 · Post-game workout**
+| Frame | Shows |
+|---|---|
+| `Post-game workout / Modal / Prompt` | "Workout ready" prompt (Mid): big Start workout button, what is due, Later / Skip workout |
+| `Post-game workout / Modal / Step reps` | Rep step (squats), number done lowered with − |
+| `Post-game workout / Modal / Step plank ready` | Plank step before Start |
+| `Post-game workout / Modal / Step plank running` | Countdown running |
+| `Post-game workout / Modal / Step plank paused` | Countdown paused |
+| `Post-game workout / Modal / Summary` | Done vs. due, status, session total, Close |
+| `History / Main / Nominal` | Back on History: current session and an older one, dense workout cards |
+| `History / Main / Game expanded` | One card opened: stat and target per exercise, game details |
+
+**3 · Variants and other screens**
+| Frame | Shows |
+|---|---|
+| `Post-game workout / Modal / Prompt (Support)` | Support variant, with 0 squats (dimmed) |
+| `History / Main / No workout` | Remake and role not detected: muted "No workout" cards with the reason |
+| `App shell / About / Default` | About screen |
+
+## Open questions
+- Can the window be resized, and down to what size?
+- Should the window remember its position on screen?

@@ -26,13 +26,15 @@
 ## MVP — post-game workout
 - [ ] Validate [[Vision]], [[Workout formula]] and [[Post-game workout]] (open questions)
 - [ ] Record a real end-of-game payload and champ select session on Windows
-- [ ] Design the `Post-game workout` frames in Pencil
-- [ ] Core: workout formula + session total, with tests
+- [x] Sketch the frames listed in [[Screens]] in Pencil
+- [ ] Validate the sketches, then mark the features `designed`
+- [ ] [[First launch]] welcome screen (first persisted flag)
+- [ ] Core: workout formula, sessions, with tests
 - [ ] LCU: end-of-game stats, champ select role, simulator scenarios
 - [ ] UI: workout screen and its states
+- [ ] [[History]]: persisted games, sessions split on 1-hour breaks, timeline screen
 
 ## Later — product
 - [ ] Settings: difficulty multiplier, custom targets, exercise choice
-- [ ] Persist history across restarts (daily / weekly totals)
 - [ ] ARAM and other modes (a recipe without roles)
 - [ ] In-game overlay — only after checking [[Riot policies]]: the developer policy only explicitly approves static pre-game data

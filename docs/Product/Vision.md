@@ -36,6 +36,7 @@ Not targets (for now):
 - **Respect Riot's rules first** and never slow down the game.
 
 ## Non-goals
+- **Never paid.** GymDiff stays free: no paywall, no subscription, no ads, no crowdfunding.
 - No training plans, calorie counting or health tracking.
 - No coaching advice ("buy this item", "ward here").
 - No ranking players against each other, no custom MMR.

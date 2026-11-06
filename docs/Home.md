@@ -5,6 +5,8 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 ## Product
 - [[Vision]] — what GymDiff is, for whom, and why
 - [[Features]] — index of feature notes
+- [[Screens]] — window, top bar, screens and their Pencil frames
+- [[Champion portraits]] — played and linked champion
 - [[Workout formula]] — how a game becomes burpees, squats and plank
 - [[Roadmap]] — what comes next
 
@@ -21,6 +23,8 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 - [[ADR-0001 Native UI with Slint]]
 - [[ADR-0002 Docs and design as sources of truth]]
 - [[ADR-0003 macOS-first development with a simulator]]
+- [[ADR-0004 Champion images from Data Dragon]]
+- [[ADR-0005 Bundle the role symbols]]
 
 ## Workflow
 - [[Development]] — the daily loop on macOS
