@@ -13,10 +13,10 @@ jobs:
   commitlint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
       - run: npm install --no-audit --no-fund
@@ -24,13 +24,24 @@ jobs:
         if: github.event_name == 'pull_request'
         run: npx --no -- commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
       - name: Lint pushed commits
-        if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
-        run: npx --no -- commitlint --from ${{ github.event.before }} --to ${{ github.sha }} --verbose
+        if: github.event_name == 'push'
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          if git merge-base --is-ancestor "$BEFORE" "$AFTER" 2>/dev/null; then
+            npx --no -- commitlint --from "$BEFORE" --to "$AFTER" --verbose
+          else
+            echo "Previous head $BEFORE is not in the history (new branch or force push): linting every commit."
+            for c in $(git rev-list "$AFTER"); do
+              git log -1 --format=%B "$c" | npx --no -- commitlint || exit 1
+            done
+          fi
 
   fmt:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: cargo fmt --all -- --check
 
   build:
@@ -40,7 +51,7 @@ jobs:
         os: [windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: Swatinem/rust-cache@v2
       - name: Clippy
         run: cargo clippy --workspace --all-targets -- -D warnings
