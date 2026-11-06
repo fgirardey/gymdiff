@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cargo fmt --all -- --check
+
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Swatinem/rust-cache@v2
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: Tests
+        run: cargo test --workspace
+
+      - name: Release build (Windows)
+        if: runner.os == 'Windows'
+        run: cargo build --release -p gymdiff-app
+      - name: Upload Windows build
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gymdiff-windows-${{ github.sha }}
+          path: target/release/gymdiff.exe
+          retention-days: 14

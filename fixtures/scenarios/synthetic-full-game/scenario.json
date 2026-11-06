@@ -1,0 +1,38 @@
+{
+  "description": "Hand-written full flow: lobby -> champ select -> 20 min game -> end of game",
+  "synthetic": true,
+  "steps": [
+    { "at": 0, "note": "Client open, idle",
+      "lcu": { "/lol-gameflow/v1/gameflow-phase": "None" } },
+    { "at": 3, "note": "Lobby",
+      "lcu": { "/lol-gameflow/v1/gameflow-phase": "Lobby" } },
+    { "at": 8, "note": "Matchmaking",
+      "lcu": { "/lol-gameflow/v1/gameflow-phase": "Matchmaking" } },
+    { "at": 14, "note": "Ready check",
+      "lcu": { "/lol-gameflow/v1/gameflow-phase": "ReadyCheck" } },
+    { "at": 17, "note": "Champion select",
+      "lcu": { "/lol-gameflow/v1/gameflow-phase": "ChampSelect" } },
+    { "at": 47, "note": "Game loading (Live Client API not available yet)",
+      "lcu": { "/lol-gameflow/v1/gameflow-phase": "GameStart" } },
+    { "at": 55, "note": "Game in progress, clock starts",
+      "lcu": { "/lol-gameflow/v1/gameflow-phase": "InProgress" },
+      "live": {
+        "/liveclientdata/gamestats": {
+          "gameMode": "CLASSIC",
+          "gameTime": 0.0,
+          "mapName": "Map11",
+          "mapNumber": 11,
+          "mapTerrain": "Default"
+        }
+      },
+      "game_clock": "start" },
+    { "at": 1255, "note": "Nexus destroyed, waiting for stats",
+      "lcu": { "/lol-gameflow/v1/gameflow-phase": "WaitingForStats" },
+      "live": { "/liveclientdata/gamestats": null },
+      "game_clock": "stop" },
+    { "at": 1262, "note": "Pre end of game",
+      "lcu": { "/lol-gameflow/v1/gameflow-phase": "PreEndOfGame" } },
+    { "at": 1265, "note": "End of game screen",
+      "lcu": { "/lol-gameflow/v1/gameflow-phase": "EndOfGame" } }
+  ]
+}

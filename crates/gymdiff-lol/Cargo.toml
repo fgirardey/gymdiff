@@ -1,0 +1,18 @@
+[package]
+name = "gymdiff-lol"
+description = "Access to the League of Legends local APIs (LCU + Live Client Data)."
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+publish.workspace = true
+
+[dependencies]
+gymdiff-core = { workspace = true }
+reqwest = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+
+[lints]
+workspace = true

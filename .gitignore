@@ -1,0 +1,22 @@
+# Rust
+/target/
+
+# Logs
+/logs/
+*.log
+
+# Obsidian: keep shared settings, ignore per-machine state
+docs/.obsidian/workspace*.json
+docs/.obsidian/cache
+docs/.trash/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Local env
+.env
+.env.*

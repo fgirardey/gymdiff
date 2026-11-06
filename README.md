@@ -1,0 +1,59 @@
+# GymDiff
+
+A Windows desktop companion app for **League of Legends**, written in Rust with a native [Slint](https://slint.dev) UI.
+
+> Status: project skeleton. The product definition lives in [`docs/Product/Vision.md`](docs/Product/Vision.md).
+
+## How this repository works
+
+| What | Where | Tool |
+|---|---|---|
+| Product definition | [`docs/Product/`](docs/Product/) | Obsidian (the `docs/` folder is a vault) |
+| Visual design | [`design/`](design/) | [Pencil](https://pencil.dev) (`.pen` files, read by Claude through Pencil's MCP server) |
+| Decisions | [`docs/Decisions/`](docs/Decisions/) | ADRs in Markdown |
+| Implementation | [`crates/`](crates/) | Rust, Claude Code (see [`CLAUDE.md`](CLAUDE.md)) |
+
+Development happens on **macOS** against a **simulated League client**; builds are tested on a **Windows PC**. See [`docs/Workflow/Development.md`](docs/Workflow/Development.md).
+
+## Quick start (macOS)
+
+```sh
+# Prerequisites
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh   # Rust (toolchain pinned by rust-toolchain.toml)
+brew install just                                                 # task runner
+
+# Run the app against the simulator
+just dev
+```
+
+The window shows the simulated client going from lobby to champion select, then an in-game clock (scenario played at 10× speed).
+
+Other recipes: `just` lists them all.
+
+```sh
+just check          # fmt + clippy + tests + Windows type-check — run before committing
+just run            # the app against a real League client
+just sim --speed 5  # only the simulator
+just win-build      # build on the Windows PC over SSH
+```
+
+## Layout
+
+```
+crates/
+  gymdiff-core/       pure domain logic (no I/O, no OS code)
+  gymdiff-lol/        League local APIs (lockfile, LCU, Live Client Data)
+  gymdiff-simulator/  fake League client for development
+  gymdiff-app/        Slint UI + OS integration
+fixtures/             simulator scenarios and test data
+docs/                 Obsidian vault (product, architecture, decisions, workflows)
+design/               Pencil design files
+```
+
+## Legal
+
+GymDiff isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
+
+The UI is built with Slint under the Slint Royalty-free Desktop License (see [ADR-0001](docs/Decisions/ADR-0001%20Native%20UI%20with%20Slint.md)).
+
+No license has been chosen for GymDiff itself yet: all rights reserved.

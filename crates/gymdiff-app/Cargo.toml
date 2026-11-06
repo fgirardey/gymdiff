@@ -1,0 +1,28 @@
+[package]
+name = "gymdiff-app"
+description = "GymDiff desktop app (Slint UI)."
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+publish.workspace = true
+build = "build.rs"
+
+[[bin]]
+name = "gymdiff"
+path = "src/main.rs"
+
+[dependencies]
+gymdiff-core = { workspace = true }
+gymdiff-lol = { workspace = true }
+anyhow = { workspace = true }
+slint = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-appender = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+[build-dependencies]
+slint-build = { workspace = true }
+
+[lints]
+workspace = true

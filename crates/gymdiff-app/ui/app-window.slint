@@ -1,0 +1,98 @@
+// Main window. Placeholder screen until the real design lands in design/*.pen.
+
+import { AboutSlint, Button } from "std-widgets.slint";
+import { Theme } from "theme.slint";
+
+component Card inherits Rectangle {
+    background: Theme.surface;
+    border-radius: Theme.radius-m;
+}
+
+export component AppWindow inherits Window {
+    title: "GymDiff";
+    preferred-width: 420px;
+    preferred-height: 320px;
+    background: Theme.background;
+
+    in property <bool> connected: false;
+    in property <string> connection-label: "Looking for the League client…";
+    in property <string> phase-label: "—";
+    in property <string> game-time: "--:--";
+    in property <string> data-source: "";
+
+    property <bool> show-about: false;
+
+    VerticalLayout {
+        padding: Theme.space-l;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        HorizontalLayout {
+            spacing: Theme.space-s;
+            Text {
+                text: "GymDiff";
+                color: Theme.accent;
+                font-size: Theme.font-size-title;
+                font-weight: 700;
+                vertical-alignment: center;
+            }
+            Rectangle { }
+            Button {
+                text: show-about ? "Close" : "About";
+                clicked => { root.show-about = !root.show-about; }
+            }
+        }
+
+        if !show-about: Card {
+            VerticalLayout {
+                padding: Theme.space-m;
+                spacing: Theme.space-s;
+
+                HorizontalLayout {
+                    spacing: Theme.space-s;
+                    Rectangle {
+                        width: 10px;
+                        height: 10px;
+                        y: (parent.height - self.height) / 2;
+                        border-radius: 5px;
+                        background: root.connected ? Theme.success : Theme.danger;
+                    }
+                    Text {
+                        text: root.connection-label;
+                        color: Theme.text-secondary;
+                        font-size: Theme.font-size-body;
+                    }
+                }
+
+                Text {
+                    text: root.phase-label;
+                    color: Theme.text-primary;
+                    font-size: Theme.font-size-title;
+                }
+
+                Text {
+                    text: root.game-time;
+                    color: Theme.text-primary;
+                    font-size: Theme.font-size-display;
+                    font-weight: 700;
+                }
+
+                Text {
+                    text: root.data-source;
+                    color: Theme.text-secondary;
+                    font-size: Theme.font-size-body;
+                }
+            }
+        }
+
+        // Required by the Slint Royalty-free license: AboutSlint must be
+        // reachable from the top level of the app. See docs/Decisions/ADR-0001.
+        if show-about: Card {
+            VerticalLayout {
+                padding: Theme.space-m;
+                alignment: center;
+                AboutSlint { }
+            }
+        }
+    }
+}
