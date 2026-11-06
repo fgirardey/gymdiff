@@ -14,6 +14,17 @@ win_repo := env("GYMDIFF_WIN_REPO", "C:\\dev\\gymdiff")
 default:
     @just --list
 
+# ---------------------------------------------------------------- setup
+
+# One-time setup: commit tooling (needs Node, see docs/Workflow/Development.md)
+setup:
+    npm install
+    git config core.hooksPath .githooks
+
+# Check a commit message, or the last commit when none is given
+commitlint message="":
+    {{ if message == "" { "npx --no -- commitlint --last" } else { "printf '%s' " + quote(message) + " | npx --no -- commitlint" } }}
+
 # ---------------------------------------------------------------- dev loop
 
 # App + simulator together (the main dev loop on macOS)

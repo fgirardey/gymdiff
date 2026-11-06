@@ -1,0 +1,8 @@
+#!/bin/sh
+# Lints the commit message with commitlint (Conventional Commits).
+# Enabled by `npm install` (prepare script) or `just setup`.
+if [ -x node_modules/.bin/commitlint ]; then
+  exec node_modules/.bin/commitlint --edit "$1"
+fi
+echo "commit-msg: commitlint is not installed, message not checked (run \`just setup\`). CI will check it." >&2
+exit 0

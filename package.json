@@ -1,0 +1,19 @@
+{
+  "name": "gymdiff-tooling",
+  "private": true,
+  "description": "Node tooling for the GymDiff repository (commit message linting only). The app itself is Rust.",
+  "scripts": {
+    "prepare": "git config core.hooksPath .githooks",
+    "commitlint": "commitlint"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "volta": {
+    "node": "24.22.2"
+  }
+}

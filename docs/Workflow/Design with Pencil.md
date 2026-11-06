@@ -26,4 +26,4 @@ Pencil does not export Slint. Claude Code:
 4. you compare with `just preview` (live reload) side by side with Pencil.
 
 ## Versioning
-Commit `.pen` files with a descriptive message (`design: champ select loading state`). Never merge two versions of a `.pen` file by hand.
+Commit `.pen` files with a descriptive message (`docs(design): add the champ select loading state`). Never merge two versions of a `.pen` file by hand.

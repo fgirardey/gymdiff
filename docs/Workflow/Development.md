@@ -7,6 +7,8 @@ Daily loop on **macOS**. The Windows PC is only needed for what the Mac can't sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh   # rustup; the toolchain is pinned by rust-toolchain.toml
 brew install just
 cargo install slint-viewer                                        # optional: live preview of .slint files
+volta install node@24                                             # Node, only for commit linting (or brew install node)
+just setup                                                        # installs commitlint and the commit-msg hook
 ```
 `rust-toolchain.toml` also installs the `x86_64-pc-windows-msvc` target, used by `just check-windows`.
 
@@ -45,5 +47,9 @@ flowchart LR
 
 ## Branches and commits
 - `main` is always green in CI.
-- Small commits, imperative mood, English (`Add champ select timer state`).
-- Design-only commits: `design: …`. Docs-only commits: `docs: …`.
+- Small commits, English, following [Conventional Commits](https://www.conventionalcommits.org): `type(scope): subject`, subject in the imperative and lower case, no trailing period, header up to 100 characters.
+  - Types (from `@commitlint/config-conventional`): `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
+  - Optional scope, one of: `core`, `lol`, `simulator`, `app`, `ui`, `design`, `docs`, `fixtures`, `deps`, `ci`, `tooling`.
+  - Examples: `feat(core): add champ select timer state`, `docs(design): sketch the history screen`, `docs: specify the post-game workout`, `ci: lint commit messages`.
+  - Breaking change: `feat(lol)!: …` or a `BREAKING CHANGE:` footer.
+- Enforced by **commitlint** (`commitlint.config.mjs`): the `commit-msg` hook in `.githooks/` (enabled by `just setup`) and the `commitlint` CI job. Check a message with `just commitlint "feat(core): …"`. Never bypass the hook with `--no-verify`.

@@ -51,7 +51,7 @@ just preview        # live preview of a .slint file (needs slint-viewer)
 - **Lints**: the workspace uses `clippy::pedantic`; `just clippy` must pass with `-D warnings`. `unsafe` is denied.
 - **Docs**: when a change alters behaviour, architecture or a workflow, update the matching note in `docs/` in the same change. Record significant decisions as a new ADR (template: `docs/_templates/ADR.md`).
 - **Slint licensing**: keep the `AboutSlint` widget reachable from the app's top level (ADR-0001).
-- **Commits**: small, imperative mood, English.
+- **Commits**: small, English, [Conventional Commits](https://www.conventionalcommits.org) enforced by commitlint (`commitlint.config.mjs`, rules in `docs/Workflow/Development.md`). Follow the `committing-with-commitlint` skill (`.claude/skills/`): validate the message with `printf '%s' "<message>" | npx --no -- commitlint` before committing, fix the rules named in brackets when the hook rejects, never use `--no-verify`. If Node is not installed, write the message by hand to the same rules and say so.
 
 ## Implementing a feature
 
