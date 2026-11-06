@@ -5,7 +5,7 @@
 - [x] Lockfile discovery, gameflow phase, in-game clock ([[Client status]])
 - [x] Simulator with scenario replay
 - [x] CI on Windows and macOS with a Windows build artifact
-- [ ] Write the [[Vision]]
+- [x] Write the [[Vision]] (draft)
 - [x] Create `design/gymdiff.pen` with the `Foundations` page and real [[Tokens]]
 - [x] Brand: logo and app icon ([[Brand]])
 - [ ] Bundle the brand fonts (Barlow Condensed, Inter) in the app
@@ -23,5 +23,16 @@
 - [ ] Windows installer and code signing
 - [ ] Auto-update
 
+## MVP — post-game workout
+- [ ] Validate [[Vision]], [[Workout formula]] and [[Post-game workout]] (open questions)
+- [ ] Record a real end-of-game payload and champ select session on Windows
+- [ ] Design the `Post-game workout` frames in Pencil
+- [ ] Core: workout formula + session total, with tests
+- [ ] LCU: end-of-game stats, champ select role, simulator scenarios
+- [ ] UI: workout screen and its states
+
 ## Later — product
-*Fill from the [[Vision]].*
+- [ ] Settings: difficulty multiplier, custom targets, exercise choice
+- [ ] Persist history across restarts (daily / weekly totals)
+- [ ] ARAM and other modes (a recipe without roles)
+- [ ] In-game overlay — only after checking [[Riot policies]]: the developer policy only explicitly approves static pre-game data

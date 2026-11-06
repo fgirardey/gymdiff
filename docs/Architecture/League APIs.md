@@ -36,6 +36,8 @@ Endpoints used:
 | Endpoint | Returns | Used for |
 |---|---|---|
 | `GET /lol-gameflow/v1/gameflow-phase` | JSON string: `None`, `Lobby`, `Matchmaking`, `ReadyCheck`, `ChampSelect`, `GameStart`, `InProgress`, `Reconnect`, `WaitingForStats`, `PreEndOfGame`, `EndOfGame` | [[Client status]] |
+| `GET /lol-champ-select/v1/session` *(planned)* | Champion select session; `myTeam[].assignedPosition` | [[Post-game workout]] (role) |
+| `GET /lol-end-of-game/v1/eog-stats-block` *(planned)* | End-of-game stats of every player | [[Post-game workout]] |
 
 ### WebSocket events (not used yet)
 - URL: `wss://127.0.0.1:<port>/`, same Basic auth

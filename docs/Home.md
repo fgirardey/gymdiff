@@ -5,6 +5,7 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 ## Product
 - [[Vision]] — what GymDiff is, for whom, and why
 - [[Features]] — index of feature notes
+- [[Workout formula]] — how a game becomes burpees, squats and plank
 - [[Roadmap]] — what comes next
 
 ## Design

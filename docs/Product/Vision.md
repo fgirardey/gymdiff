@@ -4,36 +4,47 @@ status: draft
 
 # Vision
 
-> Fill this note before designing screens. Claude Code treats it as the reference for *why* things are built. Replace every prompt in italics.
-
 ## One-liner
-*GymDiff helps … to … by …*
+GymDiff turns every League of Legends game into a short workout: when a game ends, it converts what you gave away (your role's main stat under target, a secondary stat, your deaths) into burpees, squats and plank.
 
 ## Problem
-*What frustrates League players today? When does it happen (champ select, in game, after the game)? How do they cope without GymDiff?*
+League players chain games sitting down for hours. The time between two games (end screen, lobby, queue) is dead time. At the same time, the end-of-game screen shows stats that most players glance at and forget: there is no consequence for dying six times or missing half your farm.
+
+GymDiff fills that gap with a physical, slightly punishing ritual: *the diff you gave away, you pay in reps* (and seconds of plank).
 
 ## Target players
-*Who exactly? (rank range, roles, casual vs. competitive, solo vs. premade). Who is explicitly **not** a target?*
+- Players who chain several Summoner's Rift games per session (ranked or normal) and want to move between games.
+- Players who like accountability on their mistakes, with a playful tone.
+
+Not targets (for now):
+- People looking for a real training program or fitness coaching.
+- ARAM and rotating-mode players (no roles, see [[Post-game workout]]).
 
 ## Moments of use
 | Moment | What the player needs | What GymDiff shows/does |
 |---|---|---|
-| Client open, idle | | |
-| Champion select | | |
-| In game | | |
-| After the game | | |
+| Client open, idle | Know GymDiff is ready | Connection status, the last workout and the session total |
+| Champion select | Nothing | Nothing new (GymDiff records the assigned role in the background) |
+| In game | Nothing: no distraction | **No overlay in the MVP.** The window keeps showing the status |
+| After the game | Know what to do, right now | The workout for this game, why each number is what it is, and the session total |
 
 ## Principles
-*3–5 rules that settle design arguments. Examples to keep or replace:*
-- *Never distract during a fight: in-game information is glanceable or absent.*
-- *Respect Riot's rules first (see [[Riot policies]]).*
-- *Fast: the app must never slow down the game.*
+- **Never during a fight.** The MVP shows nothing during a game. Any later in-game feature must pass [[Riot policies]] first.
+- **Penalty, not activity.** Reps come from what the player gave away (red), never from what they gained (green). A clean game costs few reps.
+- **Explainable.** Every amount shows the stat, the target and the rule that produced it ([[Workout formula]]).
+- **Safe.** Every exercise is capped per game, the player can always skip, and GymDiff makes no health claim.
+- **Respect Riot's rules first** and never slow down the game.
 
 ## Non-goals
-*What GymDiff will not do, even if asked.*
+- No training plans, calorie counting or health tracking.
+- No coaching advice ("buy this item", "ward here").
+- No ranking players against each other, no custom MMR.
+- No exercise detection (camera, sensors): the player is trusted.
 
 ## Success
-*How will you know it works? (you use it every game, friends ask for it, …)*
+- The author does the workout after most of their games for a few weeks.
+- Friends ask for the build.
 
 ## Open questions
-- *…*
+- Should a **win** reduce the workout (e.g. ×0.75), or does only individual performance count?
+- How is the app distributed to friends (installer, portable `.exe`)? See [[Roadmap]].
