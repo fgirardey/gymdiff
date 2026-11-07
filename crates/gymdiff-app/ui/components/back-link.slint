@@ -1,0 +1,28 @@
+// "‹ <text>" link back to the previous screen.
+
+import { Theme } from "../theme.slint";
+import { Icon } from "icon.slint";
+
+export component BackLink inherits TouchArea {
+    in property <string> text;
+
+    mouse-cursor: pointer;
+
+    HorizontalLayout {
+        spacing: Theme.space-xs;
+        VerticalLayout {
+            alignment: center;
+            Icon {
+                source: @image-url("../images/icons/chevron-left.svg");
+                width: 6px;
+                height: 10px;
+                colorize: Theme.text-secondary;
+            }
+        }
+        Text {
+            text: root.text;
+            color: Theme.text-secondary;
+            font-size: Theme.font-size-body;
+        }
+    }
+}

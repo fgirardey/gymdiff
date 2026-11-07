@@ -1,0 +1,39 @@
+// One workout rule on the welcome screen: exercise icon, name and what triggers it.
+
+import { Theme } from "../theme.slint";
+import { Icon } from "../components/icon.slint";
+
+export component WelcomeRule inherits HorizontalLayout {
+    in property <image> icon;
+    in property <string> exercise;
+    in property <string> source;
+
+    spacing: Theme.space-m;
+
+    VerticalLayout {
+        alignment: center;
+        Icon {
+            source: root.icon;
+            width: 28px;
+            height: 28px;
+            colorize: Theme.text-primary;
+        }
+    }
+
+    VerticalLayout {
+        alignment: center;
+        spacing: 2px;
+        Text {
+            text: root.exercise;
+            color: Theme.text-primary;
+            font-size: Theme.font-size-body;
+            font-weight: 600;
+        }
+        Text {
+            text: root.source;
+            color: Theme.text-secondary;
+            font-size: Theme.font-size-body;
+            wrap: word-wrap;
+        }
+    }
+}

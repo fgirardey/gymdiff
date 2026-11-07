@@ -1,0 +1,59 @@
+// About screen: version, Slint licensing notice and Riot legal text.
+//
+// Frame in design/gymdiff.pen: `App shell / About / Default`.
+
+import { AboutSlint } from "std-widgets.slint";
+import { Theme } from "../theme.slint";
+import { BackLink } from "../components/back-link.slint";
+
+export component AboutScreen inherits VerticalLayout {
+    in property <string> version;
+    callback back;
+
+    padding: Theme.space-l;
+    spacing: Theme.space-m;
+    alignment: start;
+
+    HorizontalLayout {
+        alignment: start;
+        BackLink {
+            text: "History";
+            clicked => { root.back(); }
+        }
+    }
+
+    Text {
+        text: "ABOUT";
+        color: Theme.text-primary;
+        font-size: Theme.font-size-title;
+        font-weight: 800;
+        font-italic: true;
+        letter-spacing: 1px;
+    }
+
+    Text {
+        text: "GymDiff " + root.version;
+        color: Theme.text-primary;
+        font-size: Theme.font-size-body;
+        font-weight: 600;
+    }
+
+    // Required by the Slint Royalty-free license: AboutSlint must be
+    // reachable from the top level of the app. See docs/Decisions/ADR-0001.
+    Rectangle {
+        border-radius: Theme.radius-m;
+        border-width: 1px;
+        border-color: Theme.border;
+        VerticalLayout {
+            padding: Theme.space-m;
+            AboutSlint { }
+        }
+    }
+
+    Text {
+        text: "GymDiff isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.";
+        color: Theme.text-secondary;
+        font-size: Theme.font-size-body;
+        wrap: word-wrap;
+    }
+}

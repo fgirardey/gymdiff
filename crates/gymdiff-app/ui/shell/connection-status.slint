@@ -1,0 +1,29 @@
+// Client connection status in the top bar: coloured dot and status text.
+
+import { Theme } from "../theme.slint";
+
+export component ConnectionStatus inherits HorizontalLayout {
+    in property <bool> connected;
+    in property <string> label;
+
+    spacing: 6px;
+    horizontal-stretch: 0;
+
+    VerticalLayout {
+        alignment: center;
+        Rectangle {
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background: root.connected ? Theme.success : Theme.danger;
+        }
+    }
+
+    Text {
+        text: root.label;
+        color: Theme.text-secondary;
+        font-size: Theme.font-size-caption;
+        vertical-alignment: center;
+        overflow: elide;
+    }
+}

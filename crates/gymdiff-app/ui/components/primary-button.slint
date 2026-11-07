@@ -1,0 +1,24 @@
+// Full-width call-to-action button (accent background).
+
+import { Theme } from "../theme.slint";
+
+export component PrimaryButton inherits Rectangle {
+    in property <string> text;
+    callback clicked;
+
+    height: 44px;
+    border-radius: Theme.radius-m;
+    background: Theme.accent;
+
+    Text {
+        text: root.text;
+        color: Theme.background;
+        font-size: Theme.font-size-body;
+        font-weight: 700;
+    }
+
+    TouchArea {
+        mouse-cursor: pointer;
+        clicked => { root.clicked(); }
+    }
+}

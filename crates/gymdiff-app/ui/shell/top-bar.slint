@@ -1,0 +1,76 @@
+// Top bar: crest, wordmark, client status and the About button.
+//
+// Frame in design/gymdiff.pen: `App shell / Top bar / Default`.
+
+import { Theme } from "../theme.slint";
+import { Crest } from "../components/crest.slint";
+import { Icon } from "../components/icon.slint";
+import { ConnectionStatus } from "connection-status.slint";
+
+export component TopBar inherits Rectangle {
+    in property <bool> connected;
+    in property <string> status-label;
+    in property <bool> about-active;
+    callback about-clicked;
+
+    height: 52px;
+    background: Theme.surface;
+
+    HorizontalLayout {
+        padding-left: Theme.space-m;
+        padding-right: Theme.space-s;
+        spacing: Theme.space-s;
+
+        VerticalLayout {
+            alignment: center;
+            Crest { }
+        }
+
+        Text {
+            text: "GYMDIFF";
+            color: Theme.text-primary;
+            font-size: Theme.font-size-wordmark;
+            font-weight: 800;
+            font-italic: true;
+            letter-spacing: 1px;
+            vertical-alignment: center;
+        }
+
+        Rectangle {
+            horizontal-stretch: 1;
+        }
+
+        ConnectionStatus {
+            connected: root.connected;
+            label: root.status-label;
+        }
+
+        VerticalLayout {
+            alignment: center;
+            Rectangle {
+                width: 36px;
+                height: 36px;
+                border-radius: Theme.radius-m;
+
+                Icon {
+                    source: @image-url("../images/icons/info.svg");
+                    width: 20px;
+                    height: 20px;
+                    colorize: root.about-active ? Theme.accent : Theme.text-secondary;
+                }
+
+                TouchArea {
+                    mouse-cursor: pointer;
+                    clicked => { root.about-clicked(); }
+                }
+            }
+        }
+    }
+
+    // Bottom border
+    Rectangle {
+        y: parent.height - self.height;
+        height: 1px;
+        background: Theme.border;
+    }
+}
