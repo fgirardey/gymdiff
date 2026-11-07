@@ -25,6 +25,8 @@ tracing-subscriber = { workspace = true }
 # tests/previews.rs compiles every ui/**/*.preview.slint file.
 slint-interpreter = { workspace = true }
 spin_on = { workspace = true }
+# examples/screenshots.rs writes the rendered previews as PNG.
+png = { workspace = true }
 
 [build-dependencies]
 slint-build = { workspace = true }

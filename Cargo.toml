@@ -41,6 +41,7 @@ slint = "1"
 slint-build = "1"
 slint-interpreter = "1"
 spin_on = "0.1"
+png = "0.18"
 
 [workspace.lints.rust]
 unsafe_code = "deny"
