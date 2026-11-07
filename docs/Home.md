@@ -31,6 +31,7 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 - [[Simulator]] — scenarios and how to write them
 - [[Windows testing]] — building and testing on the Windows PC
 - [[Spec to code]] — how a feature goes from idea to implementation
+- [[Code organisation]] — one logical unit per file, public API first
 
 ## Compliance
 - [[Riot policies]] — what we can and cannot do
