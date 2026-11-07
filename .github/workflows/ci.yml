@@ -72,3 +72,22 @@ jobs:
           name: gymdiff-macos-${{ github.sha }}
           path: gymdiff-macos.tar.gz
           retention-days: 14
+
+  # Links the release builds from the pull request, in one comment updated on every push.
+  pr-builds:
+    if: always() && github.event_name == 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: .github/scripts
+      - name: Comment the builds on the pull request
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { default: commentBuilds } = await import('${{ github.workspace }}/.github/scripts/pr-builds-comment.mjs')
+            await commentBuilds({ github, context, core })
