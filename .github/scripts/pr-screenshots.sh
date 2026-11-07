@@ -83,5 +83,5 @@ repo="$(sed -E 's#(git@github\.com:|https://github\.com/)##; s#\.git$##' <<<"$re
 echo "| Pencil frame | Preview | Screenshot |"
 echo "|---|---|---|"
 while IFS=$'\t' read -r file frame preview; do
-    echo "| $frame | \`${preview#"$ui"/}\` | <img src=\"https://github.com/$repo/raw/$sha/$slug/$file\" width=\"300\"> |"
+    echo "| $frame | \`$preview\` | <img src=\"https://github.com/$repo/raw/$sha/$slug/$file\" width=\"300\"> |"
 done <"$out/index.tsv"
