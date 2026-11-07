@@ -27,7 +27,7 @@ Screenshots use the fonts of the machine that renders them (macOS here, Segoe UI
 A screen without a Pencil story has no screenshot: add the story first ([[Previews]]). For a flow (navigation, live state from the simulator), add a recording of `just dev` by hand.
 
 ## Builds
-CI comments the release builds on the PR, in one comment updated on every push: a link to `gymdiff.exe` (Windows) and `gymdiff-macos.tar.gz` (macOS), from the run of the latest commit. GitHub serves them as zip files, kept 14 days, and only to signed-in users with access to the repository. The `pr-builds` job in `.github/workflows/ci.yml` runs `.github/scripts/pr-builds-comment.mjs` after the builds, even when one of them failed (the comment then says which).
+CI comments the release builds on the PR, in one comment updated on every push: a link to `gymdiff.exe` (Windows), `gymdiff-recorder.exe` (Windows, [[Recorder]]) and `gymdiff-macos.tar.gz` (macOS), from the run of the latest commit. GitHub serves them as zip files, kept 14 days, and only to signed-in users with access to the repository. The `pr-builds` job in `.github/workflows/ci.yml` runs `.github/scripts/pr-builds-comment.mjs` after the builds, even when one of them failed (the comment then says which).
 
 ## Opening the PR
 ```sh

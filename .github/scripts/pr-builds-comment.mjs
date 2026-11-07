@@ -11,6 +11,7 @@ const MARKER = '<!-- gymdiff:pr-builds -->';
 /** Artifact name prefix → platform shown in the comment, in display order. */
 const PLATFORMS = [
   ['gymdiff-windows-', 'Windows', '`gymdiff.exe`'],
+  ['gymdiff-recorder-windows-', 'Windows recorder', '`gymdiff-recorder.exe` (see docs/Workflow/Recorder.md)'],
   ['gymdiff-macos-', 'macOS', '`gymdiff-macos.tar.gz` (`tar -xzf` keeps the executable bit)'],
 ];
 
