@@ -28,7 +28,7 @@ flowchart LR
 
 1. **Spec**: write or update the feature note ([[Spec to code]]).
 2. **Design**: frames in Pencil ([[Design with Pencil]]).
-3. **Implement** with Claude Code (rules in `CLAUDE.md`).
+3. **Implement** with Claude Code. Its instructions: `CLAUDE.md` (always loaded), `.claude/rules/` (per area, loaded for matching files), `.claude/skills/` (workflows such as `implementing-a-feature`, loaded on demand).
 4. **Run** `just dev`: builds and starts the simulator at 10× speed with the default scenario, then the app. Use `just dev 1` for real time, or `just dev 10 fixtures/scenarios/<name>/scenario.json` for another scenario.
 5. **Iterate on UI** with `just preview` (Slint live reload).
 6. **Check** with `just check` before committing: format, clippy (pedantic, warnings denied), tests, Windows type-check.

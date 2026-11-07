@@ -103,3 +103,34 @@ Feat: Added new parser.
 - Re-validate via stdin (step 4), then retry the commit.
 - NEVER bypass the hook with `git commit --no-verify` — fixing the message is
   always the correct action.
+
+## In this repository (GymDiff)
+
+- Config: `commitlint.config.mjs`. Allowed types and scopes are listed in `docs/Workflow/Development.md` (*Branches and commits*).
+- Validate with `printf '%s' "<message>" | npx --no -- commitlint` (or `just commitlint "<message>"`).
+- If Node is not installed, write the message by hand to the same rules and say so.
+- End the message with the attribution lines the session asks for.
+
+### Picking the scope
+
+Scope from the paths the commit touches (omit it when a commit spans several areas):
+
+| Paths | Scope |
+|---|---|
+| `crates/gymdiff-core/` | `core` |
+| `crates/gymdiff-lol/` | `lol` |
+| `crates/gymdiff-simulator/` | `simulator` |
+| `crates/gymdiff-app/ui/` | `ui` |
+| `crates/gymdiff-app/` (other) | `app` |
+| `fixtures/` | `fixtures` |
+| `design/` | `design` |
+| `docs/` only | `docs` (or no scope) |
+| `Cargo.lock`, dependency bumps | `deps` |
+| `.github/` | `ci` |
+| `.claude/`, `CLAUDE.md`, `justfile`, hooks, editor config | `tooling` |
+
+### Splitting
+
+- One commit per intent (a refactor, a feature, a tooling change); don't mix a refactor with a behaviour change.
+- Doc updates caused by a code change go in the same commit as that code.
+- When a commit touches platform code or real-client behaviour, list in the body what must be tested on the Windows PC.
