@@ -11,9 +11,9 @@ use crate::{Lockfile, LolClient, LolError};
 /// HTTP implementation of [`LolClient`].
 #[derive(Debug, Clone)]
 pub struct HttpLolClient {
-    http: reqwest::Client,
-    lockfile: Lockfile,
-    live_client_url: String,
+    pub(crate) http: reqwest::Client,
+    pub(crate) lockfile: Lockfile,
+    pub(crate) live_client_url: String,
 }
 
 impl HttpLolClient {

@@ -17,8 +17,10 @@ mod error;
 mod http_client;
 pub mod live_client;
 pub mod lockfile;
+mod raw;
 
 pub use client::LolClient;
 pub use error::LolError;
 pub use http_client::{DEFAULT_LIVE_CLIENT_URL, HttpLolClient};
 pub use lockfile::Lockfile;
+pub use raw::Api;
