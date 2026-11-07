@@ -4,30 +4,7 @@
 //! Data sources (real client, simulator, fixtures) only produce [`Event`]s;
 //! the UI only renders a [`CompanionState`].
 
-use crate::GamePhase;
-
-/// Whether GymDiff can currently talk to the League client.
-#[derive(Debug, Clone, PartialEq, Eq, Default)]
-pub enum ConnectionStatus {
-    /// No League client found (not running, or lockfile not found).
-    #[default]
-    Disconnected,
-    /// League client found and responding.
-    Connected,
-    /// League client found but requests are failing.
-    Error(String),
-}
-
-/// Something that happened in the outside world.
-#[derive(Debug, Clone, PartialEq)]
-pub enum Event {
-    ClientConnected,
-    ClientDisconnected,
-    ClientError(String),
-    PhaseChanged(GamePhase),
-    /// In-game clock, in seconds, from the Live Client Data API.
-    GameTimeUpdated(f64),
-}
+use crate::{Event, GamePhase};
 
 /// Everything the UI needs to render.
 #[derive(Debug, Clone, PartialEq, Default)]
@@ -76,6 +53,18 @@ impl CompanionState {
             _ => "--:--".to_owned(),
         }
     }
+}
+
+/// Whether GymDiff can currently talk to the League client.
+#[derive(Debug, Clone, PartialEq, Eq, Default)]
+pub enum ConnectionStatus {
+    /// No League client found (not running, or lockfile not found).
+    #[default]
+    Disconnected,
+    /// League client found and responding.
+    Connected,
+    /// League client found but requests are failing.
+    Error(String),
 }
 
 #[cfg(test)]

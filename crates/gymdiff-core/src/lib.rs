@@ -7,8 +7,10 @@
 //! - no OS-specific code (`#[cfg(target_os = ...)]` is not allowed here),
 //! - everything must be unit-testable on any machine.
 
+pub mod event;
 pub mod phase;
 pub mod state;
 
+pub use event::Event;
 pub use phase::GamePhase;
-pub use state::{CompanionState, ConnectionStatus, Event};
+pub use state::{CompanionState, ConnectionStatus};
