@@ -35,7 +35,7 @@ just dev            # app + simulator (main dev loop on macOS)
 just check          # fmt-check + clippy + tests + Windows type-check: run before committing
 just test           # cargo test --workspace
 just check-windows  # cargo check --target x86_64-pc-windows-msvc
-just preview        # live preview of a .slint file (needs slint-viewer)
+just preview <path> [story]  # live preview of ui/<path>.preview.slint, e.g. screens/history (needs slint-viewer)
 ```
 
 ## Rules that apply everywhere

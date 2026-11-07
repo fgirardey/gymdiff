@@ -30,7 +30,7 @@ flowchart LR
 2. **Design**: frames in Pencil ([[Design with Pencil]]).
 3. **Implement** with Claude Code. Its instructions: `CLAUDE.md` (always loaded), `.claude/rules/` (per area, loaded for matching files), `.claude/skills/` (workflows such as `implementing-a-feature`, loaded on demand).
 4. **Run** `just dev`: builds and starts the simulator at 10× speed with the default scenario, then the app. Use `just dev 1` for real time, or `just dev 10 fixtures/scenarios/<name>/scenario.json` for another scenario.
-5. **Iterate on UI** with `just preview` (Slint live reload).
+5. **Iterate on UI** with `just preview <path>` (Slint live reload, fixed data, see [[Previews]]).
 6. **Check** with `just check` before committing: format, clippy (pedantic, warnings denied), tests, Windows type-check.
 7. **Push**: CI builds and tests on Windows and macOS, and publishes `gymdiff.exe` (Windows) and `gymdiff-macos.tar.gz` (macOS) as artifacts.
 8. **Validate on Windows** when the change touches platform code, overlays or real-client behaviour.
@@ -41,6 +41,7 @@ flowchart LR
 | `just dev [speed] [scenario]` | simulator + app |
 | `just sim --speed 5` / `just app-sim` | simulator and app in separate terminals |
 | `just run` | app against a real League client (also works with the macOS client) |
+| `just preview <path> [story]` | live preview of `ui/<path>.preview.slint` (`screens/history`, `app-window`, …): its gallery or one story |
 | `just test` | all tests |
 | `just check-windows` | type-check the Windows build |
 | `RUST_LOG=trace just dev` | verbose logs |

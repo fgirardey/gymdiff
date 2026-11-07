@@ -1,0 +1,78 @@
+// Previews of Icon: `just preview components/icon`.
+
+import { Theme } from "../theme.slint";
+import { Icon } from "icon.slint";
+import { RoleIcons } from "../role-icons.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "Icon";
+    background: Theme.background;
+    preferred-width: 360px;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "SVG, secondary tint";
+            HorizontalLayout {
+                alignment: start;
+                Icon {
+                    source: @image-url("../images/icons/history.svg");
+                    width: 34px;
+                    height: 34px;
+                    colorize: Theme.text-secondary;
+                }
+            }
+        }
+        PreviewCase {
+            label: "SVG, accent tint";
+            HorizontalLayout {
+                alignment: start;
+                Icon {
+                    source: @image-url("../images/icons/info.svg");
+                    width: 34px;
+                    height: 34px;
+                    colorize: Theme.accent;
+                }
+            }
+        }
+        PreviewCase {
+            label: "SVG, sizes 16 / 28 / 48";
+            HorizontalLayout {
+                alignment: start;
+                spacing: Theme.space-m;
+                Icon { source: @image-url("../images/icons/burpee.svg"); width: 16px; height: 16px; colorize: Theme.text-primary; }
+                Icon { source: @image-url("../images/icons/burpee.svg"); width: 28px; height: 28px; colorize: Theme.text-primary; }
+                Icon { source: @image-url("../images/icons/burpee.svg"); width: 48px; height: 48px; colorize: Theme.text-primary; }
+            }
+        }
+        PreviewCase {
+            label: "PNG role icons, untinted";
+            HorizontalLayout {
+                alignment: start;
+                spacing: Theme.space-m;
+                Icon { source: RoleIcons.top; width: 32px; height: 32px; }
+                Icon { source: RoleIcons.jungle; width: 32px; height: 32px; }
+                Icon { source: RoleIcons.middle; width: 32px; height: 32px; }
+                Icon { source: RoleIcons.bottom; width: 32px; height: 32px; }
+                Icon { source: RoleIcons.utility; width: 32px; height: 32px; }
+            }
+        }
+        PreviewCase {
+            label: "Non-square box (image-fit: contain)";
+            HorizontalLayout {
+                alignment: start;
+                Icon {
+                    source: @image-url("../images/icons/squat.svg");
+                    width: 80px;
+                    height: 28px;
+                    colorize: Theme.text-primary;
+                }
+            }
+        }
+    }
+}

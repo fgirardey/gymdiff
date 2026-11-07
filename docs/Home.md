@@ -29,6 +29,7 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 ## Workflow
 - [[Development]] — the daily loop on macOS
 - [[Simulator]] — scenarios and how to write them
+- [[Previews]] — stories, playgrounds and galleries of the Slint UI
 - [[Windows testing]] — building and testing on the Windows PC
 - [[Spec to code]] — how a feature goes from idea to implementation
 - [[Code organisation]] — one logical unit per file, public API first

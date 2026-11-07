@@ -1,0 +1,14 @@
+// Fixed data shared by the previews, so every story uses the same realistic values.
+//
+// Mirror what Rust really sends: the status labels come from `status_label` in
+// `src/watcher.rs` and `GamePhase::label` in gymdiff-core. When a screen takes a
+// struct from `ui/models.slint`, its sample values go here too.
+
+export global Fixtures {
+    out property <string> version: "0.1.0";
+
+    out property <string> status-lobby: "Connected · Lobby";
+    out property <string> status-champ-select: "Connected · Champion select";
+    out property <string> status-searching: "Looking for the League client…";
+    out property <string> status-error: "Error: connection refused (os error 61)";
+}

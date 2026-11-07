@@ -1,0 +1,57 @@
+// Previews of Crest: `just preview components/crest`.
+
+import { Theme } from "../theme.slint";
+import { Crest } from "crest.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// Pencil frame `Logo / Crest`: the master drawing, at its 128 × 128 size.
+export component LogoCrest inherits Rectangle {
+    width: 128px;
+    height: 128px;
+    background: Theme.background;
+
+    Crest {
+        width: parent.width;
+        height: parent.height;
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "Crest";
+    background: Theme.background;
+    preferred-width: 200px;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Logo / Crest";
+            HorizontalLayout {
+                alignment: start;
+                LogoCrest { }
+            }
+        }
+        PreviewCase {
+            label: "Standard size (36 × 36)";
+            HorizontalLayout {
+                alignment: start;
+                Crest { }
+            }
+        }
+        PreviewCase {
+            label: "On surface";
+            Rectangle {
+                background: Theme.surface;
+                height: 60px;
+                HorizontalLayout {
+                    padding: Theme.space-s;
+                    alignment: start;
+                    Crest { }
+                }
+            }
+        }
+    }
+}

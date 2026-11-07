@@ -1,0 +1,58 @@
+// Previews of PrimaryButton: `just preview components/primary-button`.
+
+import { Theme } from "../theme.slint";
+import { PrimaryButton } from "primary-button.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Edit the knobs in the live preview's Data tab; clicks show as the last action.
+export component PrimaryButtonPlayground inherits Window {
+    in-out property <string> text: "Let's go";
+
+    background: Theme.background;
+    preferred-width: 360px;
+
+    playground := PreviewPlayground {
+        PrimaryButton {
+            text: root.text;
+            clicked => { playground.log("clicked"); }
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "PrimaryButton";
+    background: Theme.background;
+    preferred-width: 360px;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Default";
+            PrimaryButton { text: "Let's go"; }
+        }
+        PreviewCase {
+            label: "Short text";
+            PrimaryButton { text: "OK"; }
+        }
+        PreviewCase {
+            label: "Long text";
+            PrimaryButton { text: "A much longer label that may not fit the button width"; }
+        }
+        PreviewCase {
+            label: "Empty text";
+            PrimaryButton { text: ""; }
+        }
+        PreviewCase {
+            label: "Narrow (160px)";
+            HorizontalLayout {
+                alignment: start;
+                PrimaryButton { text: "Let's go"; width: 160px; }
+            }
+        }
+    }
+}

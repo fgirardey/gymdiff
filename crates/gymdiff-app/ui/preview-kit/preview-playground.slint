@@ -1,0 +1,29 @@
+// Frame of a playground story: the interactive content, then the last callback it fired.
+//
+// The playground's root declares its knobs as `in-out` properties (editable in
+// the Data tab of the Slint live preview) and calls `log("…")` from each callback.
+
+import { Theme } from "../theme.slint";
+
+export component PreviewPlayground inherits VerticalLayout {
+    property <int> count;
+    property <string> last-action: "none";
+
+    // Records a fired callback, numbered so repeated clicks stay visible.
+    public function log(action: string) {
+        root.count += 1;
+        root.last-action = "#\{root.count} \{action}";
+    }
+
+    padding: Theme.space-m;
+    spacing: Theme.space-m;
+    alignment: start;
+
+    @children
+
+    Text {
+        text: "Last action: " + root.last-action;
+        color: Theme.text-secondary;
+        font-size: Theme.font-size-caption;
+    }
+}

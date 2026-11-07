@@ -1,0 +1,14 @@
+// Preview of the whole app window: `just preview app-window`.
+//
+// The real AppWindow, routing included, fed with fixtures. Switch screens by
+// clicking, or edit `screen`, `connected` and `status-label` in the live
+// preview's Data tab. Each screen's states are in screens/*.preview.slint.
+
+import { AppWindow } from "app-window.slint";
+import { Fixtures } from "preview-kit/fixtures.slint";
+
+export component Preview inherits AppWindow {
+    connected: true;
+    status-label: Fixtures.status-lobby;
+    version: Fixtures.version;
+}
