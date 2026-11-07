@@ -23,7 +23,7 @@ Pencil does not export Slint. Claude Code:
 1. reads the frame through the MCP (hierarchy, sizes, spacing, colors, text),
 2. maps values to `Theme.*` tokens (adds missing tokens to [[Tokens]] and `theme.slint` first),
 3. writes or updates the `.slint` component,
-4. you compare with `just preview` (live reload) side by side with Pencil.
+4. you compare with `just preview <path> <Story>` (live reload, see [[Previews]]) side by side with Pencil.
 
 ## Versioning
 Commit `.pen` files with a descriptive message (`docs(design): add the champ select loading state`). Never merge two versions of a `.pen` file by hand.

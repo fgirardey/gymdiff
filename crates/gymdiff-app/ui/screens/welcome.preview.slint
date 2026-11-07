@@ -1,0 +1,50 @@
+// Previews of WelcomeScreen: `just preview screens/welcome`.
+
+import { Theme } from "../theme.slint";
+import { WelcomeScreen } from "welcome.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Pencil frame `First launch / Welcome / Default` (400 × 640).
+export component FirstLaunchWelcomeDefault inherits Rectangle {
+    width: 400px;
+    height: 640px;
+    background: Theme.background;
+    clip: true;
+
+    WelcomeScreen { }
+}
+
+// The screen in a resizable window; "Let's go" shows as the last action.
+export component WelcomeScreenPlayground inherits Window {
+    background: Theme.background;
+    preferred-width: 400px;
+    preferred-height: 640px;
+
+    playground := PreviewPlayground {
+        padding: 0;
+        alignment: stretch;
+
+        WelcomeScreen {
+            vertical-stretch: 1;
+            lets-go => { playground.log("lets-go"); }
+        }
+    }
+}
+
+// Gallery of every state (default component of the file).
+export component Preview inherits Window {
+    title: "WelcomeScreen";
+    background: Theme.background;
+
+    HorizontalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "First launch / Welcome / Default";
+            FirstLaunchWelcomeDefault { }
+        }
+    }
+}

@@ -1,0 +1,57 @@
+// Previews of TopBar: `just preview shell/top-bar`.
+// The Pencil frame `App shell / Top bar / Default` is in shell/app-shell.preview.slint.
+
+import { Theme } from "../theme.slint";
+import { TopBar } from "top-bar.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Edit the knobs in the live preview's Data tab; clicks show as the last action.
+export component TopBarPlayground inherits Window {
+    in-out property <bool> connected: true;
+    in-out property <string> status-label: Fixtures.status-lobby;
+    in-out property <bool> about-active;
+
+    background: Theme.background;
+    preferred-width: 400px;
+
+    playground := PreviewPlayground {
+        TopBar {
+            connected: root.connected;
+            status-label: root.status-label;
+            about-active: root.about-active;
+            about-clicked => { playground.log("about-clicked"); }
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "TopBar";
+    background: Theme.background;
+    preferred-width: 400px;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Connected";
+            TopBar { connected: true; status-label: Fixtures.status-lobby; }
+        }
+        PreviewCase {
+            label: "Disconnected";
+            TopBar { connected: false; status-label: Fixtures.status-searching; }
+        }
+        PreviewCase {
+            label: "About active";
+            TopBar { connected: true; status-label: Fixtures.status-lobby; about-active: true; }
+        }
+        PreviewCase {
+            label: "Long status label (error)";
+            TopBar { connected: false; status-label: Fixtures.status-error; }
+        }
+    }
+}

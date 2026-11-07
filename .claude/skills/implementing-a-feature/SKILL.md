@@ -11,7 +11,7 @@ description: Use when implementing or extending a GymDiff feature described in d
 4. **Implement**, in this order:
    1. `gymdiff-core`: new `Event` variants, reducer changes, unit tests.
    2. Data source: `gymdiff-lol` (models with lenient serde + fixture parsing test, `LolClient` method) and the app's `watcher.rs`.
-   3. UI: `.slint` files (see the `pencil-to-slint` skill), then wire properties/callbacks in Rust.
+   3. UI: previews first (one story per state frame, see `docs/Workflow/Previews.md`), then the `.slint` components until each story matches its frame (see the `pencil-to-slint` skill), then wire properties/callbacks in Rust.
 5. **Simulator**: add or extend a scenario so the feature runs in `just dev` (see the `writing-a-simulator-scenario` skill).
 6. **Verify**: `just check` passes; if possible run `just dev` and compare with the frames.
 7. **Docs**: update the feature note if behaviour changed during implementation; write an ADR for any significant trade-off.

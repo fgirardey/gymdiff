@@ -1,0 +1,72 @@
+// Previews of AppShell: `just preview shell/app-shell`.
+
+import { Theme } from "../theme.slint";
+import { AppShell } from "app-shell.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Pencil frame `App shell / Top bar / Default` (400 × 640).
+export component AppShellTopBarDefault inherits Rectangle {
+    width: 400px;
+    height: 640px;
+    background: Theme.background;
+    clip: true;
+
+    AppShell {
+        connected: true;
+        status-label: Fixtures.status-lobby;
+
+        Text {
+            vertical-stretch: 1;
+            text: "Screen content";
+            color: Theme.text-secondary;
+            font-size: Theme.font-size-body;
+            horizontal-alignment: center;
+            vertical-alignment: center;
+        }
+    }
+}
+
+// Edit the knobs in the live preview's Data tab; clicks show as the last action.
+export component AppShellPlayground inherits Window {
+    in-out property <bool> connected: true;
+    in-out property <string> status-label: Fixtures.status-lobby;
+    in-out property <bool> about-active;
+
+    background: Theme.background;
+    preferred-width: 400px;
+    preferred-height: 640px;
+
+    playground := PreviewPlayground {
+        padding: 0;
+        alignment: stretch;
+
+        AppShell {
+            vertical-stretch: 1;
+            connected: root.connected;
+            status-label: root.status-label;
+            about-active: root.about-active;
+            about-clicked => { playground.log("about-clicked"); }
+
+            Rectangle { vertical-stretch: 1; }
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "AppShell";
+    background: Theme.background;
+
+    HorizontalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "App shell / Top bar / Default";
+            AppShellTopBarDefault { }
+        }
+    }
+}

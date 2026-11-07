@@ -1,0 +1,52 @@
+// Previews of BackLink: `just preview components/back-link`.
+
+import { Theme } from "../theme.slint";
+import { BackLink } from "back-link.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Edit the knobs in the live preview's Data tab; clicks show as the last action.
+export component BackLinkPlayground inherits Window {
+    in-out property <string> text: "History";
+
+    background: Theme.background;
+    preferred-width: 360px;
+
+    playground := PreviewPlayground {
+        HorizontalLayout {
+            alignment: start;
+            BackLink {
+                text: root.text;
+                clicked => { playground.log("clicked"); }
+            }
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "BackLink";
+    background: Theme.background;
+    preferred-width: 360px;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Default";
+            HorizontalLayout {
+                alignment: start;
+                BackLink { text: "History"; }
+            }
+        }
+        PreviewCase {
+            label: "Long text";
+            HorizontalLayout {
+                alignment: start;
+                BackLink { text: "Back to the previous screen"; }
+            }
+        }
+    }
+}

@@ -1,0 +1,60 @@
+// Previews of ConnectionStatus: `just preview shell/connection-status`.
+
+import { Theme } from "../theme.slint";
+import { ConnectionStatus } from "connection-status.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Edit the knobs in the live preview's Data tab.
+export component ConnectionStatusPlayground inherits Window {
+    in-out property <bool> connected: true;
+    in-out property <string> label: Fixtures.status-lobby;
+
+    background: Theme.background;
+    preferred-width: 360px;
+
+    PreviewPlayground {
+        ConnectionStatus {
+            connected: root.connected;
+            label: root.label;
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "ConnectionStatus";
+    background: Theme.background;
+    preferred-width: 360px;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Connected";
+            ConnectionStatus { connected: true; label: Fixtures.status-lobby; }
+        }
+        PreviewCase {
+            label: "Disconnected";
+            ConnectionStatus { connected: false; label: Fixtures.status-searching; }
+        }
+        PreviewCase {
+            label: "Error";
+            ConnectionStatus { connected: false; label: Fixtures.status-error; }
+        }
+        PreviewCase {
+            label: "Long label in a narrow box (elided)";
+            HorizontalLayout {
+                alignment: start;
+                ConnectionStatus {
+                    connected: false;
+                    label: Fixtures.status-error;
+                    width: 140px;
+                }
+            }
+        }
+    }
+}

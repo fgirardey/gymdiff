@@ -55,9 +55,10 @@ app-sim:
 run:
     cargo run -p gymdiff-app
 
-# Live preview of a .slint file (cargo install slint-viewer)
-preview file="crates/gymdiff-app/ui/app-window.slint":
-    slint-viewer --auto-reload {{file}}
+# Live preview of ui/<path>.preview.slint (e.g. components/primary-button, app-window):
+# its gallery, or one story (cargo install slint-viewer)
+preview path story="":
+    slint-viewer --auto-reload {{ if story == "" { "" } else { "--component " + story } }} crates/gymdiff-app/ui/{{path}}.preview.slint
 
 # ---------------------------------------------------------------- quality
 

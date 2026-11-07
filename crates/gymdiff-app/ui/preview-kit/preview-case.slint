@@ -1,0 +1,17 @@
+// One labelled variant in a preview file: a caption above the previewed content.
+
+import { Theme } from "../theme.slint";
+
+export component PreviewCase inherits VerticalLayout {
+    in property <string> label;
+
+    spacing: Theme.space-xs;
+
+    Text {
+        text: root.label;
+        color: Theme.text-secondary;
+        font-size: Theme.font-size-caption;
+    }
+
+    @children
+}
