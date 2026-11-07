@@ -69,7 +69,7 @@ Endpoints (under `/liveclientdata/`):
 
 Used today: `gamestats` → `gameTime` ([[Client status]]).
 
-Implementation: `gymdiff-lol/src/live_client.rs` (models), `gymdiff-lol/src/client.rs` (HTTP).
+Implementation: `gymdiff-lol/src/live_client.rs` (models), `gymdiff-lol/src/client.rs` (`LolClient` trait), `gymdiff-lol/src/http_client.rs` (HTTP).
 
 ## Data Dragon (remote, static)
 Riot's static CDN for game assets: `https://ddragon.leagueoflegends.com`. No key. Used for champion images ([[ADR-0004 Champion images from Data Dragon]]).

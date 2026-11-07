@@ -18,9 +18,6 @@ use std::str::FromStr;
 
 use crate::LolError;
 
-/// Environment variable overriding the lockfile location (used by the simulator).
-pub const LOCKFILE_ENV: &str = "GYMDIFF_LOCKFILE";
-
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Lockfile {
     pub process_name: String,
@@ -85,6 +82,9 @@ impl FromStr for Lockfile {
         })
     }
 }
+
+/// Environment variable overriding the lockfile location (used by the simulator).
+pub const LOCKFILE_ENV: &str = "GYMDIFF_LOCKFILE";
 
 /// Paths where the lockfile is looked for, in order.
 #[must_use]
