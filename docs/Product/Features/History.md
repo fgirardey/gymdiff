@@ -1,5 +1,5 @@
 ---
-status: idea
+status: in progress (empty state only)
 moment: always
 design: "sketched: History / Main / *"
 ---

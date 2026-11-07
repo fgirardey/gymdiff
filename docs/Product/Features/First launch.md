@@ -1,5 +1,5 @@
 ---
-status: idea
+status: implemented
 moment: first launch
 design: "sketched: First launch / Welcome / Default"
 ---

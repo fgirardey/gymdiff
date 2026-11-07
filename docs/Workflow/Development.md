@@ -32,7 +32,7 @@ flowchart LR
 4. **Run** `just dev`: builds and starts the simulator at 10× speed with the default scenario, then the app. Use `just dev 1` for real time, or `just dev 10 fixtures/scenarios/<name>/scenario.json` for another scenario.
 5. **Iterate on UI** with `just preview` (Slint live reload).
 6. **Check** with `just check` before committing: format, clippy (pedantic, warnings denied), tests, Windows type-check.
-7. **Push**: CI builds and tests on Windows and macOS, and publishes `gymdiff.exe` as an artifact.
+7. **Push**: CI builds and tests on Windows and macOS, and publishes `gymdiff.exe` (Windows) and `gymdiff-macos.tar.gz` (macOS) as artifacts.
 8. **Validate on Windows** when the change touches platform code, overlays or real-client behaviour.
 
 ## Useful commands
@@ -44,6 +44,7 @@ flowchart LR
 | `just test` | all tests |
 | `just check-windows` | type-check the Windows build |
 | `RUST_LOG=trace just dev` | verbose logs |
+| `GYMDIFF_DATA_DIR=$(mktemp -d) just dev` | start as on a first launch (welcome screen) |
 
 ## Branches and commits
 - `main` is always green in CI.

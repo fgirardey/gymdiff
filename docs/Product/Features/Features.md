@@ -4,10 +4,10 @@ Index of feature notes. One note per feature, created from `_templates/Feature.m
 
 | Feature | Status | Moment | Design frames |
 |---|---|---|---|
-| [[Client status]] | implemented (skeleton) | always | — |
+| [[Client status]] | implemented (skeleton) | always | `App shell / Top bar / Default` |
 | [[Post-game workout]] | idea | after the game | `Post-game workout / *` (sketched) |
-| [[History]] | idea | always | `History / Main / *` (sketched) |
-| [[First launch]] | idea | first launch | `First launch / Welcome / Default` (sketched) |
+| [[History]] | in progress (empty state only) | always | `History / Main / *` (sketched) |
+| [[First launch]] | implemented | first launch | `First launch / Welcome / Default` (sketched) |
 
 Screen structure and frame list: [[Screens]].
 

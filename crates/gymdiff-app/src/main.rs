@@ -6,7 +6,10 @@
 //!   League client (real or simulated) and pushes state updates to the UI.
 
 mod platform;
+mod settings;
 mod watcher;
+
+use std::path::PathBuf;
 
 use slint::ComponentHandle;
 use tracing_subscriber::layer::SubscriberExt;
@@ -25,6 +28,19 @@ fn main() -> anyhow::Result<()> {
 
     let window = AppWindow::new()?;
     platform::configure_main_window(window.window());
+    window.set_version(env!("CARGO_PKG_VERSION").into());
+
+    let data_dir = data_dir();
+    let welcome = settings::WelcomeFlag::new(&data_dir);
+    if !welcome.is_seen() {
+        tracing::info!(data_dir = %data_dir.display(), "first launch: showing the welcome");
+        window.set_screen(Screen::Welcome);
+    }
+    window.on_welcome_done(move || {
+        if let Err(error) = welcome.mark_seen() {
+            tracing::warn!(%error, "cannot record that the welcome was seen");
+        }
+    });
 
     let weak = window.as_weak();
     std::thread::Builder::new()
@@ -39,6 +55,12 @@ fn main() -> anyhow::Result<()> {
 
     window.run()?;
     Ok(())
+}
+
+/// The settings folder: [`platform::data_dir`], or `GYMDIFF_DATA_DIR` when set
+/// (point it at an empty folder to see the welcome screen again).
+fn data_dir() -> PathBuf {
+    std::env::var_os("GYMDIFF_DATA_DIR").map_or_else(platform::data_dir, PathBuf::from)
 }
 
 /// Logs to stderr and to a daily-rotated file in [`platform::log_dir`].

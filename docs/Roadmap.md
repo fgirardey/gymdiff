@@ -8,6 +8,7 @@
 - [x] Write the [[Vision]] (draft)
 - [x] Create `design/gymdiff.pen` with the `Foundations` page and real [[Tokens]]
 - [x] Brand: logo and app icon ([[Brand]])
+- [x] App shell with the M0 screens: [[First launch]] welcome, empty [[History]], About; macOS and Windows release builds in CI
 - [ ] Bundle the brand fonts (Barlow Condensed, Inter) in the app
 - [ ] Windows app icon (`.ico` from `design/brand/`) embedded in the executable
 - [ ] First validation on the Windows PC (checklist in [[Windows testing]])
@@ -28,7 +29,7 @@
 - [ ] Record a real end-of-game payload and champ select session on Windows
 - [x] Sketch the frames listed in [[Screens]] in Pencil
 - [ ] Validate the sketches, then mark the features `designed`
-- [ ] [[First launch]] welcome screen (first persisted flag)
+- [x] [[First launch]] welcome screen (first persisted flag)
 - [ ] Core: workout formula, sessions, with tests
 - [ ] LCU: end-of-game stats, champ select role, simulator scenarios
 - [ ] UI: workout screen and its states
