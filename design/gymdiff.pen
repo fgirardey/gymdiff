@@ -2294,6 +2294,33 @@
                           "fontWeight": "normal"
                         }
                       ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "XU19l",
+                      "name": "space-xl",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "rectangle",
+                          "id": "t8Ahnm",
+                          "name": "Bar",
+                          "fill": "$accent",
+                          "width": 32,
+                          "height": 32
+                        },
+                        {
+                          "type": "text",
+                          "id": "u85nWt",
+                          "name": "Token",
+                          "fill": "$text-secondary",
+                          "content": "space-xl · 32",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
                     }
                   ]
                 }
@@ -2448,7 +2475,7 @@
               "fill": "$text-primary",
               "content": "GYMDIFF",
               "fontFamily": "$font-display",
-              "fontSize": 18,
+              "fontSize": "$font-size-wordmark",
               "fontWeight": "800",
               "letterSpacing": 1,
               "fontStyle": "italic"
@@ -2482,7 +2509,7 @@
                   "fill": "$text-secondary",
                   "content": "Connected · Lobby",
                   "fontFamily": "$font-body",
-                  "fontSize": 12,
+                  "fontSize": "$font-size-caption",
                   "fontWeight": "normal"
                 }
               ]
@@ -2738,7 +2765,7 @@
       "fill": "$background",
       "layout": "vertical",
       "gap": "$space-l",
-      "padding": 32,
+      "padding": "$space-xl",
       "children": [
         {
           "type": "frame",
@@ -2813,7 +2840,7 @@
               "content": "THE DIFF YOU GAVE AWAY, YOU PAY IN REPS.",
               "lineHeight": 1.05,
               "fontFamily": "$font-display",
-              "fontSize": 32,
+              "fontSize": "$font-size-headline",
               "fontWeight": "800",
               "fontStyle": "italic"
             },
@@ -34246,6 +34273,22 @@
     "warning": {
       "type": "color",
       "value": "#D29922"
+    },
+    "space-xl": {
+      "type": "number",
+      "value": 32
+    },
+    "font-size-caption": {
+      "type": "number",
+      "value": 12
+    },
+    "font-size-wordmark": {
+      "type": "number",
+      "value": 18
+    },
+    "font-size-headline": {
+      "type": "number",
+      "value": 32
     }
   },
   "fileToken": "cdfa3f0f-9494-4fb1-b76f-1be028de3488"
