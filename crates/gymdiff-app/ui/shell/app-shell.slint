@@ -1,0 +1,21 @@
+// App shell: the top bar above the current screen (every screen but the welcome).
+//
+// Frames in design/gymdiff.pen: `App shell / …`, `History / Main / …`.
+
+import { TopBar } from "top-bar.slint";
+
+export component AppShell inherits VerticalLayout {
+    in property <bool> connected;
+    in property <string> status-label;
+    in property <bool> about-active;
+    callback about-clicked;
+
+    TopBar {
+        connected: root.connected;
+        status-label: root.status-label;
+        about-active: root.about-active;
+        about-clicked => { root.about-clicked(); }
+    }
+
+    @children
+}
