@@ -55,5 +55,5 @@ The state at time *t* is the result of applying all steps with `at <= t`, in ord
 - One scenario per situation worth reproducing (e.g. `synthetic-dodge-in-champ-select`, `synthetic-reconnect`).
 - `cargo test` validates every scenario file.
 
-## Recording real sessions (planned)
-A `gymdiff-recorder` tool, run on the Windows PC during real games, will save LCU and Live Client responses (and WebSocket events) into a scenario with `"synthetic": false`. Anonymise summoner names before committing. See [[Roadmap]].
+## Recording real sessions
+`gymdiff-recorder` captures a real session into a scenario with `"synthetic": false`. See [[Recorder]].

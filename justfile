@@ -51,6 +51,11 @@ app-sim:
     GYMDIFF_LOCKFILE="{{sim_lockfile}}" GYMDIFF_LIVE_CLIENT_URL="{{sim_live_url}}" \
         cargo run -p gymdiff-app
 
+# Record a real session into fixtures/scenarios/recorded-<name> (read-only, anonymised;
+# run on the PC with the League client open, e.g. `just record 2026-11-07-ranked`)
+record name *args:
+    cargo run --release -p gymdiff-recorder -- {{name}} {{args}}
+
 # The app against the real League client
 run:
     cargo run -p gymdiff-app

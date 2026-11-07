@@ -2,12 +2,20 @@
 
 What GymDiff may and may not do. **This is a working summary, not legal advice.** Riot's policies change: re-read the sources below before designing any feature that runs during champion select or a game, and before any public release.
 
-Last reviewed: 2026-11-06.
+Last reviewed: 2026-11-07.
 
 ## Hard rules for this codebase
 - Use only the **documented/tolerated interfaces**: LCU API, Live Client Data API, Riot Games API.
 - **Never** read or write game memory, inject code, hook the game process, intercept network traffic, or automate inputs. Besides breaking the terms of service, Riot's anti-cheat (Vanguard) is designed to detect this kind of behaviour.
 - Do not use the LCU to bypass Riot API rate limits. If an endpoint exists in both, use the Riot API.
+
+## The recorder
+`gymdiff-recorder` is a development tool, not a product feature: it only issues `GET` requests to the local APIs every 2 s or more (an allowlist of endpoints, no write calls), like the app. Recordings are anonymised before they reach the disk, never shown in the UI, and never sent anywhere. Do not record champion select in modes that hide names unless you keep the anonymisation: the LCU can expose names the normal client hides ([[Riot policies#Game integrity (general policy)|de-anonymisation rule]]).
+
+## Vanguard and third-party tools
+- Riot announced that game **memory access** is blocked by default for unknown third-party apps from 2026-10-06 (approved tools get a grace period until April 2027). GymDiff never reads memory, so this does not concern it. Source: Riot support, "game memory access removed for third party apps".
+- Riot states that tools built on the LCU and in-game APIs keep working, but its Developer Relations team does not own those APIs and cannot guarantee them.
+- Nothing found says a player is banned for running a read-only local-API tool; bans target scripting, botting and memory/injection tools. This is an observation, not a guarantee.
 
 ## Registration
 - Any product serving players must be **registered on the Riot developer portal**, even if it only uses the local APIs.

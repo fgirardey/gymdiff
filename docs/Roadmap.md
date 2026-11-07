@@ -18,10 +18,10 @@
 - [ ] Trust Riot's root certificate (`riotgames.pem`) instead of accepting any certificate
 - [ ] LCU WebSocket event stream (WAMP) instead of polling, emulated by the simulator
 - [ ] Process-based client discovery (fallback when the install folder is not the default)
-- [ ] `gymdiff-recorder`: record real sessions on Windows into scenarios
+- [x] `gymdiff-recorder`: record real sessions on Windows into scenarios ([[Recorder]]); WebSocket events not recorded yet
 - [ ] Overlay window on Windows (always on top, click-through, positioned over the game)
 - [ ] Settings persistence
-- [ ] Windows installer and code signing
+- [ ] Windows installer and code signing (options and status: [[Code signing]])
 - [ ] Auto-update
 
 ## MVP — post-game workout
