@@ -5,7 +5,7 @@
 //! comment in a `*.preview.slint` file (see `docs/Workflow/Previews.md`). Each one
 //! is drawn by Slint's software renderer at 2× and saved as
 //! `<out>/<preview path with dashes>--<Story>.png`; `<out>/index.tsv` lists
-//! `file<TAB>frame<TAB>preview` for each image.
+//! `file<TAB>frame<TAB>preview` (path under `ui/`) for each image.
 //!
 //! Arguments: `--out <dir>` (default `target/screenshots`), then the preview
 //! files to render, relative to `ui/` (e.g. `screens/welcome`); none renders all.
@@ -47,7 +47,12 @@ fn main() -> Result<()> {
                 &out_dir.join(&file_name),
             )
             .with_context(|| format!("{}: {}", display(&preview), story.component))?;
-            writeln!(index, "{file_name}\t{}\t{}", story.frame, display(&preview))?;
+            writeln!(
+                index,
+                "{file_name}\t{}\t{}",
+                story.frame,
+                relative(&preview)
+            )?;
             println!("{}", out_dir.join(&file_name).display());
         }
     }
@@ -236,5 +241,6 @@ fn ui_dir() -> PathBuf {
 }
 
 fn workspace_dir() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
+    let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    dir.canonicalize().unwrap_or(dir)
 }
