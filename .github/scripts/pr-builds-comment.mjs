@@ -3,7 +3,7 @@
 // Usage in a workflow step:
 //   const { default: commentBuilds } = await import('${{ github.workspace }}/.github/scripts/pr-builds-comment.mjs')
 //   await commentBuilds({ github, context, core })
-// Needs `actions: read` and `pull-requests: write`. See docs/Workflow/Pull requests.md.
+// Needs `actions: read` and `pull-requests: write` (plus `contents: read` to check out the repository). See docs/Workflow/Pull requests.md.
 
 /** Hidden marker that identifies the comment to update. */
 const MARKER = '<!-- gymdiff:pr-builds -->';
