@@ -28,6 +28,7 @@ Colours come from the brand direction chosen in Pencil (see [[Brand]]): a K/DA r
 | `space-s` | 8px |
 | `space-m` | 16px |
 | `space-l` | 24px |
+| `space-xl` | 32px |
 
 ## Radius
 | Token | Value |
@@ -37,8 +38,11 @@ Colours come from the brand direction chosen in Pencil (see [[Brand]]): a K/DA r
 ## Typography
 | Token | Size | Usage |
 |---|---|---|
+| `font-size-caption` | 12px | Small labels (top bar status) |
 | `font-size-body` | 14px | Body text |
+| `font-size-wordmark` | 18px | "GYMDIFF" wordmark in the top bar |
 | `font-size-title` | 20px | Titles |
+| `font-size-headline` | 32px | Welcome headline |
 | `font-size-display` | 40px | Big numbers (clock, stats) |
 | `font-size-hero` | 96px | The one number to read from a distance (workout step count, plank countdown) |
 
