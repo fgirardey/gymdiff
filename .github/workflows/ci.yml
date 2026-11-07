@@ -12,31 +12,21 @@ env:
 jobs:
   commitlint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
       - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
       - uses: actions/setup-node@v5
         with:
           node-version: 24
-      - run: npm install --no-audit --no-fund
-      - name: Lint pull request commits
-        if: github.event_name == 'pull_request'
-        run: npx --no -- commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
-      - name: Lint pushed commits
-        if: github.event_name == 'push'
-        env:
-          BEFORE: ${{ github.event.before }}
-          AFTER: ${{ github.sha }}
-        run: |
-          if git merge-base --is-ancestor "$BEFORE" "$AFTER" 2>/dev/null; then
-            npx --no -- commitlint --from "$BEFORE" --to "$AFTER" --verbose
-          else
-            echo "Previous head $BEFORE is not in the history (new branch or force push): linting every commit."
-            for c in $(git rev-list "$AFTER"); do
-              git log -1 --format=%B "$c" | npx --no -- commitlint || exit 1
-            done
-          fi
+      - run: npm ci --no-audit --no-fund
+      - name: Lint commit messages
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { default: lintCommits } = await import('${{ github.workspace }}/.github/scripts/lint-commits.mjs')
+            await lintCommits({ github, context, core })
 
   fmt:
     runs-on: ubuntu-latest
