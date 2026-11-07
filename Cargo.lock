@@ -1787,6 +1787,7 @@ dependencies = [
  "anyhow",
  "gymdiff-core",
  "gymdiff-lol",
+ "png",
  "slint",
  "slint-build",
  "slint-interpreter",

@@ -60,6 +60,15 @@ run:
 preview path story="":
     slint-viewer --auto-reload {{ if story == "" { "" } else { "--component " + story } }} crates/gymdiff-app/ui/{{path}}.preview.slint
 
+# Render the Pencil stories of ui/<path>.preview.slint files to target/screenshots (all when none given)
+screenshots *paths:
+    cargo run -q -p gymdiff-app --example screenshots -- {{paths}}
+
+# Screenshots of the UI changed since main, published on the pr-assets branch, as a PR table
+[unix]
+pr-screenshots *paths:
+    .github/scripts/pr-screenshots.sh {{paths}}
+
 # ---------------------------------------------------------------- quality
 
 # Everything CI checks
