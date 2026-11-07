@@ -58,3 +58,17 @@ jobs:
           name: gymdiff-windows-${{ github.sha }}
           path: target/release/gymdiff.exe
           retention-days: 14
+
+      - name: Release build (macOS)
+        if: runner.os == 'macOS'
+        # Tarred so the binary keeps its executable bit inside the artifact zip.
+        run: |
+          cargo build --release -p gymdiff-app
+          tar -czf gymdiff-macos.tar.gz -C target/release gymdiff
+      - name: Upload macOS build
+        if: runner.os == 'macOS'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gymdiff-macos-${{ github.sha }}
+          path: gymdiff-macos.tar.gz
+          retention-days: 14
