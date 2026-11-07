@@ -1,98 +1,380 @@
-// Main window. Placeholder screen until the real design lands in design/*.pen.
+// Main window: Welcome (first launch), History and About.
+//
+// Frames in design/gymdiff.pen: `First launch / Welcome / Default`,
+// `App shell / Top bar / Default`, `History / Main / Empty`,
+// `App shell / About / Default`. Screen map: docs/Product/Screens.md.
 
-import { AboutSlint, Button } from "std-widgets.slint";
+import { AboutSlint } from "std-widgets.slint";
 import { Theme } from "theme.slint";
 
-component Card inherits Rectangle {
-    background: Theme.surface;
-    border-radius: Theme.radius-m;
+export enum Screen { welcome, history, about }
+
+component Crest inherits Image {
+    source: @image-url("images/crest.svg");
+    width: 36px;
+    height: 36px;
 }
 
-export component AppWindow inherits Window {
-    title: "GymDiff";
-    preferred-width: 420px;
-    preferred-height: 320px;
-    background: Theme.background;
+component Icon inherits Image {
+    image-fit: contain;
+}
 
-    in property <bool> connected: false;
-    in property <string> connection-label: "Looking for the League client…";
-    in property <string> phase-label: "—";
-    in property <string> game-time: "--:--";
-    in property <string> data-source: "";
+// ---------------------------------------------------------------- Welcome
 
-    property <bool> show-about: false;
+component Rule inherits HorizontalLayout {
+    in property <image> icon;
+    in property <string> exercise;
+    in property <string> source;
+
+    spacing: Theme.space-m;
 
     VerticalLayout {
-        padding: Theme.space-l;
-        spacing: Theme.space-m;
+        alignment: center;
+        Icon {
+            source: root.icon;
+            width: 28px;
+            height: 28px;
+            colorize: Theme.text-primary;
+        }
+    }
+
+    VerticalLayout {
+        alignment: center;
+        spacing: 2px;
+        Text {
+            text: root.exercise;
+            color: Theme.text-primary;
+            font-size: Theme.font-size-body;
+            font-weight: 600;
+        }
+        Text {
+            text: root.source;
+            color: Theme.text-secondary;
+            font-size: Theme.font-size-body;
+            wrap: word-wrap;
+        }
+    }
+}
+
+component PrimaryButton inherits Rectangle {
+    in property <string> text;
+    callback clicked;
+
+    height: 44px;
+    border-radius: Theme.radius-m;
+    background: Theme.accent;
+
+    Text {
+        text: root.text;
+        color: Theme.background;
+        font-size: Theme.font-size-body;
+        font-weight: 700;
+    }
+
+    TouchArea {
+        mouse-cursor: pointer;
+        clicked => { root.clicked(); }
+    }
+}
+
+component WelcomeScreen inherits VerticalLayout {
+    callback lets-go;
+
+    padding: Theme.space-xl;
+    spacing: Theme.space-l;
+
+    HorizontalLayout {
         alignment: start;
+        Crest { }
+    }
+
+    VerticalLayout {
+        spacing: Theme.space-s;
+        Text {
+            text: "THE DIFF YOU GAVE AWAY, YOU PAY IN REPS.";
+            color: Theme.text-primary;
+            font-size: Theme.font-size-headline;
+            font-weight: 800;
+            font-italic: true;
+            wrap: word-wrap;
+        }
+        Text {
+            text: "After each Summoner's Rift game, GymDiff turns what you missed into a short workout.";
+            color: Theme.text-secondary;
+            font-size: Theme.font-size-body;
+            wrap: word-wrap;
+        }
+    }
+
+    VerticalLayout {
+        spacing: Theme.space-m;
+        Rule {
+            icon: @image-url("images/icons/burpee.svg");
+            exercise: "Burpees";
+            source: "your role's main stat under target";
+        }
+        Rule {
+            icon: @image-url("images/icons/squat.svg");
+            exercise: "Squats";
+            source: "your role's secondary stat under target";
+        }
+        Rule {
+            icon: @image-url("images/icons/plank.svg");
+            exercise: "Plank";
+            source: "10 seconds per death";
+        }
+    }
+
+    Rectangle {
+        vertical-stretch: 1;
+    }
+
+    Text {
+        text: "Listen to your body. Skip anything that hurts. GymDiff isn't a health app. Not endorsed by Riot Games.";
+        color: Theme.text-secondary;
+        font-size: Theme.font-size-body;
+        wrap: word-wrap;
+    }
+
+    PrimaryButton {
+        text: "Let's go";
+        clicked => { root.lets-go(); }
+    }
+}
+
+// ---------------------------------------------------------------- App shell
+
+component TopBar inherits Rectangle {
+    in property <bool> connected;
+    in property <string> status-label;
+    in property <bool> about-active;
+    callback about-clicked;
+
+    height: 52px;
+    background: Theme.surface;
+
+    HorizontalLayout {
+        padding-left: Theme.space-m;
+        padding-right: Theme.space-s;
+        spacing: Theme.space-s;
+
+        VerticalLayout {
+            alignment: center;
+            Crest { }
+        }
+
+        Text {
+            text: "GYMDIFF";
+            color: Theme.text-primary;
+            font-size: Theme.font-size-wordmark;
+            font-weight: 800;
+            font-italic: true;
+            letter-spacing: 1px;
+            vertical-alignment: center;
+        }
+
+        Rectangle {
+            horizontal-stretch: 1;
+        }
 
         HorizontalLayout {
-            spacing: Theme.space-s;
-            Text {
-                text: "GymDiff";
-                color: Theme.accent;
-                font-size: Theme.font-size-title;
-                font-weight: 700;
-                vertical-alignment: center;
+            spacing: 6px;
+            horizontal-stretch: 0;
+
+            VerticalLayout {
+                alignment: center;
+                Rectangle {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 4px;
+                    background: root.connected ? Theme.success : Theme.danger;
+                }
             }
-            Rectangle { }
-            Button {
-                text: show-about ? "Close" : "About";
-                clicked => { root.show-about = !root.show-about; }
+
+            Text {
+                text: root.status-label;
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-caption;
+                vertical-alignment: center;
+                overflow: elide;
             }
         }
 
-        if !show-about: Card {
-            VerticalLayout {
-                padding: Theme.space-m;
-                spacing: Theme.space-s;
+        VerticalLayout {
+            alignment: center;
+            Rectangle {
+                width: 36px;
+                height: 36px;
+                border-radius: Theme.radius-m;
 
-                HorizontalLayout {
-                    spacing: Theme.space-s;
-                    Rectangle {
-                        width: 10px;
+                Icon {
+                    source: @image-url("images/icons/info.svg");
+                    width: 20px;
+                    height: 20px;
+                    colorize: root.about-active ? Theme.accent : Theme.text-secondary;
+                }
+
+                TouchArea {
+                    mouse-cursor: pointer;
+                    clicked => { root.about-clicked(); }
+                }
+            }
+        }
+    }
+
+    // Bottom border
+    Rectangle {
+        y: parent.height - self.height;
+        height: 1px;
+        background: Theme.border;
+    }
+}
+
+// ---------------------------------------------------------------- History
+
+component HistoryEmpty inherits VerticalLayout {
+    padding: Theme.space-l;
+    spacing: Theme.space-m;
+    alignment: center;
+
+    HorizontalLayout {
+        alignment: center;
+        Icon {
+            source: @image-url("images/icons/history.svg");
+            width: 34px;
+            height: 34px;
+            colorize: Theme.text-secondary;
+        }
+    }
+
+    Text {
+        text: "No game yet";
+        color: Theme.text-primary;
+        font-size: Theme.font-size-title;
+        font-weight: 600;
+        horizontal-alignment: center;
+    }
+
+    Text {
+        text: "Every Summoner's Rift game you finish while GymDiff is open is listed here, grouped by session.";
+        color: Theme.text-secondary;
+        font-size: Theme.font-size-body;
+        horizontal-alignment: center;
+        wrap: word-wrap;
+    }
+}
+
+// ---------------------------------------------------------------- About
+
+component AboutScreen inherits VerticalLayout {
+    in property <string> version;
+    callback back;
+
+    padding: Theme.space-l;
+    spacing: Theme.space-m;
+    alignment: start;
+
+    HorizontalLayout {
+        alignment: start;
+        TouchArea {
+            mouse-cursor: pointer;
+            clicked => { root.back(); }
+            HorizontalLayout {
+                spacing: Theme.space-xs;
+                VerticalLayout {
+                    alignment: center;
+                    Icon {
+                        source: @image-url("images/icons/chevron-left.svg");
+                        width: 6px;
                         height: 10px;
-                        y: (parent.height - self.height) / 2;
-                        border-radius: 5px;
-                        background: root.connected ? Theme.success : Theme.danger;
-                    }
-                    Text {
-                        text: root.connection-label;
-                        color: Theme.text-secondary;
-                        font-size: Theme.font-size-body;
+                        colorize: Theme.text-secondary;
                     }
                 }
-
                 Text {
-                    text: root.phase-label;
-                    color: Theme.text-primary;
-                    font-size: Theme.font-size-title;
-                }
-
-                Text {
-                    text: root.game-time;
-                    color: Theme.text-primary;
-                    font-size: Theme.font-size-display;
-                    font-weight: 700;
-                }
-
-                Text {
-                    text: root.data-source;
+                    text: "History";
                     color: Theme.text-secondary;
                     font-size: Theme.font-size-body;
                 }
             }
         }
+    }
 
-        // Required by the Slint Royalty-free license: AboutSlint must be
-        // reachable from the top level of the app. See docs/Decisions/ADR-0001.
-        if show-about: Card {
-            VerticalLayout {
-                padding: Theme.space-m;
-                alignment: center;
-                AboutSlint { }
-            }
+    Text {
+        text: "ABOUT";
+        color: Theme.text-primary;
+        font-size: Theme.font-size-title;
+        font-weight: 800;
+        font-italic: true;
+        letter-spacing: 1px;
+    }
+
+    Text {
+        text: "GymDiff " + root.version;
+        color: Theme.text-primary;
+        font-size: Theme.font-size-body;
+        font-weight: 600;
+    }
+
+    // Required by the Slint Royalty-free license: AboutSlint must be
+    // reachable from the top level of the app. See docs/Decisions/ADR-0001.
+    Rectangle {
+        border-radius: Theme.radius-m;
+        border-width: 1px;
+        border-color: Theme.border;
+        VerticalLayout {
+            padding: Theme.space-m;
+            AboutSlint { }
+        }
+    }
+
+    Text {
+        text: "GymDiff isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.";
+        color: Theme.text-secondary;
+        font-size: Theme.font-size-body;
+        wrap: word-wrap;
+    }
+}
+
+// ---------------------------------------------------------------- Window
+
+export component AppWindow inherits Window {
+    title: "GymDiff";
+    preferred-width: 400px;
+    preferred-height: 640px;
+    background: Theme.background;
+
+    /// The screen shown. Rust picks `welcome` at start when the welcome has not been seen.
+    in-out property <Screen> screen: Screen.history;
+    in property <bool> connected: false;
+    in property <string> status-label: "Looking for the League client…";
+    in property <string> version;
+
+    /// The player clicked "Let's go" on the welcome screen.
+    callback welcome-done;
+
+    if root.screen == Screen.welcome: WelcomeScreen {
+        lets-go => {
+            root.screen = Screen.history;
+            root.welcome-done();
+        }
+    }
+
+    if root.screen != Screen.welcome: VerticalLayout {
+        TopBar {
+            connected: root.connected;
+            status-label: root.status-label;
+            about-active: root.screen == Screen.about;
+            about-clicked => { root.screen = Screen.about; }
+        }
+
+        if root.screen == Screen.history: HistoryEmpty {
+            vertical-stretch: 1;
+        }
+
+        if root.screen == Screen.about: AboutScreen {
+            vertical-stretch: 1;
+            version: root.version;
+            back => { root.screen = Screen.history; }
         }
     }
 }

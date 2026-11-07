@@ -68,6 +68,7 @@ Filter with `RUST_LOG` (default: `info,gymdiff=debug,gymdiff_lol=debug`).
 |---|---|---|
 | `GYMDIFF_LOCKFILE` | app | Lockfile path (the simulator writes one in `target/simulator/`) |
 | `GYMDIFF_LIVE_CLIENT_URL` | app | Live Client Data base URL (default `https://127.0.0.1:2999`) |
+| `GYMDIFF_DATA_DIR` | app | Settings folder (default `%APPDATA%\GymDiff\` on Windows, `~/Library/Application Support/GymDiff/` on macOS). Point it at an empty folder to see the welcome screen again |
 | `GYMDIFF_SCENARIO` | simulator | Scenario to replay |
 | `RUST_LOG` | both | Log filter |
 | `GYMDIFF_WIN_HOST`, `GYMDIFF_WIN_REPO` | justfile | Windows PC over SSH (see [[Windows testing]]) |

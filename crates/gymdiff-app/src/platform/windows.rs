@@ -12,6 +12,13 @@ pub fn log_dir() -> PathBuf {
         .join("logs")
 }
 
+/// `%APPDATA%\GymDiff`
+pub fn data_dir() -> PathBuf {
+    std::env::var_os("APPDATA")
+        .map_or_else(|| PathBuf::from("data"), PathBuf::from)
+        .join("GymDiff")
+}
+
 /// Windows-specific window setup.
 ///
 /// TODO(windows): overlay behaviour (always on top, click-through, positioning

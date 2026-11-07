@@ -17,6 +17,19 @@ pub fn log_dir() -> PathBuf {
     )
 }
 
+/// `~/Library/Application Support/GymDiff`
+pub fn data_dir() -> PathBuf {
+    std::env::var_os("HOME").map_or_else(
+        || PathBuf::from("data"),
+        |home| {
+            PathBuf::from(home)
+                .join("Library")
+                .join("Application Support")
+                .join("GymDiff")
+        },
+    )
+}
+
 pub fn configure_main_window(_window: &slint::Window) {
     tracing::debug!("macOS: overlay features are stubbed (development platform)");
 }

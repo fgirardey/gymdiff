@@ -97,23 +97,43 @@ fn describe_source(lockfile: &Lockfile) -> String {
 
 fn push(window: &slint::Weak<AppWindow>, state: &CompanionState, source: &str) {
     let connected = state.connection == ConnectionStatus::Connected;
-    let connection_label = match &state.connection {
-        ConnectionStatus::Disconnected => "Looking for the League client…".to_owned(),
-        ConnectionStatus::Connected => "Connected".to_owned(),
-        ConnectionStatus::Error(message) => format!("Error: {message}"),
-    };
-    let phase_label = state.phase.label().to_owned();
-    let game_time = state.game_time_label();
-    let source = source.to_owned();
+    let status_label = status_label(state);
+    if !source.is_empty() {
+        tracing::trace!(%source, status = %status_label, "pushing state to the UI");
+    }
 
     let result = window.upgrade_in_event_loop(move |window| {
         window.set_connected(connected);
-        window.set_connection_label(connection_label.into());
-        window.set_phase_label(phase_label.into());
-        window.set_game_time(game_time.into());
-        window.set_data_source(source.into());
+        window.set_status_label(status_label.into());
     });
     if result.is_err() {
         tracing::debug!("UI event loop is gone");
+    }
+}
+
+/// Text next to the connection dot in the top bar.
+fn status_label(state: &CompanionState) -> String {
+    match &state.connection {
+        ConnectionStatus::Disconnected => "Looking for the League client…".to_owned(),
+        ConnectionStatus::Connected => format!("Connected · {}", state.phase.label()),
+        ConnectionStatus::Error(message) => format!("Error: {message}"),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use gymdiff_core::GamePhase;
+
+    use super::*;
+
+    #[test]
+    fn status_label_shows_the_phase_once_connected() {
+        let state = CompanionState::default();
+        assert_eq!(status_label(&state), "Looking for the League client…");
+
+        let state = state
+            .apply(Event::ClientConnected)
+            .apply(Event::PhaseChanged(GamePhase::Lobby));
+        assert_eq!(status_label(&state), "Connected · Lobby");
     }
 }
