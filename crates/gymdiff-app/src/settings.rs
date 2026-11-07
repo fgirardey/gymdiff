@@ -5,8 +5,6 @@
 use std::io;
 use std::path::{Path, PathBuf};
 
-const WELCOME_SEEN_FILE: &str = "welcome-seen";
-
 /// Whether the player has already gone through the welcome screen.
 ///
 /// Stored as an empty marker file. Any error reading it counts as "not seen",
@@ -34,6 +32,9 @@ impl WelcomeFlag {
         std::fs::write(&self.path, b"")
     }
 }
+
+/// Marker file name, in the data folder.
+const WELCOME_SEEN_FILE: &str = "welcome-seen";
 
 #[cfg(test)]
 mod tests {
