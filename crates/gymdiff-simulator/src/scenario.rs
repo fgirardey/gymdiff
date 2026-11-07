@@ -24,40 +24,6 @@ pub struct Scenario {
     pub steps: Vec<Step>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
-pub struct Step {
-    /// Seconds since the start of the scenario.
-    pub at: f64,
-    /// Optional note shown in the simulator logs.
-    #[serde(default)]
-    pub note: Option<String>,
-    /// LCU endpoints (path -> JSON body). `null` removes the endpoint.
-    #[serde(default)]
-    pub lcu: BTreeMap<String, Value>,
-    /// Live Client Data endpoints (path -> JSON body). `null` removes the endpoint.
-    #[serde(default)]
-    pub live: BTreeMap<String, Value>,
-    /// Start (`"start"`) or stop (`"stop"`) the in-game clock.
-    #[serde(default)]
-    pub game_clock: Option<GameClock>,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize)]
-#[serde(rename_all = "lowercase")]
-pub enum GameClock {
-    Start,
-    Stop,
-}
-
-/// What the simulator serves at a given instant.
-#[derive(Debug, Clone, Default, PartialEq)]
-pub struct Snapshot {
-    pub lcu: BTreeMap<String, Value>,
-    pub live: BTreeMap<String, Value>,
-    /// Scenario time at which the game clock started, if running.
-    pub clock_started_at: Option<f64>,
-}
-
 impl Scenario {
     pub fn load(path: &Path) -> anyhow::Result<Self> {
         let raw = std::fs::read_to_string(path)
@@ -97,6 +63,40 @@ impl Scenario {
         }
         snapshot
     }
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct Step {
+    /// Seconds since the start of the scenario.
+    pub at: f64,
+    /// Optional note shown in the simulator logs.
+    #[serde(default)]
+    pub note: Option<String>,
+    /// LCU endpoints (path -> JSON body). `null` removes the endpoint.
+    #[serde(default)]
+    pub lcu: BTreeMap<String, Value>,
+    /// Live Client Data endpoints (path -> JSON body). `null` removes the endpoint.
+    #[serde(default)]
+    pub live: BTreeMap<String, Value>,
+    /// Start (`"start"`) or stop (`"stop"`) the in-game clock.
+    #[serde(default)]
+    pub game_clock: Option<GameClock>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum GameClock {
+    Start,
+    Stop,
+}
+
+/// What the simulator serves at a given instant.
+#[derive(Debug, Clone, Default, PartialEq)]
+pub struct Snapshot {
+    pub lcu: BTreeMap<String, Value>,
+    pub live: BTreeMap<String, Value>,
+    /// Scenario time at which the game clock started, if running.
+    pub clock_started_at: Option<f64>,
 }
 
 fn apply(target: &mut BTreeMap<String, Value>, changes: &BTreeMap<String, Value>) {
