@@ -39,6 +39,8 @@ tracing-appender = "0.2"
 # UI
 slint = "1"
 slint-build = "1"
+slint-interpreter = "1"
+spin_on = "0.1"
 
 [workspace.lints.rust]
 unsafe_code = "deny"
