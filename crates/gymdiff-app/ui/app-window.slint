@@ -5,7 +5,7 @@
 
 import { Theme } from "theme.slint";
 import { Screen } from "screen.slint";
-import { TopBar } from "shell/top-bar.slint";
+import { AppShell } from "shell/app-shell.slint";
 import { WelcomeScreen } from "screens/welcome.slint";
 import { HistoryEmpty } from "screens/history.slint";
 import { AboutScreen } from "screens/about.slint";
@@ -34,13 +34,11 @@ export component AppWindow inherits Window {
         }
     }
 
-    if root.screen != Screen.welcome: VerticalLayout {
-        TopBar {
-            connected: root.connected;
-            status-label: root.status-label;
-            about-active: root.screen == Screen.about;
-            about-clicked => { root.screen = Screen.about; }
-        }
+    if root.screen != Screen.welcome: AppShell {
+        connected: root.connected;
+        status-label: root.status-label;
+        about-active: root.screen == Screen.about;
+        about-clicked => { root.screen = Screen.about; }
 
         if root.screen == Screen.history: HistoryEmpty {
             vertical-stretch: 1;
