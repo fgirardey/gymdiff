@@ -5,7 +5,7 @@ The Mac covers most of the work. The **Windows PC** validates what only it can: 
 ## Three ways to get a Windows build
 | Option | When | How |
 |---|---|---|
-| **CI artifact** | default, nothing to install on the PC | push → GitHub Actions → *Artifacts* → `gymdiff-windows-<sha>` |
+| **CI artifact** | default, nothing to install on the PC | push → GitHub Actions → *Artifacts* → `gymdiff-windows-<sha>` (app) or `gymdiff-recorder-windows-<sha>` ([[Recorder]]); run `Unblock-File` on the `.exe` first |
 | **Build on the PC over SSH** | fast loop on Windows-specific code | `just win-build` from the Mac |
 | **Build on the PC directly** | debugging on the PC | `cargo run -p gymdiff-app` in a terminal on the PC |
 

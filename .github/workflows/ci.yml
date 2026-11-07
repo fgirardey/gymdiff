@@ -53,13 +53,20 @@ jobs:
 
       - name: Release build (Windows)
         if: runner.os == 'Windows'
-        run: cargo build --release -p gymdiff-app
+        run: cargo build --release -p gymdiff-app -p gymdiff-recorder
       - name: Upload Windows build
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4
         with:
           name: gymdiff-windows-${{ env.BUILD_SHA }}
           path: target/release/gymdiff.exe
+          retention-days: 14
+      - name: Upload Windows recorder
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gymdiff-recorder-windows-${{ env.BUILD_SHA }}
+          path: target/release/gymdiff-recorder.exe
           retention-days: 14
 
       - name: Release build (macOS)
