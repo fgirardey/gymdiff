@@ -21,6 +21,7 @@
 - [x] `gymdiff-recorder`: record real sessions on Windows into scenarios ([[Recorder]]); WebSocket events not recorded yet
 - [ ] Overlay window on Windows (always on top, click-through, positioned over the game)
 - [x] Settings persistence (`settings.json`, [[ADR-0007 Local persistence]])
+- [x] Versioning (SemVer + build number), releases with release-please, symbolicated Sentry issues ([[ADR-0008 Versioning and releases]])
 - [ ] Windows installer and code signing (options and status: [[Code signing]])
 - [ ] Auto-update
 

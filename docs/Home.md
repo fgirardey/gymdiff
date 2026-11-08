@@ -38,6 +38,7 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 - [[Code organisation]] — one logical unit per file, public API first
 - [[Logging]] — picking a log level: state changes, not ticks
 - [[Pull requests]] — the PR template and generated UI screenshots
+- [[Releasing]] — version numbers, release-please, symbols in Sentry
 
 ## Compliance
 - [[Riot policies]] — what we can and cannot do
