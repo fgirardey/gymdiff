@@ -57,15 +57,20 @@ flowchart LR
 ## Frames
 In `design/gymdiff.pen`, at 400 × 640. First sketches, to validate. Every screen except Welcome is an instance of the `App shell / Top bar / Default` component with its `Content` slot replaced. Modal frames show the prompt or the sheet over a dimmed copy of `History / Main / Nominal`.
 
-The canvas is laid out along the user flow: one row per stage, left to right in the order the player sees the screens, with arrows labelled by the action that leads to the next frame ("Let's go", "Start workout", "Close", …).
+The canvas is a stack of sections, each starting with a `Flow label / …` title: `Foundations` (the `Brand / Logo` and `Foundations` boards), `Primitives`, `Core components`, then the screens. Screens are laid out along the user flow: one row per stage, left to right in the order the player sees the screens, with arrows labelled by the action that leads to the next frame ("Let's go", "Start workout", "Close", …).
 
-**Components** (top)
+**Primitives**
 | Frame | Shows |
 |---|---|
-| `App shell / Top bar / Default` | The top bar (Crest, wordmark, connection status, Settings and About buttons), reusable component |
+| `Logo / <Crest, Lockup>` | Logo components ([[Brand]]) |
 | `Switch / <Off, On>` | On/off switch, reusable components |
-| `Champion portrait` | Played + linked champion placeholder, reusable component ([[Champion portraits]]) |
 | `Exercise icon / <Burpee, Squat, Plank> / <16, 28, 56>` | Exercise pictograms, reusable components (generated in Pencil) |
+
+**Core components**
+| Frame | Shows |
+|---|---|
+| `App shell / Top bar / Default` | The top bar (Crest, wordmark, connection status, Settings and About buttons) and the `Content` slot, reusable component |
+| `Champion portrait` | Played + linked champion placeholder, reusable component ([[Champion portraits]]) |
 
 **1 · First launch → first game**
 | Frame | Shows |
@@ -86,11 +91,15 @@ The canvas is laid out along the user flow: one row per stage, left to right in 
 | `History / Main / Nominal` | Back on History: current session and an older one, dense workout cards |
 | `History / Main / Game expanded` | One card opened: stat and target per exercise, game details |
 
-**3 · Variants and other screens**
+**3 · Variants**
 | Frame | Shows |
 |---|---|
 | `Post-game workout / Modal / Prompt (Support)` | Support variant, with 0 squats (dimmed) |
 | `History / Main / No workout` | Remake and role not detected: muted "No workout" cards with the reason |
+
+**4 · About & Settings**
+| Frame | Shows |
+|---|---|
 | `App shell / About / Default` | About screen |
 | `App shell / Settings / Default` | Settings, both switches off |
 | `App shell / Settings / Crash reports on` | Settings, "Send crash reports" on |
@@ -100,6 +109,10 @@ The canvas is laid out along the user flow: one row per stage, left to right in 
 | `App shell / Settings / Scrolled to the bottom` | Settings scrolled down: Updates, Shortcuts, Startup and Uninstall sections |
 | `App shell / Settings / Uninstall confirm` | Settings, confirmation dialog before uninstalling |
 | `App shell / Settings / Uninstall failed` | Settings, the uninstaller could not start |
+
+**5 · Installer**
+| Frame | Shows |
+|---|---|
 | `Installer / Window / Options` | Installer: welcome, shortcut and startup choices |
 | `Installer / Window / Installing` | Installer: installation in progress |
 | `Installer / Window / Done` | Installer: installed, Launch GymDiff switch and Finish |
