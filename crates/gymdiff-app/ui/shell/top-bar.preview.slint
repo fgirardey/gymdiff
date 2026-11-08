@@ -11,6 +11,7 @@ import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
 export component TopBarPlayground inherits Window {
     in-out property <bool> connected: true;
     in-out property <string> status-label: Fixtures.status-lobby;
+    in-out property <bool> settings-active;
     in-out property <bool> about-active;
 
     background: Theme.background;
@@ -20,7 +21,9 @@ export component TopBarPlayground inherits Window {
         TopBar {
             connected: root.connected;
             status-label: root.status-label;
+            settings-active: root.settings-active;
             about-active: root.about-active;
+            settings-clicked => { playground.log("settings-clicked"); }
             about-clicked => { playground.log("about-clicked"); }
         }
     }
@@ -44,6 +47,10 @@ export component Preview inherits Window {
         PreviewCase {
             label: "Disconnected";
             TopBar { connected: false; status-label: Fixtures.status-searching; }
+        }
+        PreviewCase {
+            label: "Settings active";
+            TopBar { connected: true; status-label: Fixtures.status-lobby; settings-active: true; }
         }
         PreviewCase {
             label: "About active";

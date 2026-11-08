@@ -32,6 +32,7 @@ export component AppShellTopBarDefault inherits Rectangle {
 export component AppShellPlayground inherits Window {
     in-out property <bool> connected: true;
     in-out property <string> status-label: Fixtures.status-lobby;
+    in-out property <bool> settings-active;
     in-out property <bool> about-active;
 
     background: Theme.background;
@@ -46,7 +47,9 @@ export component AppShellPlayground inherits Window {
             vertical-stretch: 1;
             connected: root.connected;
             status-label: root.status-label;
+            settings-active: root.settings-active;
             about-active: root.about-active;
+            settings-clicked => { playground.log("settings-clicked"); }
             about-clicked => { playground.log("about-clicked"); }
 
             Rectangle { vertical-stretch: 1; }

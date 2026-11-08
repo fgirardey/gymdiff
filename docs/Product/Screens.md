@@ -17,14 +17,14 @@ Map of the app's screens and how the player moves between them. Each screen's be
 ├────────────────────────────────────┤
 │                                    │
 │              History               │
-│        (or About, from ⓘ)          │
+│        (or Settings / About)          │
 │                                    │
 │                                    │
 └────────────────────────────────────┘
 ```
 - **No sidebar.** **History** is the main screen and takes the full width (400 px).
-- **Top bar** (52 px), on every screen except Welcome: the Crest and the "GYMDIFF" wordmark on the left; on the right the connection dot and client phase (replaces the current [[Client status]] card) and an **About** button (ⓘ, marked with `accent` while About is shown).
-- **About** opens from the ⓘ button and has a "‹ History" link back. There is no other navigation.
+- **Top bar** (52 px), on every screen except Welcome: the Crest and the "GYMDIFF" wordmark on the left; on the right the connection dot and client phase (replaces the current [[Client status]] card), a **Settings** button (gear) and an **About** button (ⓘ). The button of the screen being shown is marked with a `border` background and a `text-primary` icon.
+- **Settings** and **About** open from the top bar buttons and have a "‹ History" link back. There is no other navigation.
 - The window opens on **History**. Navigation never changes on its own.
 - **Workout modal**: when a game ends and its workout is ready, a **prompt** opens over History, like a matchmaking "match found" prompt: a centred dialog with a big round **Start workout** button, what is due, and Later / Skip workout (see [[Post-game workout#Prompt ("Workout ready")]]). Once started, the steps open as a **sheet** rising over History: full width, from just under the top bar to the bottom of the window, rounded top corners, header "POST-GAME WORKOUT" and a close button (×). Closing it returns to History. If About is shown when the workout is ready, the app goes back to History first.
 
@@ -34,11 +34,12 @@ Map of the app's screens and how the player moves between them. Each screen's be
 | **Welcome** | first launch only (no top bar) | Shown once, at first launch: the principle (main stat → burpees, secondary stat → squats, deaths → plank), the health warning, Riot's disclaimer, a "Let's go" button | [[First launch]] |
 | **History** | main screen, default | All games grouped by session, newest first, one workout card per game (game portraits on the left). Also shows the game that just ended while its workout is computed, and games without a workout | [[History]] |
 | **Workout** (modal over History) | on its own, or Start on a pending card | Opens on its own when a workout is ready, or from **Start** on a pending card: prompt → steps → summary. All its states are in [[Post-game workout]] | [[Post-game workout]] |
+| **Settings** | gear in the top bar | Opt-in error reports: "Send crash reports" and "Send all logs" switches, off by default, and the 30-day retention note | [[Settings]] |
 | **About** | ⓘ in the top bar | `AboutSlint` (required, see [[ADR-0001 Native UI with Slint]]), Riot's "Legal Jibber Jabber" disclaimer, app version | — |
 
 The computation of every number stays **inline** in each workout step (stat, target, cap) and in an expanded History card: there is no detail screen.
 
-Later (not in the MVP): **Settings** (difficulty, targets), from a button in the top bar. Unbuilt screens are not shown, not even disabled.
+Later (not in the MVP): difficulty and targets in Settings. Unbuilt screens are not shown, not even disabled.
 
 ```mermaid
 flowchart LR
@@ -61,7 +62,8 @@ The canvas is laid out along the user flow: one row per stage, left to right in 
 **Components** (top)
 | Frame | Shows |
 |---|---|
-| `App shell / Top bar / Default` | The top bar (Crest, wordmark, connection status, About button), reusable component |
+| `App shell / Top bar / Default` | The top bar (Crest, wordmark, connection status, Settings and About buttons), reusable component |
+| `Switch / <Off, On>` | On/off switch, reusable components |
 | `Champion portrait` | Played + linked champion placeholder, reusable component ([[Champion portraits]]) |
 | `Exercise icon / <Burpee, Squat, Plank> / <16, 28, 56>` | Exercise pictograms, reusable components (generated in Pencil) |
 
@@ -90,6 +92,8 @@ The canvas is laid out along the user flow: one row per stage, left to right in 
 | `Post-game workout / Modal / Prompt (Support)` | Support variant, with 0 squats (dimmed) |
 | `History / Main / No workout` | Remake and role not detected: muted "No workout" cards with the reason |
 | `App shell / About / Default` | About screen |
+| `App shell / Settings / Default` | Settings, both switches off |
+| `App shell / Settings / Crash reports on` | Settings, "Send crash reports" on |
 
 ## Open questions
 - Can the window be resized, and down to what size?

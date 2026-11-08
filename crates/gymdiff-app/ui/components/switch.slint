@@ -1,0 +1,30 @@
+// On/off switch.
+//
+// Frames in design/gymdiff.pen: `Switch / Off`, `Switch / On`.
+
+import { Theme } from "../theme.slint";
+
+export component Switch inherits Rectangle {
+    in property <bool> checked;
+    /// The player clicked: the parent decides whether `checked` changes.
+    callback toggled;
+
+    width: 36px;
+    height: 20px;
+    border-radius: self.height / 2;
+    background: root.checked ? Theme.accent : Theme.border;
+
+    Rectangle {
+        x: root.checked ? parent.width - self.width - 2px : 2px;
+        width: 16px;
+        height: 16px;
+        border-radius: self.height / 2;
+        background: root.checked ? Theme.text-primary : Theme.text-secondary;
+        animate x { duration: 120ms; }
+    }
+
+    TouchArea {
+        mouse-cursor: pointer;
+        clicked => { root.toggled(); }
+    }
+}

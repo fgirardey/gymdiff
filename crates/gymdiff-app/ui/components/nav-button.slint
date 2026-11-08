@@ -1,0 +1,29 @@
+// Square icon button of the top bar (Settings, About). Marked while its screen is shown.
+//
+// Frames in design/gymdiff.pen: `Nav / Settings` and `Nav / About` in `App shell / Top bar / Default`.
+
+import { Theme } from "../theme.slint";
+import { Icon } from "icon.slint";
+
+export component NavButton inherits Rectangle {
+    in property <image> icon;
+    in property <bool> active;
+    callback clicked;
+
+    width: 36px;
+    height: 36px;
+    border-radius: Theme.radius-m;
+    background: root.active ? Theme.border : transparent;
+
+    Icon {
+        source: root.icon;
+        width: 22px;
+        height: 22px;
+        colorize: root.active ? Theme.text-primary : Theme.text-secondary;
+    }
+
+    TouchArea {
+        mouse-cursor: pointer;
+        clicked => { root.clicked(); }
+    }
+}

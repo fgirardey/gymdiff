@@ -1,0 +1,69 @@
+// Settings screen: opt-in error reports.
+//
+// Frames in design/gymdiff.pen: `App shell / Settings / Default`,
+// `App shell / Settings / Crash reports on`.
+
+import { Theme } from "../theme.slint";
+import { BackLink } from "../components/back-link.slint";
+import { SettingRow } from "../components/setting-row.slint";
+
+export component SettingsScreen inherits VerticalLayout {
+    in property <bool> crash-reports;
+    in property <bool> all-logs;
+    callback back;
+    /// The player clicked a switch; the parent decides whether the value changes.
+    callback crash-reports-toggled;
+    callback all-logs-toggled;
+
+    padding: Theme.space-l;
+    spacing: Theme.space-m;
+    alignment: start;
+
+    HorizontalLayout {
+        alignment: start;
+        BackLink {
+            text: "History";
+            clicked => { root.back(); }
+        }
+    }
+
+    Text {
+        text: "SETTINGS";
+        color: Theme.text-primary;
+        font-size: Theme.font-size-title;
+        font-weight: 800;
+        font-italic: true;
+        letter-spacing: 1px;
+    }
+
+    VerticalLayout {
+        Text {
+            text: "ERROR REPORTS";
+            color: Theme.text-secondary;
+            font-size: Theme.font-size-caption;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        SettingRow {
+            label: "Send crash reports";
+            detail: "When GymDiff crashes or hits an error, send the scrubbed error with the app version and OS. No names, Riot IDs or game data.";
+            checked: root.crash-reports;
+            toggled => { root.crash-reports-toggled(); }
+        }
+
+        SettingRow {
+            label: "Send all logs";
+            detail: "Also send everyday logs, scrubbed the same way. Helps fix bugs that don't crash.";
+            checked: root.all-logs;
+            toggled => { root.all-logs-toggled(); }
+        }
+    }
+
+    Text {
+        text: "Both are off by default. Reports are deleted after 30 days.";
+        color: Theme.text-secondary;
+        font-size: Theme.font-size-caption;
+        wrap: word-wrap;
+    }
+}
