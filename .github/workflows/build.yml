@@ -1,0 +1,101 @@
+name: Build
+
+# Release builds of GymDiff for Windows and macOS, called by ci.yml (channel `preview`) and
+# release.yml (channel `release`). Uploads the debug files and sources to Sentry so its stack
+# traces are symbolicated (see docs/Workflow/Releasing.md and ADR-0008).
+
+on:
+  workflow_call:
+    inputs:
+      channel:
+        description: "`preview` (CI artifacts) or `release` (tagged release)."
+        type: string
+        required: true
+    outputs:
+      version:
+        description: SemVer of the build, e.g. 0.2.0.
+        value: ${{ jobs.build.outputs.version }}
+      sentry-release:
+        description: Sentry release of the build, e.g. gymdiff@0.2.0+57.
+        value: ${{ jobs.build.outputs.sentry-release }}
+
+env:
+  CARGO_TERM_COLOR: always
+  # Commit the builds are named after: the branch head on a pull request
+  # (github.sha is then a temporary merge commit), the pushed commit otherwise.
+  BUILD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.sentry.outputs.version }}
+      sentry-release: ${{ steps.sentry.outputs.sentry-release }}
+    env:
+      GYMDIFF_CHANNEL: ${{ inputs.channel }}
+      GYMDIFF_SENTRY_DSN: ${{ vars.GYMDIFF_SENTRY_DSN }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      SENTRY_ORG: ${{ vars.SENTRY_ORG }}
+      SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # The build number counts the commits; set-commits reads the history.
+          fetch-depth: 0
+          ref: ${{ env.BUILD_SHA }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: release
+
+      - name: Release build (Windows)
+        if: runner.os == 'Windows'
+        run: cargo build --release -p gymdiff-app -p gymdiff-recorder
+      - name: Release build (macOS)
+        if: runner.os == 'macOS'
+        # Tarred so the binary keeps its executable bit inside the artifact zip.
+        run: |
+          cargo build --release -p gymdiff-app
+          tar -czf gymdiff-macos.tar.gz -C target/release gymdiff
+
+      - name: Upload debug files to Sentry
+        id: sentry
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { default: sentryUpload } = await import('${{ github.workspace }}/.github/scripts/sentry-upload.mjs')
+            const windows = process.platform === 'win32'
+            await sentryUpload({ core, exec }, {
+              binary: windows ? 'target/release/gymdiff.exe' : 'target/release/gymdiff',
+              debugFiles: windows
+                ? ['target/release/gymdiff.exe', 'target/release/gymdiff.pdb']
+                : ['target/release/gymdiff', 'target/release/gymdiff.dSYM'],
+              createRelease: windows,
+            })
+
+      - name: Upload Windows build
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gymdiff-windows-${{ env.BUILD_SHA }}
+          path: target/release/gymdiff.exe
+          retention-days: 14
+      - name: Upload Windows recorder
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gymdiff-recorder-windows-${{ env.BUILD_SHA }}
+          path: target/release/gymdiff-recorder.exe
+          retention-days: 14
+      - name: Upload macOS build
+        if: runner.os == 'macOS'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gymdiff-macos-${{ env.BUILD_SHA }}
+          path: gymdiff-macos.tar.gz
+          retention-days: 14

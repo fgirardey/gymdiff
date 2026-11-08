@@ -8,9 +8,6 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  # Commit the builds are named after: the branch head on a pull request
-  # (github.sha is then a temporary merge commit), the pushed commit otherwise.
-  BUILD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
 
 jobs:
   commitlint:
@@ -37,12 +34,15 @@ jobs:
       - uses: actions/checkout@v5
       - run: cargo fmt --all -- --check
 
-  build:
+  # Lint and tests on both platforms; the release builds are in build.yml.
+  check:
     strategy:
       fail-fast: false
       matrix:
         os: [windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v5
       - uses: Swatinem/rust-cache@v2
@@ -51,43 +51,19 @@ jobs:
       - name: Tests
         run: cargo test --workspace
 
-      - name: Release build (Windows)
-        if: runner.os == 'Windows'
-        run: cargo build --release -p gymdiff-app -p gymdiff-recorder
-        env:
-          GYMDIFF_SENTRY_DSN: ${{ vars.GYMDIFF_SENTRY_DSN }}
-      - name: Upload Windows build
-        if: runner.os == 'Windows'
-        uses: actions/upload-artifact@v4
-        with:
-          name: gymdiff-windows-${{ env.BUILD_SHA }}
-          path: target/release/gymdiff.exe
-          retention-days: 14
-      - name: Upload Windows recorder
-        if: runner.os == 'Windows'
-        uses: actions/upload-artifact@v4
-        with:
-          name: gymdiff-recorder-windows-${{ env.BUILD_SHA }}
-          path: target/release/gymdiff-recorder.exe
-          retention-days: 14
-
-      - name: Release build (macOS)
-        if: runner.os == 'macOS'
-        # Tarred so the binary keeps its executable bit inside the artifact zip.
-        run: |
-          cargo build --release -p gymdiff-app
-          tar -czf gymdiff-macos.tar.gz -C target/release gymdiff
-      - name: Upload macOS build
-        if: runner.os == 'macOS'
-        uses: actions/upload-artifact@v4
-        with:
-          name: gymdiff-macos-${{ env.BUILD_SHA }}
-          path: gymdiff-macos.tar.gz
-          retention-days: 14
+  # Release builds (channel `preview`), with their debug files uploaded to Sentry.
+  build:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/build.yml
+    with:
+      channel: preview
+    secrets: inherit
 
   # Links the release builds from the pull request, in one comment updated on every push.
+  # Not for pull requests from forks: their token cannot comment.
   pr-builds:
-    if: always() && github.event_name == 'pull_request'
+    if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     needs: build
     runs-on: ubuntu-latest
     permissions:
