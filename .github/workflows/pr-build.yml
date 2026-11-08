@@ -1,0 +1,50 @@
+name: PR build
+
+# Release builds of a pull request, on demand: add the `build` label to get Windows and macOS
+# builds of every push, linked from a comment on the pull request. Without the label, pull requests
+# only run the checks of ci.yml; main is always built. See docs/Workflow/Pull requests.md.
+
+on:
+  pull_request:
+    types: [labeled, synchronize, reopened]
+
+# A new push cancels the previous build of the same pull request.
+concurrency:
+  group: pr-build-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # Labelled `build`; on `labeled`, only when that label is the one just added.
+    if: >-
+      contains(github.event.pull_request.labels.*.name, 'build') &&
+      (github.event.action != 'labeled' || github.event.label.name == 'build')
+    permissions:
+      contents: read
+    uses: ./.github/workflows/build.yml
+    with:
+      channel: preview
+    secrets: inherit
+
+  # Links the builds from the pull request, in one comment updated on every build.
+  # Not for pull requests from forks: their token cannot comment.
+  pr-builds:
+    needs: build
+    if: >-
+      always() && needs.build.result != 'skipped' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: .github/scripts
+      - name: Comment the builds on the pull request
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { default: commentBuilds } = await import('${{ github.workspace }}/.github/scripts/pr-builds-comment.mjs')
+            await commentBuilds({ github, context, core })
