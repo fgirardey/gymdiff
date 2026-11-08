@@ -4,7 +4,7 @@ How a GymDiff version is numbered, released and made readable in Sentry. Decisio
 
 ## Which build am I running?
 - In the app: About shows `0.2.0 (build 57 · a1b2c3d)`; `· alpha` means a build of `main` (it updates itself, see [[Auto-update]]), `· preview` a pull request build, `· dev` a local build.
-- In a terminal: `gymdiff --version` → `gymdiff 0.2.0+57.a1b2c3d`. From the checkout: `just version`.
+- In a terminal: `gymdiff --version` → `gymdiff 0.2.0+57.a1b2c3d`. Windows release builds have no console, so pipe the output in PowerShell: `.\gymdiff.exe --version | Write-Output`. From the checkout: `just version`.
 - On Windows: Explorer → Properties → Details of `gymdiff.exe`.
 - In Sentry: the release `gymdiff@0.2.0+57`, the `commit`, `build` and `channel` tags, the environment (`production`, `alpha`, `preview`, `development`).
 
