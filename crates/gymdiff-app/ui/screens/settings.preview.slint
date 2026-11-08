@@ -46,6 +46,7 @@ export component AppShellSettingsCrashReportsOn inherits Rectangle {
 export component SettingsScreenPlayground inherits Window {
     in-out property <bool> crash-reports;
     in-out property <bool> all-logs;
+    in-out property <bool> debug-tools: true;
 
     background: Theme.background;
     preferred-width: 400px;
@@ -59,6 +60,8 @@ export component SettingsScreenPlayground inherits Window {
             vertical-stretch: 1;
             crash-reports: root.crash-reports;
             all-logs: root.all-logs;
+            debug-tools: root.debug-tools;
+            open-debug => { playground.log("open-debug"); }
             back => { playground.log("back"); }
             crash-reports-toggled => {
                 root.crash-reports = !root.crash-reports;
@@ -89,6 +92,18 @@ export component Preview inherits Window {
         PreviewCase {
             label: "App shell / Settings / Crash reports on";
             AppShellSettingsCrashReportsOn { }
+        }
+        PreviewCase {
+            label: "With the debug link (debug builds)";
+            AppShell {
+                width: 400px;
+                height: 640px;
+                connected: true;
+                status-label: Fixtures.status-lobby;
+                settings-active: true;
+
+                SettingsScreen { vertical-stretch: 1; debug-tools: true; }
+            }
         }
     }
 }

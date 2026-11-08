@@ -10,6 +10,7 @@ import { WelcomeScreen } from "screens/welcome.slint";
 import { HistoryEmpty } from "screens/history.slint";
 import { AboutScreen } from "screens/about.slint";
 import { SettingsScreen } from "screens/settings.slint";
+import { DebugScreen } from "screens/debug.slint";
 
 export { Screen }
 
@@ -27,12 +28,16 @@ export component AppWindow inherits Window {
     /// Opt-in error reports (docs/Decisions/ADR-0006): set by Rust from the stored consent.
     in-out property <bool> crash-reports: false;
     in-out property <bool> all-logs: false;
+    /// Throwaway debug screen, linked from Settings. Rust sets it in debug builds only.
+    in property <bool> debug-tools: false;
 
     /// The player clicked "Let's go" on the welcome screen.
     callback welcome-done;
     /// The player flipped a switch in Settings; `enabled` is the new value.
     callback crash-reports-changed(enabled: bool);
     callback all-logs-changed(enabled: bool);
+    /// A button of the throwaway debug screen was pressed.
+    callback debug-event(kind: string);
 
     if root.screen == Screen.welcome: WelcomeScreen {
         lets-go => {
@@ -63,6 +68,8 @@ export component AppWindow inherits Window {
             vertical-stretch: 1;
             crash-reports: root.crash-reports;
             all-logs: root.all-logs;
+            debug-tools: root.debug-tools;
+            open-debug => { root.screen = Screen.debug; }
             back => { root.screen = Screen.history; }
             crash-reports-toggled => {
                 root.crash-reports = !root.crash-reports;
@@ -72,6 +79,12 @@ export component AppWindow inherits Window {
                 root.all-logs = !root.all-logs;
                 root.all-logs-changed(root.all-logs);
             }
+        }
+
+        if root.screen == Screen.debug: DebugScreen {
+            vertical-stretch: 1;
+            fire(kind) => { root.debug-event(kind); }
+            back => { root.screen = Screen.settings; }
         }
     }
 }

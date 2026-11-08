@@ -1,0 +1,59 @@
+// Previews of DebugScreen (throwaway): `just preview screens/debug`.
+
+import { Theme } from "../theme.slint";
+import { AppShell } from "../shell/app-shell.slint";
+import { DebugScreen } from "debug.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// No Pencil frame: this screen is a throwaway. Same size as the others (400 × 640).
+export component DebugScreenStory inherits Rectangle {
+    width: 400px;
+    height: 640px;
+    background: Theme.background;
+    clip: true;
+
+    AppShell {
+        connected: true;
+        status-label: Fixtures.status-lobby;
+        settings-active: true;
+
+        DebugScreen { vertical-stretch: 1; }
+    }
+}
+
+// Clicks show as the last action.
+export component DebugScreenPlayground inherits Window {
+    background: Theme.background;
+    preferred-width: 400px;
+    preferred-height: 640px;
+
+    playground := PreviewPlayground {
+        padding: 0;
+        alignment: stretch;
+
+        DebugScreen {
+            vertical-stretch: 1;
+            back => { playground.log("back"); }
+            fire(kind) => { playground.log("fire " + kind); }
+        }
+    }
+}
+
+// Gallery (default component of the file).
+export component Preview inherits Window {
+    title: "DebugScreen";
+    background: Theme.background;
+
+    HorizontalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Debug events (throwaway)";
+            DebugScreenStory { }
+        }
+    }
+}

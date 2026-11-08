@@ -5,6 +5,7 @@
 //! - background thread: Tokio runtime running the [`watcher`], which polls the
 //!   League client (real or simulated) and pushes state updates to the UI.
 
+mod debug_events;
 mod platform;
 mod reporting;
 mod settings;
@@ -52,6 +53,9 @@ fn main() -> anyhow::Result<()> {
         Ok(_) => tracing::info!(enabled, "error reports choice saved"),
         Err(error) => tracing::warn!(%error, "cannot save the error reports choice"),
     });
+
+    window.set_debug_tools(cfg!(debug_assertions));
+    window.on_debug_event(|kind| debug_events::fire(kind.as_str()));
 
     let weak = window.as_weak();
     std::thread::Builder::new()

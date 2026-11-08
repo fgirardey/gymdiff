@@ -10,7 +10,10 @@ import { SettingRow } from "../components/setting-row.slint";
 export component SettingsScreen inherits VerticalLayout {
     in property <bool> crash-reports;
     in property <bool> all-logs;
+    /// Shows the link to the throwaway debug screen (debug builds only).
+    in property <bool> debug-tools;
     callback back;
+    callback open-debug;
     /// The player clicked a switch; the parent decides whether the value changes.
     callback crash-reports-toggled;
     callback all-logs-toggled;
@@ -65,5 +68,13 @@ export component SettingsScreen inherits VerticalLayout {
         color: Theme.text-secondary;
         font-size: Theme.font-size-caption;
         wrap: word-wrap;
+    }
+
+    if root.debug-tools: HorizontalLayout {
+        alignment: start;
+        BackLink {
+            text: "Debug events";
+            clicked => { root.open-debug(); }
+        }
     }
 }
