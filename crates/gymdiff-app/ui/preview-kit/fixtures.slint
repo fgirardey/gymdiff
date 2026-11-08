@@ -13,7 +13,7 @@ export global Fixtures {
     out property <string> status-error: "Error: connection refused (os error 61)";
 
     out property <string> setting-crash-label: "Send crash reports";
-    out property <string> setting-crash-detail: "When GymDiff crashes or hits an error, send the scrubbed error with the app version and OS. No names, Riot IDs or game data.";
+    out property <string> setting-crash-detail: "When GymDiff crashes or hits an error, send the scrubbed error, where it happened in the code, the app version and OS. A hard crash also sends a memory snapshot of GymDiff, used only to find the cause.";
     out property <string> setting-logs-label: "Send all logs";
     out property <string> setting-logs-detail: "Also send everyday logs, scrubbed the same way. Helps fix bugs that don't crash.";
 }
