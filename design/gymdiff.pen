@@ -36882,6 +36882,140 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "type": "frame",
+                  "id": "O68Fx",
+                  "name": "Section / Shortcuts",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "MCwJU",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "SHORTCUTS",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "VIj2Z",
+                      "name": "Setting / Start menu",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "sV2QM",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "YyJIa",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Start menu",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "k2RW2U",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "GymDiff in the Start menu and Windows Search.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "IK3dR",
+                          "type": "ref",
+                          "ref": "n3W1d",
+                          "name": "Switch"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "DX6Qh",
+                      "name": "Setting / Desktop",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "m3DEEL",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "bNjIF",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Desktop",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "aJGph",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "A GymDiff icon on your Desktop.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "ozvCw",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -37196,6 +37330,140 @@
                               "fontWeight": "600"
                             }
                           ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "L6Q7c",
+                  "name": "Section / Shortcuts",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "IUng6",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "SHORTCUTS",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "BJHm6",
+                      "name": "Setting / Start menu",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "QBXqu",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "HRwSH",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Start menu",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "xnrua",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "GymDiff in the Start menu and Windows Search.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "khMZM",
+                          "type": "ref",
+                          "ref": "n3W1d",
+                          "name": "Switch"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "viLGV",
+                      "name": "Setting / Desktop",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "P70cqa",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Lpldb",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Desktop",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "s8hre",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "A GymDiff icon on your Desktop.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "W1SjW",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
                         }
                       ]
                     }
@@ -37522,6 +37790,140 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "type": "frame",
+                  "id": "NR8TX",
+                  "name": "Section / Shortcuts",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "MLKQq",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "SHORTCUTS",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "dgKVm",
+                      "name": "Setting / Start menu",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "L4fGd",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "g7aFnk",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Start menu",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "Mo3Fw",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "GymDiff in the Start menu and Windows Search.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "kgMbh",
+                          "type": "ref",
+                          "ref": "n3W1d",
+                          "name": "Switch"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "u5WrjI",
+                      "name": "Setting / Desktop",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "B4XZZ",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "RBIrY",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Desktop",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "t4prTZ",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "A GymDiff icon on your Desktop.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "L675J",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -37843,6 +38245,140 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "type": "frame",
+                  "id": "R8iaNU",
+                  "name": "Section / Shortcuts",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "oEbyr",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "SHORTCUTS",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "iiFys",
+                      "name": "Setting / Start menu",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Q7nrK",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "EfFVb",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Start menu",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "e0uyOf",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "GymDiff in the Start menu and Windows Search.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "SXsg5",
+                          "type": "ref",
+                          "ref": "n3W1d",
+                          "name": "Switch"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "NcBph",
+                      "name": "Setting / Desktop",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "pJURd",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "W4hrH",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Desktop",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "DOnx3",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "A GymDiff icon on your Desktop.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "j5esmX",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -38160,6 +38696,1334 @@
                               "fontWeight": "600"
                             }
                           ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "pmRp6",
+                  "name": "Section / Shortcuts",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "AYHq1",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "SHORTCUTS",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "MYtvI",
+                      "name": "Setting / Start menu",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "qPTKy",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "A1gI3w",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Start menu",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "FjB1W",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "GymDiff in the Start menu and Windows Search.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "fSO7Y",
+                          "type": "ref",
+                          "ref": "n3W1d",
+                          "name": "Switch"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "d2CuFj",
+                      "name": "Setting / Desktop",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "m1x5NW",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "NbISs",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Desktop",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "rJxUV",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "A GymDiff icon on your Desktop.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xvRjP",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "frame",
+      "id": "q49fU5",
+      "x": 0,
+      "y": 5240,
+      "name": "Installer / Window / Options",
+      "clip": true,
+      "width": 420,
+      "height": 460,
+      "fill": "$background",
+      "layout": "vertical",
+      "gap": "$space-l",
+      "padding": "$space-xl",
+      "children": [
+        {
+          "type": "frame",
+          "id": "d1Gq0j",
+          "name": "Crest",
+          "width": 36,
+          "height": 36,
+          "layout": "none",
+          "children": [
+            {
+              "type": "path",
+              "id": "YkTAB",
+              "x": 5.201149811648799,
+              "y": 1.0705070993914814,
+              "name": "Shield",
+              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+              "fill": "#0D1117",
+              "width": 25.247193277310924,
+              "height": 34.20949290060852
+            },
+            {
+              "type": "path",
+              "id": "lQG8r",
+              "x": 5.559000869313243,
+              "y": 1.0705070993914814,
+              "name": "Border",
+              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+              "width": 24.88934221964648,
+              "height": 33.76618487394958,
+              "stroke": "#E6EDF3",
+              "strokeWidth": 1.1216227180527383
+            },
+            {
+              "type": "path",
+              "id": "iIgoM",
+              "x": 10.440730223123733,
+              "y": 5.946895392639815,
+              "name": "Up chevron",
+              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+              "fill": "#3FB950",
+              "width": 14.794737757171832,
+              "height": 11.67555838887279
+            },
+            {
+              "type": "path",
+              "id": "hEi0a",
+              "x": 10.440730223123733,
+              "y": 18.64793740944654,
+              "name": "Down chevron",
+              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+              "fill": "#F85149",
+              "width": 14.794737757171832,
+              "height": 9.74743552593451
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Pa3Ek",
+          "name": "Pitch",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": "$space-s",
+          "children": [
+            {
+              "type": "text",
+              "id": "pVrh8",
+              "name": "Headline",
+              "fill": "$text-primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "INSTALL GYMDIFF",
+              "lineHeight": 1.05,
+              "fontFamily": "$font-display",
+              "fontSize": "$font-size-headline",
+              "fontWeight": "800",
+              "fontStyle": "italic"
+            },
+            {
+              "type": "text",
+              "id": "agh6y",
+              "name": "Subline",
+              "fill": "$text-secondary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "For your Windows account only. No administrator rights needed.",
+              "lineHeight": 1.5,
+              "fontFamily": "$font-body",
+              "fontSize": "$font-size-body",
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "C6EiDX",
+          "name": "Shortcuts",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": "$space-m",
+          "children": [
+            {
+              "type": "text",
+              "id": "BBGp9",
+              "name": "Section label",
+              "fill": "$text-secondary",
+              "content": "SHORTCUTS",
+              "fontFamily": "$font-body",
+              "fontSize": "$font-size-caption",
+              "fontWeight": "600",
+              "letterSpacing": 1
+            },
+            {
+              "type": "frame",
+              "id": "rDu3o",
+              "name": "Option / Start menu",
+              "width": "fill_container",
+              "gap": "$space-m",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "FaxqG",
+                  "name": "Consent text",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "QcZED",
+                      "name": "Label",
+                      "fill": "$text-primary",
+                      "content": "Add to the Start menu",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-body",
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "WgT8j",
+                      "name": "Detail",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "So Windows Search finds GymDiff.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "id": "wh0Ge",
+                  "type": "ref",
+                  "ref": "n3W1d",
+                  "name": "Switch"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "r3vSN",
+              "name": "Option / Desktop",
+              "width": "fill_container",
+              "gap": "$space-m",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "xnTZd",
+                  "name": "Consent text",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Jmb5u",
+                      "name": "Label",
+                      "fill": "$text-primary",
+                      "content": "Add a Desktop shortcut",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-body",
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "id": "jHjEk",
+                  "type": "ref",
+                  "ref": "GX2CB",
+                  "name": "Switch"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "QJcxe",
+          "name": "Spacer",
+          "width": "fill_container",
+          "height": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "ppIPQ",
+          "name": "Buttons",
+          "width": "fill_container",
+          "gap": "$space-m",
+          "justifyContent": "end",
+          "children": [
+            {
+              "type": "frame",
+              "id": "I0sxmB",
+              "name": "Cancel button",
+              "width": 120,
+              "height": 44,
+              "cornerRadius": "$radius-m",
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "htx0R",
+                  "name": "Label",
+                  "fill": "$text-primary",
+                  "content": "Cancel",
+                  "fontFamily": "$font-body",
+                  "fontSize": "$font-size-body",
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "TtXA0",
+              "name": "Install button",
+              "width": 120,
+              "height": 44,
+              "fill": "$accent",
+              "cornerRadius": "$radius-m",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "fA2Pq",
+                  "name": "Label",
+                  "fill": "$background",
+                  "content": "Install",
+                  "fontFamily": "$font-body",
+                  "fontSize": "$font-size-body",
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "z0jJih",
+      "x": 500,
+      "y": 5240,
+      "name": "Installer / Window / Installing",
+      "clip": true,
+      "width": 420,
+      "height": 460,
+      "fill": "$background",
+      "layout": "vertical",
+      "gap": "$space-l",
+      "padding": "$space-xl",
+      "children": [
+        {
+          "type": "frame",
+          "id": "nqQtm",
+          "name": "Crest",
+          "width": 36,
+          "height": 36,
+          "layout": "none",
+          "children": [
+            {
+              "type": "path",
+              "id": "M9nY2",
+              "x": 5.201149811648799,
+              "y": 1.0705070993914814,
+              "name": "Shield",
+              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+              "fill": "#0D1117",
+              "width": 25.247193277310924,
+              "height": 34.20949290060852
+            },
+            {
+              "type": "path",
+              "id": "Th4gY",
+              "x": 5.559000869313243,
+              "y": 1.0705070993914814,
+              "name": "Border",
+              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+              "width": 24.88934221964648,
+              "height": 33.76618487394958,
+              "stroke": "#E6EDF3",
+              "strokeWidth": 1.1216227180527383
+            },
+            {
+              "type": "path",
+              "id": "ApYbS",
+              "x": 10.440730223123733,
+              "y": 5.946895392639815,
+              "name": "Up chevron",
+              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+              "fill": "#3FB950",
+              "width": 14.794737757171832,
+              "height": 11.67555838887279
+            },
+            {
+              "type": "path",
+              "id": "h9pBz",
+              "x": 10.440730223123733,
+              "y": 18.64793740944654,
+              "name": "Down chevron",
+              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+              "fill": "#F85149",
+              "width": 14.794737757171832,
+              "height": 9.74743552593451
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "KyFFS",
+          "name": "Pitch",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": "$space-s",
+          "children": [
+            {
+              "type": "text",
+              "id": "oxUL6",
+              "name": "Headline",
+              "fill": "$text-primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "INSTALLING…",
+              "lineHeight": 1.05,
+              "fontFamily": "$font-display",
+              "fontSize": "$font-size-headline",
+              "fontWeight": "800",
+              "fontStyle": "italic"
+            },
+            {
+              "type": "text",
+              "id": "cYRmm",
+              "name": "Subline",
+              "fill": "$text-secondary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "GymDiff 0.1.0 (build 62) is being installed.",
+              "lineHeight": 1.5,
+              "fontFamily": "$font-body",
+              "fontSize": "$font-size-body",
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ozpZ2",
+          "name": "Progress",
+          "clip": true,
+          "width": "fill_container",
+          "height": 6,
+          "fill": "$surface",
+          "cornerRadius": 3,
+          "children": [
+            {
+              "type": "frame",
+              "id": "MjRrA",
+              "name": "Progress / Bar",
+              "width": 150,
+              "height": 6,
+              "fill": "$accent",
+              "cornerRadius": 3
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "yrYbt",
+          "name": "Spacer",
+          "width": "fill_container",
+          "height": "fill_container"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "wL0YM",
+      "x": 1000,
+      "y": 5240,
+      "name": "Installer / Window / Done",
+      "clip": true,
+      "width": 420,
+      "height": 460,
+      "fill": "$background",
+      "layout": "vertical",
+      "gap": "$space-l",
+      "padding": "$space-xl",
+      "children": [
+        {
+          "type": "frame",
+          "id": "K8Z2U",
+          "name": "Crest",
+          "width": 36,
+          "height": 36,
+          "layout": "none",
+          "children": [
+            {
+              "type": "path",
+              "id": "y4UHz",
+              "x": 5.201149811648799,
+              "y": 1.0705070993914814,
+              "name": "Shield",
+              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+              "fill": "#0D1117",
+              "width": 25.247193277310924,
+              "height": 34.20949290060852
+            },
+            {
+              "type": "path",
+              "id": "i1dsl",
+              "x": 5.559000869313243,
+              "y": 1.0705070993914814,
+              "name": "Border",
+              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+              "width": 24.88934221964648,
+              "height": 33.76618487394958,
+              "stroke": "#E6EDF3",
+              "strokeWidth": 1.1216227180527383
+            },
+            {
+              "type": "path",
+              "id": "hlLsF",
+              "x": 10.440730223123733,
+              "y": 5.946895392639815,
+              "name": "Up chevron",
+              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+              "fill": "#3FB950",
+              "width": 14.794737757171832,
+              "height": 11.67555838887279
+            },
+            {
+              "type": "path",
+              "id": "JChCF",
+              "x": 10.440730223123733,
+              "y": 18.64793740944654,
+              "name": "Down chevron",
+              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+              "fill": "#F85149",
+              "width": 14.794737757171832,
+              "height": 9.74743552593451
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "DcAdq",
+          "name": "Pitch",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": "$space-s",
+          "children": [
+            {
+              "type": "text",
+              "id": "Llwsy",
+              "name": "Headline",
+              "fill": "$text-primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "GYMDIFF IS INSTALLED",
+              "lineHeight": 1.05,
+              "fontFamily": "$font-display",
+              "fontSize": "$font-size-headline",
+              "fontWeight": "800",
+              "fontStyle": "italic"
+            },
+            {
+              "type": "text",
+              "id": "qJh6k",
+              "name": "Subline",
+              "fill": "$text-secondary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Open it any time from the shortcuts you chose.",
+              "lineHeight": 1.5,
+              "fontFamily": "$font-body",
+              "fontSize": "$font-size-body",
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "OZPrn",
+          "name": "Options",
+          "width": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "E3dmKY",
+              "name": "Option / Launch",
+              "width": "fill_container",
+              "gap": "$space-m",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "joiXB",
+                  "name": "Consent text",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "a0xSdv",
+                      "name": "Label",
+                      "fill": "$text-primary",
+                      "content": "Launch GymDiff",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-body",
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "id": "jGhkw",
+                  "type": "ref",
+                  "ref": "n3W1d",
+                  "name": "Switch"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "iNch4",
+          "name": "Spacer",
+          "width": "fill_container",
+          "height": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "xNV9f",
+          "name": "Finish button",
+          "width": "fill_container",
+          "height": 44,
+          "fill": "$accent",
+          "cornerRadius": "$radius-m",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Kzz1A",
+              "name": "Label",
+              "fill": "$background",
+              "content": "Finish",
+              "fontFamily": "$font-body",
+              "fontSize": "$font-size-body",
+              "fontWeight": "700"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "JagZN",
+      "x": 1500,
+      "y": 5240,
+      "name": "Installer / Window / Failed",
+      "clip": true,
+      "width": 420,
+      "height": 460,
+      "fill": "$background",
+      "layout": "vertical",
+      "gap": "$space-l",
+      "padding": "$space-xl",
+      "children": [
+        {
+          "type": "frame",
+          "id": "ElvYD",
+          "name": "Crest",
+          "width": 36,
+          "height": 36,
+          "layout": "none",
+          "children": [
+            {
+              "type": "path",
+              "id": "LCPH9",
+              "x": 5.201149811648799,
+              "y": 1.0705070993914814,
+              "name": "Shield",
+              "geometry": "M70.98 0l-70.98 28.83 0 84.03c13.86 31.64999 39.66 56.84999 70.98 79.29001 31.31999-23.40001 59.61-49.02001 70.83-79.29001l0-83.85-70.83-29.01z",
+              "fill": "#0D1117",
+              "width": 25.247193277310924,
+              "height": 34.20949290060852
+            },
+            {
+              "type": "path",
+              "id": "UGF5k",
+              "x": 5.559000869313243,
+              "y": 1.0705070993914814,
+              "name": "Border",
+              "geometry": "M68.97 0l70.83 29.01 0 83.55c-12.83999 31.35-42.12001 57.95999-70.83 77.1-29.52-22.83-56.34-47.49-68.97-77.1l0-82.47 68.97-30.09z",
+              "width": 24.88934221964648,
+              "height": 33.76618487394958,
+              "stroke": "#E6EDF3",
+              "strokeWidth": 1.1216227180527383
+            },
+            {
+              "type": "path",
+              "id": "mynA1",
+              "x": 10.440730223123733,
+              "y": 5.946895392639815,
+              "name": "Up chevron",
+              "geometry": "M0 40.77l0 24.81 25.65001-21.33 15.89999-15.24001 15.9 15.24001 25.64999 21.33 0-24.78-41.60999-40.8-41.49 40.77z",
+              "fill": "#3FB950",
+              "width": 14.794737757171832,
+              "height": 11.67555838887279
+            },
+            {
+              "type": "path",
+              "id": "CTx0W",
+              "x": 10.440730223123733,
+              "y": 18.64793740944654,
+              "name": "Down chevron",
+              "geometry": "M0 0l0 15.12001 41.55 39.62999 41.54999-39.62999 0-15.12001-14.66998 0-26.88001 27.39-26.97-27.39-14.58 0z",
+              "fill": "#F85149",
+              "width": 14.794737757171832,
+              "height": 9.74743552593451
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "eHEeh",
+          "name": "Pitch",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": "$space-s",
+          "children": [
+            {
+              "type": "text",
+              "id": "wLL41",
+              "name": "Headline",
+              "fill": "$text-primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "INSTALLATION FAILED",
+              "lineHeight": 1.05,
+              "fontFamily": "$font-display",
+              "fontSize": "$font-size-headline",
+              "fontWeight": "800",
+              "fontStyle": "italic"
+            },
+            {
+              "type": "text",
+              "id": "ZcFjf",
+              "name": "Subline",
+              "fill": "$text-secondary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Couldn't install GymDiff: the installation was interrupted. Nothing was changed.",
+              "lineHeight": 1.5,
+              "fontFamily": "$font-body",
+              "fontSize": "$font-size-body",
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "dtaOn",
+          "name": "Spacer",
+          "width": "fill_container",
+          "height": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "tO0O2",
+          "name": "Close button",
+          "width": "fill_container",
+          "height": 44,
+          "cornerRadius": "$radius-m",
+          "stroke": "$border",
+          "strokeWidth": 1,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "X7hXr",
+              "name": "Label",
+              "fill": "$text-primary",
+              "content": "Close",
+              "fontFamily": "$font-body",
+              "fontSize": "$font-size-body",
+              "fontWeight": "600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "h3LGVe",
+      "type": "ref",
+      "ref": "SKE9k",
+      "name": "App shell / Settings / Scrolled to the bottom",
+      "x": 3840,
+      "y": 4480,
+      "descendants": {
+        "GHZ8R": {
+          "content": "Connected · Lobby"
+        },
+        "wOgKz": {
+          "fill": "$border"
+        },
+        "ZMlng": {
+          "fill": "$text-primary"
+        },
+        "ebEjx": {
+          "clip": true,
+          "children": [
+            {
+              "type": "frame",
+              "id": "Fpnh8",
+              "name": "Content",
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": "$space-m",
+              "padding": "$space-l",
+              "justifyContent": "end",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "OrXvF",
+                  "name": "Back",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "hp8uU",
+                      "name": "Back icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "chevron-left",
+                      "library": "lucide",
+                      "fill": "$text-secondary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "GkQQC",
+                      "name": "Back label",
+                      "fill": "$text-secondary",
+                      "content": "History",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-body",
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "QF458",
+                  "name": "Screen title",
+                  "fill": "$text-primary",
+                  "content": "SETTINGS",
+                  "fontFamily": "$font-display",
+                  "fontSize": "$font-size-title",
+                  "fontWeight": "800",
+                  "letterSpacing": 1,
+                  "fontStyle": "italic"
+                },
+                {
+                  "type": "frame",
+                  "id": "eU5AT",
+                  "name": "Section / Error reports",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "qPp7C",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "ERROR REPORTS",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "g7JDX7",
+                      "name": "Setting / Crash reports",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "wD6FE",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "w1CvzM",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Send crash reports",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "r6xSmQ",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "When GymDiff crashes or hits an error, send the scrubbed error, where it happened in the code, the app version and OS. A hard crash also sends a memory snapshot of GymDiff, used only to find the cause.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "ZuaxJ",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "oQqeS",
+                      "name": "Setting / All logs",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "PBYx7",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "QBni8",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Send all logs",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "wldLP",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Also send everyday logs, scrubbed the same way. Helps fix bugs that don't crash.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "UVyte",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "URJot",
+                  "name": "Retention note",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Both are off by default. Reports are deleted after 30 days.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font-body",
+                  "fontSize": "$font-size-caption",
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "jT5cL",
+                  "name": "Section / Updates",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "zR0YZ",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "UPDATES",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "xCIBg",
+                      "name": "Setting / Updates",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "EgZ1X",
+                          "name": "Updates text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "mObHt",
+                              "name": "Updates label",
+                              "fill": "$text-primary",
+                              "content": "Alpha channel",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "x2Q2pl",
+                              "name": "Update status",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Up to date. Last checked at 14:05.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "N4eV2W",
+                          "name": "Check now button",
+                          "height": 36,
+                          "cornerRadius": "$radius-m",
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "padding": [
+                            0,
+                            "$space-m"
+                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ktVx3",
+                              "name": "Check now label",
+                              "fill": "$text-primary",
+                              "content": "Check now",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "wlI4t",
+                  "name": "Section / Shortcuts",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "I19mO",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "SHORTCUTS",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "lkMuV",
+                      "name": "Setting / Start menu",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "rCbSw",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "CFYDr",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Start menu",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "x1qYc",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "GymDiff in the Start menu and Windows Search.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "CAA5i",
+                          "type": "ref",
+                          "ref": "n3W1d",
+                          "name": "Switch"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ghxnO",
+                      "name": "Setting / Desktop",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "tqO4m",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "eSHjo",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Desktop",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "i0Ul0",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "A GymDiff icon on your Desktop.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "n1I30",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
                         }
                       ]
                     }
