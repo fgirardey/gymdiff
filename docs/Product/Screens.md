@@ -97,6 +97,11 @@ The canvas is laid out along the user flow: one row per stage, left to right in 
 | `App shell / Settings / Updates checking` | Settings, update check running (Check now disabled) |
 | `App shell / Settings / Updates ready` | Settings, a new alpha build installed for the next launch |
 | `App shell / Settings / Updates failed` | Settings, the last update check failed |
+| `App shell / Settings / Scrolled to the bottom` | Settings scrolled down: Updates and Shortcuts sections |
+| `Installer / Window / Options` | Installer: welcome and shortcut choices |
+| `Installer / Window / Installing` | Installer: installation in progress |
+| `Installer / Window / Done` | Installer: installed, Launch GymDiff switch and Finish |
+| `Installer / Window / Failed` | Installer: installation failed |
 
 ## Open questions
 - Can the window be resized, and down to what size?
