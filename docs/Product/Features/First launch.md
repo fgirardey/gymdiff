@@ -23,7 +23,7 @@ The workout is a penalty: the player must agree to the deal and know that the nu
 - If a game ends while the welcome is open, the workout is still computed and shown once the player clicks Let's go.
 
 ## Data
-A "welcome seen" flag stored locally (`%APPDATA%\GymDiff\` on Windows, `~/Library/Application Support/GymDiff/` on macOS). This is the first piece of settings persistence ([[Roadmap]]).
+The `welcome_seen` field of `settings.json` ([[ADR-0007 Local persistence]]; earlier versions used a `welcome-seen` marker file, still read and migrated), stored locally (`%APPDATA%\GymDiff\` on Windows, `~/Library/Application Support/GymDiff/` on macOS). This is the first piece of settings persistence ([[Roadmap]]).
 
 ## Design
 `First launch / Welcome / Default` in `design/gymdiff.pen`.

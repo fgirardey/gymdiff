@@ -35,6 +35,21 @@ Colours come from the brand direction chosen in Pencil (see [[Brand]]): a K/DA r
 |---|---|
 | `radius-m` | 8px |
 
+## Interaction
+Hover and pressed states, shown in the `Interaction states` section of the `Foundations` page. Every interactive control adds a **state layer** in its content colour (Material), filled and outlined buttons also **shrink** while pressed (iOS), and every change eases out.
+
+| Token | Value | Usage |
+|---|---|---|
+| `state-opacity-hover` | 0.08 | State layer opacity while hovered |
+| `state-opacity-pressed` | 0.12 | State layer opacity while pressed |
+| `press-scale` | 0.97 | Scale of filled and outlined buttons while pressed |
+| `motion-fast` | 100ms | Hover and press transitions (ease-out) |
+| `motion-medium` | 200ms | Switch toggle, card expand and collapse (ease-out) |
+
+The state layer colour is the control's content colour: `background` on `accent` buttons and on the "on" switch track, `text-primary` everywhere else. Text links have no layer: they turn `text-primary` on hover and drop to 60% opacity while pressed. In Pencil the durations are plain numbers in milliseconds.
+
+In Slint, `components/state-layer.slint` (`StateLayer`) draws the layer: every interactive control lays one over its background, fed by its `TouchArea`'s `has-hover` and `pressed`.
+
 ## Typography
 | Token | Size | Usage |
 |---|---|---|

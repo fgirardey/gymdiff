@@ -1,8 +1,9 @@
-// On/off switch.
+// On/off switch. Tinted on hover; the knob stretches while pressed and slides when toggled.
 //
 // Frames in design/gymdiff.pen: `Switch / Off`, `Switch / On`.
 
 import { Theme } from "../theme.slint";
+import { StateLayer } from "state-layer.slint";
 
 export component Switch inherits Rectangle {
     in property <bool> checked;
@@ -13,17 +14,35 @@ export component Switch inherits Rectangle {
     height: 20px;
     border-radius: self.height / 2;
     background: root.checked ? Theme.accent : Theme.border;
+    animate background {
+        duration: Theme.motion-medium;
+        easing: ease-out;
+    }
+
+    StateLayer {
+        border-radius: root.border-radius;
+        tint: root.checked ? Theme.background : Theme.text-primary;
+        hovered: touch.has-hover;
+        pressed: touch.pressed;
+    }
 
     Rectangle {
         x: root.checked ? parent.width - self.width - 2px : 2px;
-        width: 16px;
+        width: touch.pressed ? 20px : 16px;
         height: 16px;
         border-radius: self.height / 2;
         background: root.checked ? Theme.text-primary : Theme.text-secondary;
-        animate x { duration: 120ms; }
+        animate x, background {
+            duration: Theme.motion-medium;
+            easing: ease-out;
+        }
+        animate width {
+            duration: Theme.motion-fast;
+            easing: ease-out;
+        }
     }
 
-    TouchArea {
+    touch := TouchArea {
         mouse-cursor: pointer;
         clicked => { root.toggled(); }
     }

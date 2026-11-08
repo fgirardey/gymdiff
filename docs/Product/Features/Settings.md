@@ -23,7 +23,7 @@ Error reports are opt-in ([[ADR-0006 Opt-in error reports]]): the choice must be
 - **Debug events** (throwaway, debug builds only, no design): a link at the bottom of Settings opens a screen with buttons that log a warning, log an error, log an error with personal data (to check scrubbing) or panic in a thread, to test the error reports end to end. Delete it once the integration is verified (`ui/screens/debug.slint`, `src/debug_events.rs`).
 
 ## Data
-`diagnostics.json` in the data folder (`ConsentStore` in `gymdiff-diagnostics`).
+Preferences live in `settings.json` ([[ADR-0007 Local persistence]]). The consent is separate on purpose: `diagnostics.json` in the data folder (`ConsentStore` in `gymdiff-diagnostics`).
 
 ## Design
 `App shell / Settings / Default` and `App shell / Settings / Crash reports on` in `design/gymdiff.pen`; components `Switch / Off`, `Switch / On`.
