@@ -2,7 +2,7 @@
 //! `docs/Decisions/ADR-0008 Versioning and releases.md`):
 //! - `GYMDIFF_BUILD_NUMBER`: commits reachable from `HEAD` (monotonic on `main`),
 //! - `GYMDIFF_BUILD_COMMIT`: the commit built,
-//! - `GYMDIFF_BUILD_CHANNEL`: `release`, `preview` or `development`,
+//! - `GYMDIFF_BUILD_CHANNEL`: `release`, `alpha`, `preview` or `development`,
 //! - `GYMDIFF_BUILD_TARGET` / `GYMDIFF_BUILD_RUSTC`: target triple and compiler.
 //!
 //! On Windows it also embeds the version resource shown in the file
@@ -56,7 +56,7 @@ impl Build {
             .or_else(|| git(&["rev-parse", "HEAD"]))
             .unwrap_or_else(|| "unknown".to_owned());
         let channel = match env("GYMDIFF_CHANNEL").as_deref() {
-            Some(channel @ ("release" | "preview")) => channel.to_owned(),
+            Some(channel @ ("release" | "alpha" | "preview")) => channel.to_owned(),
             _ => "development".to_owned(),
         };
         Self {
