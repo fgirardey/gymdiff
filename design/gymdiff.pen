@@ -2377,6 +2377,2251 @@
               ]
             }
           ]
+        },
+        {
+          "type": "frame",
+          "id": "aw9FS",
+          "name": "Interaction states",
+          "width": "fill_container",
+          "fill": "$background",
+          "layout": "vertical",
+          "gap": 20,
+          "children": [
+            {
+              "type": "text",
+              "id": "shSM5",
+              "name": "Section label",
+              "fill": "$text-secondary",
+              "content": "INTERACTION STATES",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 12,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "text",
+              "id": "cIWRM",
+              "name": "Principle",
+              "fill": "$text-secondary",
+              "textGrowth": "fixed-width",
+              "width": 900,
+              "content": "Hover and pressed add a state layer in the control's content colour: 8% on hover, 12% while pressed (Material). Filled and outlined buttons also shrink to 97% while pressed (iOS). Hover and press ease out over 100 ms, switches and card expansion over 200 ms.",
+              "lineHeight": 1.5,
+              "fontFamily": "$font-body",
+              "fontSize": "$font-size-body",
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "WgnzP",
+              "name": "States grid",
+              "width": "fill_container",
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "CKKTd",
+                  "name": "Row / Header",
+                  "width": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 24,
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "sailb",
+                      "name": "COMPONENT",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": 300,
+                      "content": "COMPONENT",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "CX1s8",
+                      "name": "DEFAULT",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "DEFAULT",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "nsI4x",
+                      "name": "HOVER",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "HOVER",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "EnIZT",
+                      "name": "PRESSED",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "PRESSED",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal",
+                      "letterSpacing": 2
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ekpjk",
+                  "name": "Row / Primary button",
+                  "width": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 24,
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "MgCQF",
+                      "name": "Spec",
+                      "width": 300,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "wdcZY",
+                          "name": "Name",
+                          "fill": "$text-primary",
+                          "content": "Primary button",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-body",
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "AWjnq",
+                          "name": "Notes",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Let's go, Done, Resume, Close, Start, Start workout. Layer in background colour.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-caption",
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "x7sWp",
+                      "name": "Default",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "n2dFD",
+                          "name": "Primary button / Default",
+                          "width": 260,
+                          "height": 44,
+                          "fill": "$accent",
+                          "cornerRadius": "$radius-m",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "LMvS0",
+                              "name": "Label",
+                              "fill": "$background",
+                              "content": "Let's go",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "vGAvi",
+                      "name": "Hover",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "RzbdN",
+                          "name": "Primary button / Hover",
+                          "width": 260,
+                          "height": 44,
+                          "fill": [
+                            "$accent",
+                            "#0D111714"
+                          ],
+                          "cornerRadius": "$radius-m",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Yv5Dv",
+                              "name": "Label",
+                              "fill": "$background",
+                              "content": "Let's go",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "un4ob",
+                      "name": "Pressed",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "T81bRZ",
+                          "name": "Primary button / Pressed",
+                          "width": 252,
+                          "height": 43,
+                          "fill": [
+                            "$accent",
+                            "#0D11171F"
+                          ],
+                          "cornerRadius": "$radius-m",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "dVaeA",
+                              "name": "Label",
+                              "fill": "$background",
+                              "content": "Let's go",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "T57ZX",
+                  "name": "Row / Secondary button",
+                  "width": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 24,
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "APvKo",
+                      "name": "Spec",
+                      "width": 300,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "e4KI43",
+                          "name": "Name",
+                          "fill": "$text-primary",
+                          "content": "Secondary button",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-body",
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "O9jfwJ",
+                          "name": "Notes",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Skip, Pause, Stop here. Layer in text-primary.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-caption",
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "JgUoh",
+                      "name": "Default",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "o9s5UE",
+                          "name": "Secondary button / Default",
+                          "width": 180,
+                          "height": 44,
+                          "cornerRadius": "$radius-m",
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "OLNUn",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Skip",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "P3UCRR",
+                      "name": "Hover",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "a2ExI",
+                          "name": "Secondary button / Hover",
+                          "width": 180,
+                          "height": 44,
+                          "fill": "#E6EDF314",
+                          "cornerRadius": "$radius-m",
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "fUr4l",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Skip",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "svtq3",
+                      "name": "Pressed",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "AEhHQ",
+                          "name": "Secondary button / Pressed",
+                          "width": 175,
+                          "height": 43,
+                          "fill": "#E6EDF31F",
+                          "cornerRadius": "$radius-m",
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "QEa7H",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Skip",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Lf2jz",
+                  "name": "Row / Icon button",
+                  "width": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 24,
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "HzbhJ",
+                      "name": "Spec",
+                      "width": 300,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "yO7Lw",
+                          "name": "Name",
+                          "fill": "$text-primary",
+                          "content": "Icon button",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-body",
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "lMDAG",
+                          "name": "Notes",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Top bar navigation, modal Close. Layer in text-primary; the icon turns text-primary on hover. No shrink.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-caption",
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "yhFnS",
+                      "name": "Default",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "sRgoG",
+                          "name": "Icon button / Default",
+                          "width": 36,
+                          "height": 36,
+                          "cornerRadius": "$radius-m",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "arbUa",
+                              "name": "Icon",
+                              "width": 22,
+                              "height": 22,
+                              "icon": "settings",
+                              "library": "lucide",
+                              "fill": "$text-secondary"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "MafJU",
+                      "name": "Hover",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Ya3D5",
+                          "name": "Icon button / Hover",
+                          "width": 36,
+                          "height": 36,
+                          "fill": "#E6EDF314",
+                          "cornerRadius": "$radius-m",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "y1Hv7",
+                              "name": "Icon",
+                              "width": 22,
+                              "height": 22,
+                              "icon": "settings",
+                              "library": "lucide",
+                              "fill": "$text-primary"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "AN2tw",
+                      "name": "Pressed",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "CyrzC",
+                          "name": "Icon button / Pressed",
+                          "width": 36,
+                          "height": 36,
+                          "fill": "#E6EDF31F",
+                          "cornerRadius": "$radius-m",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "PpENJ",
+                              "name": "Icon",
+                              "width": 22,
+                              "height": 22,
+                              "icon": "settings",
+                              "library": "lucide",
+                              "fill": "$text-primary"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "KlkBU",
+                  "name": "Row / Text link",
+                  "width": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 24,
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "oVrgG",
+                      "name": "Spec",
+                      "width": 300,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ERwtp",
+                          "name": "Name",
+                          "fill": "$text-primary",
+                          "content": "Text link",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-body",
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "BZEy3",
+                          "name": "Notes",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Back, Later, Skip workout. Hover: text-primary. Pressed: 60% opacity.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-caption",
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "dzlhw",
+                      "name": "Default",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "af7Hp",
+                          "name": "Text link / Default",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "ckkRx",
+                              "name": "Back icon",
+                              "width": 16,
+                              "height": 16,
+                              "icon": "chevron-left",
+                              "library": "lucide",
+                              "fill": "$text-secondary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "a9bYPH",
+                              "name": "Label",
+                              "fill": "$text-secondary",
+                              "content": "History",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "tyZUz",
+                      "name": "Hover",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "W7hqZ7",
+                          "name": "Text link / Hover",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "KTt6a",
+                              "name": "Back icon",
+                              "width": 16,
+                              "height": 16,
+                              "icon": "chevron-left",
+                              "library": "lucide",
+                              "fill": "$text-primary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "LpI3Q",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "History",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "wefKL",
+                      "name": "Pressed",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "efIpK",
+                          "name": "Text link / Pressed",
+                          "opacity": 0.6,
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon",
+                              "id": "yG477",
+                              "name": "Back icon",
+                              "width": 16,
+                              "height": 16,
+                              "icon": "chevron-left",
+                              "library": "lucide",
+                              "fill": "$text-primary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "r402NB",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "History",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Au5Vp",
+                  "name": "Row / Switch off",
+                  "width": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 24,
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "pqMtQ",
+                      "name": "Spec",
+                      "width": 300,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "iedVr",
+                          "name": "Name",
+                          "fill": "$text-primary",
+                          "content": "Switch, off",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-body",
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ValJX",
+                          "name": "Notes",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Layer in text-primary on the track. Pressed: the knob stretches to 20 px. Turning on slides the knob and fades the track over 200 ms.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-caption",
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "SXEg2",
+                      "name": "Default",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "g1MII",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch / Default"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "e19vwb",
+                      "name": "Hover",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "Dlwaj",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch / Hover",
+                          "fill": [
+                            "$border",
+                            "#E6EDF314"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ru89c",
+                      "name": "Pressed",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "N5qOS",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch / Pressed",
+                          "fill": [
+                            "$border",
+                            "#E6EDF31F"
+                          ],
+                          "descendants": {
+                            "u9ZG4C": {
+                              "width": 20
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "gpaCG",
+                  "name": "Row / Switch on",
+                  "width": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 24,
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "t0r1Q5",
+                      "name": "Spec",
+                      "width": 300,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "BPpyr",
+                          "name": "Name",
+                          "fill": "$text-primary",
+                          "content": "Switch, on",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-body",
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "OBtZf",
+                          "name": "Notes",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Layer in background colour on the accent track. Turning off slides the knob and fades the track over 200 ms.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-caption",
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Dpzba",
+                      "name": "Default",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "uJpJl",
+                          "type": "ref",
+                          "ref": "n3W1d",
+                          "name": "Switch / Default"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Wu1Q7",
+                      "name": "Hover",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "auYkt",
+                          "type": "ref",
+                          "ref": "n3W1d",
+                          "name": "Switch / Hover",
+                          "fill": [
+                            "$accent",
+                            "#0D111714"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "dXOEf",
+                      "name": "Pressed",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "DTmIp",
+                          "type": "ref",
+                          "ref": "n3W1d",
+                          "name": "Switch / Pressed",
+                          "fill": [
+                            "$accent",
+                            "#0D11171F"
+                          ],
+                          "descendants": {
+                            "ygTE1": {
+                              "width": 20
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "LGmKw",
+                  "name": "Row / Workout card",
+                  "width": "fill_container",
+                  "stroke": "$border",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 24,
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "UMj2k",
+                      "name": "Spec",
+                      "width": 300,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "IN0Jc",
+                          "name": "Name",
+                          "fill": "$text-primary",
+                          "content": "Workout card",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-body",
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "AZ2sU",
+                          "name": "Notes",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "History cards. Layer in text-primary, no shrink. Expanding or collapsing animates the height over 200 ms.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "$font-body",
+                          "fontSize": "$font-size-caption",
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "sqy3R",
+                      "name": "Default",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "m7DA0",
+                          "name": "Workout card / Default",
+                          "width": 352,
+                          "fill": "$surface",
+                          "cornerRadius": "$radius-m",
+                          "gap": 10,
+                          "padding": [
+                            8,
+                            10
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "C94nfp",
+                              "name": "Game",
+                              "layout": "vertical",
+                              "gap": 2,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "Z3TXg",
+                                  "type": "ref",
+                                  "ref": "pJJnc",
+                                  "name": "Champion portrait",
+                                  "descendants": {
+                                    "N9EKti": {
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "assets/champions/Nami.png",
+                                        "mode": "cover"
+                                      }
+                                    },
+                                    "yRhBV": {
+                                      "enabled": false
+                                    },
+                                    "wISG9": {
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "assets/champions/MissFortune.png",
+                                        "mode": "cover"
+                                      }
+                                    },
+                                    "i7UFAk": {
+                                      "enabled": false
+                                    },
+                                    "BUqHt": {
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "assets/roles/bottom.png",
+                                        "mode": "contain"
+                                      }
+                                    },
+                                    "SrdjV": {
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "assets/roles/utility.png",
+                                        "mode": "contain"
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "B8nY50",
+                                  "name": "Result",
+                                  "fill": "$danger",
+                                  "content": "LOSS",
+                                  "fontFamily": "$font-display",
+                                  "fontSize": "$font-size-body",
+                                  "fontWeight": "800",
+                                  "fontStyle": "italic"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "cbwim",
+                              "name": "Workout",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 6,
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "P6FyNL",
+                                  "name": "Status line",
+                                  "width": "fill_container",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "icon",
+                                      "id": "stNWe",
+                                      "name": "Status icon",
+                                      "width": 14,
+                                      "height": 14,
+                                      "icon": "circle-check",
+                                      "library": "lucide",
+                                      "fill": "$success"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "aYkcy",
+                                      "name": "Status",
+                                      "fill": "$success",
+                                      "content": "DONE",
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$font-size-body",
+                                      "fontWeight": "700",
+                                      "letterSpacing": 0.5
+                                    },
+                                    {
+                                      "type": "frame",
+                                      "id": "CmRCs",
+                                      "name": "Push",
+                                      "width": "fill_container",
+                                      "height": 1
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "Peicr",
+                                      "name": "KDA",
+                                      "fill": "$text-secondary",
+                                      "content": "4/5/3",
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$font-size-body",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "PGd3B",
+                                  "name": "Exercises",
+                                  "width": "fill_container",
+                                  "gap": 8,
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "D8EKOT",
+                                      "name": "Exercise B",
+                                      "width": "fill_container",
+                                      "layout": "vertical",
+                                      "gap": 3,
+                                      "children": [
+                                        {
+                                          "type": "frame",
+                                          "id": "GtDjT",
+                                          "name": "Number",
+                                          "gap": 1,
+                                          "alignItems": "end",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "id": "IhMWH",
+                                              "name": "Done",
+                                              "fill": "$text-primary",
+                                              "content": "5",
+                                              "lineHeight": 1,
+                                              "fontFamily": "$font-display",
+                                              "fontSize": "$font-size-title",
+                                              "fontWeight": "800",
+                                              "fontStyle": "italic"
+                                            },
+                                            {
+                                              "type": "text",
+                                              "id": "i79OT",
+                                              "name": "Due",
+                                              "fill": "$text-secondary",
+                                              "content": "/5",
+                                              "fontFamily": "$font-body",
+                                              "fontSize": "$font-size-body",
+                                              "fontWeight": "normal"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "frame",
+                                          "id": "nMkm2",
+                                          "name": "Bar line",
+                                          "width": "fill_container",
+                                          "gap": 4,
+                                          "alignItems": "center",
+                                          "children": [
+                                            {
+                                              "id": "A4q7X",
+                                              "type": "ref",
+                                              "ref": "AUZ1x",
+                                              "name": "Exercise icon"
+                                            },
+                                            {
+                                              "type": "frame",
+                                              "id": "demK1",
+                                              "name": "Bar",
+                                              "width": "fill_container",
+                                              "height": 4,
+                                              "fill": "$border",
+                                              "cornerRadius": 2,
+                                              "layout": "none",
+                                              "children": [
+                                                {
+                                                  "type": "rectangle",
+                                                  "cornerRadius": 2,
+                                                  "id": "GbhRF",
+                                                  "x": 0,
+                                                  "y": 0,
+                                                  "name": "Bar fill",
+                                                  "fill": "$success",
+                                                  "width": 56.7,
+                                                  "height": 4
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "frame",
+                                      "id": "lnuq2",
+                                      "name": "Exercise S",
+                                      "width": "fill_container",
+                                      "layout": "vertical",
+                                      "gap": 3,
+                                      "children": [
+                                        {
+                                          "type": "frame",
+                                          "id": "s7Z5Da",
+                                          "name": "Number",
+                                          "gap": 1,
+                                          "alignItems": "end",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "id": "EEuzz",
+                                              "name": "Done",
+                                              "fill": "$text-primary",
+                                              "content": "20",
+                                              "lineHeight": 1,
+                                              "fontFamily": "$font-display",
+                                              "fontSize": "$font-size-title",
+                                              "fontWeight": "800",
+                                              "fontStyle": "italic"
+                                            },
+                                            {
+                                              "type": "text",
+                                              "id": "M74m1",
+                                              "name": "Due",
+                                              "fill": "$text-secondary",
+                                              "content": "/20",
+                                              "fontFamily": "$font-body",
+                                              "fontSize": "$font-size-body",
+                                              "fontWeight": "normal"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "frame",
+                                          "id": "ZEwMv",
+                                          "name": "Bar line",
+                                          "width": "fill_container",
+                                          "gap": 4,
+                                          "alignItems": "center",
+                                          "children": [
+                                            {
+                                              "id": "Ew9H2",
+                                              "type": "ref",
+                                              "ref": "iFZp1",
+                                              "name": "Exercise icon"
+                                            },
+                                            {
+                                              "type": "frame",
+                                              "id": "glFTe",
+                                              "name": "Bar",
+                                              "width": "fill_container",
+                                              "height": 4,
+                                              "fill": "$border",
+                                              "cornerRadius": 2,
+                                              "layout": "none",
+                                              "children": [
+                                                {
+                                                  "type": "rectangle",
+                                                  "cornerRadius": 2,
+                                                  "id": "Wf8GG",
+                                                  "x": 0,
+                                                  "y": 0,
+                                                  "name": "Bar fill",
+                                                  "fill": "$success",
+                                                  "width": 56.7,
+                                                  "height": 4
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "frame",
+                                      "id": "SUD3K",
+                                      "name": "Exercise P",
+                                      "width": "fill_container",
+                                      "layout": "vertical",
+                                      "gap": 3,
+                                      "children": [
+                                        {
+                                          "type": "frame",
+                                          "id": "fz9CE",
+                                          "name": "Number",
+                                          "gap": 1,
+                                          "alignItems": "end",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "id": "Mxh3d",
+                                              "name": "Done",
+                                              "fill": "$text-primary",
+                                              "content": "50s",
+                                              "lineHeight": 1,
+                                              "fontFamily": "$font-display",
+                                              "fontSize": "$font-size-title",
+                                              "fontWeight": "800",
+                                              "fontStyle": "italic"
+                                            },
+                                            {
+                                              "type": "text",
+                                              "id": "jSRI9",
+                                              "name": "Due",
+                                              "fill": "$text-secondary",
+                                              "content": "/50s",
+                                              "fontFamily": "$font-body",
+                                              "fontSize": "$font-size-body",
+                                              "fontWeight": "normal"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "frame",
+                                          "id": "q3x5qz",
+                                          "name": "Bar line",
+                                          "width": "fill_container",
+                                          "gap": 4,
+                                          "alignItems": "center",
+                                          "children": [
+                                            {
+                                              "id": "yt92E",
+                                              "type": "ref",
+                                              "ref": "O3swMC",
+                                              "name": "Exercise icon"
+                                            },
+                                            {
+                                              "type": "frame",
+                                              "id": "Pi2Pt",
+                                              "name": "Bar",
+                                              "width": "fill_container",
+                                              "height": 4,
+                                              "fill": "$border",
+                                              "cornerRadius": 2,
+                                              "layout": "none",
+                                              "children": [
+                                                {
+                                                  "type": "rectangle",
+                                                  "cornerRadius": 2,
+                                                  "id": "ubNnn",
+                                                  "x": 0,
+                                                  "y": 0,
+                                                  "name": "Bar fill",
+                                                  "fill": "$success",
+                                                  "width": 56.7,
+                                                  "height": 4
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "K0mAo0",
+                      "name": "Hover",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "gt9u4",
+                          "name": "Workout card / Hover",
+                          "width": 352,
+                          "fill": [
+                            "$surface",
+                            "#E6EDF314"
+                          ],
+                          "cornerRadius": "$radius-m",
+                          "gap": 10,
+                          "padding": [
+                            8,
+                            10
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "V3xqW",
+                              "name": "Game",
+                              "layout": "vertical",
+                              "gap": 2,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "ASyFA",
+                                  "type": "ref",
+                                  "ref": "pJJnc",
+                                  "name": "Champion portrait",
+                                  "descendants": {
+                                    "N9EKti": {
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "assets/champions/Nami.png",
+                                        "mode": "cover"
+                                      }
+                                    },
+                                    "yRhBV": {
+                                      "enabled": false
+                                    },
+                                    "wISG9": {
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "assets/champions/MissFortune.png",
+                                        "mode": "cover"
+                                      }
+                                    },
+                                    "i7UFAk": {
+                                      "enabled": false
+                                    },
+                                    "BUqHt": {
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "assets/roles/bottom.png",
+                                        "mode": "contain"
+                                      }
+                                    },
+                                    "SrdjV": {
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "assets/roles/utility.png",
+                                        "mode": "contain"
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "LbRpI",
+                                  "name": "Result",
+                                  "fill": "$danger",
+                                  "content": "LOSS",
+                                  "fontFamily": "$font-display",
+                                  "fontSize": "$font-size-body",
+                                  "fontWeight": "800",
+                                  "fontStyle": "italic"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "zo81n",
+                              "name": "Workout",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 6,
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "e1d0XT",
+                                  "name": "Status line",
+                                  "width": "fill_container",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "icon",
+                                      "id": "Z5vjsO",
+                                      "name": "Status icon",
+                                      "width": 14,
+                                      "height": 14,
+                                      "icon": "circle-check",
+                                      "library": "lucide",
+                                      "fill": "$success"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "hF1Jn",
+                                      "name": "Status",
+                                      "fill": "$success",
+                                      "content": "DONE",
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$font-size-body",
+                                      "fontWeight": "700",
+                                      "letterSpacing": 0.5
+                                    },
+                                    {
+                                      "type": "frame",
+                                      "id": "tpdsu",
+                                      "name": "Push",
+                                      "width": "fill_container",
+                                      "height": 1
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "Rb7Ox",
+                                      "name": "KDA",
+                                      "fill": "$text-secondary",
+                                      "content": "4/5/3",
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$font-size-body",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "nJ0rH",
+                                  "name": "Exercises",
+                                  "width": "fill_container",
+                                  "gap": 8,
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "r1wxSj",
+                                      "name": "Exercise B",
+                                      "width": "fill_container",
+                                      "layout": "vertical",
+                                      "gap": 3,
+                                      "children": [
+                                        {
+                                          "type": "frame",
+                                          "id": "bO3nr",
+                                          "name": "Number",
+                                          "gap": 1,
+                                          "alignItems": "end",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "id": "yFZKN",
+                                              "name": "Done",
+                                              "fill": "$text-primary",
+                                              "content": "5",
+                                              "lineHeight": 1,
+                                              "fontFamily": "$font-display",
+                                              "fontSize": "$font-size-title",
+                                              "fontWeight": "800",
+                                              "fontStyle": "italic"
+                                            },
+                                            {
+                                              "type": "text",
+                                              "id": "vphdx",
+                                              "name": "Due",
+                                              "fill": "$text-secondary",
+                                              "content": "/5",
+                                              "fontFamily": "$font-body",
+                                              "fontSize": "$font-size-body",
+                                              "fontWeight": "normal"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "frame",
+                                          "id": "aOrMM",
+                                          "name": "Bar line",
+                                          "width": "fill_container",
+                                          "gap": 4,
+                                          "alignItems": "center",
+                                          "children": [
+                                            {
+                                              "id": "cqswx",
+                                              "type": "ref",
+                                              "ref": "AUZ1x",
+                                              "name": "Exercise icon"
+                                            },
+                                            {
+                                              "type": "frame",
+                                              "id": "e4cul",
+                                              "name": "Bar",
+                                              "width": "fill_container",
+                                              "height": 4,
+                                              "fill": "$border",
+                                              "cornerRadius": 2,
+                                              "layout": "none",
+                                              "children": [
+                                                {
+                                                  "type": "rectangle",
+                                                  "cornerRadius": 2,
+                                                  "id": "lwExf",
+                                                  "x": 0,
+                                                  "y": 0,
+                                                  "name": "Bar fill",
+                                                  "fill": "$success",
+                                                  "width": 56.7,
+                                                  "height": 4
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "frame",
+                                      "id": "pZF9f",
+                                      "name": "Exercise S",
+                                      "width": "fill_container",
+                                      "layout": "vertical",
+                                      "gap": 3,
+                                      "children": [
+                                        {
+                                          "type": "frame",
+                                          "id": "Ex3ZY",
+                                          "name": "Number",
+                                          "gap": 1,
+                                          "alignItems": "end",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "id": "RthEU",
+                                              "name": "Done",
+                                              "fill": "$text-primary",
+                                              "content": "20",
+                                              "lineHeight": 1,
+                                              "fontFamily": "$font-display",
+                                              "fontSize": "$font-size-title",
+                                              "fontWeight": "800",
+                                              "fontStyle": "italic"
+                                            },
+                                            {
+                                              "type": "text",
+                                              "id": "vZju0",
+                                              "name": "Due",
+                                              "fill": "$text-secondary",
+                                              "content": "/20",
+                                              "fontFamily": "$font-body",
+                                              "fontSize": "$font-size-body",
+                                              "fontWeight": "normal"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "frame",
+                                          "id": "DRWEL",
+                                          "name": "Bar line",
+                                          "width": "fill_container",
+                                          "gap": 4,
+                                          "alignItems": "center",
+                                          "children": [
+                                            {
+                                              "id": "FDzl2",
+                                              "type": "ref",
+                                              "ref": "iFZp1",
+                                              "name": "Exercise icon"
+                                            },
+                                            {
+                                              "type": "frame",
+                                              "id": "rwwMX",
+                                              "name": "Bar",
+                                              "width": "fill_container",
+                                              "height": 4,
+                                              "fill": "$border",
+                                              "cornerRadius": 2,
+                                              "layout": "none",
+                                              "children": [
+                                                {
+                                                  "type": "rectangle",
+                                                  "cornerRadius": 2,
+                                                  "id": "v4ves",
+                                                  "x": 0,
+                                                  "y": 0,
+                                                  "name": "Bar fill",
+                                                  "fill": "$success",
+                                                  "width": 56.7,
+                                                  "height": 4
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "frame",
+                                      "id": "yvgqo",
+                                      "name": "Exercise P",
+                                      "width": "fill_container",
+                                      "layout": "vertical",
+                                      "gap": 3,
+                                      "children": [
+                                        {
+                                          "type": "frame",
+                                          "id": "ywnC6",
+                                          "name": "Number",
+                                          "gap": 1,
+                                          "alignItems": "end",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "id": "Bsl4c",
+                                              "name": "Done",
+                                              "fill": "$text-primary",
+                                              "content": "50s",
+                                              "lineHeight": 1,
+                                              "fontFamily": "$font-display",
+                                              "fontSize": "$font-size-title",
+                                              "fontWeight": "800",
+                                              "fontStyle": "italic"
+                                            },
+                                            {
+                                              "type": "text",
+                                              "id": "W6E14",
+                                              "name": "Due",
+                                              "fill": "$text-secondary",
+                                              "content": "/50s",
+                                              "fontFamily": "$font-body",
+                                              "fontSize": "$font-size-body",
+                                              "fontWeight": "normal"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "frame",
+                                          "id": "z0dK3",
+                                          "name": "Bar line",
+                                          "width": "fill_container",
+                                          "gap": 4,
+                                          "alignItems": "center",
+                                          "children": [
+                                            {
+                                              "id": "pqkM5",
+                                              "type": "ref",
+                                              "ref": "O3swMC",
+                                              "name": "Exercise icon"
+                                            },
+                                            {
+                                              "type": "frame",
+                                              "id": "KnBF9",
+                                              "name": "Bar",
+                                              "width": "fill_container",
+                                              "height": 4,
+                                              "fill": "$border",
+                                              "cornerRadius": 2,
+                                              "layout": "none",
+                                              "children": [
+                                                {
+                                                  "type": "rectangle",
+                                                  "cornerRadius": 2,
+                                                  "id": "U9HsuZ",
+                                                  "x": 0,
+                                                  "y": 0,
+                                                  "name": "Bar fill",
+                                                  "fill": "$success",
+                                                  "width": 56.7,
+                                                  "height": 4
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "NlmI4",
+                      "name": "Pressed",
+                      "width": "fill_container",
+                      "height": 104,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "uRQuS",
+                          "name": "Workout card / Pressed",
+                          "width": 352,
+                          "fill": [
+                            "$surface",
+                            "#E6EDF31F"
+                          ],
+                          "cornerRadius": "$radius-m",
+                          "gap": 10,
+                          "padding": [
+                            8,
+                            10
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "c9jDu",
+                              "name": "Game",
+                              "layout": "vertical",
+                              "gap": 2,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "t7A8av",
+                                  "type": "ref",
+                                  "ref": "pJJnc",
+                                  "name": "Champion portrait",
+                                  "descendants": {
+                                    "N9EKti": {
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "assets/champions/Nami.png",
+                                        "mode": "cover"
+                                      }
+                                    },
+                                    "yRhBV": {
+                                      "enabled": false
+                                    },
+                                    "wISG9": {
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "assets/champions/MissFortune.png",
+                                        "mode": "cover"
+                                      }
+                                    },
+                                    "i7UFAk": {
+                                      "enabled": false
+                                    },
+                                    "BUqHt": {
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "assets/roles/bottom.png",
+                                        "mode": "contain"
+                                      }
+                                    },
+                                    "SrdjV": {
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "assets/roles/utility.png",
+                                        "mode": "contain"
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "X5TXjT",
+                                  "name": "Result",
+                                  "fill": "$danger",
+                                  "content": "LOSS",
+                                  "fontFamily": "$font-display",
+                                  "fontSize": "$font-size-body",
+                                  "fontWeight": "800",
+                                  "fontStyle": "italic"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "V1OuzH",
+                              "name": "Workout",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 6,
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "AzfOY",
+                                  "name": "Status line",
+                                  "width": "fill_container",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "icon",
+                                      "id": "vkrSx",
+                                      "name": "Status icon",
+                                      "width": 14,
+                                      "height": 14,
+                                      "icon": "circle-check",
+                                      "library": "lucide",
+                                      "fill": "$success"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "x5qWwN",
+                                      "name": "Status",
+                                      "fill": "$success",
+                                      "content": "DONE",
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$font-size-body",
+                                      "fontWeight": "700",
+                                      "letterSpacing": 0.5
+                                    },
+                                    {
+                                      "type": "frame",
+                                      "id": "DQFZB",
+                                      "name": "Push",
+                                      "width": "fill_container",
+                                      "height": 1
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "UaJMf",
+                                      "name": "KDA",
+                                      "fill": "$text-secondary",
+                                      "content": "4/5/3",
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$font-size-body",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "fnNC9",
+                                  "name": "Exercises",
+                                  "width": "fill_container",
+                                  "gap": 8,
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "xPwzo",
+                                      "name": "Exercise B",
+                                      "width": "fill_container",
+                                      "layout": "vertical",
+                                      "gap": 3,
+                                      "children": [
+                                        {
+                                          "type": "frame",
+                                          "id": "koRWD",
+                                          "name": "Number",
+                                          "gap": 1,
+                                          "alignItems": "end",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "id": "q0EoK",
+                                              "name": "Done",
+                                              "fill": "$text-primary",
+                                              "content": "5",
+                                              "lineHeight": 1,
+                                              "fontFamily": "$font-display",
+                                              "fontSize": "$font-size-title",
+                                              "fontWeight": "800",
+                                              "fontStyle": "italic"
+                                            },
+                                            {
+                                              "type": "text",
+                                              "id": "lQDdk",
+                                              "name": "Due",
+                                              "fill": "$text-secondary",
+                                              "content": "/5",
+                                              "fontFamily": "$font-body",
+                                              "fontSize": "$font-size-body",
+                                              "fontWeight": "normal"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "frame",
+                                          "id": "jm2hT",
+                                          "name": "Bar line",
+                                          "width": "fill_container",
+                                          "gap": 4,
+                                          "alignItems": "center",
+                                          "children": [
+                                            {
+                                              "id": "vd6ZO",
+                                              "type": "ref",
+                                              "ref": "AUZ1x",
+                                              "name": "Exercise icon"
+                                            },
+                                            {
+                                              "type": "frame",
+                                              "id": "GWY84",
+                                              "name": "Bar",
+                                              "width": "fill_container",
+                                              "height": 4,
+                                              "fill": "$border",
+                                              "cornerRadius": 2,
+                                              "layout": "none",
+                                              "children": [
+                                                {
+                                                  "type": "rectangle",
+                                                  "cornerRadius": 2,
+                                                  "id": "S6kgb",
+                                                  "x": 0,
+                                                  "y": 0,
+                                                  "name": "Bar fill",
+                                                  "fill": "$success",
+                                                  "width": 56.7,
+                                                  "height": 4
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "frame",
+                                      "id": "D1J64",
+                                      "name": "Exercise S",
+                                      "width": "fill_container",
+                                      "layout": "vertical",
+                                      "gap": 3,
+                                      "children": [
+                                        {
+                                          "type": "frame",
+                                          "id": "a10kvi",
+                                          "name": "Number",
+                                          "gap": 1,
+                                          "alignItems": "end",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "id": "p7toYr",
+                                              "name": "Done",
+                                              "fill": "$text-primary",
+                                              "content": "20",
+                                              "lineHeight": 1,
+                                              "fontFamily": "$font-display",
+                                              "fontSize": "$font-size-title",
+                                              "fontWeight": "800",
+                                              "fontStyle": "italic"
+                                            },
+                                            {
+                                              "type": "text",
+                                              "id": "YQhk6",
+                                              "name": "Due",
+                                              "fill": "$text-secondary",
+                                              "content": "/20",
+                                              "fontFamily": "$font-body",
+                                              "fontSize": "$font-size-body",
+                                              "fontWeight": "normal"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "frame",
+                                          "id": "nOC7a",
+                                          "name": "Bar line",
+                                          "width": "fill_container",
+                                          "gap": 4,
+                                          "alignItems": "center",
+                                          "children": [
+                                            {
+                                              "id": "uUNOW",
+                                              "type": "ref",
+                                              "ref": "iFZp1",
+                                              "name": "Exercise icon"
+                                            },
+                                            {
+                                              "type": "frame",
+                                              "id": "v9T2pq",
+                                              "name": "Bar",
+                                              "width": "fill_container",
+                                              "height": 4,
+                                              "fill": "$border",
+                                              "cornerRadius": 2,
+                                              "layout": "none",
+                                              "children": [
+                                                {
+                                                  "type": "rectangle",
+                                                  "cornerRadius": 2,
+                                                  "id": "kQRvU",
+                                                  "x": 0,
+                                                  "y": 0,
+                                                  "name": "Bar fill",
+                                                  "fill": "$success",
+                                                  "width": 56.7,
+                                                  "height": 4
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "frame",
+                                      "id": "J4WaH3",
+                                      "name": "Exercise P",
+                                      "width": "fill_container",
+                                      "layout": "vertical",
+                                      "gap": 3,
+                                      "children": [
+                                        {
+                                          "type": "frame",
+                                          "id": "RxCjf",
+                                          "name": "Number",
+                                          "gap": 1,
+                                          "alignItems": "end",
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "id": "FTNUK",
+                                              "name": "Done",
+                                              "fill": "$text-primary",
+                                              "content": "50s",
+                                              "lineHeight": 1,
+                                              "fontFamily": "$font-display",
+                                              "fontSize": "$font-size-title",
+                                              "fontWeight": "800",
+                                              "fontStyle": "italic"
+                                            },
+                                            {
+                                              "type": "text",
+                                              "id": "Fmlp7",
+                                              "name": "Due",
+                                              "fill": "$text-secondary",
+                                              "content": "/50s",
+                                              "fontFamily": "$font-body",
+                                              "fontSize": "$font-size-body",
+                                              "fontWeight": "normal"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "frame",
+                                          "id": "Tm20Z",
+                                          "name": "Bar line",
+                                          "width": "fill_container",
+                                          "gap": 4,
+                                          "alignItems": "center",
+                                          "children": [
+                                            {
+                                              "id": "v2YouZ",
+                                              "type": "ref",
+                                              "ref": "O3swMC",
+                                              "name": "Exercise icon"
+                                            },
+                                            {
+                                              "type": "frame",
+                                              "id": "mrkP0",
+                                              "name": "Bar",
+                                              "width": "fill_container",
+                                              "height": 4,
+                                              "fill": "$border",
+                                              "cornerRadius": 2,
+                                              "layout": "none",
+                                              "children": [
+                                                {
+                                                  "type": "rectangle",
+                                                  "cornerRadius": 2,
+                                                  "id": "n7OylP",
+                                                  "x": 0,
+                                                  "y": 0,
+                                                  "name": "Bar fill",
+                                                  "fill": "$success",
+                                                  "width": 56.7,
+                                                  "height": 4
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -2511,6 +4756,29 @@
                   "fontFamily": "$font-body",
                   "fontSize": "$font-size-caption",
                   "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "wOgKz",
+              "name": "Nav / Settings",
+              "width": 36,
+              "height": 36,
+              "fill": "#00000000",
+              "cornerRadius": "$radius-m",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "ZMlng",
+                  "name": "Nav icon / Settings",
+                  "width": 22,
+                  "height": 22,
+                  "icon": "settings",
+                  "library": "lucide",
+                  "fill": "$text-secondary"
                 }
               ]
             },
@@ -3015,38 +5283,97 @@
           "height": "fill_container"
         },
         {
-          "type": "text",
-          "id": "x1Fh9",
-          "name": "Warnings",
-          "fill": "$text-secondary",
-          "textGrowth": "fixed-width",
-          "width": "fill_container",
-          "content": "Listen to your body. Skip anything that hurts. GymDiff isn't a health app. Not endorsed by Riot Games.",
-          "lineHeight": 1.5,
-          "fontFamily": "$font-body",
-          "fontSize": "$font-size-body",
-          "fontWeight": "normal"
-        },
-        {
           "type": "frame",
-          "id": "qKB3D",
-          "name": "Lets go button",
+          "id": "NZaGk",
+          "name": "Footer",
           "width": "fill_container",
-          "height": 44,
-          "fill": "$accent",
-          "cornerRadius": "$radius-m",
-          "justifyContent": "center",
-          "alignItems": "center",
+          "layout": "vertical",
+          "gap": "$space-m",
           "children": [
             {
+              "type": "frame",
+              "id": "njDKc",
+              "name": "Consent / Crash reports",
+              "width": "fill_container",
+              "gap": "$space-m",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "A39Eg3",
+                  "name": "Consent text",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "KBpLX",
+                      "name": "Label",
+                      "fill": "$text-primary",
+                      "content": "Send crash reports",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-body",
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "xW3IE",
+                      "name": "Detail",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Scrubbed errors only, no names or game data.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "id": "HCmnI",
+                  "type": "ref",
+                  "ref": "GX2CB",
+                  "name": "Switch"
+                }
+              ]
+            },
+            {
               "type": "text",
-              "id": "h9ESn",
-              "name": "Label",
-              "fill": "$background",
-              "content": "Let's go",
+              "id": "x1Fh9",
+              "name": "Warnings",
+              "fill": "$text-secondary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Listen to your body. Skip anything that hurts. GymDiff isn't a health app. Not endorsed by Riot Games.",
+              "lineHeight": 1.5,
               "fontFamily": "$font-body",
               "fontSize": "$font-size-body",
-              "fontWeight": "700"
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "qKB3D",
+              "name": "Lets go button",
+              "width": "fill_container",
+              "height": 44,
+              "fill": "$accent",
+              "cornerRadius": "$radius-m",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "h9ESn",
+                  "name": "Label",
+                  "fill": "$background",
+                  "content": "Let's go",
+                  "fontFamily": "$font-body",
+                  "fontSize": "$font-size-body",
+                  "fontWeight": "700"
+                }
+              ]
             }
           ]
         }
@@ -34191,6 +36518,498 @@
           "fontWeight": "normal"
         }
       ]
+    },
+    {
+      "type": "frame",
+      "id": "GX2CB",
+      "x": 992,
+      "y": 1920,
+      "name": "Switch / Off",
+      "reusable": true,
+      "width": 36,
+      "height": 20,
+      "fill": "$border",
+      "cornerRadius": 10,
+      "padding": 2,
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "ellipse",
+          "id": "u9ZG4C",
+          "name": "Knob",
+          "fill": "$text-secondary",
+          "width": 16,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "n3W1d",
+      "x": 1060,
+      "y": 1920,
+      "name": "Switch / On",
+      "reusable": true,
+      "width": 36,
+      "height": 20,
+      "fill": "$accent",
+      "cornerRadius": 10,
+      "padding": 2,
+      "justifyContent": "end",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "ellipse",
+          "id": "ygTE1",
+          "name": "Knob",
+          "fill": "$text-primary",
+          "width": 16,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "id": "Z9SgBW",
+      "type": "ref",
+      "ref": "SKE9k",
+      "name": "App shell / Settings / Default",
+      "x": 1440,
+      "y": 4480,
+      "descendants": {
+        "GHZ8R": {
+          "content": "Connected · Lobby"
+        },
+        "wOgKz": {
+          "fill": "$border"
+        },
+        "ZMlng": {
+          "fill": "$text-primary"
+        },
+        "ebEjx": {
+          "children": [
+            {
+              "type": "frame",
+              "id": "IDmjR",
+              "name": "Content",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": "$space-m",
+              "padding": "$space-l",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "w2Rs6",
+                  "name": "Back",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "B6BLBU",
+                      "name": "Back icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "chevron-left",
+                      "library": "lucide",
+                      "fill": "$text-secondary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "JyjTE",
+                      "name": "Back label",
+                      "fill": "$text-secondary",
+                      "content": "History",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-body",
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "Yy74c",
+                  "name": "Screen title",
+                  "fill": "$text-primary",
+                  "content": "SETTINGS",
+                  "fontFamily": "$font-display",
+                  "fontSize": "$font-size-title",
+                  "fontWeight": "800",
+                  "letterSpacing": 1,
+                  "fontStyle": "italic"
+                },
+                {
+                  "type": "frame",
+                  "id": "y58wDT",
+                  "name": "Section / Error reports",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "T77dWg",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "ERROR REPORTS",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "zwIv9",
+                      "name": "Setting / Crash reports",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "o4MUx",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "SP0eA",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Send crash reports",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "ujLXx",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "When GymDiff crashes or hits an error, send the scrubbed error with the app version and OS. No names, Riot IDs or game data.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "vrKRo",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ppCFU",
+                      "name": "Setting / All logs",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "ddsnj",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ySoWV",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Send all logs",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "H90T5c",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Also send everyday logs, scrubbed the same way. Helps fix bugs that don't crash.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "L9N1w",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "zK1dd",
+                  "name": "Retention note",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Both are off by default. Reports are deleted after 30 days.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font-body",
+                  "fontSize": "$font-size-caption",
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "UywUM",
+      "type": "ref",
+      "ref": "SKE9k",
+      "name": "App shell / Settings / Crash reports on",
+      "x": 1920,
+      "y": 4480,
+      "descendants": {
+        "wOgKz": {
+          "fill": "$border"
+        },
+        "ZMlng": {
+          "fill": "$text-primary"
+        },
+        "ebEjx": {
+          "children": [
+            {
+              "type": "frame",
+              "id": "MduQN",
+              "name": "Content",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": "$space-m",
+              "padding": "$space-l",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Qx29m",
+                  "name": "Back",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "z2ZsTN",
+                      "name": "Back icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "chevron-left",
+                      "library": "lucide",
+                      "fill": "$text-secondary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "JcWZV",
+                      "name": "Back label",
+                      "fill": "$text-secondary",
+                      "content": "History",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-body",
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "DAff8",
+                  "name": "Screen title",
+                  "fill": "$text-primary",
+                  "content": "SETTINGS",
+                  "fontFamily": "$font-display",
+                  "fontSize": "$font-size-title",
+                  "fontWeight": "800",
+                  "letterSpacing": 1,
+                  "fontStyle": "italic"
+                },
+                {
+                  "type": "frame",
+                  "id": "qxjwJ",
+                  "name": "Section / Error reports",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Ar1U5",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "ERROR REPORTS",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "l1rhW",
+                      "name": "Setting / Crash reports",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "VtSub",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "HeuEu",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Send crash reports",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "uvfB8",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "When GymDiff crashes or hits an error, send the scrubbed error with the app version and OS. No names, Riot IDs or game data.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "Q4P7n",
+                          "type": "ref",
+                          "ref": "n3W1d",
+                          "name": "Switch"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "hwRO5",
+                      "name": "Setting / All logs",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "T8B4mq",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "OUYQa",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Send all logs",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "Y00BU",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Also send everyday logs, scrubbed the same way. Helps fix bugs that don't crash.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "UZijH",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "LIynU",
+                  "name": "Retention note",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Both are off by default. Reports are deleted after 30 days.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font-body",
+                  "fontSize": "$font-size-caption",
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      }
     }
   ],
   "variables": {
@@ -34289,6 +37108,26 @@
     "font-size-headline": {
       "type": "number",
       "value": 32
+    },
+    "state-opacity-hover": {
+      "type": "number",
+      "value": 0.08
+    },
+    "state-opacity-pressed": {
+      "type": "number",
+      "value": 0.12
+    },
+    "press-scale": {
+      "type": "number",
+      "value": 0.97
+    },
+    "motion-fast": {
+      "type": "number",
+      "value": 100
+    },
+    "motion-medium": {
+      "type": "number",
+      "value": 200
     }
   },
   "fileToken": "cdfa3f0f-9494-4fb1-b76f-1be028de3488"
