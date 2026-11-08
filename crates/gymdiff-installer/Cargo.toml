@@ -1,6 +1,6 @@
 [package]
 name = "gymdiff-installer"
-description = "GymDiff's installer window: shortcut choices, then Velopack's setup (ADR-0012)."
+description = "GymDiff's installer window: shortcut and startup choices, then Velopack's setup (ADR-0012)."
 version.workspace = true
 edition.workspace = true
 authors.workspace = true

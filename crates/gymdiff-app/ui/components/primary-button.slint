@@ -1,4 +1,5 @@
-// Full-width call-to-action button (accent background).
+// Full-width call-to-action button (accent background; `danger` for a destructive
+// action, like Uninstall in `App shell / Settings / Uninstall confirm`).
 // Tinted on hover and pressed, and shrinks a little while pressed.
 
 import { Theme } from "../theme.slint";
@@ -6,11 +7,13 @@ import { StateLayer } from "state-layer.slint";
 
 export component PrimaryButton inherits Rectangle {
     in property <string> text;
+    /// An action that removes something: `danger` background.
+    in property <bool> destructive;
     callback clicked;
 
     height: 44px;
     border-radius: Theme.radius-m;
-    background: Theme.accent;
+    background: root.destructive ? Theme.danger : Theme.accent;
     transform-scale: touch.pressed ? Theme.press-scale : 1;
     animate transform-scale {
         duration: Theme.motion-fast;

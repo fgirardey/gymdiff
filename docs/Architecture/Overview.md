@@ -35,9 +35,9 @@ flowchart LR
 | `gymdiff-lol` | League local APIs: lockfile discovery, `LolClient` trait, HTTP client, API models. | `gymdiff-core`, `reqwest` |
 | `gymdiff-simulator` | Fake League client replaying scenarios (development only, never shipped). | `gymdiff-lol` (lockfile format), `axum` |
 | `gymdiff-diagnostics` | Opt-in reports: consent and scrubbing. No network. See [[ADR-0006 Opt-in error reports]]. | `serde`, `regex` |
-| `gymdiff-shortcuts` | GymDiff's Start menu and Desktop shortcuts on Windows (create, remove, exists). See [[ADR-0012 Installer window in Slint over Velopack]]. | `dirs`, `mslnk` (Windows only) |
+| `gymdiff-shortcuts` | GymDiff's Start menu and Desktop shortcuts and its startup entry on Windows (create, remove, exists), and where Velopack installed it. See [[ADR-0012 Installer window in Slint over Velopack]], [[ADR-0013 Notification area, startup and uninstall from the app]]. | `dirs`, `mslnk`, `winreg` (Windows only) |
 | `gymdiff-app` | The shipped binary (`gymdiff.exe`): Slint UI, watcher, OS integration, updates (Velopack). | everything above, `slint`, `velopack` |
-| `gymdiff-installer` | The installer window (`GymDiff-<channel>-Setup.exe`): shortcut choices, then Velopack's setup it embeds. Its UI files live in `gymdiff-app/ui/`. | `gymdiff-shortcuts`, `slint` |
+| `gymdiff-installer` | The installer window (`GymDiff-<channel>-Setup.exe`): shortcut and startup choices, then Velopack's setup it embeds. Its UI files live in `gymdiff-app/ui/`. | `gymdiff-shortcuts`, `slint` |
 
 ## Rules
 1. **Core is pure.** No I/O, no `#[cfg(target_os)]`, no async. If it can't be unit-tested on any machine, it doesn't belong in core.
@@ -48,6 +48,8 @@ flowchart LR
 ## Threading
 - **Main thread**: Slint event loop. Never block it.
 - **`watcher` thread**: a multi-threaded Tokio runtime. Discovers the client, polls it, reduces events, pushes state to the UI with `slint::Weak::upgrade_in_event_loop`.
+- **`single-instance` thread**: listens on a local socket (a named pipe on Windows) for a second GymDiff asking to show the window ([[Running in the background]]).
+- The **notification area icon** lives on the main thread (it needs the event loop); its clicks are handed back to the event loop. Closing the window hides it: the event loop runs until **Quit GymDiff** ([[ADR-0013 Notification area, startup and uninstall from the app]]).
 
 ## Discovery and connection
 1. Find the lockfile: `GYMDIFF_LOCKFILE`, then the platform default path (see [[League APIs]]).

@@ -56,6 +56,14 @@ export component Preview inherits Window {
             }
         }
         PreviewCase {
+            label: "Without divider (in a dialog)";
+            SettingRow {
+                label: "Also delete my settings";
+                detail: Fixtures.uninstall-delete-detail;
+                divider: false;
+            }
+        }
+        PreviewCase {
             label: "Short detail";
             SettingRow { label: "Dark mode"; detail: "Easier on the eyes."; }
         }

@@ -24,6 +24,7 @@ Two switches in Settings, both off until the player turns them on. Changes apply
 - **Source code and symbols** of the app (not player data) are uploaded to the same Sentry project by CI, to show where an error happened ([[ADR-0008 Versioning and releases]]).
 - **Retention**: 30 days, then deleted.
 - **Deletion**: send the install id from Settings to the author; matching reports are deleted.
+- **Local data**: uninstalling from Settings with **Also delete my settings** removes the settings, the consent and the install id from the PC ([[Installation]]); the logs always go with the app.
 - **Processor**: Sentry, **EU region** (Frankfurt). Named here and in the Riot registration.
 - **Developers** can also opt in by hand with `{"crash_reports": true, "logs": true}` in `diagnostics.json` in the data folder (see [[Overview#Configuration (environment variables)]]) and `GYMDIFF_SENTRY_DSN`.
 - **Offline / failures**: local logs keep working; a failed send is dropped silently and never affects the app or the game.

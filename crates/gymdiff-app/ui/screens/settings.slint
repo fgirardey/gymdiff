@@ -1,5 +1,6 @@
-// Settings screen: opt-in error reports, updates (alpha builds) and shortcuts (installed
-// builds). Scrolls when it is taller than the window.
+// Settings screen: opt-in error reports, updates (alpha builds), shortcuts, startup and
+// uninstall (installed builds). Scrolls when it is taller than the window. The uninstall
+// confirmation is a dialog over the whole window: settings-uninstall-dialog.slint.
 //
 // Frames in design/gymdiff.pen: `App shell / Settings / Default`,
 // `App shell / Settings / Crash reports on`, `App shell / Settings / Updates checking`,
@@ -27,6 +28,11 @@ export component SettingsScreen inherits Rectangle {
     /// Whether each shortcut exists, written by Rust.
     in property <bool> shortcut-start-menu;
     in property <bool> shortcut-desktop;
+    /// Shows the Startup section (installed builds), and whether Windows starts GymDiff.
+    in property <bool> startup-visible;
+    in property <bool> start-with-windows;
+    /// Shows the Uninstall section (installed builds).
+    in property <bool> uninstall-visible;
     /// Scroll position (negative when scrolled down), and the content's height.
     in-out property <length> scroll-y <=> flick.viewport-y;
     out property <length> content-height: content.preferred-height;
@@ -38,6 +44,9 @@ export component SettingsScreen inherits Rectangle {
     callback check-updates;
     callback shortcut-start-menu-toggled;
     callback shortcut-desktop-toggled;
+    callback start-with-windows-toggled;
+    /// "Uninstall": the parent opens the confirmation dialog.
+    callback uninstall-clicked;
 
     flick := Flickable {
         viewport-width: self.width;
@@ -173,6 +182,85 @@ export component SettingsScreen inherits Rectangle {
                     detail: "A GymDiff icon on your Desktop.";
                     checked: root.shortcut-desktop;
                     toggled => { root.shortcut-desktop-toggled(); }
+                }
+            }
+
+            if root.startup-visible: VerticalLayout {
+                Text {
+                    text: "STARTUP";
+                    color: Theme.text-secondary;
+                    font-size: Theme.font-size-caption;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+                }
+
+                SettingRow {
+                    label: "Start with Windows";
+                    detail: "Open GymDiff in the notification area when you sign in.";
+                    checked: root.start-with-windows;
+                    toggled => { root.start-with-windows-toggled(); }
+                }
+            }
+
+            Text {
+                text: "Closing the window keeps GymDiff running in the notification area. Quit from its icon.";
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-caption;
+                wrap: word-wrap;
+            }
+
+            if root.uninstall-visible: VerticalLayout {
+                Text {
+                    text: "UNINSTALL";
+                    color: Theme.text-secondary;
+                    font-size: Theme.font-size-caption;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+                }
+
+                Rectangle {
+                    HorizontalLayout {
+                        padding-top: Theme.space-m;
+                        padding-bottom: Theme.space-m;
+                        spacing: Theme.space-m;
+
+                        VerticalLayout {
+                            horizontal-stretch: 1;
+                            alignment: center;
+                            spacing: Theme.space-xs;
+
+                            Text {
+                                text: "Remove GymDiff from this PC";
+                                color: Theme.text-primary;
+                                font-size: Theme.font-size-body;
+                                font-weight: 600;
+                            }
+
+                            Text {
+                                text: "The app, its shortcuts and its logs. You choose whether to keep your settings.";
+                                color: Theme.text-secondary;
+                                font-size: Theme.font-size-body;
+                                wrap: word-wrap;
+                            }
+                        }
+
+                        VerticalLayout {
+                            alignment: center;
+                            SecondaryButton {
+                                text: "Uninstall";
+                                height: 36px;
+                                destructive: true;
+                                clicked => { root.uninstall-clicked(); }
+                            }
+                        }
+                    }
+
+                    // Bottom divider, like the setting rows above.
+                    Rectangle {
+                        y: parent.height - self.height;
+                        height: 1px;
+                        background: Theme.border;
+                    }
                 }
             }
 

@@ -20,7 +20,8 @@ gymdiff-shortcuts = { workspace = true }
 anyhow = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
-slint = { workspace = true }
+# `unstable-winit-030`: bring the window to the front when it is shown again (ADR-0013).
+slint = { workspace = true, features = ["unstable-winit-030"] }
 # Stack traces (backtrace, debug-images, panic), OS and Rust contexts, native
 # crashes as minidumps (minidump): see ADR-0006.
 sentry = { version = "0.49.5", default-features = false, features = ["reqwest", "native-tls", "tracing", "logs", "backtrace", "debug-images", "contexts", "panic", "minidump"] }
@@ -32,13 +33,16 @@ tracing-subscriber = { workspace = true }
 velopack = "=1.2.161"
 # Local time of the last update check, shown in Settings.
 chrono = { version = "0.4", default-features = false, features = ["clock"] }
+# Notification area icon (menu bar on macOS), and the crest decoded for it (ADR-0013).
+tray-icon = "0.26"
+png = { workspace = true }
+# One GymDiff at a time: a second one asks the first to show its window (ADR-0013).
+interprocess = "2"
 
 [dev-dependencies]
 # tests/previews.rs compiles every ui/**/*.preview.slint file.
 slint-interpreter = { workspace = true }
 spin_on = { workspace = true }
-# examples/screenshots.rs writes the rendered previews as PNG.
-png = { workspace = true }
 
 [build-dependencies]
 slint-build = { workspace = true }

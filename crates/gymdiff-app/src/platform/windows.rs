@@ -4,6 +4,9 @@ use std::path::PathBuf;
 
 pub const NAME: &str = "windows";
 
+/// Windows: a left click on the notification area icon opens the window; the menu is on the right click.
+pub const TRAY_MENU_ON_LEFT_CLICK: bool = false;
+
 /// `%LOCALAPPDATA%\GymDiff\logs`
 pub fn log_dir() -> PathBuf {
     std::env::var_os("LOCALAPPDATA")

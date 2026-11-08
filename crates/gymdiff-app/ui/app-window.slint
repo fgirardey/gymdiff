@@ -10,6 +10,7 @@ import { WelcomeScreen } from "screens/welcome.slint";
 import { HistoryEmpty } from "screens/history.slint";
 import { AboutScreen } from "screens/about.slint";
 import { SettingsScreen } from "screens/settings.slint";
+import { SettingsUninstallDialog } from "screens/settings-uninstall-dialog.slint";
 import { DebugScreen } from "screens/debug.slint";
 
 export { Screen }
@@ -51,6 +52,19 @@ export component AppWindow inherits Window {
     /// The player flipped a shortcut switch; `wanted` is the new value.
     callback shortcut-start-menu-changed(wanted: bool);
     callback shortcut-desktop-changed(wanted: bool);
+    /// Startup section in Settings (installed builds); Rust sets whether Windows starts GymDiff.
+    in property <bool> startup-visible;
+    in-out property <bool> start-with-windows;
+    /// The player flipped "Start with Windows"; `wanted` is the new value.
+    callback start-with-windows-changed(wanted: bool);
+    /// Uninstall section in Settings (installed builds) and its confirmation dialog.
+    in property <bool> uninstall-visible;
+    in-out property <bool> uninstall-dialog-open;
+    in-out property <bool> uninstall-delete-data;
+    /// Rust sets it when the uninstaller could not start.
+    in-out property <bool> uninstall-failed;
+    /// The player confirmed; `delete-data` is "Also delete my settings".
+    callback uninstall(delete-data: bool);
     /// A button of the throwaway debug screen was pressed.
     callback debug-event(kind: string);
 
@@ -98,6 +112,18 @@ export component AppWindow inherits Window {
                 root.shortcut-desktop = !root.shortcut-desktop;
                 root.shortcut-desktop-changed(root.shortcut-desktop);
             }
+            startup-visible: root.startup-visible;
+            start-with-windows: root.start-with-windows;
+            start-with-windows-toggled => {
+                root.start-with-windows = !root.start-with-windows;
+                root.start-with-windows-changed(root.start-with-windows);
+            }
+            uninstall-visible: root.uninstall-visible;
+            uninstall-clicked => {
+                root.uninstall-delete-data = false;
+                root.uninstall-failed = false;
+                root.uninstall-dialog-open = true;
+            }
             debug-tools: root.debug-tools;
             open-debug => { root.screen = Screen.debug; }
             back => { root.screen = Screen.history; }
@@ -116,5 +142,16 @@ export component AppWindow inherits Window {
             fire(kind) => { root.debug-event(kind); }
             back => { root.screen = Screen.settings; }
         }
+    }
+
+    // Over the whole window, top bar included.
+    if root.uninstall-dialog-open && root.screen == Screen.settings: SettingsUninstallDialog {
+        width: root.width;
+        height: root.height;
+        delete-data: root.uninstall-delete-data;
+        failed: root.uninstall-failed;
+        delete-data-toggled => { root.uninstall-delete-data = !root.uninstall-delete-data; }
+        cancel => { root.uninstall-dialog-open = false; }
+        confirm => { root.uninstall(root.uninstall-delete-data); }
     }
 }

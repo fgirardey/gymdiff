@@ -29,7 +29,7 @@ flowchart LR
 1. **Spec**: write or update the feature note ([[Spec to code]]).
 2. **Design**: frames in Pencil ([[Design with Pencil]]).
 3. **Implement** with Claude Code. Its instructions: `CLAUDE.md` (always loaded), `.claude/rules/` (per area, loaded for matching files), `.claude/skills/` (workflows such as `implementing-a-feature`, loaded on demand).
-4. **Run** `just dev`: builds and starts the simulator at 10× speed with the default scenario, then the app. Use `just dev 1` for real time, or `just dev 10 fixtures/scenarios/<name>/scenario.json` for another scenario.
+4. **Run** `just dev`: builds and starts the simulator at 10× speed with the default scenario, then the app. Use `just dev 1` for real time, or `just dev 10 fixtures/scenarios/<name>/scenario.json` for another scenario. Closing the window keeps the app running, as on Windows: quit from its icon in the menu bar, or with Ctrl-C in the terminal. See [[Running in the background]].
 5. **Iterate on UI** with `just preview <path>` (Slint live reload, fixed data, see [[Previews]]).
 6. **Check** with `just check` before committing: format, clippy (pedantic, warnings denied), tests, Windows type-check.
 7. **Push** and open a pull request from the template ([[Pull requests]]): CI runs the checks (format, commit messages, clippy and tests on Windows and macOS). Add the `build` label to also get release builds of the pull request, linked from a comment. After the merge, `main` is built with its debug symbols uploaded to Sentry, and merged work ships through release-please ([[Releasing]]).

@@ -10,7 +10,8 @@ Index of feature notes. One note per feature, created from `_templates/Feature.m
 | [[First launch]] | implemented | first launch | `First launch / Welcome / Default` (sketched) |
 | [[Settings]] | implemented (error reports consent) | any time | `App shell / Settings / Default` (sketched) |
 | [[Auto-update]] | in progress (Velopack) | any time | `App shell / Settings / Updates *` (sketched) |
-| [[Installation]] | in progress (Velopack) | before first launch | none (Velopack installer) |
+| [[Installation]] | in progress (Velopack) | before first launch | `Installer / Window / *`, `App shell / Settings / Uninstall *` (sketched) |
+| [[Running in the background]] | in progress | any time | native tray menu; `App shell / Settings / Scrolled to the bottom` (sketched) |
 
 Screen structure and frame list: [[Screens]].
 

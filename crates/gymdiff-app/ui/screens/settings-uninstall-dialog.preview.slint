@@ -1,0 +1,120 @@
+// Previews of SettingsUninstallDialog: `just preview screens/settings-uninstall-dialog`.
+
+import { Theme } from "../theme.slint";
+import { AppShell } from "../shell/app-shell.slint";
+import { SettingsScreen } from "settings.slint";
+import { SettingsUninstallDialog } from "settings-uninstall-dialog.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Pencil frame `App shell / Settings / Uninstall confirm` (400 × 640).
+export component AppShellSettingsUninstallConfirm inherits Rectangle {
+    width: 400px;
+    height: 640px;
+    background: Theme.background;
+    clip: true;
+
+    AppShell {
+        connected: true;
+        status-label: Fixtures.status-lobby;
+        settings-active: true;
+
+        SettingsScreen {
+            vertical-stretch: 1;
+            update-visible: true;
+            update-status: Fixtures.update-up-to-date;
+            shortcuts-visible: true;
+            shortcut-start-menu: true;
+            startup-visible: true;
+            uninstall-visible: true;
+            scroll-y: min(0px, self.height - self.content-height);
+        }
+    }
+
+    SettingsUninstallDialog { }
+}
+
+// Pencil frame `App shell / Settings / Uninstall failed` (400 × 640).
+export component AppShellSettingsUninstallFailed inherits Rectangle {
+    width: 400px;
+    height: 640px;
+    background: Theme.background;
+    clip: true;
+
+    AppShell {
+        connected: true;
+        status-label: Fixtures.status-lobby;
+        settings-active: true;
+
+        SettingsScreen {
+            vertical-stretch: 1;
+            update-visible: true;
+            update-status: Fixtures.update-up-to-date;
+            shortcuts-visible: true;
+            shortcut-start-menu: true;
+            startup-visible: true;
+            uninstall-visible: true;
+            scroll-y: min(0px, self.height - self.content-height);
+        }
+    }
+
+    SettingsUninstallDialog { failed: true; }
+}
+
+// Edit the knobs in the live preview's Data tab; clicks show as the last action.
+export component SettingsUninstallDialogPlayground inherits Window {
+    in-out property <bool> delete-data;
+    in-out property <bool> failed;
+
+    background: Theme.background;
+    preferred-width: 400px;
+    preferred-height: 640px;
+
+    playground := PreviewPlayground {
+        padding: 0;
+        alignment: stretch;
+
+        SettingsUninstallDialog {
+            vertical-stretch: 1;
+            delete-data: root.delete-data;
+            failed: root.failed;
+            delete-data-toggled => {
+                root.delete-data = !root.delete-data;
+                playground.log("delete-data-toggled");
+            }
+            cancel => { playground.log("cancel"); }
+            confirm => { playground.log("confirm"); }
+        }
+    }
+}
+
+// Gallery of every state (default component of the file).
+export component Preview inherits Window {
+    title: "SettingsUninstallDialog";
+    background: Theme.background;
+
+    HorizontalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "App shell / Settings / Uninstall confirm";
+            AppShellSettingsUninstallConfirm { }
+        }
+        PreviewCase {
+            label: "App shell / Settings / Uninstall failed";
+            AppShellSettingsUninstallFailed { }
+        }
+        PreviewCase {
+            label: "Also delete my settings on";
+            Rectangle {
+                width: 400px;
+                height: 640px;
+                background: Theme.background;
+                SettingsUninstallDialog { delete-data: true; }
+            }
+        }
+    }
+}

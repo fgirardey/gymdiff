@@ -97,8 +97,10 @@ The canvas is laid out along the user flow: one row per stage, left to right in 
 | `App shell / Settings / Updates checking` | Settings, update check running (Check now disabled) |
 | `App shell / Settings / Updates ready` | Settings, a new alpha build installed for the next launch |
 | `App shell / Settings / Updates failed` | Settings, the last update check failed |
-| `App shell / Settings / Scrolled to the bottom` | Settings scrolled down: Updates and Shortcuts sections |
-| `Installer / Window / Options` | Installer: welcome and shortcut choices |
+| `App shell / Settings / Scrolled to the bottom` | Settings scrolled down: Updates, Shortcuts, Startup and Uninstall sections |
+| `App shell / Settings / Uninstall confirm` | Settings, confirmation dialog before uninstalling |
+| `App shell / Settings / Uninstall failed` | Settings, the uninstaller could not start |
+| `Installer / Window / Options` | Installer: welcome, shortcut and startup choices |
 | `Installer / Window / Installing` | Installer: installation in progress |
 | `Installer / Window / Done` | Installer: installed, Launch GymDiff switch and Finish |
 | `Installer / Window / Failed` | Installer: installation failed |
