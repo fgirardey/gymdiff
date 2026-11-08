@@ -1,0 +1,43 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "simple",
+  "bump-minor-pre-major": true,
+  "include-component-in-tag": false,
+  "pull-request-title-pattern": "chore: release ${version}",
+  "pull-request-header": "Merging this pull request releases GymDiff: it tags the commit, builds Windows and macOS, attaches the binaries to the GitHub Release and finalizes the Sentry release (see docs/Workflow/Releasing.md).",
+  "changelog-sections": [
+    {
+      "type": "feat",
+      "section": "Features"
+    },
+    {
+      "type": "fix",
+      "section": "Bug fixes"
+    },
+    {
+      "type": "perf",
+      "section": "Performance"
+    },
+    {
+      "type": "revert",
+      "section": "Reverts"
+    }
+  ],
+  "packages": {
+    ".": {
+      "package-name": "gymdiff",
+      "extra-files": [
+        {
+          "type": "toml",
+          "path": "Cargo.toml",
+          "jsonpath": "$.workspace.package.version"
+        },
+        {
+          "type": "toml",
+          "path": "Cargo.lock",
+          "jsonpath": "$.package[?(!@.source)].version"
+        }
+      ]
+    }
+  }
+}

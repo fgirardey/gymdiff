@@ -1,0 +1,69 @@
+name: Release
+
+# release-please keeps a `chore: release x.y.z` pull request up to date from the Conventional
+# Commits on main. Merging it tags the commit and creates the GitHub Release; this workflow then
+# builds that commit (channel `release`), attaches the builds and finalizes the Sentry release.
+# See docs/Workflow/Releasing.md and ADR-0008.
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      release-created: ${{ steps.release.outputs.release_created }}
+      tag: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          # A personal token, so CI runs on the release pull request (GitHub does not start
+          # workflows for pull requests opened with GITHUB_TOKEN).
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || github.token }}
+
+  build:
+    needs: release-please
+    if: needs.release-please.outputs.release-created == 'true'
+    permissions:
+      contents: read
+    uses: ./.github/workflows/build.yml
+    with:
+      channel: release
+    secrets: inherit
+
+  publish:
+    needs: [release-please, build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      SENTRY_ORG: ${{ vars.SENTRY_ORG }}
+      SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: .github/scripts
+      - uses: actions/download-artifact@v5
+        with:
+          path: dist
+      - name: Attach the builds and finalize the Sentry release
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { default: publishRelease } = await import('${{ github.workspace }}/.github/scripts/publish-release.mjs')
+            await publishRelease({ github, context, core, exec }, {
+              tag: '${{ needs.release-please.outputs.tag }}',
+              version: '${{ needs.build.outputs.version }}',
+              sentryRelease: '${{ needs.build.outputs.sentry-release }}',
+              dist: 'dist',
+            })
