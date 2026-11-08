@@ -37,7 +37,10 @@ Design rules:
 - **Full diagnostics / log tail** — more useful, larger privacy surface; revisit with a new ADR if errors alone prove too thin.
 
 ## Consequences
-- New crate `gymdiff-diagnostics` (pure, no network). Slice 1: scrubber, consent store, capture layer, report and preview. Tested; not yet wired into the app.
-- Next slices: wire the capture layer and a panic hook into `init_logging`; Settings and welcome UI (needs a Pencil frame first); Sentry transport behind the consent check (needs a Sentry project and DSN, kept out of the repo).
+- New crate `gymdiff-diagnostics` (pure, no network): scrubber, consent store, capture layer, report and preview.
+- `gymdiff-app/src/reporting.rs` is the only code that talks to Sentry. It starts only with consent **and** a DSN, sends on panic and on `ERROR` (at most one per minute, asynchronously), and rebuilds every event from the fixed report schema (`before_send` drops everything else; SDK integrations, breadcrumbs, server name and user are off).
+- The DSN is not committed: `GYMDIFF_SENTRY_DSN` at run time, or baked in at build time from the CI repository variable of the same name. It is a write-only key, not a secret, but keeping it out of the source avoids noise from forks and clones.
+- Sentry project created 2026-11-08 in the **US** region (`ingest.us.sentry.io`). This differs from the "EU region" intent above: see [[Privacy]]; revisit before sharing builds widely.
+- Until the Settings UI exists (needs a Pencil frame first), consent can only be set by hand in `diagnostics.json`; so reports are off for everyone.
 - A new third-party processor (Sentry) must be named in [[Privacy]] and in the product's Riot registration.
 - Status stays `proposed` until the author accepts it after the Sentry project is chosen.

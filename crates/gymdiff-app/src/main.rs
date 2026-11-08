@@ -6,11 +6,13 @@
 //!   League client (real or simulated) and pushes state updates to the UI.
 
 mod platform;
+mod reporting;
 mod settings;
 mod watcher;
 
 use std::path::PathBuf;
 
+use gymdiff_diagnostics::ErrorBuffer;
 use slint::ComponentHandle;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
@@ -19,7 +21,9 @@ use tracing_subscriber::{EnvFilter, fmt};
 slint::include_modules!();
 
 fn main() -> anyhow::Result<()> {
-    let _log_guard = init_logging();
+    let data_dir = data_dir();
+    let (_log_guard, errors) = init_logging(&data_dir);
+    let _reports_guard = reporting::start(&data_dir, &errors);
     tracing::info!(
         version = env!("CARGO_PKG_VERSION"),
         platform = platform::NAME,
@@ -30,7 +34,6 @@ fn main() -> anyhow::Result<()> {
     platform::configure_main_window(window.window());
     window.set_version(env!("CARGO_PKG_VERSION").into());
 
-    let data_dir = data_dir();
     let welcome = settings::WelcomeFlag::new(&data_dir);
     if !welcome.is_seen() {
         tracing::info!(data_dir = %data_dir.display(), "first launch: showing the welcome");
@@ -64,8 +67,15 @@ fn data_dir() -> PathBuf {
 }
 
 /// Logs to stderr and to a daily-rotated file in [`platform::log_dir`].
-/// Attach that file when reporting a Windows-only bug.
-fn init_logging() -> Option<tracing_appender::non_blocking::WorkerGuard> {
+/// Attach that file when reporting a Windows-only bug. Also feeds the opt-in
+/// error reports ([`reporting`]).
+fn init_logging(
+    data_dir: &std::path::Path,
+) -> (
+    Option<tracing_appender::non_blocking::WorkerGuard>,
+    ErrorBuffer,
+) {
+    let errors = ErrorBuffer::new(50);
     let filter = EnvFilter::try_from_default_env()
         .unwrap_or_else(|_| EnvFilter::new("info,gymdiff=debug,gymdiff_lol=debug"));
     let stderr = fmt::layer().with_writer(std::io::stderr);
@@ -87,7 +97,9 @@ fn init_logging() -> Option<tracing_appender::non_blocking::WorkerGuard> {
         .with(filter)
         .with(stderr)
         .with(file)
+        .with(errors.layer())
+        .with(reporting::ReportLayer::new(errors.clone(), data_dir))
         .init();
     tracing::info!(log_dir = %log_dir.display(), "logging initialised");
-    guard
+    (guard, errors)
 }
