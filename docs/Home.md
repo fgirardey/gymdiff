@@ -25,6 +25,7 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 - [[ADR-0003 macOS-first development with a simulator]]
 - [[ADR-0004 Champion images from Data Dragon]]
 - [[ADR-0005 Bundle the role symbols]]
+- [[ADR-0006 Opt-in error reports]]
 
 ## Workflow
 - [[Development]] — the daily loop on macOS
@@ -37,6 +38,7 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 
 ## Compliance
 - [[Riot policies]] — what we can and cannot do
+- [[Privacy]] — what stays local, what error reports contain, how to stop them
 
 ## Conventions for this vault
 - English only.
