@@ -36784,6 +36784,104 @@
                   "fontFamily": "$font-body",
                   "fontSize": "$font-size-caption",
                   "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "a5Nxz",
+                  "name": "Section / Updates",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wQJTQ",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "UPDATES",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "f4YuxA",
+                      "name": "Setting / Updates",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "g9OzVX",
+                          "name": "Updates text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "AP8ib",
+                              "name": "Updates label",
+                              "fill": "$text-primary",
+                              "content": "Alpha channel",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "O8bhz",
+                              "name": "Update status",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Up to date. Last checked at 14:05.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "ESwm4",
+                          "name": "Check now button",
+                          "height": 36,
+                          "cornerRadius": "$radius-m",
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "padding": [
+                            0,
+                            "$space-m"
+                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "IsBYx",
+                              "name": "Check now label",
+                              "fill": "$text-primary",
+                              "content": "Check now",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -37004,6 +37102,1068 @@
                   "fontFamily": "$font-body",
                   "fontSize": "$font-size-caption",
                   "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "XHOhW",
+                  "name": "Section / Updates",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "PbXQc",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "UPDATES",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "VB1C5",
+                      "name": "Setting / Updates",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "ceojA",
+                          "name": "Updates text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "JWIZs",
+                              "name": "Updates label",
+                              "fill": "$text-primary",
+                              "content": "Alpha channel",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "NzQuN",
+                              "name": "Update status",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Up to date. Last checked at 14:05.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "gHPP0",
+                          "name": "Check now button",
+                          "height": 36,
+                          "cornerRadius": "$radius-m",
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "padding": [
+                            0,
+                            "$space-m"
+                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "GbZ1M",
+                              "name": "Check now label",
+                              "fill": "$text-primary",
+                              "content": "Check now",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "QwYww",
+      "type": "ref",
+      "ref": "SKE9k",
+      "name": "App shell / Settings / Updates checking",
+      "x": 2400,
+      "y": 4480,
+      "descendants": {
+        "GHZ8R": {
+          "content": "Connected · Lobby"
+        },
+        "wOgKz": {
+          "fill": "$border"
+        },
+        "ZMlng": {
+          "fill": "$text-primary"
+        },
+        "ebEjx": {
+          "children": [
+            {
+              "type": "frame",
+              "id": "rFhKR",
+              "name": "Content",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": "$space-m",
+              "padding": "$space-l",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "g8yhoj",
+                  "name": "Back",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "KL551",
+                      "name": "Back icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "chevron-left",
+                      "library": "lucide",
+                      "fill": "$text-secondary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "rPhVT",
+                      "name": "Back label",
+                      "fill": "$text-secondary",
+                      "content": "History",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-body",
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "cRTvi",
+                  "name": "Screen title",
+                  "fill": "$text-primary",
+                  "content": "SETTINGS",
+                  "fontFamily": "$font-display",
+                  "fontSize": "$font-size-title",
+                  "fontWeight": "800",
+                  "letterSpacing": 1,
+                  "fontStyle": "italic"
+                },
+                {
+                  "type": "frame",
+                  "id": "n5Brty",
+                  "name": "Section / Error reports",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "GqzFo",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "ERROR REPORTS",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "iiCZ6",
+                      "name": "Setting / Crash reports",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "jXUk8",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "H9JAbH",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Send crash reports",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "vVBTR",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "When GymDiff crashes or hits an error, send the scrubbed error, where it happened in the code, the app version and OS. A hard crash also sends a memory snapshot of GymDiff, used only to find the cause.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "T9V2E",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "sjI0z",
+                      "name": "Setting / All logs",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "oGw37",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "kCrdQ",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Send all logs",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "CBnQX",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Also send everyday logs, scrubbed the same way. Helps fix bugs that don't crash.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "LIXSd",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "DPUoY",
+                  "name": "Retention note",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Both are off by default. Reports are deleted after 30 days.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font-body",
+                  "fontSize": "$font-size-caption",
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "m1Lyy",
+                  "name": "Section / Updates",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "kQu66",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "UPDATES",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pwviG",
+                      "name": "Setting / Updates",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "ivhjb",
+                          "name": "Updates text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "kmekf",
+                              "name": "Updates label",
+                              "fill": "$text-primary",
+                              "content": "Alpha channel",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "vSNMS",
+                              "name": "Update status",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Checking for updates…",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "iBP3S",
+                          "name": "Check now button",
+                          "opacity": 0.4,
+                          "height": 36,
+                          "cornerRadius": "$radius-m",
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "padding": [
+                            0,
+                            "$space-m"
+                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "vt5rL",
+                              "name": "Check now label",
+                              "fill": "$text-primary",
+                              "content": "Check now",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "Ezgbn",
+      "type": "ref",
+      "ref": "SKE9k",
+      "name": "App shell / Settings / Updates ready",
+      "x": 2880,
+      "y": 4480,
+      "descendants": {
+        "GHZ8R": {
+          "content": "Connected · Lobby"
+        },
+        "wOgKz": {
+          "fill": "$border"
+        },
+        "ZMlng": {
+          "fill": "$text-primary"
+        },
+        "ebEjx": {
+          "children": [
+            {
+              "type": "frame",
+              "id": "CyImc",
+              "name": "Content",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": "$space-m",
+              "padding": "$space-l",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "hGivQ",
+                  "name": "Back",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "w8Jql",
+                      "name": "Back icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "chevron-left",
+                      "library": "lucide",
+                      "fill": "$text-secondary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "FyNkU",
+                      "name": "Back label",
+                      "fill": "$text-secondary",
+                      "content": "History",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-body",
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "oHtrI",
+                  "name": "Screen title",
+                  "fill": "$text-primary",
+                  "content": "SETTINGS",
+                  "fontFamily": "$font-display",
+                  "fontSize": "$font-size-title",
+                  "fontWeight": "800",
+                  "letterSpacing": 1,
+                  "fontStyle": "italic"
+                },
+                {
+                  "type": "frame",
+                  "id": "Z3OsLq",
+                  "name": "Section / Error reports",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "i6oRa",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "ERROR REPORTS",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "oKwAR",
+                      "name": "Setting / Crash reports",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "BLJLk",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "WKwWp",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Send crash reports",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "iN3Rm",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "When GymDiff crashes or hits an error, send the scrubbed error, where it happened in the code, the app version and OS. A hard crash also sends a memory snapshot of GymDiff, used only to find the cause.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "C0wJCG",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Y8vTX",
+                      "name": "Setting / All logs",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "u6xpC",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Ich7l",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Send all logs",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "jWECK",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Also send everyday logs, scrubbed the same way. Helps fix bugs that don't crash.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "NM5gK",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "P3GpOV",
+                  "name": "Retention note",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Both are off by default. Reports are deleted after 30 days.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font-body",
+                  "fontSize": "$font-size-caption",
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "xvx0h",
+                  "name": "Section / Updates",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "F5mDuI",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "UPDATES",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "esMUy",
+                      "name": "Setting / Updates",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Ilqsi",
+                          "name": "Updates text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "IjOd5",
+                              "name": "Updates label",
+                              "fill": "$text-primary",
+                              "content": "Alpha channel",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "y9aBs",
+                              "name": "Update status",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Build 58 is ready. It starts the next time you open GymDiff.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "M0jsw",
+                          "name": "Check now button",
+                          "height": 36,
+                          "cornerRadius": "$radius-m",
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "padding": [
+                            0,
+                            "$space-m"
+                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "sI3JV",
+                              "name": "Check now label",
+                              "fill": "$text-primary",
+                              "content": "Check now",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "Yfszs",
+      "type": "ref",
+      "ref": "SKE9k",
+      "name": "App shell / Settings / Updates failed",
+      "x": 3360,
+      "y": 4480,
+      "descendants": {
+        "GHZ8R": {
+          "content": "Connected · Lobby"
+        },
+        "wOgKz": {
+          "fill": "$border"
+        },
+        "ZMlng": {
+          "fill": "$text-primary"
+        },
+        "ebEjx": {
+          "children": [
+            {
+              "type": "frame",
+              "id": "DyYMA",
+              "name": "Content",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": "$space-m",
+              "padding": "$space-l",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "RVWKy",
+                  "name": "Back",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "l1Zz8D",
+                      "name": "Back icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "chevron-left",
+                      "library": "lucide",
+                      "fill": "$text-secondary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "KTUJi",
+                      "name": "Back label",
+                      "fill": "$text-secondary",
+                      "content": "History",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-body",
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "WT0ZM",
+                  "name": "Screen title",
+                  "fill": "$text-primary",
+                  "content": "SETTINGS",
+                  "fontFamily": "$font-display",
+                  "fontSize": "$font-size-title",
+                  "fontWeight": "800",
+                  "letterSpacing": 1,
+                  "fontStyle": "italic"
+                },
+                {
+                  "type": "frame",
+                  "id": "UU70k",
+                  "name": "Section / Error reports",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Pq79u",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "ERROR REPORTS",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "bvc6x",
+                      "name": "Setting / Crash reports",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Kn9Jd",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "WodBc",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Send crash reports",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "OKQ6V",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "When GymDiff crashes or hits an error, send the scrubbed error, where it happened in the code, the app version and OS. A hard crash also sends a memory snapshot of GymDiff, used only to find the cause.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "fj0nA",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "rSA3E",
+                      "name": "Setting / All logs",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "tja9e",
+                          "name": "Setting text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "GVn60",
+                              "name": "Label",
+                              "fill": "$text-primary",
+                              "content": "Send all logs",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "sPyyq",
+                              "name": "Detail",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Also send everyday logs, scrubbed the same way. Helps fix bugs that don't crash.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "K5TMA8",
+                          "type": "ref",
+                          "ref": "GX2CB",
+                          "name": "Switch"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "Tk8Pi",
+                  "name": "Retention note",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Both are off by default. Reports are deleted after 30 days.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font-body",
+                  "fontSize": "$font-size-caption",
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "l75y2",
+                  "name": "Section / Updates",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "uLLNW",
+                      "name": "Section label",
+                      "fill": "$text-secondary",
+                      "content": "UPDATES",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$font-size-caption",
+                      "fontWeight": "600",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ZviHq",
+                      "name": "Setting / Updates",
+                      "width": "fill_container",
+                      "stroke": "$border",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": "$space-m",
+                      "padding": [
+                        "$space-m",
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "ucGWW",
+                          "name": "Updates text",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": "$space-xs",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "KnqDe",
+                              "name": "Updates label",
+                              "fill": "$text-primary",
+                              "content": "Alpha channel",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "AtNmh",
+                              "name": "Update status",
+                              "fill": "$text-secondary",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Couldn't update: no connection. Next try in an hour.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "x7uXYF",
+                          "name": "Check now button",
+                          "height": 36,
+                          "cornerRadius": "$radius-m",
+                          "stroke": "$border",
+                          "strokeWidth": 1,
+                          "padding": [
+                            0,
+                            "$space-m"
+                          ],
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "l7UyH",
+                              "name": "Check now label",
+                              "fill": "$text-primary",
+                              "content": "Check now",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$font-size-body",
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }

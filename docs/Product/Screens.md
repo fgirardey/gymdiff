@@ -34,7 +34,7 @@ Map of the app's screens and how the player moves between them. Each screen's be
 | **Welcome** | first launch only (no top bar) | Shown once, at first launch: the principle (main stat → burpees, secondary stat → squats, deaths → plank), the health warning, Riot's disclaimer, a "Let's go" button | [[First launch]] |
 | **History** | main screen, default | All games grouped by session, newest first, one workout card per game (game portraits on the left). Also shows the game that just ended while its workout is computed, and games without a workout | [[History]] |
 | **Workout** (modal over History) | on its own, or Start on a pending card | Opens on its own when a workout is ready, or from **Start** on a pending card: prompt → steps → summary. All its states are in [[Post-game workout]] | [[Post-game workout]] |
-| **Settings** | gear in the top bar | Opt-in error reports: "Send crash reports" and "Send all logs" switches, off by default, and the 30-day retention note | [[Settings]] |
+| **Settings** | gear in the top bar | Opt-in error reports: "Send crash reports" and "Send all logs" switches, off by default, and the 30-day retention note; on alpha builds, the update status and **Check now** | [[Settings]], [[Auto-update]] |
 | **About** | ⓘ in the top bar | `AboutSlint` (required, see [[ADR-0001 Native UI with Slint]]), Riot's "Legal Jibber Jabber" disclaimer, app version | — |
 
 The computation of every number stays **inline** in each workout step (stat, target, cap) and in an expanded History card: there is no detail screen.
@@ -94,6 +94,9 @@ The canvas is laid out along the user flow: one row per stage, left to right in 
 | `App shell / About / Default` | About screen |
 | `App shell / Settings / Default` | Settings, both switches off |
 | `App shell / Settings / Crash reports on` | Settings, "Send crash reports" on |
+| `App shell / Settings / Updates checking` | Settings, update check running (Check now disabled) |
+| `App shell / Settings / Updates ready` | Settings, a new alpha build installed for the next launch |
+| `App shell / Settings / Updates failed` | Settings, the last update check failed |
 
 ## Open questions
 - Can the window be resized, and down to what size?
