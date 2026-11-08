@@ -16,6 +16,7 @@ mod debug_events;
 mod platform;
 mod reporting;
 mod settings;
+mod shortcut_settings;
 mod updater;
 mod watcher;
 
@@ -95,6 +96,8 @@ fn main() -> anyhow::Result<()> {
     if let Some(updater) = updater.clone() {
         window.on_check_updates(move || updater.check_now());
     }
+
+    shortcut_settings::bind(&window, updater::is_installed());
 
     window.set_debug_tools(cfg!(debug_assertions));
     window.on_debug_event(|kind| debug_events::fire(kind.as_str()));

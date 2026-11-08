@@ -31,7 +31,7 @@ export component SettingRow inherits Rectangle {
                 font-weight: 600;
             }
 
-            Text {
+            if root.detail != "": Text {
                 text: root.detail;
                 color: Theme.text-secondary;
                 font-size: Theme.font-size-body;

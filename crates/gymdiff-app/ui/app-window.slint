@@ -44,6 +44,13 @@ export component AppWindow inherits Window {
     in property <bool> update-busy;
     /// "Check now" in Settings.
     callback check-updates;
+    /// Shortcuts section in Settings (installed builds); Rust sets whether each exists.
+    in property <bool> shortcuts-visible;
+    in-out property <bool> shortcut-start-menu;
+    in-out property <bool> shortcut-desktop;
+    /// The player flipped a shortcut switch; `wanted` is the new value.
+    callback shortcut-start-menu-changed(wanted: bool);
+    callback shortcut-desktop-changed(wanted: bool);
     /// A button of the throwaway debug screen was pressed.
     callback debug-event(kind: string);
 
@@ -80,6 +87,17 @@ export component AppWindow inherits Window {
             update-status: root.update-status;
             update-busy: root.update-busy;
             check-updates => { root.check-updates(); }
+            shortcuts-visible: root.shortcuts-visible;
+            shortcut-start-menu: root.shortcut-start-menu;
+            shortcut-desktop: root.shortcut-desktop;
+            shortcut-start-menu-toggled => {
+                root.shortcut-start-menu = !root.shortcut-start-menu;
+                root.shortcut-start-menu-changed(root.shortcut-start-menu);
+            }
+            shortcut-desktop-toggled => {
+                root.shortcut-desktop = !root.shortcut-desktop;
+                root.shortcut-desktop-changed(root.shortcut-desktop);
+            }
             debug-tools: root.debug-tools;
             open-debug => { root.screen = Screen.debug; }
             back => { root.screen = Screen.history; }

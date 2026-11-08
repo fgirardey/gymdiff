@@ -14,6 +14,7 @@ publish = false
 gymdiff-core = { path = "crates/gymdiff-core" }
 gymdiff-lol = { path = "crates/gymdiff-lol" }
 gymdiff-diagnostics = { path = "crates/gymdiff-diagnostics" }
+gymdiff-shortcuts = { path = "crates/gymdiff-shortcuts" }
 
 # Async runtime & HTTP
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "time", "sync", "signal", "fs"] }

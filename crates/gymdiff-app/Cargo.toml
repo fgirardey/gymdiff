@@ -16,6 +16,7 @@ path = "src/main.rs"
 gymdiff-core = { workspace = true }
 gymdiff-diagnostics = { workspace = true }
 gymdiff-lol = { workspace = true }
+gymdiff-shortcuts = { workspace = true }
 anyhow = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

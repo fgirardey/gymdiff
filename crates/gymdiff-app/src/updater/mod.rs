@@ -4,4 +4,4 @@
 mod service;
 mod state;
 
-pub use service::{Updater, run_installer_hooks};
+pub use service::{Updater, is_installed, run_installer_hooks};
