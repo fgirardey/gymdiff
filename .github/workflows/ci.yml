@@ -67,8 +67,8 @@ jobs:
       channel: alpha
     secrets: inherit
 
-  # Publishes the Windows build of main on the rolling `alpha` pre-release, where alpha builds
-  # look for updates (docs/Product/Features/Auto-update.md).
+  # Publishes the Windows build of main as its own pre-release, v<version>-alpha.<build>, where
+  # alpha builds look for updates (docs/Product/Features/Auto-update.md). Keeps the last 10.
   publish-alpha:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build

@@ -64,6 +64,7 @@ jobs:
             await publishRelease({ github, context, core, exec }, {
               tag: '${{ needs.release-please.outputs.tag }}',
               version: '${{ needs.build.outputs.version }}',
+              build: Number('${{ needs.build.outputs.build }}'),
               sentryRelease: '${{ needs.build.outputs.sentry-release }}',
               dist: 'dist',
             })

@@ -1,18 +1,19 @@
-// Publishes the Windows build of main on the rolling `alpha` pre-release, from actions/github-script
-// (see docs/Decisions/ADR-0010 Alpha channel and self-update.md).
+// Publishes the Windows build of main as its own GitHub pre-release, `v<version>-alpha.<build>`,
+// from actions/github-script (see docs/Decisions/ADR-0010 Alpha channel and self-update.md).
 // Usage in a workflow step, after actions/download-artifact of the Windows build:
 //   const { default: publishAlpha } = await import('${{ github.workspace }}/.github/scripts/publish-alpha.mjs')
 //   await publishAlpha({ github, context, core }, { exe: 'dist/gymdiff.exe', version: '0.2.0', build: 57 })
-// Creates the pre-release on first use, moves the `alpha` tag to the built commit and replaces the
-// executable and `latest.json`, the manifest alpha builds read. Skips a build older than the one
-// already published (two merges in a row). Needs `contents: write`.
-import { createHash } from 'node:crypto';
+// The release is created as a draft, gets the executable and its manifest.json, then is published,
+// so clients never see it half uploaded. Only the newest alpha releases are kept. Needs
+// `contents: write`.
 import { readFile } from 'node:fs/promises';
 
-const TAG = 'alpha';
-const EXE_ASSET = 'gymdiff-alpha-windows-x64.exe';
-const MANIFEST_ASSET = 'latest.json';
-const TARGET = 'x86_64-pc-windows-msvc';
+import { manifestFor, uploadAsset } from './release-manifest.mjs';
+
+/** Alpha releases kept after publishing; older ones and their tags are deleted. */
+const KEEP = 10;
+/** `v0.2.0-alpha.57` → build 57. Stable tags (`v0.2.0`) never match. */
+const ALPHA_TAG = /^v\d+\.\d+\.\d+-alpha\.(\d+)$/;
 
 export default async function publishAlpha({ github, context, core }, { exe, version, build }) {
   if (!version || !Number.isInteger(build) || build <= 0) {
@@ -21,108 +22,73 @@ export default async function publishAlpha({ github, context, core }, { exe, ver
   }
   const { owner, repo } = context.repo;
   const commit = context.sha;
-  const release = await alphaRelease(github, { owner, repo, commit });
+  const tag = `v${version}-alpha.${build}`;
+  const exeName = `gymdiff-${version}-alpha.${build}-windows-x64.exe`;
 
-  const published = await publishedBuild(github, { owner, repo, release });
-  if (published >= build) {
-    core.notice(`Alpha already at build ${published}: build ${build} not published.`);
+  const existing = await releaseByTag(github, { owner, repo, tag });
+  if (existing && !existing.draft) {
+    core.notice(`${tag} is already published.`);
     return;
   }
-
-  await moveTag(github, { owner, repo, commit });
+  const { data: release } = existing
+    ? { data: existing }
+    : await github.rest.repos.createRelease({
+        owner,
+        repo,
+        tag_name: tag,
+        target_commitish: commit,
+        name: tag,
+        body: [
+          `Build ${build} of \`main\` (${commit.slice(0, 7)}), for the alpha channel.`,
+          '',
+          `Alpha builds update themselves to the newest alpha release. To install one, download \`${exeName}\` into a folder you own and unblock it (Properties → Unblock). See [Auto-update](https://github.com/${owner}/${repo}/blob/main/docs/Product/Features/Auto-update.md).`,
+        ].join('\n'),
+        draft: true,
+        prerelease: true,
+        make_latest: 'false',
+      });
 
   const data = await readFile(exe);
-  const url = `https://github.com/${owner}/${repo}/releases/download/${TAG}/${EXE_ASSET}`;
-  const manifest = {
-    version,
-    build,
-    commit,
-    target: TARGET,
-    url,
-    size: data.length,
-    sha256: createHash('sha256').update(data).digest('hex'),
-    published_at: new Date().toISOString(),
-  };
-  // Executable first: a client never reads a manifest whose executable is not there yet.
-  await replaceAsset(github, { owner, repo, release, name: EXE_ASSET, data, type: 'application/octet-stream' });
-  const json = Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`);
-  await replaceAsset(github, { owner, repo, release, name: MANIFEST_ASSET, data: json, type: 'application/json' });
-
-  await github.rest.repos.updateRelease({
+  await uploadAsset(github, { owner, repo, release, name: exeName, data, type: 'application/octet-stream' });
+  const manifest = manifestFor({ owner, repo, tag, exeName, data, version, build, commit });
+  await uploadAsset(github, {
     owner,
     repo,
-    release_id: release.id,
-    name: `Alpha ${version}+${build}`,
-    body: [
-      `Latest build of \`main\`: **${version}+${build}** (${commit.slice(0, 7)}).`,
-      '',
-      `Download \`${EXE_ASSET}\` once into a folder you own, unblock it (Properties → Unblock), and it updates itself to every new build of \`main\`. See [Auto-update](https://github.com/${owner}/${repo}/blob/main/docs/Product/Features/Auto-update.md).`,
-    ].join('\n'),
-    prerelease: true,
-    make_latest: 'false',
+    release,
+    name: 'manifest.json',
+    data: Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`),
+    type: 'application/json',
   });
-  core.info(`Published alpha ${version}+${build} (${manifest.sha256})`);
+  await github.rest.repos.updateRelease({ owner, repo, release_id: release.id, draft: false, make_latest: 'false' });
+  core.info(`Published ${tag} (${manifest.sha256})`);
+
+  await prune(github, { owner, repo, core });
 }
 
-/** The `alpha` pre-release, created on first use. */
-async function alphaRelease(github, { owner, repo, commit }) {
-  try {
-    const { data } = await github.rest.repos.getReleaseByTag({ owner, repo, tag: TAG });
-    return data;
-  } catch (error) {
-    if (error.status !== 404) throw error;
-  }
-  const { data } = await github.rest.repos.createRelease({
-    owner,
-    repo,
-    tag_name: TAG,
-    target_commitish: commit,
-    name: 'Alpha',
-    prerelease: true,
-    make_latest: 'false',
-  });
-  return data;
+/** The release with `tag`, drafts included, or `undefined`. */
+async function releaseByTag(github, { owner, repo, tag }) {
+  const releases = await github.paginate(github.rest.repos.listReleases, { owner, repo, per_page: 100 });
+  return releases.find((release) => release.tag_name === tag);
 }
 
-/** Build number in the published manifest, or 0 when there is none. */
-async function publishedBuild(github, { owner, repo, release }) {
-  const asset = release.assets.find((candidate) => candidate.name === MANIFEST_ASSET);
-  if (!asset) return 0;
-  const { data } = await github.rest.repos.getReleaseAsset({
-    owner,
-    repo,
-    asset_id: asset.id,
-    headers: { accept: 'application/octet-stream' },
-  });
-  try {
-    return JSON.parse(Buffer.from(data).toString('utf8')).build ?? 0;
-  } catch {
-    return 0;
-  }
-}
+/** Deletes alpha releases and tags beyond the newest KEEP, and the old rolling `alpha` release. */
+async function prune(github, { owner, repo, core }) {
+  const releases = await github.paginate(github.rest.repos.listReleases, { owner, repo, per_page: 100 });
+  const alphas = releases
+    .map((release) => ({ release, match: ALPHA_TAG.exec(release.tag_name) }))
+    .filter(({ release, match }) => match && !release.draft)
+    .sort((a, b) => Number(b.match[1]) - Number(a.match[1]));
+  const stale = alphas.slice(KEEP).map(({ release }) => release);
+  // Rolling pre-release of the first alpha builds, replaced by one release per build.
+  stale.push(...releases.filter((release) => release.tag_name === 'alpha'));
 
-/** Points the `alpha` tag at the built commit. */
-async function moveTag(github, { owner, repo, commit }) {
-  try {
-    await github.rest.git.updateRef({ owner, repo, ref: `tags/${TAG}`, sha: commit, force: true });
-  } catch (error) {
-    if (error.status !== 422 && error.status !== 404) throw error;
-    await github.rest.git.createRef({ owner, repo, ref: `refs/tags/${TAG}`, sha: commit });
+  for (const release of stale) {
+    await github.rest.repos.deleteRelease({ owner, repo, release_id: release.id });
+    try {
+      await github.rest.git.deleteRef({ owner, repo, ref: `tags/${release.tag_name}` });
+    } catch (error) {
+      if (error.status !== 422 && error.status !== 404) throw error;
+    }
+    core.info(`Deleted ${release.tag_name}`);
   }
-}
-
-/** Uploads an asset, replacing the one of the same name. */
-async function replaceAsset(github, { owner, repo, release, name, data, type }) {
-  const existing = release.assets.find((asset) => asset.name === name);
-  if (existing) {
-    await github.rest.repos.deleteReleaseAsset({ owner, repo, asset_id: existing.id });
-  }
-  await github.rest.repos.uploadReleaseAsset({
-    owner,
-    repo,
-    release_id: release.id,
-    name,
-    data,
-    headers: { 'content-type': type, 'content-length': data.length },
-  });
 }
