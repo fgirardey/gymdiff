@@ -12,13 +12,13 @@ The app runs loops (the watcher polls the League client every second). A line lo
 ## Levels
 | Level | Meaning | Examples |
 |---|---|---|
-| `ERROR` | A bug the author must fix. The app cannot recover from it alone. Each one becomes a Sentry issue. | cannot build the HTTP client, panic |
+| `ERROR` | A bug the author must fix. The app cannot recover from it alone. Each one becomes a Sentry issue (at most 10 per launch). | cannot build the HTTP client, panic |
 | `WARN` | Unexpected but handled, rare, and someone can act on it. | an LCU payload no longer matches our models, `settings.json` unreadable |
 | `INFO` | Lifecycle milestones. A few lines per game, not per second. | app started, connected to the League client, phase changed, client lost |
 | `DEBUG` | Details to diagnose a problem from the local log file. | lockfile found, a single failed request |
 | `TRACE` | One line per poll or tick. Off by default. | client not found yet, state pushed to the UI |
 
 ## Writing a log line
-- Structured fields, not formatted strings: `tracing::warn!(%error, consecutive_errors, "LCU request failed")`. The message stays constant so lines group well; the details go in fields.
+- Structured fields, not formatted strings (they become Sentry log attributes you can filter on): `tracing::warn!(%error, consecutive_errors, "LCU request failed")`. The message stays constant so lines group well; the details go in fields.
 - Short messages, lowercase, no trailing period.
 - Never log LCU or Live Client payloads, summoner names, Riot IDs, `puuid` or account ids, at any level (see [[Privacy#Rules for contributors]]). Scrubbing is a safety net, not a licence.
