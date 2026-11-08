@@ -36,5 +36,6 @@ A GUI app started over SSH does not appear on the Windows desktop: `just win-bui
 
 ## When something only breaks on Windows
 1. Reproduce, then `just win-logs` on the Mac: the latest log lands in `target/windows.log`.
+   (Central error reports are opt-in and do not replace this: see [[Privacy]].)
 2. Ask Claude Code to analyse it together with the relevant code.
 3. If the bug comes from unexpected API data, add the payload to a scenario so it can be reproduced on the Mac.

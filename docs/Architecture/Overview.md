@@ -34,6 +34,7 @@ flowchart LR
 | `gymdiff-core` | Domain types and logic. Pure functions, reducer `CompanionState::apply(Event)`. | `serde` only |
 | `gymdiff-lol` | League local APIs: lockfile discovery, `LolClient` trait, HTTP client, API models. | `gymdiff-core`, `reqwest` |
 | `gymdiff-simulator` | Fake League client replaying scenarios (development only, never shipped). | `gymdiff-lol` (lockfile format), `axum` |
+| `gymdiff-diagnostics` | Opt-in error reports: scrubbing, consent, bounded capture, preview. No network. See [[ADR-0006 Opt-in error reports]]. | `serde`, `tracing` |
 | `gymdiff-app` | The shipped binary (`gymdiff.exe`): Slint UI, watcher, OS integration. | everything above, `slint` |
 
 ## Rules
@@ -60,6 +61,8 @@ The local APIs use certificates signed by Riot's own root CA. For now the client
 `tracing`, to stderr and to a daily-rotated file:
 - Windows: `%LOCALAPPDATA%\GymDiff\logs\`
 - macOS: `~/Library/Logs/GymDiff/`
+
+Local logs stay on the PC. Error reports to a central service are **opt-in** and built from scrubbed `WARN`/`ERROR` events only ([[ADR-0006 Opt-in error reports]], [[Privacy]]); the capture layer is not wired into the app yet.
 
 Filter with `RUST_LOG` (default: `info,gymdiff=debug,gymdiff_lol=debug`).
 
