@@ -8,16 +8,20 @@ Nothing leaves the PC except requests to the League client on `127.0.0.1` and to
 ## Reports (opt-in)
 Two switches in Settings, both off until the player turns them on. Changes apply at the next launch. Turning both off stops sending and forgets the install id.
 
-- **Send crash reports**: errors and panics, as Sentry issues.
+- **Send crash reports**: errors and panics with their stack trace, and native crashes with a memory snapshot (minidump), as Sentry issues.
 - **Send all logs**: everyday logs (`INFO`, `WARN`, `ERROR`), as Sentry logs.
 
 | Sent | Never sent |
 |---|---|
-| App version, OS name, debug or release build | Summoner names, Riot IDs, `puuid`, account ids |
-| Random install id (to answer deletion requests) | Match, champ select or Live Client data |
-| Scrubbed messages, their fields and module (GymDiff's own code only) | `DEBUG`/`TRACE` logs, file paths with user names |
-| Panic message (scrubbed) | Machine name, IP addresses (not stored by the backend), e-mails, tokens |
+| App version, build number, commit, channel (release, preview, development) | Summoner names, Riot IDs, `puuid`, account ids |
+| OS name and version, compiler version | Match, champ select or Live Client data |
+| Random install id (to answer deletion requests) | `DEBUG`/`TRACE` logs, file paths with user names |
+| Scrubbed messages, their fields and module (GymDiff's own code only) | Machine name, IP addresses (not stored by the backend), e-mails, tokens |
+| Stack traces: functions, file names, lines; loaded modules (file names only) | Local variables |
+| On a native crash: a minidump (registers and stack memory of the app's threads) | |
 
+- **Minidumps** are the one thing the app cannot scrub: stack memory may hold a Riot ID or the LCU token if GymDiff crashes during a game. The Sentry project does not store them (*Store Native Crash Reports* off): Sentry turns the dump into a stack trace and discards it. The switch's text says a hard crash sends a memory snapshot.
+- **Source code and symbols** of the app (not player data) are uploaded to the same Sentry project by CI, to show where an error happened ([[ADR-0008 Versioning and releases]]).
 - **Retention**: 30 days, then deleted.
 - **Deletion**: send the install id from Settings to the author; matching reports are deleted.
 - **Processor**: Sentry, **EU region** (Frankfurt). Named here and in the Riot registration.

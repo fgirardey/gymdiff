@@ -50,7 +50,7 @@ export component SettingsScreen inherits VerticalLayout {
 
         SettingRow {
             label: "Send crash reports";
-            detail: "When GymDiff crashes or hits an error, send the scrubbed error with the app version and OS. No names, Riot IDs or game data.";
+            detail: "When GymDiff crashes or hits an error, send the scrubbed error, where it happened in the code, the app version and OS. A hard crash also sends a memory snapshot of GymDiff, used only to find the cause.";
             checked: root.crash-reports;
             toggled => { root.crash-reports-toggled(); }
         }

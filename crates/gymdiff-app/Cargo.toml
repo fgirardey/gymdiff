@@ -19,7 +19,9 @@ anyhow = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
 slint = { workspace = true }
-sentry = { version = "0.49.5", default-features = false, features = ["reqwest", "native-tls", "tracing", "logs"] }
+# Stack traces (backtrace, debug-images, panic), OS and Rust contexts, native
+# crashes as minidumps (minidump): see ADR-0006.
+sentry = { version = "0.49.5", default-features = false, features = ["reqwest", "native-tls", "tracing", "logs", "backtrace", "debug-images", "contexts", "panic", "minidump"] }
 tokio = { workspace = true }
 tracing = { workspace = true }
 tracing-appender = { workspace = true }

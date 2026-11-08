@@ -29,6 +29,9 @@ fn main() -> anyhow::Result<()> {
         return Ok(());
     }
     let data_dir = data_dir();
+    // In the crash reporter child process this never returns: it must run
+    // before anything opens a window or a log file.
+    reporting::run_crash_reporter_if_child(&data_dir);
     let _log_guard = init_logging();
     let _reports_guard = reporting::start(&data_dir);
     tracing::info!(
@@ -41,6 +44,7 @@ fn main() -> anyhow::Result<()> {
         platform = platform::NAME,
         "starting GymDiff"
     );
+    debug_events::fire_from_env();
 
     let window = AppWindow::new()?;
     platform::configure_main_window(window.window());

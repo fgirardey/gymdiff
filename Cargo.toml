@@ -57,4 +57,9 @@ missing_panics_doc = "allow"
 [profile.release]
 lto = "thin"
 codegen-units = 1
-strip = true
+# Symbols for Sentry (ADR-0008): functions, lines and inlined frames, in a
+# separate file (gymdiff.pdb on Windows, gymdiff.dSYM on macOS) that CI
+# uploads and does not ship. No `strip`: on MSVC it stops the PDB from
+# being written.
+debug = "limited"
+split-debuginfo = "packed"
