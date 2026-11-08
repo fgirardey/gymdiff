@@ -11,7 +11,7 @@ export component InstallerWindow inherits Window {
     title: "GymDiff Setup";
     icon: @image-url("images/app-icon.png");
     width: 420px;
-    height: 460px;
+    height: 500px;
     background: Theme.background;
 
     in-out property <InstallerStep> step: InstallerStep.options;
@@ -19,6 +19,7 @@ export component InstallerWindow inherits Window {
     in property <string> failure-reason;
     in-out property <bool> start-menu: true;
     in-out property <bool> desktop: false;
+    in-out property <bool> start-with-windows: false;
     in-out property <bool> launch: true;
     /// Install with the current choices; Rust moves through the steps.
     callback install;
@@ -33,9 +34,11 @@ export component InstallerWindow inherits Window {
         failure-reason: root.failure-reason;
         start-menu: root.start-menu;
         desktop: root.desktop;
+        start-with-windows: root.start-with-windows;
         launch: root.launch;
         start-menu-toggled => { root.start-menu = !root.start-menu; }
         desktop-toggled => { root.desktop = !root.desktop; }
+        start-with-windows-toggled => { root.start-with-windows = !root.start-with-windows; }
         launch-toggled => { root.launch = !root.launch; }
         install => { root.install(); }
         cancel => { root.quit(); }

@@ -4,6 +4,9 @@ use std::path::PathBuf;
 
 pub const NAME: &str = "macos";
 
+/// macOS: menu bar icons open their menu on a click, like the system ones.
+pub const TRAY_MENU_ON_LEFT_CLICK: bool = true;
+
 /// `~/Library/Logs/GymDiff`
 pub fn log_dir() -> PathBuf {
     std::env::var_os("HOME").map_or_else(

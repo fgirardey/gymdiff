@@ -3,11 +3,10 @@
 //! the next launch, and pushes its state to the Settings screen
 //! (`docs/Product/Features/Auto-update.md`, ADR-0011).
 
+use std::path::Path;
 use std::sync::mpsc::{self, RecvTimeoutError};
 use std::time::Duration;
 
-#[cfg(windows)]
-use gymdiff_shortcuts::Shortcut;
 use velopack::sources::GithubSource;
 use velopack::{UpdateCheck, UpdateManager, VelopackApp};
 
@@ -59,18 +58,17 @@ impl Updater {
 /// Velopack's install, update and uninstall hooks, and a downloaded update
 /// applied at startup (it restarts GymDiff). Call it early in `main`, before
 /// any window or log file; it returns at once when GymDiff runs normally.
-/// Before uninstalling, removes the shortcuts the installer or Settings made
-/// (ADR-0012): Velopack only removes its own.
-pub fn run_installer_hooks() {
+/// Before uninstalling, removes what GymDiff added to Windows and, if the
+/// player asked, the data folder ([`crate::uninstall::before_uninstall`]).
+pub fn run_installer_hooks(data_dir: &Path) {
     let app = VelopackApp::build();
     // Velopack's install and uninstall hooks exist on Windows only.
     #[cfg(windows)]
     let app = app.on_before_uninstall_fast_callback(|_version| {
-        for shortcut in Shortcut::ALL {
-            // Nothing to log to yet: uninstalling must go on anyway.
-            let _ = shortcut.remove();
-        }
+        crate::uninstall::before_uninstall(data_dir);
     });
+    #[cfg(not(windows))]
+    let _ = data_dir;
     let mut app = app;
     app.run();
 }

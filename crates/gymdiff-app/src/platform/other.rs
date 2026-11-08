@@ -4,6 +4,9 @@ use std::path::PathBuf;
 
 pub const NAME: &str = "other";
 
+/// Other platforms: like Windows.
+pub const TRAY_MENU_ON_LEFT_CLICK: bool = false;
+
 pub fn log_dir() -> PathBuf {
     PathBuf::from("logs")
 }

@@ -4,15 +4,16 @@
 //! # GymDiff installer
 //!
 //! A small window in GymDiff's look (`ui/installer-window.slint` in the app
-//! crate): the player picks the Start menu and Desktop shortcuts, the installer
-//! runs Velopack's setup it embeds (`--silent`: no Velopack window, no launch),
-//! creates the chosen shortcuts and launches GymDiff if asked
-//! (`docs/Product/Features/Installation.md`, ADR-0012).
+//! crate): the player picks the Start menu and Desktop shortcuts and whether
+//! GymDiff starts with Windows, the installer runs Velopack's setup it embeds
+//! (`--silent`: no Velopack window, no launch), applies the choices and
+//! launches GymDiff if asked (`docs/Product/Features/Installation.md`,
+//! ADR-0012, ADR-0013).
 
 use std::path::Path;
 use std::process::Command;
 
-use gymdiff_shortcuts::Shortcut;
+use gymdiff_shortcuts::{Shortcut, StartWithWindows};
 use slint::ComponentHandle;
 
 slint::include_modules!();
@@ -24,16 +25,19 @@ fn main() -> Result<(), slint::PlatformError> {
     let weak = window.as_weak();
     window.on_install(move || {
         let Some(window) = weak.upgrade() else { return };
-        let choices = [
-            (Shortcut::StartMenu, window.get_start_menu()),
-            (Shortcut::Desktop, window.get_desktop()),
-        ];
+        let choices = Choices {
+            shortcuts: [
+                (Shortcut::StartMenu, window.get_start_menu()),
+                (Shortcut::Desktop, window.get_desktop()),
+            ],
+            start_with_windows: window.get_start_with_windows(),
+        };
         window.set_step(InstallerStep::Installing);
         let weak = weak.clone();
         let spawned = std::thread::Builder::new()
             .name("install".into())
             .spawn(move || {
-                let result = install().map(|()| apply_shortcuts(&choices));
+                let result = install().map(|()| choices.apply());
                 let _ = weak.upgrade_in_event_loop(move |window| match result {
                     Ok(()) => window.set_step(InstallerStep::Done),
                     Err(failure) => fail(&window, failure),
@@ -112,12 +116,21 @@ fn run_setup(folder: &Path) -> Result<(), Failure> {
     }
 }
 
-/// Creates the chosen shortcuts and removes the others (a reinstall applies
-/// the new choices). A shortcut that fails is not worth failing the install:
-/// Settings can add it later.
-fn apply_shortcuts(choices: &[(Shortcut, bool)]) {
-    for &(shortcut, wanted) in choices {
-        let _ = shortcut.set(wanted);
+/// What the player chose on the Options step.
+struct Choices {
+    shortcuts: [(Shortcut, bool); 2],
+    start_with_windows: bool,
+}
+
+impl Choices {
+    /// Creates the chosen shortcuts and startup entry and removes the others
+    /// (a reinstall applies the new choices). One that fails is not worth
+    /// failing the install: Settings can change it later.
+    fn apply(&self) {
+        for &(shortcut, wanted) in &self.shortcuts {
+            let _ = shortcut.set(wanted);
+        }
+        let _ = StartWithWindows::set(self.start_with_windows);
     }
 }
 

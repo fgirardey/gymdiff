@@ -16,8 +16,9 @@ Colours come from the brand direction chosen in Pencil (see [[Brand]]): a K/DA r
 | `text-secondary` | `#8b949e` | Secondary text, labels |
 | `accent` | `#3fb950` | Brand accent, highlights |
 | `success` | `#3fb950` | Kills, gains, connected |
-| `danger` | `#f85149` | Deaths, losses, disconnected, errors |
+| `danger` | `#f85149` | Deaths, losses, disconnected, errors, destructive actions (Uninstall) |
 | `warning` | `#d29922` | Partial workouts, sessions with some workouts missed |
+| `scrim` | `#010409c7` | Dims the window behind a dialog (workout prompt, uninstall confirmation) |
 
 `accent` and `success` share a value on purpose (green is the brand colour), but keep the roles separate in code.
 
@@ -34,6 +35,7 @@ Colours come from the brand direction chosen in Pencil (see [[Brand]]): a K/DA r
 | Token | Value |
 |---|---|
 | `radius-m` | 8px |
+| `radius-dialog` | 16px |
 
 ## Interaction
 Hover and pressed states, shown in the `Interaction states` section of the `Foundations` page. Every interactive control adds a **state layer** in its content colour (Material), filled and outlined buttons also **shrink** while pressed (iOS), and every change eases out.

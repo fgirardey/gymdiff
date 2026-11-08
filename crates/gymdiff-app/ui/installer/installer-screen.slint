@@ -20,9 +20,11 @@ export component InstallerScreen inherits Rectangle {
     /// The player's choices; the parent flips them on the `*-toggled` callbacks.
     in property <bool> start-menu: true;
     in property <bool> desktop: false;
+    in property <bool> start-with-windows: false;
     in property <bool> launch: true;
     callback start-menu-toggled;
     callback desktop-toggled;
+    callback start-with-windows-toggled;
     callback launch-toggled;
     callback install;
     callback cancel;
@@ -66,7 +68,7 @@ export component InstallerScreen inherits Rectangle {
 
         if root.step == InstallerStep.options: VerticalLayout {
             Text {
-                text: "SHORTCUTS";
+                text: "OPTIONS";
                 color: Theme.text-secondary;
                 font-size: Theme.font-size-caption;
                 font-weight: 600;
@@ -82,6 +84,12 @@ export component InstallerScreen inherits Rectangle {
                 label: "Add a Desktop shortcut";
                 checked: root.desktop;
                 toggled => { root.desktop-toggled(); }
+            }
+            SettingRow {
+                label: "Start with Windows";
+                detail: "Waits in the notification area when you sign in.";
+                checked: root.start-with-windows;
+                toggled => { root.start-with-windows-toggled(); }
             }
         }
 

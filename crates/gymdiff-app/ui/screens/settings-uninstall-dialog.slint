@@ -1,0 +1,87 @@
+// Confirmation before uninstalling, over the whole window (docs/Product/Features/Installation.md).
+//
+// Frames in design/gymdiff.pen: `App shell / Settings / Uninstall confirm`,
+// `App shell / Settings / Uninstall failed`.
+
+import { Theme } from "../theme.slint";
+import { SettingRow } from "../components/setting-row.slint";
+import { PrimaryButton } from "../components/primary-button.slint";
+import { SecondaryButton } from "../components/secondary-button.slint";
+
+export component SettingsUninstallDialog inherits Rectangle {
+    /// "Also delete my settings": the parent flips it on `delete-data-toggled`.
+    in property <bool> delete-data;
+    /// The uninstaller could not start: shows how to uninstall from Windows instead.
+    in property <bool> failed;
+    callback delete-data-toggled;
+    callback cancel;
+    /// Uninstall with the current choice.
+    callback confirm;
+
+    // Scrim: dims the window and swallows clicks behind the dialog.
+    background: Theme.scrim;
+    TouchArea { }
+
+    card := Rectangle {
+        x: Theme.space-xl;
+        y: (root.height - self.height) / 2;
+        width: root.width - 2 * Theme.space-xl;
+        height: layout.preferred-height;
+        background: Theme.surface;
+        border-radius: Theme.radius-dialog;
+        border-width: 1px;
+        border-color: Theme.border;
+
+        layout := VerticalLayout {
+            padding: Theme.space-l;
+            spacing: Theme.space-m;
+
+            Text {
+                text: "UNINSTALL GYMDIFF?";
+                color: Theme.text-primary;
+                font-size: Theme.font-size-title;
+                font-weight: 800;
+                font-italic: true;
+                letter-spacing: 1px;
+            }
+
+            Text {
+                text: "GymDiff closes, then its app, shortcuts and logs are removed from this PC.";
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-body;
+                wrap: word-wrap;
+            }
+
+            if root.failed: Text {
+                text: "The uninstaller could not start. Uninstall from Windows Settings → Apps → GymDiff instead.";
+                color: Theme.danger;
+                font-size: Theme.font-size-body;
+                wrap: word-wrap;
+            }
+
+            SettingRow {
+                label: "Also delete my settings";
+                detail: "Preferences, error-report choice and install id. Keep them to pick up where you left off if you reinstall.";
+                checked: root.delete-data;
+                divider: false;
+                toggled => { root.delete-data-toggled(); }
+            }
+
+            HorizontalLayout {
+                alignment: end;
+                spacing: Theme.space-m;
+                SecondaryButton {
+                    text: "Cancel";
+                    width: 120px;
+                    clicked => { root.cancel(); }
+                }
+                PrimaryButton {
+                    text: "Uninstall";
+                    width: 120px;
+                    destructive: true;
+                    clicked => { root.confirm(); }
+                }
+            }
+        }
+    }
+}

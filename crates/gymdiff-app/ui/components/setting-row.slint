@@ -1,7 +1,8 @@
 // A setting: label and explanation on the left, a switch on the right.
 //
 // Frames in design/gymdiff.pen: `Setting / Crash reports`, `Setting / All logs`
-// in `App shell / Settings / Default`.
+// in `App shell / Settings / Default`; without divider, `Option / Delete data` in
+// `App shell / Settings / Uninstall confirm`.
 
 import { Theme } from "../theme.slint";
 import { Switch } from "switch.slint";
@@ -10,6 +11,8 @@ export component SettingRow inherits Rectangle {
     in property <string> label;
     in property <string> detail;
     in property <bool> checked;
+    /// The line under the row, as in Settings' lists; off inside a dialog.
+    in property <bool> divider: true;
     /// The player clicked the switch: the parent decides whether `checked` changes.
     callback toggled;
 
@@ -49,7 +52,7 @@ export component SettingRow inherits Rectangle {
     }
 
     // Bottom border
-    Rectangle {
+    if root.divider: Rectangle {
         y: parent.height - self.height;
         height: 1px;
         background: Theme.border;

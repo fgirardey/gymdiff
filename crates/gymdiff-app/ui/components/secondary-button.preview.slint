@@ -58,6 +58,13 @@ export component Preview inherits Window {
             }
         }
         PreviewCase {
+            label: "Destructive, compact";
+            HorizontalLayout {
+                alignment: start;
+                SecondaryButton { text: "Uninstall"; height: 36px; destructive: true; }
+            }
+        }
+        PreviewCase {
             label: "Long text";
             SecondaryButton { text: "A much longer label that may not fit the button width"; }
         }

@@ -5,7 +5,10 @@
 //! # GymDiff desktop app
 //!
 //! Threads:
-//! - main thread: Slint event loop (UI),
+//! - main thread: Slint event loop (UI) and the notification area icon
+//!   ([`tray`]); closing the window hides it, the loop runs until Quit GymDiff,
+//! - `single-instance` thread: shows the window when GymDiff is started again
+//!   ([`single_instance`]),
 //! - background thread: Tokio runtime running the [`watcher`], which polls the
 //!   League client (real or simulated) and pushes state updates to the UI,
 //! - `updater` thread (installed alpha builds): checks for and downloads new
@@ -17,13 +20,22 @@ mod platform;
 mod reporting;
 mod settings;
 mod shortcut_settings;
+mod single_instance;
+mod startup_settings;
+mod tray;
+mod uninstall;
 mod updater;
 mod watcher;
 
+use std::cell::RefCell;
 use std::path::PathBuf;
+use std::rc::Rc;
+use std::time::Duration;
 
 use build_info::BUILD;
+use single_instance::SingleInstance;
 use slint::ComponentHandle;
+use slint::winit_030::{WinitWindowAccessor, winit};
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::{EnvFilter, fmt};
@@ -36,6 +48,9 @@ fn main() -> anyhow::Result<()> {
         println!("gymdiff {}", BUILD.full_version());
         return Ok(());
     }
+    // Started with Windows (`docs/Product/Features/Running in the background.md`):
+    // only the notification area icon, no window.
+    let background = std::env::args().any(|arg| arg == gymdiff_shortcuts::BACKGROUND_ARG);
     let data_dir = data_dir();
     // In the crash reporter child process this never returns: it must run
     // before anything opens a window or a log file.
@@ -43,7 +58,7 @@ fn main() -> anyhow::Result<()> {
     // Installer hooks and updates downloaded earlier (Velopack, ADR-0011): may
     // exit or restart GymDiff, so before the log file and the window, and after
     // the crash reporter's own exit so that child never applies an update.
-    updater::run_installer_hooks();
+    updater::run_installer_hooks(&data_dir);
     let _log_guard = init_logging();
     let _reports_guard = reporting::start(&data_dir);
     tracing::info!(
@@ -59,11 +74,21 @@ fn main() -> anyhow::Result<()> {
     debug_events::fire_from_env();
 
     let window = AppWindow::new()?;
+    let weak = window.as_weak();
+    let show_again = move || {
+        let _ = weak.upgrade_in_event_loop(|window| reveal(&window));
+    };
+    if let SingleInstance::AlreadyRunning =
+        single_instance::claim(&data_dir, background, show_again)
+    {
+        return Ok(());
+    }
     platform::configure_main_window(window.window());
     window.set_version(BUILD.display().into());
 
     let settings = settings::SettingsStore::new(&data_dir);
-    if !settings.load().welcome_seen {
+    let welcome_seen = settings.load().welcome_seen;
+    if !welcome_seen {
         tracing::info!(data_dir = %data_dir.display(), "first launch: showing the welcome");
         window.set_screen(Screen::Welcome);
     }
@@ -97,7 +122,10 @@ fn main() -> anyhow::Result<()> {
         window.on_check_updates(move || updater.check_now());
     }
 
-    shortcut_settings::bind(&window, updater::is_installed());
+    let installed = updater::is_installed();
+    shortcut_settings::bind(&window, installed);
+    startup_settings::bind(&window, installed);
+    uninstall::bind(&window, &data_dir, installed);
 
     window.set_debug_tools(cfg!(debug_assertions));
     window.on_debug_event(|kind| debug_events::fire(kind.as_str()));
@@ -113,8 +141,59 @@ fn main() -> anyhow::Result<()> {
             runtime.block_on(watcher::run(weak));
         })?;
 
-    window.run()?;
+    let tray = start_tray(&window);
+    // A first launch shows the welcome even when started with Windows.
+    if background && welcome_seen {
+        tracing::info!("started in the background: window hidden");
+    } else {
+        window.show()?;
+    }
+    slint::run_event_loop_until_quit()?;
+    drop(tray);
     Ok(())
+}
+
+/// Shows the window and brings it to the front, wherever it was: hidden in
+/// the notification area, minimised or behind other windows.
+fn reveal(window: &AppWindow) {
+    if let Err(error) = window.show() {
+        tracing::warn!(%error, "cannot show the window");
+        return;
+    }
+    window.window().set_minimized(false);
+    window
+        .window()
+        .with_winit_window(winit::window::Window::focus_window);
+}
+
+/// Creates the notification area icon once the event loop runs. Closing the
+/// window hides it while the icon exists; without an icon, closing quits, or
+/// GymDiff would be left running with no way back.
+fn start_tray(window: &AppWindow) -> Rc<RefCell<Option<tray::Tray>>> {
+    let tray = Rc::new(RefCell::new(None));
+    let weak = window.as_weak();
+    let created = tray.clone();
+    slint::Timer::single_shot(Duration::ZERO, move || {
+        let open = move || {
+            let _ = weak.upgrade_in_event_loop(|window| reveal(&window));
+        };
+        let quit = || {
+            tracing::info!("quit from the notification area");
+            let _ = slint::quit_event_loop();
+        };
+        match tray::Tray::create(open, quit) {
+            Ok(icon) => *created.borrow_mut() = Some(icon),
+            Err(error) => tracing::warn!(%error, "no notification area icon: closing quits"),
+        }
+    });
+    let has_tray = tray.clone();
+    window.window().on_close_requested(move || {
+        if has_tray.borrow().is_none() {
+            let _ = slint::quit_event_loop();
+        }
+        slint::CloseRequestResponse::HideWindow
+    });
+    tray
 }
 
 /// The settings folder: [`platform::data_dir`], or `GYMDIFF_DATA_DIR` when set
