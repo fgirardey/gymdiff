@@ -19,12 +19,12 @@ How a GymDiff version is numbered, released and made readable in Sentry. Decisio
 To force a version (e.g. `1.0.0`), add `Release-As: 1.0.0` to the body of a commit on `main`.
 
 ## The alpha channel
-Every merge to `main` is built with channel `alpha` and published by the `publish-alpha` job of `.github/workflows/ci.yml` (`.github/scripts/publish-alpha.mjs`) on the rolling **`alpha` pre-release**: the `alpha` tag moves to the built commit, and the assets `gymdiff-alpha-windows-x64.exe` and `latest.json` are replaced. Alpha builds read `latest.json` and update themselves ([[Auto-update]], [[ADR-0010 Alpha channel and self-update]]). A build older than the published one (two quick merges) is not published.
+Every merge to `main` is built with channel `alpha` and published by the `publish-alpha` job of `.github/workflows/ci.yml` (`.github/scripts/publish-alpha.mjs`) as its own **pre-release `v<version>-alpha.<build>`**, with `gymdiff-<version>-alpha.<build>-windows-x64.exe` and `manifest.json`. The last 10 alpha releases are kept. Alpha builds list the releases, take the highest alpha build and update themselves ([[Auto-update]], [[ADR-0010 Alpha channel and self-update]]). Tagged releases also carry a `manifest.json`, for the stable channel to come.
 
-To test the updater locally, serve a manifest and point `GYMDIFF_UPDATE_URL` at it (any build then updates itself, so use a copy of the executable):
+To test the updater locally, serve a release list in the GitHub API's format (`tag_name`, `draft`, `prerelease`, `assets[].name` and `browser_download_url`), with the manifests and executables it points to, and set `GYMDIFF_UPDATE_URL` (any build then updates itself, so use a copy of the executable):
 ```sh
-python3 -m http.server 8765 --directory <folder with latest.json and the new executable>
-GYMDIFF_UPDATE_URL=http://127.0.0.1:8765/latest.json ./copy-of-gymdiff
+python3 -m http.server 8765 --directory <folder with releases.json, manifests and executables>
+GYMDIFF_UPDATE_URL=http://127.0.0.1:8765/releases.json ./copy-of-gymdiff
 ```
 
 ## Symbols in Sentry
