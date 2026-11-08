@@ -1,0 +1,23 @@
+// Indeterminate progress bar: an `accent` segment sliding along a `surface` track, for
+// work whose progress is unknown (the installer's Installing step).
+
+import { Theme } from "../theme.slint";
+
+export component ProgressBar inherits Rectangle {
+    height: 6px;
+    border-radius: self.height / 2;
+    background: Theme.surface;
+    clip: true;
+
+    // One pass every 1.5 s: the segment enters from the left and leaves on the right. Starts
+    // mid-way, so the bar shows from the first frame.
+    property <float> phase: mod(animation-tick() / 1ms + 600, 1500) / 1500;
+
+    Rectangle {
+        width: parent.width * 0.4;
+        height: parent.height;
+        x: -self.width + (parent.width + self.width) * root.phase;
+        border-radius: root.border-radius;
+        background: Theme.accent;
+    }
+}

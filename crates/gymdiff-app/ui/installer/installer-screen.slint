@@ -1,0 +1,124 @@
+// The installer window's content, step by step (docs/Product/Features/Installation.md).
+//
+// Frames in design/gymdiff.pen: `Installer / Window / Options`, `Installer / Window / Installing`,
+// `Installer / Window / Done`, `Installer / Window / Failed`.
+
+import { Theme } from "../theme.slint";
+import { Crest } from "../components/crest.slint";
+import { SettingRow } from "../components/setting-row.slint";
+import { PrimaryButton } from "../components/primary-button.slint";
+import { SecondaryButton } from "../components/secondary-button.slint";
+import { ProgressBar } from "../components/progress-bar.slint";
+import { InstallerStep } from "../installer-step.slint";
+
+export component InstallerScreen inherits Rectangle {
+    in property <InstallerStep> step: InstallerStep.options;
+    /// Version being installed, e.g. `0.1.0 (build 62)`.
+    in property <string> version;
+    /// Why installing failed, in a few words (Failed step).
+    in property <string> failure-reason;
+    /// The player's choices; the parent flips them on the `*-toggled` callbacks.
+    in property <bool> start-menu: true;
+    in property <bool> desktop: false;
+    in property <bool> launch: true;
+    callback start-menu-toggled;
+    callback desktop-toggled;
+    callback launch-toggled;
+    callback install;
+    callback cancel;
+    callback finish;
+    callback close;
+
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-xl;
+        spacing: Theme.space-l;
+
+        HorizontalLayout {
+            alignment: start;
+            Crest { }
+        }
+
+        VerticalLayout {
+            spacing: Theme.space-s;
+            Text {
+                text: root.step == InstallerStep.options ? "INSTALL GYMDIFF"
+                    : root.step == InstallerStep.installing ? "INSTALLING…"
+                    : root.step == InstallerStep.done ? "GYMDIFF IS INSTALLED"
+                    : "INSTALLATION FAILED";
+                color: Theme.text-primary;
+                font-size: Theme.font-size-headline;
+                font-weight: 800;
+                font-italic: true;
+                wrap: word-wrap;
+            }
+            Text {
+                text: root.step == InstallerStep.options ? "For your Windows account only. No administrator rights needed."
+                    : root.step == InstallerStep.installing ? "GymDiff \{root.version} is being installed."
+                    : root.step == InstallerStep.done ? "Open it any time from the shortcuts you chose."
+                    : "Couldn't install GymDiff: \{root.failure-reason}. Nothing was changed.";
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-body;
+                wrap: word-wrap;
+            }
+        }
+
+        if root.step == InstallerStep.options: VerticalLayout {
+            Text {
+                text: "SHORTCUTS";
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-caption;
+                font-weight: 600;
+                letter-spacing: 1px;
+            }
+            SettingRow {
+                label: "Add to the Start menu";
+                detail: "So Windows Search finds GymDiff.";
+                checked: root.start-menu;
+                toggled => { root.start-menu-toggled(); }
+            }
+            SettingRow {
+                label: "Add a Desktop shortcut";
+                checked: root.desktop;
+                toggled => { root.desktop-toggled(); }
+            }
+        }
+
+        if root.step == InstallerStep.installing: ProgressBar { }
+
+        if root.step == InstallerStep.done: SettingRow {
+            label: "Launch GymDiff";
+            checked: root.launch;
+            toggled => { root.launch-toggled(); }
+        }
+
+        // Pushes the buttons to the bottom of the window.
+        Rectangle { vertical-stretch: 1; }
+
+        if root.step == InstallerStep.options: HorizontalLayout {
+            alignment: end;
+            spacing: Theme.space-m;
+            SecondaryButton {
+                text: "Cancel";
+                width: 120px;
+                clicked => { root.cancel(); }
+            }
+            PrimaryButton {
+                text: "Install";
+                width: 120px;
+                clicked => { root.install(); }
+            }
+        }
+
+        if root.step == InstallerStep.done: PrimaryButton {
+            text: "Finish";
+            clicked => { root.finish(); }
+        }
+
+        if root.step == InstallerStep.failed: SecondaryButton {
+            text: "Close";
+            clicked => { root.close(); }
+        }
+    }
+}

@@ -35,7 +35,9 @@ flowchart LR
 | `gymdiff-lol` | League local APIs: lockfile discovery, `LolClient` trait, HTTP client, API models. | `gymdiff-core`, `reqwest` |
 | `gymdiff-simulator` | Fake League client replaying scenarios (development only, never shipped). | `gymdiff-lol` (lockfile format), `axum` |
 | `gymdiff-diagnostics` | Opt-in reports: consent and scrubbing. No network. See [[ADR-0006 Opt-in error reports]]. | `serde`, `regex` |
-| `gymdiff-app` | The shipped binary (`gymdiff.exe`): Slint UI, watcher, OS integration. | everything above, `slint` |
+| `gymdiff-shortcuts` | GymDiff's Start menu and Desktop shortcuts on Windows (create, remove, exists). See [[ADR-0012 Installer window in Slint over Velopack]]. | `dirs`, `mslnk` (Windows only) |
+| `gymdiff-app` | The shipped binary (`gymdiff.exe`): Slint UI, watcher, OS integration, updates (Velopack). | everything above, `slint`, `velopack` |
+| `gymdiff-installer` | The installer window (`GymDiff-<channel>-Setup.exe`): shortcut choices, then Velopack's setup it embeds. Its UI files live in `gymdiff-app/ui/`. | `gymdiff-shortcuts`, `slint` |
 
 ## Rules
 1. **Core is pure.** No I/O, no `#[cfg(target_os)]`, no async. If it can't be unit-tested on any machine, it doesn't belong in core.

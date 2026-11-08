@@ -1,0 +1,30 @@
+// Previews of ProgressBar: `just preview components/progress-bar`.
+
+import { Theme } from "../theme.slint";
+import { ProgressBar } from "progress-bar.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "ProgressBar";
+    background: Theme.background;
+    preferred-width: 360px;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Default (animated)";
+            ProgressBar { }
+        }
+        PreviewCase {
+            label: "Narrow (120px)";
+            HorizontalLayout {
+                alignment: start;
+                ProgressBar { width: 120px; }
+            }
+        }
+    }
+}

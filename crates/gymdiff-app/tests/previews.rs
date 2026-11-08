@@ -9,10 +9,10 @@ use std::path::{Path, PathBuf};
 use slint_interpreter::{Compiler, DiagnosticLevel};
 
 /// Folders of `ui/` whose files must each have a preview.
-const PREVIEWED_DIRS: [&str; 3] = ["components", "shell", "screens"];
+const PREVIEWED_DIRS: [&str; 4] = ["components", "shell", "screens", "installer"];
 
 /// Files at the root of `ui/` that must have a preview.
-const PREVIEWED_ROOT_FILES: [&str; 1] = ["app-window.slint"];
+const PREVIEWED_ROOT_FILES: [&str; 2] = ["app-window.slint", "installer-window.slint"];
 
 /// Folder of `ui/` with the preview helpers (`PreviewCase`, `Fixtures`, …).
 const PREVIEW_KIT: &str = "preview-kit";

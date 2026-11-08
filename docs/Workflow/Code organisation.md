@@ -36,10 +36,13 @@ Layout of `crates/gymdiff-app/ui/`:
 |---|---|
 | `app-window.slint` | `AppWindow`, the root compiled by `build.rs`. Routes between screens. |
 | `screen.slint` | `Screen` enum (which screen is shown). |
+| `installer-window.slint` | `InstallerWindow`, the root compiled by `gymdiff-installer`'s `build.rs`. |
+| `installer-step.slint` | `InstallerStep` enum (which step the installer shows). |
+| `installer/` | The installer's screen (`installer-screen.slint`), one story per installer frame. |
 | `theme.slint`, `role-icons.slint` | Globals: design tokens ([[Tokens]]), bundled images. |
 | `components/` | Reusable widgets with no app knowledge (`Icon`, `Crest`, `PrimaryButton`, `BackLink`). |
 | `shell/` | The app shell around the screens (`AppShell`, `TopBar` and its parts). Pencil: `App shell / …`. |
 | `screens/` | One file per screen, plus its private parts (`welcome-rule.slint`). |
-| `*.preview.slint` | Next to each component, shell part, screen and `app-window.slint`: its stories and `Preview` gallery. See [[Previews]]. Never imported by the app. |
+| `*.preview.slint` | Next to each component, shell part, screen, installer screen, `app-window.slint` and `installer-window.slint`: its stories and `Preview` gallery. See [[Previews]]. Never imported by the app. |
 | `preview-kit/` | Helpers for the previews only: `PreviewCase`, `PreviewPlayground`, `Fixtures`. |
 | `images/` | SVG and PNG assets, referenced with `@image-url` relative to the `.slint` file. |
