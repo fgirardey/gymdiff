@@ -21,9 +21,10 @@ To force a version (e.g. `1.0.0`), add `Release-As: 1.0.0` to the body of a comm
 ## The alpha channel
 Every merge to `main` is built with channel `alpha`, then the `publish-alpha` job of `.github/workflows/ci.yml` packages it with **Velopack** on a Windows runner ([[ADR-0011 Windows installer and updates with Velopack]]):
 1. `vpk download github --channel alpha --pre` fetches the previous alpha package, so `vpk pack` can build a delta (skipped for the first one);
-2. `vpk pack` (pack id `GymDiff`, version `<version>-alpha.<build>`, channel `alpha`, crest icon, Start menu and Desktop shortcuts) produces `GymDiff-alpha-Setup.exe`, `GymDiff-alpha-Portable.zip`, the full and delta `.nupkg` packages and the feed `releases.alpha.json`;
-3. `vpk upload github --publish --pre` attaches them to a new pre-release `v<version>-alpha.<build>`;
-4. `.github/scripts/prune-alphas.mjs` keeps the last 10 alpha releases.
+2. `vpk pack` (pack id `GymDiff`, version `<version>-alpha.<build>`, channel `alpha`, crest icon, no shortcuts) produces `GymDiff-alpha-Setup.exe`, `GymDiff-alpha-Portable.zip`, the full and delta `.nupkg` packages and the feed `releases.alpha.json`;
+3. `cargo build --release -p gymdiff-installer`, with `GYMDIFF_VELOPACK_SETUP` pointing at Velopack's setup, builds our installer window around it ([[ADR-0012 Installer window in Slint over Velopack]]), which then replaces `GymDiff-alpha-Setup.exe`;
+4. `vpk upload github --publish --pre` attaches everything to a new pre-release `v<version>-alpha.<build>`;
+5. `.github/scripts/prune-alphas.mjs` keeps the last 10 alpha releases.
 
 Installed alpha builds read `releases.alpha.json` and update themselves ([[Auto-update]], [[Installation]]). Tagged releases get the same packages on channel `stable` (job `package-windows` of `release.yml`, merged into the release-please release). `vpk` is a .NET tool pinned to the version of the `velopack` crate (1.2.161): bump both together.
 

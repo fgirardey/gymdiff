@@ -81,11 +81,11 @@ jobs:
       REPO_URL: https://github.com/${{ github.repository }}
       VPK_TOKEN: ${{ github.token }}
     steps:
+      # The whole repository: the installer is built here, around the package.
       - uses: actions/checkout@v5
+      - uses: Swatinem/rust-cache@v2
         with:
-          sparse-checkout: |
-            .github/scripts
-            design/brand
+          key: installer
       - uses: actions/download-artifact@v5
         with:
           name: gymdiff-windows-${{ github.sha }}
@@ -97,7 +97,16 @@ jobs:
         continue-on-error: true
         run: vpk download github --repoUrl $env:REPO_URL --channel alpha --pre --outputDir releases
       - name: Package
-        run: vpk pack --packId GymDiff --packVersion $env:PACK_VERSION --packDir dist --mainExe gymdiff.exe --packTitle GymDiff --packAuthors "Florian Girardey" --icon design/brand/gymdiff.ico --shortcuts "Desktop,StartMenuRoot" --channel alpha --outputDir releases
+        run: vpk pack --packId GymDiff --packVersion $env:PACK_VERSION --packDir dist --mainExe gymdiff.exe --packTitle GymDiff --packAuthors "Florian Girardey" --icon design/brand/gymdiff.ico --shortcuts None --channel alpha --outputDir releases
+      # Our installer window (ADR-0012) embeds Velopack's setup and takes its name, so the
+      # release offers one GymDiff-alpha-Setup.exe that asks for the shortcuts.
+      - name: Build the installer
+        env:
+          GYMDIFF_VELOPACK_SETUP: ${{ github.workspace }}/releases/GymDiff-alpha-Setup.exe
+          GYMDIFF_INSTALLER_VERSION: ${{ needs.build.outputs.version }} (build ${{ needs.build.outputs.build }})
+        run: cargo build --release -p gymdiff-installer
+      - name: Swap in the installer
+        run: Copy-Item target/release/gymdiff-installer.exe releases/GymDiff-alpha-Setup.exe -Force
       - name: Publish
         run: vpk upload github --repoUrl $env:REPO_URL --channel alpha --outputDir releases --publish --pre --releaseName "v$env:PACK_VERSION" --tag "v$env:PACK_VERSION" --targetCommitish ${{ github.sha }}
       - name: Keep the last 10 alpha releases
