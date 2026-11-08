@@ -20,6 +20,7 @@ Thumbs.db
 # Local env
 .env
 .env.*
+!.env.example
 
 # Node tooling (commitlint)
 /node_modules/
