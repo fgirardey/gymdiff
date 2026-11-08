@@ -56,7 +56,7 @@ jobs:
       - name: Tests
         run: cargo test --workspace
 
-  # Release builds of main: the alpha channel (ADR-0010), with their debug files uploaded to
+  # Release builds of main: the alpha channel (ADR-0011), with their debug files uploaded to
   # Sentry. Pull requests get builds on demand, with the `build` label (pr-build.yml).
   build:
     if: github.event_name != 'pull_request'
@@ -67,29 +67,44 @@ jobs:
       channel: alpha
     secrets: inherit
 
-  # Publishes the Windows build of main as its own pre-release, v<version>-alpha.<build>, where
-  # alpha builds look for updates (docs/Product/Features/Auto-update.md). Keeps the last 10.
+  # Packages the Windows build of main with Velopack and publishes it as its own pre-release,
+  # v<version>-alpha.<build>: installer, update packages and the alpha feed, where installed alpha
+  # builds look for updates (ADR-0011, docs/Workflow/Releasing.md). Keeps the last 10.
   publish-alpha:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     permissions:
       contents: write
+    env:
+      PACK_VERSION: ${{ needs.build.outputs.version }}-alpha.${{ needs.build.outputs.build }}
+      REPO_URL: https://github.com/${{ github.repository }}
+      VPK_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v5
         with:
-          sparse-checkout: .github/scripts
+          sparse-checkout: |
+            .github/scripts
+            design/brand
       - uses: actions/download-artifact@v5
         with:
           name: gymdiff-windows-${{ github.sha }}
           path: dist
-      - name: Publish the alpha
+      - name: Install vpk
+        run: dotnet tool install --global vpk --version 1.2.161
+      # The previous alpha package lets vpk build a delta; none before the first Velopack alpha.
+      - name: Download the previous alpha
+        continue-on-error: true
+        run: vpk download github --repoUrl $env:REPO_URL --channel alpha --pre --outputDir releases
+      - name: Package
+        run: vpk pack --packId GymDiff --packVersion $env:PACK_VERSION --packDir dist --mainExe gymdiff.exe --packTitle GymDiff --packAuthors "Florian Girardey" --icon design/brand/gymdiff.ico --shortcuts "Desktop,StartMenuRoot" --channel alpha --outputDir releases
+      - name: Publish
+        run: vpk upload github --repoUrl $env:REPO_URL --channel alpha --outputDir releases --publish --pre --releaseName "v$env:PACK_VERSION" --tag "v$env:PACK_VERSION" --targetCommitish ${{ github.sha }}
+      - name: Keep the last 10 alpha releases
         uses: actions/github-script@v9
         with:
           script: |
-            const { default: publishAlpha } = await import('${{ github.workspace }}/.github/scripts/publish-alpha.mjs')
-            await publishAlpha({ github, context, core }, {
-              exe: 'dist/gymdiff.exe',
-              version: '${{ needs.build.outputs.version }}',
-              build: Number('${{ needs.build.outputs.build }}'),
-            })
+            const { pathToFileURL } = require('node:url')
+            const script = pathToFileURL(`${process.env.GITHUB_WORKSPACE}/.github/scripts/prune-alphas.mjs`)
+            const { default: pruneAlphas } = await import(script.href)
+            await pruneAlphas({ github, context, core })
