@@ -1,6 +1,9 @@
 # GymDiff task runner — run `just` to list recipes.
 # Install: `brew install just` (macOS) / `winget install Casey.Just` (Windows).
 
+# Load `.env` (git-ignored, see `.env.example`) for every recipe.
+set dotenv-load
+
 set windows-shell := ["powershell.exe", "-NoLogo", "-NoProfile", "-Command"]
 
 sim_lockfile := justfile_directory() / "target" / "simulator" / "lockfile"

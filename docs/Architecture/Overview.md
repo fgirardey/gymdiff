@@ -67,6 +67,8 @@ Local logs stay on the PC. Error reports to a central service are **opt-in** and
 Filter with `RUST_LOG` (default: `info,gymdiff=debug,gymdiff_lol=debug`).
 
 ## Configuration (environment variables)
+Variables can live in a git-ignored `.env` at the repository root (template: `.env.example`); `just` recipes load it, plain `cargo run` does not.
+
 | Variable | Used by | Purpose |
 |---|---|---|
 | `GYMDIFF_LOCKFILE` | app | Lockfile path (the simulator writes one in `target/simulator/`) |
