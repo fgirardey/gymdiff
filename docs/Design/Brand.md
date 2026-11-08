@@ -25,6 +25,7 @@ Re-export the files from Pencil whenever a logo component changes.
 - Green is always up and red always down. Never swap them.
 - No effects, no stretching, no busy image behind the crest.
 - Never pair the logo with Riot logos or League art, and never make GymDiff look official (see [[Riot policies]]).
+- The name and logo are not covered by the code license ([[ADR-0009 Open-source license]]): forks use their own.
 
 ## History
 Four directions were explored first (Delta, Forge, Training Ground, Level Up), then four sport/gaming marks on the Delta green/red palette (Dumbbell Diff, GD Strike, Crest, Versus). Crest was chosen for its legibility at 16 px and its competitive feel. The explorations were removed from `design/gymdiff.pen` to keep a single version.

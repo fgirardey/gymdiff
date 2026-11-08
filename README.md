@@ -56,4 +56,8 @@ GymDiff isn't endorsed by Riot Games and doesn't reflect the views or opinions o
 
 The UI is built with Slint under the Slint Royalty-free Desktop License (see [ADR-0001](docs/Decisions/ADR-0001%20Native%20UI%20with%20Slint.md)).
 
-No license has been chosen for GymDiff itself yet: all rights reserved.
+## License
+
+GymDiff is licensed under either of [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE), at your option. Unless you explicitly state otherwise, any contribution you submit for inclusion in GymDiff is licensed the same way, without any additional terms.
+
+Riot Games assets, the GymDiff name and logo, and the Lucide settings icon are excluded: see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
