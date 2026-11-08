@@ -1,22 +1,31 @@
-// Settings screen: opt-in error reports.
+// Settings screen: opt-in error reports and, on alpha builds, updates.
 //
 // Frames in design/gymdiff.pen: `App shell / Settings / Default`,
-// `App shell / Settings / Crash reports on`.
+// `App shell / Settings / Crash reports on`, `App shell / Settings / Updates checking`,
+// `App shell / Settings / Updates ready`, `App shell / Settings / Updates failed`.
 
 import { Theme } from "../theme.slint";
 import { BackLink } from "../components/back-link.slint";
 import { SettingRow } from "../components/setting-row.slint";
+import { SecondaryButton } from "../components/secondary-button.slint";
 
 export component SettingsScreen inherits VerticalLayout {
     in property <bool> crash-reports;
     in property <bool> all-logs;
     /// Shows the link to the throwaway debug screen (debug builds only).
     in property <bool> debug-tools;
+    /// Shows the Updates section (builds that update themselves).
+    in property <bool> update-visible;
+    /// Status line under "Alpha channel", written by Rust.
+    in property <string> update-status;
+    /// A check or a download runs: "Check now" is disabled.
+    in property <bool> update-busy;
     callback back;
     callback open-debug;
     /// The player clicked a switch; the parent decides whether the value changes.
     callback crash-reports-toggled;
     callback all-logs-toggled;
+    callback check-updates;
 
     padding: Theme.space-l;
     spacing: Theme.space-m;
@@ -68,6 +77,61 @@ export component SettingsScreen inherits VerticalLayout {
         color: Theme.text-secondary;
         font-size: Theme.font-size-caption;
         wrap: word-wrap;
+    }
+
+    if root.update-visible: VerticalLayout {
+        Text {
+            text: "UPDATES";
+            color: Theme.text-secondary;
+            font-size: Theme.font-size-caption;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        Rectangle {
+            HorizontalLayout {
+                padding-top: Theme.space-m;
+                padding-bottom: Theme.space-m;
+                spacing: Theme.space-m;
+
+                VerticalLayout {
+                    horizontal-stretch: 1;
+                    alignment: center;
+                    spacing: Theme.space-xs;
+
+                    Text {
+                        text: "Alpha channel";
+                        color: Theme.text-primary;
+                        font-size: Theme.font-size-body;
+                        font-weight: 600;
+                    }
+
+                    Text {
+                        text: root.update-status;
+                        color: Theme.text-secondary;
+                        font-size: Theme.font-size-body;
+                        wrap: word-wrap;
+                    }
+                }
+
+                VerticalLayout {
+                    alignment: center;
+                    SecondaryButton {
+                        text: "Check now";
+                        height: 36px;
+                        enabled: !root.update-busy;
+                        clicked => { root.check-updates(); }
+                    }
+                }
+            }
+
+            // Bottom divider, like the setting rows above.
+            Rectangle {
+                y: parent.height - self.height;
+                height: 1px;
+                background: Theme.border;
+            }
+        }
     }
 
     if root.debug-tools: HorizontalLayout {

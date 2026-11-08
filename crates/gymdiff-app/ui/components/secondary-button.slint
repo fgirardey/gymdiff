@@ -1,0 +1,45 @@
+// Outlined button for secondary actions (`Secondary button / *` in the
+// `Interaction states` section of the `Foundations` page; compact 36px variant
+// in `App shell / Settings / Default`). Tinted on hover and pressed, shrinks a
+// little while pressed; faded and inert when disabled.
+
+import { Theme } from "../theme.slint";
+import { StateLayer } from "state-layer.slint";
+
+export component SecondaryButton inherits Rectangle {
+    in property <string> text;
+    in property <bool> enabled: true;
+    callback clicked;
+
+    height: 44px;
+    min-width: label.preferred-width + 2 * Theme.space-m;
+    border-radius: Theme.radius-m;
+    border-width: 1px;
+    border-color: Theme.border;
+    opacity: root.enabled ? 1 : Theme.disabled-opacity;
+    transform-scale: touch.pressed ? Theme.press-scale : 1;
+    animate transform-scale {
+        duration: Theme.motion-fast;
+        easing: ease-out;
+    }
+
+    StateLayer {
+        border-radius: root.border-radius;
+        tint: Theme.text-primary;
+        hovered: touch.has-hover;
+        pressed: touch.pressed;
+    }
+
+    label := Text {
+        text: root.text;
+        color: Theme.text-primary;
+        font-size: Theme.font-size-body;
+        font-weight: 600;
+    }
+
+    touch := TouchArea {
+        enabled: root.enabled;
+        mouse-cursor: root.enabled ? pointer : default;
+        clicked => { root.clicked(); }
+    }
+}

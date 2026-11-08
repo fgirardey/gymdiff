@@ -36,6 +36,12 @@ export component AppWindow inherits Window {
     /// The player flipped a switch in Settings; `enabled` is the new value.
     callback crash-reports-changed(enabled: bool);
     callback all-logs-changed(enabled: bool);
+    /// Updates section in Settings (alpha builds), written by the updater.
+    in property <bool> update-visible;
+    in property <string> update-status;
+    in property <bool> update-busy;
+    /// "Check now" in Settings.
+    callback check-updates;
     /// A button of the throwaway debug screen was pressed.
     callback debug-event(kind: string);
 
@@ -68,6 +74,10 @@ export component AppWindow inherits Window {
             vertical-stretch: 1;
             crash-reports: root.crash-reports;
             all-logs: root.all-logs;
+            update-visible: root.update-visible;
+            update-status: root.update-status;
+            update-busy: root.update-busy;
+            check-updates => { root.check-updates(); }
             debug-tools: root.debug-tools;
             open-debug => { root.screen = Screen.debug; }
             back => { root.screen = Screen.history; }

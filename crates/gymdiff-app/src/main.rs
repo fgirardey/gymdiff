@@ -3,13 +3,16 @@
 //! Threads:
 //! - main thread: Slint event loop (UI),
 //! - background thread: Tokio runtime running the [`watcher`], which polls the
-//!   League client (real or simulated) and pushes state updates to the UI.
+//!   League client (real or simulated) and pushes state updates to the UI,
+//! - `updater` thread (alpha builds): checks for and installs new builds
+//!   ([`updater`]).
 
 mod build_info;
 mod debug_events;
 mod platform;
 mod reporting;
 mod settings;
+mod updater;
 mod watcher;
 
 use std::path::PathBuf;
@@ -77,6 +80,13 @@ fn main() -> anyhow::Result<()> {
         Ok(_) => tracing::info!(enabled, "all logs choice saved"),
         Err(error) => tracing::warn!(%error, "cannot save the all logs choice"),
     });
+
+    // Kept alive until exit: dropping it would stop "Check now".
+    let updater = updater::Updater::start(window.as_weak()).map(std::rc::Rc::new);
+    window.set_update_visible(updater.is_some());
+    if let Some(updater) = updater.clone() {
+        window.on_check_updates(move || updater.check_now());
+    }
 
     window.set_debug_tools(cfg!(debug_assertions));
     window.on_debug_event(|kind| debug_events::fire(kind.as_str()));

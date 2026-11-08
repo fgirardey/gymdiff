@@ -1,0 +1,65 @@
+// Previews of SecondaryButton: `just preview components/secondary-button`.
+
+import { Theme } from "../theme.slint";
+import { SecondaryButton } from "secondary-button.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Edit the knobs in the live preview's Data tab; clicks show as the last action.
+export component SecondaryButtonPlayground inherits Window {
+    in-out property <string> text: "Check now";
+    in-out property <bool> enabled: true;
+
+    background: Theme.background;
+    preferred-width: 360px;
+
+    playground := PreviewPlayground {
+        HorizontalLayout {
+            alignment: start;
+            SecondaryButton {
+                text: root.text;
+                enabled: root.enabled;
+                clicked => { playground.log("clicked"); }
+            }
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "SecondaryButton";
+    background: Theme.background;
+    preferred-width: 360px;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Default (44px, 180px wide)";
+            HorizontalLayout {
+                alignment: start;
+                SecondaryButton { text: "Skip"; width: 180px; }
+            }
+        }
+        PreviewCase {
+            label: "Compact (36px), hugs its label";
+            HorizontalLayout {
+                alignment: start;
+                SecondaryButton { text: "Check now"; height: 36px; }
+            }
+        }
+        PreviewCase {
+            label: "Disabled";
+            HorizontalLayout {
+                alignment: start;
+                SecondaryButton { text: "Check now"; height: 36px; enabled: false; }
+            }
+        }
+        PreviewCase {
+            label: "Long text";
+            SecondaryButton { text: "A much longer label that may not fit the button width"; }
+        }
+    }
+}
