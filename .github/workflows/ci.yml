@@ -54,6 +54,8 @@ jobs:
       - name: Release build (Windows)
         if: runner.os == 'Windows'
         run: cargo build --release -p gymdiff-app -p gymdiff-recorder
+        env:
+          GYMDIFF_SENTRY_DSN: ${{ vars.GYMDIFF_SENTRY_DSN }}
       - name: Upload Windows build
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4

@@ -62,7 +62,7 @@ The local APIs use certificates signed by Riot's own root CA. For now the client
 - Windows: `%LOCALAPPDATA%\GymDiff\logs\`
 - macOS: `~/Library/Logs/GymDiff/`
 
-Local logs stay on the PC. Error reports to a central service are **opt-in** and built from scrubbed `WARN`/`ERROR` events only ([[ADR-0006 Opt-in error reports]], [[Privacy]]); the capture layer is not wired into the app yet.
+Local logs stay on the PC. Error reports to a central service are **opt-in** and built from scrubbed `WARN`/`ERROR` events only ([[ADR-0006 Opt-in error reports]], [[Privacy]]); `gymdiff-app/src/reporting.rs` sends them, only with consent and a DSN.
 
 Filter with `RUST_LOG` (default: `info,gymdiff=debug,gymdiff_lol=debug`).
 
@@ -73,5 +73,6 @@ Filter with `RUST_LOG` (default: `info,gymdiff=debug,gymdiff_lol=debug`).
 | `GYMDIFF_LIVE_CLIENT_URL` | app | Live Client Data base URL (default `https://127.0.0.1:2999`) |
 | `GYMDIFF_DATA_DIR` | app | Settings folder (default `%APPDATA%\GymDiff\` on Windows, `~/Library/Application Support/GymDiff/` on macOS). Point it at an empty folder to see the welcome screen again |
 | `GYMDIFF_SCENARIO` | simulator | Scenario to replay |
+| `GYMDIFF_SENTRY_DSN` | app | Sentry DSN for opt-in error reports (run time, else build time; unset = reports off) |
 | `RUST_LOG` | both | Log filter |
 | `GYMDIFF_WIN_HOST`, `GYMDIFF_WIN_REPO` | justfile | Windows PC over SSH (see [[Windows testing]]) |
