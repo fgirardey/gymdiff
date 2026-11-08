@@ -2,7 +2,7 @@
 
 Goal: Windows SmartScreen does not warn when running `gymdiff.exe`. **Signing has no effect on Riot or Vanguard**; it only concerns Windows.
 
-Status: **deferred** (decided 2026-11-07). No certificate for now: test builds are made on the PC or copied without the Mark of the Web (see below). Revisit before the first public release.
+Status: **deferred** (decided 2026-11-07). No certificate for now. Since 2026-11-08 GymDiff ships a Velopack installer ([[ADR-0011 Windows installer and updates with Velopack]]): downloaded in a browser, the unsigned `GymDiff-<channel>-Setup.exe` triggers SmartScreen once ("More info → Run anyway"); updates downloaded by the app do not. The repository is now public, so **SignPath Foundation** (free for open source) is the first option to try; `vpk pack` signs through `--signTemplate`.
 
 ## First, what triggers the warning
 SmartScreen warns on files carrying the *Mark of the Web*: anything downloaded through a browser (including a CI artifact). A binary **built on the PC** or **copied over SSH/SMB** has no mark and does not warn. So for testing on the gaming PC no certificate is needed: use `just win-build` ([[Windows testing]]), or `Unblock-File gymdiff.exe` after downloading.

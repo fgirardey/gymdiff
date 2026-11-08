@@ -1,5 +1,5 @@
 ---
-status: proposed
+status: superseded by [[ADR-0011 Windows installer and updates with Velopack]]
 date: 2026-11-08
 ---
 

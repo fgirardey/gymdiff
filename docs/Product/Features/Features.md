@@ -9,7 +9,8 @@ Index of feature notes. One note per feature, created from `_templates/Feature.m
 | [[History]] | in progress (empty state only) | always | `History / Main / *` (sketched) |
 | [[First launch]] | implemented | first launch | `First launch / Welcome / Default` (sketched) |
 | [[Settings]] | implemented (error reports consent) | any time | `App shell / Settings / Default` (sketched) |
-| [[Auto-update]] | implemented (alpha channel) | any time | `App shell / Settings / Updates *` (sketched) |
+| [[Auto-update]] | in progress (Velopack) | any time | `App shell / Settings / Updates *` (sketched) |
+| [[Installation]] | in progress (Velopack) | before first launch | none (Velopack installer) |
 
 Screen structure and frame list: [[Screens]].
 

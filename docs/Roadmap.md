@@ -22,9 +22,10 @@
 - [ ] Overlay window on Windows (always on top, click-through, positioned over the game)
 - [x] Settings persistence (`settings.json`, [[ADR-0007 Local persistence]])
 - [x] Versioning (SemVer + build number), releases with release-please, symbolicated Sentry issues ([[ADR-0008 Versioning and releases]])
-- [ ] Windows installer and code signing (options and status: [[Code signing]])
+- [x] Windows installer with Velopack ([[Installation]], [[ADR-0011 Windows installer and updates with Velopack]])
 - [x] Auto-update of alpha builds from `main` ([[Auto-update]])
-- [ ] Stable update channel for friends (tagged releases, signed manifest)
+- [ ] Code signing of the installer and updates (SignPath Foundation, now that the repository is public: [[Code signing]])
+- [ ] Stable update channel for friends (tagged releases, once signed)
 
 ## MVP — post-game workout
 - [ ] Validate [[Vision]], [[Workout formula]] and [[Post-game workout]] (open questions)
