@@ -35,6 +35,7 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 - [[Windows testing]] — building and testing on the Windows PC
 - [[Spec to code]] — how a feature goes from idea to implementation
 - [[Code organisation]] — one logical unit per file, public API first
+- [[Logging]] — picking a log level: state changes, not ticks
 - [[Pull requests]] — the PR template and generated UI screenshots
 
 ## Compliance
