@@ -1,20 +1,24 @@
 name: Build
 
-# Release builds of GymDiff for Windows and macOS, called by ci.yml (channel `preview`) and
-# release.yml (channel `release`). Uploads the debug files and sources to Sentry so its stack
-# traces are symbolicated (see docs/Workflow/Releasing.md and ADR-0008).
+# Release builds of GymDiff for Windows and macOS, called by ci.yml (channel `alpha`, main),
+# pr-build.yml (channel `preview`) and release.yml (channel `release`). Uploads the debug files
+# and sources to Sentry so its stack traces are symbolicated (see docs/Workflow/Releasing.md
+# and ADR-0008).
 
 on:
   workflow_call:
     inputs:
       channel:
-        description: "`preview` (CI artifacts) or `release` (tagged release)."
+        description: "`alpha` (main), `preview` (pull requests labelled `build`) or `release` (tagged release)."
         type: string
         required: true
     outputs:
       version:
         description: SemVer of the build, e.g. 0.2.0.
         value: ${{ jobs.build.outputs.version }}
+      build:
+        description: Build number, e.g. 57.
+        value: ${{ jobs.build.outputs.build }}
       sentry-release:
         description: Sentry release of the build, e.g. gymdiff@0.2.0+57.
         value: ${{ jobs.build.outputs.sentry-release }}
@@ -36,6 +40,7 @@ jobs:
       contents: read
     outputs:
       version: ${{ steps.sentry.outputs.version }}
+      build: ${{ steps.sentry.outputs.build }}
       sentry-release: ${{ steps.sentry.outputs.sentry-release }}
     env:
       GYMDIFF_CHANNEL: ${{ inputs.channel }}

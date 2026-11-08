@@ -3,7 +3,7 @@
 // Usage in a workflow step, after `cargo build --release`:
 //   const { default: sentryUpload } = await import('${{ github.workspace }}/.github/scripts/sentry-upload.mjs')
 //   await sentryUpload({ core, exec }, { binary: 'target/release/gymdiff', debugFiles: [...], createRelease: true })
-// Sets the step outputs `version` (SemVer) and `sentry-release` (e.g. gymdiff@0.2.0+57), read from
+// Sets the step outputs `version` (SemVer), `build` (number) and `sentry-release` (e.g. gymdiff@0.2.0+57), read from
 // `<binary> --version`. Needs SENTRY_AUTH_TOKEN, SENTRY_ORG and SENTRY_PROJECT in the environment;
 // without them (pull requests from forks) it only sets the outputs. A Sentry failure is a warning:
 // it never costs the build its artifacts. No GitHub permissions.
@@ -22,6 +22,7 @@ export default async function sentryUpload({ core, exec }, { binary, debugFiles,
   const [, version, build] = match;
   const release = `gymdiff@${version}+${build}`;
   core.setOutput('version', version);
+  core.setOutput('build', build);
   core.setOutput('sentry-release', release);
   core.info(`Built ${release}`);
 

@@ -33,6 +33,7 @@ impl BuildInfo {
     pub fn display(&self) -> String {
         let suffix = match self.channel {
             Channel::Release => "",
+            Channel::Alpha => " · alpha",
             Channel::Preview => " · preview",
             Channel::Development => " · dev",
         };
@@ -65,7 +66,10 @@ pub const BUILD: BuildInfo = BuildInfo {
 pub enum Channel {
     /// Tagged release, published on GitHub.
     Release,
-    /// CI artifact of a pull request or of `main`.
+    /// CI build of `main`, published on the `alpha` pre-release; updates itself
+    /// (see `docs/Product/Features/Auto-update.md`).
+    Alpha,
+    /// CI build of a pull request labelled `build`.
     Preview,
     /// Built on a developer machine.
     Development,
@@ -76,6 +80,7 @@ impl Channel {
     pub fn environment(self) -> &'static str {
         match self {
             Self::Release => "production",
+            Self::Alpha => "alpha",
             Self::Preview => "preview",
             Self::Development => "development",
         }
@@ -84,6 +89,7 @@ impl Channel {
     const fn parse(name: &str) -> Self {
         match name.as_bytes() {
             b"release" => Self::Release,
+            b"alpha" => Self::Alpha,
             b"preview" => Self::Preview,
             _ => Self::Development,
         }
@@ -148,6 +154,7 @@ mod tests {
         assert_eq!(parse_number(""), 0);
         assert_eq!(parse_number("5x"), 0);
         assert_eq!(Channel::parse("release"), Channel::Release);
+        assert_eq!(Channel::parse("alpha"), Channel::Alpha);
         assert_eq!(Channel::parse("anything"), Channel::Development);
         assert_eq!(Channel::Release.environment(), "production");
     }

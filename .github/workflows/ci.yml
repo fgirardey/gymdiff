@@ -56,13 +56,40 @@ jobs:
       - name: Tests
         run: cargo test --workspace
 
-  # Release builds of main (channel `preview`), with their debug files uploaded to Sentry.
-  # Pull requests get them on demand, with the `build` label (pr-build.yml).
+  # Release builds of main: the alpha channel (ADR-0010), with their debug files uploaded to
+  # Sentry. Pull requests get builds on demand, with the `build` label (pr-build.yml).
   build:
     if: github.event_name != 'pull_request'
     permissions:
       contents: read
     uses: ./.github/workflows/build.yml
     with:
-      channel: preview
+      channel: alpha
     secrets: inherit
+
+  # Publishes the Windows build of main on the rolling `alpha` pre-release, where alpha builds
+  # look for updates (docs/Product/Features/Auto-update.md).
+  publish-alpha:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: .github/scripts
+      - uses: actions/download-artifact@v5
+        with:
+          name: gymdiff-windows-${{ github.sha }}
+          path: dist
+      - name: Publish the alpha
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { default: publishAlpha } = await import('${{ github.workspace }}/.github/scripts/publish-alpha.mjs')
+            await publishAlpha({ github, context, core }, {
+              exe: 'dist/gymdiff.exe',
+              version: '${{ needs.build.outputs.version }}',
+              build: Number('${{ needs.build.outputs.build }}'),
+            })
