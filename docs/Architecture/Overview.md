@@ -58,7 +58,7 @@ flowchart LR
 The local APIs use certificates signed by Riot's own root CA. For now the client accepts any certificate (it only ever contacts `127.0.0.1`); trusting `riotgames.pem` explicitly is on the [[Roadmap]].
 
 ## Logging
-`tracing`, to stderr and to a daily-rotated file:
+`tracing`, to stderr (no console on Windows release builds, which are GUI apps) and to a daily-rotated file:
 - Windows: `%LOCALAPPDATA%\GymDiff\logs\`
 - macOS: `~/Library/Logs/GymDiff/`
 

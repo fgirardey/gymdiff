@@ -8,7 +8,7 @@ The Mac covers most of the work. The **Windows PC** validates what only it can: 
 | **Alpha** | default: always the latest `main`, updates itself | once: download `gymdiff-alpha-windows-x64.exe` from the `alpha` pre-release on GitHub into `%LOCALAPPDATA%\GymDiff\` (not Program Files), `Unblock-File` it; then each merge is installed for the next launch ([[Auto-update]]) |
 | **CI artifact** | a pull request, before merging | add the `build` label to the PR → GitHub Actions → *Artifacts* → `gymdiff-windows-<sha>` (app) or `gymdiff-recorder-windows-<sha>` ([[Recorder]]); run `Unblock-File` on the `.exe` first |
 | **Build on the PC over SSH** | fast loop on Windows-specific code | `just win-build` from the Mac |
-| **Build on the PC directly** | debugging on the PC | `cargo run -p gymdiff-app` in a terminal on the PC |
+| **Build on the PC directly** | debugging on the PC | `cargo run -p gymdiff-app` in a terminal on the PC (debug builds keep the console with live logs) |
 
 ## One-time setup of the PC
 1. Install Rust: <https://rustup.rs> (accept the Visual Studio C++ Build Tools prompt).

@@ -1,3 +1,7 @@
+// Release builds are GUI apps on Windows: no console window next to GymDiff.
+// Logs go to the file in `platform::log_dir`; debug builds keep the console.
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
 //! # GymDiff desktop app
 //!
 //! Threads:

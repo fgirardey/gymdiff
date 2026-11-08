@@ -10,7 +10,7 @@
 - [x] Brand: logo and app icon ([[Brand]])
 - [x] App shell with the M0 screens: [[First launch]] welcome, empty [[History]], About; macOS and Windows release builds in CI
 - [ ] Bundle the brand fonts (Barlow Condensed, Inter) in the app
-- [ ] Windows app icon (`.ico` from `design/brand/`) embedded in the executable
+- [x] Windows app icon (`.ico` from `design/brand/`) embedded in the executable, crest as the window icon, no console window in release builds
 - [ ] First validation on the Windows PC (checklist in [[Windows testing]])
 - [ ] Register the project on the Riot developer portal ([[Riot policies]])
 
