@@ -67,8 +67,11 @@ jobs:
         id: sentry
         uses: actions/github-script@v9
         with:
+          # A file:// URL: on Windows, import() rejects a bare `D:\…` path.
           script: |
-            const { default: sentryUpload } = await import('${{ github.workspace }}/.github/scripts/sentry-upload.mjs')
+            const { pathToFileURL } = require('node:url')
+            const script = pathToFileURL(`${process.env.GITHUB_WORKSPACE}/.github/scripts/sentry-upload.mjs`)
+            const { default: sentryUpload } = await import(script.href)
             const windows = process.platform === 'win32'
             await sentryUpload({ core, exec }, {
               binary: windows ? 'target/release/gymdiff.exe' : 'target/release/gymdiff',
