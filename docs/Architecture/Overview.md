@@ -85,6 +85,6 @@ Variables can live in a git-ignored `.env` at the repository root (template: `.e
 | `GYMDIFF_SENTRY_DSN` | app | Sentry DSN for opt-in reports (run time, else build time; unset = reports off) |
 | `GYMDIFF_TEST_CRASH` | app | Fires a test event at start: `error`, `panic`, `stack-overflow`… (see [[Releasing]]) |
 | `GYMDIFF_CHANNEL` | app build | `release`, `alpha` or `preview`, set by CI; unset = `development` ([[ADR-0008 Versioning and releases]]) |
-| `GYMDIFF_UPDATE_URL` | app | Manifest to update from instead of the alpha feed; makes any build update itself (tests, see [[Releasing]]) |
+| `GYMDIFF_UPDATE_URL` | app | Release list (GitHub API format) to update from instead of GymDiff's releases; makes any build update itself (tests, see [[Releasing]]) |
 | `RUST_LOG` | both | Log filter |
 | `GYMDIFF_WIN_HOST`, `GYMDIFF_WIN_REPO` | justfile | Windows PC over SSH (see [[Windows testing]]) |

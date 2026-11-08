@@ -52,8 +52,10 @@ impl UpdateState {
 pub enum UpdateError {
     /// The request did not complete: offline, DNS, timeout, server error.
     NoConnection,
-    /// No alpha build is published yet (no manifest, or not a manifest).
+    /// No alpha build is published yet (no release with a manifest).
     NotPublished,
+    /// GitHub refuses more requests for now (60 an hour without a token).
+    RateLimited,
     /// The download does not match the manifest's size or checksum.
     Incomplete,
     /// The executable's folder is not writable (e.g. Program Files).
@@ -65,6 +67,7 @@ impl UpdateError {
         match self {
             Self::NoConnection => "no connection",
             Self::NotPublished => "no alpha build published yet",
+            Self::RateLimited => "GitHub is limiting requests",
             Self::Incomplete => "download incomplete",
             Self::CantWrite => "can't write next to GymDiff",
         }

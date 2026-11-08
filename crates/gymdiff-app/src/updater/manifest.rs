@@ -1,5 +1,5 @@
-//! `latest.json`: the alpha build CI published last (see
-//! `.github/scripts/publish-alpha.mjs` and ADR-0010).
+//! `manifest.json`: the build attached to a release, written by CI
+//! (`.github/scripts/release-manifest.mjs`, ADR-0010).
 
 use serde::Deserialize;
 
