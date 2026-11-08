@@ -11,13 +11,14 @@ A shield (ranked-ladder, competitive) holding a green chevron up and a red chevr
 | Asset | Pencil component | File |
 |---|---|---|
 | Crest (mark alone, also the app icon) | `Logo / Crest` | `design/brand/crest.svg`, `design/brand/crest-256.png` |
+| App icon | `Logo / Crest` | `design/brand/gymdiff.ico` (Windows executable), `crates/gymdiff-app/ui/images/app-icon.png` (window icon, 256 px) |
 | Lockup (crest + wordmark) | `Logo / Lockup` | `design/brand/lockup.svg` |
 
 - **Wordmark**: `GYMDIFF` in Barlow Condensed ExtraBold Italic; `GYM` in `text-primary` (or `background` on light), `DIFF` in `accent`.
 - **App icon**: the crest on its own, no tile, transparent background. Windows `.ico` sizes: 256, 48, 32, 24, 16.
 - **Mono**: single-colour versions (white or `background`) only where colour is impossible.
 
-Re-export the files from Pencil whenever a logo component changes.
+Re-export the files from Pencil whenever a logo component changes. The `.ico` holds one PNG per size: export `Logo / Crest` (128 px) at scales 2, 0.375, 0.25, 0.1875 and 0.125, then pack the five PNGs into `gymdiff.ico` (PNG-compressed entries, 32-bit). `build.rs` embeds it in `gymdiff.exe` on Windows.
 
 ## Rules
 - Clear space: at least the height of one chevron around the crest and the lockup.
