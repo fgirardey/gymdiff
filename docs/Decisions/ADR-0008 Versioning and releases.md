@@ -30,7 +30,7 @@ Releases:
 
 Symbols:
 - Release builds keep line-level debug info in a separate file (`debug = "limited"`, `split-debuginfo = "packed"`): `gymdiff.pdb` on Windows, `gymdiff.dSYM` on macOS. They are uploaded, never shipped.
-- **Every** CI release build (pull requests included, since friends run them) uploads its executable, debug file and a source bundle with `sentry-cli debug-files upload --include-sources`. Sentry matches them to events by debug id, so the release name does not matter for symbolication.
+- **Every** CI release build uploads its executable, debug file and a source bundle with `sentry-cli debug-files upload --include-sources`. Release builds run on `main` after every merge (what the alpha channel will ship) and for releases; pull requests only run the checks, and get release builds on demand with the `build` label (revised 2026-11-08: a release build takes ~15 minutes and held the runners on every push). Sentry matches them to events by debug id, so the release name does not matter for symbolication.
 - The Windows build also creates the Sentry release and links its commits (`set-commits --local`).
 
 ## Alternatives considered

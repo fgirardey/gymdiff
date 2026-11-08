@@ -19,7 +19,7 @@ How a GymDiff version is numbered, released and made readable in Sentry. Decisio
 To force a version (e.g. `1.0.0`), add `Release-As: 1.0.0` to the body of a commit on `main`.
 
 ## Symbols in Sentry
-Every CI release build (pull requests too) runs `.github/scripts/sentry-upload.mjs`: it reads the version from `gymdiff --version`, uploads the executable, its debug file (`gymdiff.pdb` / `gymdiff.dSYM`) and a source bundle with `sentry-cli debug-files upload --include-sources --wait`, and on Windows creates the Sentry release and links its commits. Without `SENTRY_AUTH_TOKEN`, `SENTRY_ORG` or `SENTRY_PROJECT` (pull requests from forks, for example) it skips with a warning; a Sentry failure is a warning too, so the build keeps its artifacts.
+Every CI release build (`main`, releases, and pull requests labelled `build`) runs `.github/scripts/sentry-upload.mjs`: it reads the version from `gymdiff --version`, uploads the executable, its debug file (`gymdiff.pdb` / `gymdiff.dSYM`) and a source bundle with `sentry-cli debug-files upload --include-sources --wait`, and on Windows creates the Sentry release and links its commits. Without `SENTRY_AUTH_TOKEN`, `SENTRY_ORG` or `SENTRY_PROJECT` (pull requests from forks, for example) it skips with a warning; a Sentry failure is a warning too, so the build keeps its artifacts.
 
 Local builds are not uploaded: their issues (environment `development`) show addresses only. To symbolicate one anyway:
 ```sh

@@ -32,7 +32,7 @@ flowchart LR
 4. **Run** `just dev`: builds and starts the simulator at 10× speed with the default scenario, then the app. Use `just dev 1` for real time, or `just dev 10 fixtures/scenarios/<name>/scenario.json` for another scenario.
 5. **Iterate on UI** with `just preview <path>` (Slint live reload, fixed data, see [[Previews]]).
 6. **Check** with `just check` before committing: format, clippy (pedantic, warnings denied), tests, Windows type-check.
-7. **Push** and open a pull request from the template ([[Pull requests]]): CI builds and tests on Windows and macOS, uploads the debug symbols to Sentry, and publishes `gymdiff.exe` and `gymdiff-recorder.exe` (Windows) and `gymdiff-macos.tar.gz` (macOS) as artifacts, linked from a comment on the pull request. Merged work ships through release-please ([[Releasing]]).
+7. **Push** and open a pull request from the template ([[Pull requests]]): CI runs the checks (format, commit messages, clippy and tests on Windows and macOS). Add the `build` label to also get release builds of the pull request, linked from a comment. After the merge, `main` is built with its debug symbols uploaded to Sentry, and merged work ships through release-please ([[Releasing]]).
 8. **Validate on Windows** when the change touches platform code, overlays or real-client behaviour.
 
 ## Useful commands

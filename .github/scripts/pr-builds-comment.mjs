@@ -1,4 +1,4 @@
-// Posts the release builds of the current CI run on its pull request, as one
+// Posts the release builds of the current run (pr-build.yml) on its pull request, as one
 // comment updated on every push, from actions/github-script.
 // Usage in a workflow step:
 //   const { default: commentBuilds } = await import('${{ github.workspace }}/.github/scripts/pr-builds-comment.mjs')
