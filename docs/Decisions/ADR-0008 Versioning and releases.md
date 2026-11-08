@@ -41,7 +41,7 @@ Symbols:
 - **Version only, no symbols** — keeps the binaries smaller to build, but leaves Sentry issues without a place in the code, which was the point.
 
 ## Consequences
-- Secrets and variables to set once: `SENTRY_AUTH_TOKEN` (secret), `SENTRY_ORG` and `SENTRY_PROJECT` (variables), `RELEASE_PLEASE_TOKEN` (secret, a personal token so CI runs on the release pull request). Without the Sentry token builds still succeed, without symbols.
+- Secrets and variables to set once: `SENTRY_AUTH_TOKEN` (secret), `SENTRY_ORG` and `SENTRY_PROJECT` (variables), `RELEASE_PLEASE_TOKEN` (secret, a fine-grained personal token with *Contents*, *Pull requests* and *Issues* write, so CI runs on the release pull request). Without the Sentry token builds still succeed, without symbols.
 - CI checks out the full history (`fetch-depth: 0`) for the build number.
 - The release commit `chore: release x.y.z` is exempt from commitlint (its body is the changelog).
 - The source of the app is stored in Sentry (EU region) with the symbols, to show the code around each frame.

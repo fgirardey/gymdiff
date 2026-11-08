@@ -45,5 +45,5 @@ The frames must show GymDiff function names, file names and lines, and the sourc
 | Secret | `SENTRY_AUTH_TOKEN` | Sentry organization token (*Settings → Developer Settings → Organization Tokens*) |
 | Variable | `SENTRY_ORG` | `florian-girardey-eu` |
 | Variable | `SENTRY_PROJECT` | `gymdiff` |
-| Secret | `RELEASE_PLEASE_TOKEN` | fine-grained personal token on this repository: *Contents* and *Pull requests* read/write. Without it release-please uses `GITHUB_TOKEN` and CI does not run on its pull request. |
+| Secret | `RELEASE_PLEASE_TOKEN` | fine-grained personal token on this repository: *Contents*, *Pull requests* and *Issues* (labels) read/write; renew it before it expires. Without it release-please uses `GITHUB_TOKEN`, which needs *Allow GitHub Actions to create and approve pull requests*, and CI does not run on its pull request. |
 | Sentry project | *Security & Privacy* | *Store Native Crash Reports* off, *Data Scrubber* on, *Prevent Storing of IP Addresses* on ([[Privacy]]) |
