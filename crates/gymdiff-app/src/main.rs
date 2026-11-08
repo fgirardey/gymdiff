@@ -5,6 +5,7 @@
 //! - background thread: Tokio runtime running the [`watcher`], which polls the
 //!   League client (real or simulated) and pushes state updates to the UI.
 
+mod build_info;
 mod debug_events;
 mod platform;
 mod reporting;
@@ -13,6 +14,7 @@ mod watcher;
 
 use std::path::PathBuf;
 
+use build_info::BUILD;
 use slint::ComponentHandle;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
@@ -21,18 +23,28 @@ use tracing_subscriber::{EnvFilter, fmt};
 slint::include_modules!();
 
 fn main() -> anyhow::Result<()> {
+    // CI reads the version of the binary it just built (see ADR-0008).
+    if std::env::args().nth(1).as_deref() == Some("--version") {
+        println!("gymdiff {}", BUILD.full_version());
+        return Ok(());
+    }
     let data_dir = data_dir();
     let _log_guard = init_logging();
     let _reports_guard = reporting::start(&data_dir);
     tracing::info!(
-        version = env!("CARGO_PKG_VERSION"),
+        version = BUILD.version,
+        build = BUILD.number,
+        commit = BUILD.commit,
+        channel = ?BUILD.channel,
+        target = BUILD.target,
+        rustc = BUILD.rustc,
         platform = platform::NAME,
         "starting GymDiff"
     );
 
     let window = AppWindow::new()?;
     platform::configure_main_window(window.window());
-    window.set_version(env!("CARGO_PKG_VERSION").into());
+    window.set_version(BUILD.display().into());
 
     let settings = settings::SettingsStore::new(&data_dir);
     if !settings.load().welcome_seen {

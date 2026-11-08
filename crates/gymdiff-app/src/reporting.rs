@@ -21,6 +21,8 @@ use tracing_subscriber::Layer;
 use tracing_subscriber::filter::filter_fn;
 use tracing_subscriber::registry::LookupSpan;
 
+use crate::build_info::BUILD;
+
 /// Starts reporting if the player opted in. Keep the guard alive until exit:
 /// dropping it flushes the queued logs.
 ///
@@ -79,12 +81,8 @@ fn options(consent: &Consent) -> sentry::ClientOptions {
     let log_install_id = install_id.clone();
     let (crash_reports, logs) = (consent.crash_reports, consent.logs);
     sentry::ClientOptions::new()
-        .release(env!("CARGO_PKG_VERSION"))
-        .environment(if cfg!(debug_assertions) {
-            "development"
-        } else {
-            "production"
-        })
+        .release(BUILD.sentry_release())
+        .environment(BUILD.channel.environment())
         .send_default_pii(false)
         .default_integrations(false)
         .max_breadcrumbs(0)
