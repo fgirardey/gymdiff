@@ -1,6 +1,8 @@
 // Full-width call-to-action button (accent background).
+// Tinted on hover and pressed, and shrinks a little while pressed.
 
 import { Theme } from "../theme.slint";
+import { StateLayer } from "state-layer.slint";
 
 export component PrimaryButton inherits Rectangle {
     in property <string> text;
@@ -9,6 +11,18 @@ export component PrimaryButton inherits Rectangle {
     height: 44px;
     border-radius: Theme.radius-m;
     background: Theme.accent;
+    transform-scale: touch.pressed ? Theme.press-scale : 1;
+    animate transform-scale {
+        duration: Theme.motion-fast;
+        easing: ease-out;
+    }
+
+    StateLayer {
+        border-radius: root.border-radius;
+        tint: Theme.background;
+        hovered: touch.has-hover;
+        pressed: touch.pressed;
+    }
 
     Text {
         text: root.text;
@@ -17,7 +31,7 @@ export component PrimaryButton inherits Rectangle {
         font-weight: 700;
     }
 
-    TouchArea {
+    touch := TouchArea {
         mouse-cursor: pointer;
         clicked => { root.clicked(); }
     }

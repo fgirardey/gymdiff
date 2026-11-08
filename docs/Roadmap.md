@@ -20,7 +20,7 @@
 - [ ] Process-based client discovery (fallback when the install folder is not the default)
 - [x] `gymdiff-recorder`: record real sessions on Windows into scenarios ([[Recorder]]); WebSocket events not recorded yet
 - [ ] Overlay window on Windows (always on top, click-through, positioned over the game)
-- [ ] Settings persistence
+- [x] Settings persistence (`settings.json`, [[ADR-0007 Local persistence]])
 - [ ] Windows installer and code signing (options and status: [[Code signing]])
 - [ ] Auto-update
 

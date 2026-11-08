@@ -1,12 +1,19 @@
 // "‹ <text>" link back to the previous screen.
+// Brightens on hover and dims while pressed.
 
 import { Theme } from "../theme.slint";
 import { Icon } from "icon.slint";
 
 export component BackLink inherits TouchArea {
     in property <string> text;
+    property <color> content: root.has-hover ? Theme.text-primary : Theme.text-secondary;
 
     mouse-cursor: pointer;
+    opacity: root.pressed ? 0.6 : 1;
+    animate opacity {
+        duration: Theme.motion-fast;
+        easing: ease-out;
+    }
 
     HorizontalLayout {
         spacing: Theme.space-xs;
@@ -16,13 +23,21 @@ export component BackLink inherits TouchArea {
                 source: @image-url("../images/icons/chevron-left.svg");
                 width: 6px;
                 height: 10px;
-                colorize: Theme.text-secondary;
+                colorize: root.content;
+                animate colorize {
+                    duration: Theme.motion-fast;
+                    easing: ease-out;
+                }
             }
         }
         Text {
             text: root.text;
-            color: Theme.text-secondary;
+            color: root.content;
             font-size: Theme.font-size-body;
+            animate color {
+                duration: Theme.motion-fast;
+                easing: ease-out;
+            }
         }
     }
 }

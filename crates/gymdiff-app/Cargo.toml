@@ -16,6 +16,7 @@ gymdiff-core = { workspace = true }
 gymdiff-diagnostics = { workspace = true }
 gymdiff-lol = { workspace = true }
 anyhow = { workspace = true }
+serde = { workspace = true }
 serde_json = { workspace = true }
 slint = { workspace = true }
 sentry = { version = "0.34", default-features = false, features = ["reqwest", "native-tls"] }

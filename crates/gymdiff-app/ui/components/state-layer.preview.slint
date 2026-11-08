@@ -1,0 +1,76 @@
+// Previews of StateLayer: `just preview components/state-layer`.
+
+import { Theme } from "../theme.slint";
+import { StateLayer } from "state-layer.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// A 120 × 44 control with the layer, on the given background.
+component Sample inherits Rectangle {
+    in property <color> content;
+    in property <bool> hovered;
+    in property <bool> pressed;
+
+    width: 120px;
+    height: 44px;
+    border-radius: Theme.radius-m;
+    border-width: 1px;
+    border-color: Theme.border;
+
+    StateLayer {
+        border-radius: root.border-radius;
+        tint: root.content;
+        hovered: root.hovered;
+        pressed: root.pressed;
+    }
+}
+
+// Edit the knobs in the live preview's Data tab.
+export component StateLayerPlayground inherits Window {
+    in-out property <bool> hovered;
+    in-out property <bool> pressed;
+
+    background: Theme.background;
+    preferred-width: 200px;
+
+    PreviewPlayground {
+        Sample {
+            content: Theme.text-primary;
+            hovered: root.hovered;
+            pressed: root.pressed;
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "StateLayer";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Light content (text-primary): rest, hovered, pressed";
+            HorizontalLayout {
+                spacing: Theme.space-m;
+                alignment: start;
+                Sample { content: Theme.text-primary; }
+                Sample { content: Theme.text-primary; hovered: true; }
+                Sample { content: Theme.text-primary; hovered: true; pressed: true; }
+            }
+        }
+        PreviewCase {
+            label: "Dark content on accent (background): rest, hovered, pressed";
+            HorizontalLayout {
+                spacing: Theme.space-m;
+                alignment: start;
+                Sample { background: Theme.accent; content: Theme.background; }
+                Sample { background: Theme.accent; content: Theme.background; hovered: true; }
+                Sample { background: Theme.accent; content: Theme.background; hovered: true; pressed: true; }
+            }
+        }
+    }
+}

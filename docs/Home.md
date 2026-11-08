@@ -26,6 +26,7 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 - [[ADR-0004 Champion images from Data Dragon]]
 - [[ADR-0005 Bundle the role symbols]]
 - [[ADR-0006 Opt-in error reports]]
+- [[ADR-0007 Local persistence]]
 
 ## Workflow
 - [[Development]] — the daily loop on macOS

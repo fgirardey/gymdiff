@@ -35,13 +35,13 @@ fn main() -> anyhow::Result<()> {
     platform::configure_main_window(window.window());
     window.set_version(env!("CARGO_PKG_VERSION").into());
 
-    let welcome = settings::WelcomeFlag::new(&data_dir);
-    if !welcome.is_seen() {
+    let settings = settings::SettingsStore::new(&data_dir);
+    if !settings.load().welcome_seen {
         tracing::info!(data_dir = %data_dir.display(), "first launch: showing the welcome");
         window.set_screen(Screen::Welcome);
     }
     window.on_welcome_done(move || {
-        if let Err(error) = welcome.mark_seen() {
+        if let Err(error) = settings.update(|s| s.welcome_seen = true) {
             tracing::warn!(%error, "cannot record that the welcome was seen");
         }
     });
