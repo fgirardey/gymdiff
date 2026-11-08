@@ -27,6 +27,6 @@ So that Claude (and you, in six months) can find things:
 
 ## Git
 
-`.pen` files are JSON. Commit them like code, with a message describing the design change. Do not merge conflicting `.pen` files by hand: keep one version and reapply the other change in Pencil (`.gitattributes` marks them as non-mergeable).
+`.pen` files are encrypted: read and edit them only through Pencil (the app or its MCP server), never as text. The Pencil app must be running with the file open for Claude to see the designs. Commit them like code, with a message describing the design change. Do not merge conflicting `.pen` files by hand: keep one version and reapply the other change in Pencil (`.gitattributes` marks them as non-mergeable).
 
 See [`docs/Workflow/Design with Pencil.md`](../docs/Workflow/Design%20with%20Pencil.md).
