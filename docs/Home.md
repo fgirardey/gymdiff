@@ -29,7 +29,8 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 - [[ADR-0007 Local persistence]]
 - [[ADR-0008 Versioning and releases]]
 - [[ADR-0009 Open-source license]]
-- [[ADR-0010 Alpha channel and self-update]]
+- [[ADR-0010 Alpha channel and self-update]] (superseded)
+- [[ADR-0011 Windows installer and updates with Velopack]]
 
 ## Workflow
 - [[Development]] — the daily loop on macOS

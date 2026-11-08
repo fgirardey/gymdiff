@@ -16,7 +16,7 @@ Until now every build said `0.1.0` (the crate version), whether it came from a p
 | Version | `[workspace.package] version` in `Cargo.toml`, written by **release-please** | `0.2.0` |
 | Build number | `git rev-list --count HEAD`: grows with every commit on `main`, same for every build of a commit, also works locally | `57` |
 | Commit | `BUILD_SHA` in CI (the PR head, not GitHub's merge commit), else `git rev-parse HEAD` | `a1b2c3d` |
-| Channel | `GYMDIFF_CHANNEL` at build time: `release` (tagged release), `alpha` (`main`, updates itself, [[ADR-0010 Alpha channel and self-update]]), `preview` (pull request built on demand), unset → `development` | |
+| Channel | `GYMDIFF_CHANNEL` at build time: `release` (tagged release), `alpha` (`main`, installs update themselves, [[ADR-0011 Windows installer and updates with Velopack]]), `preview` (pull request built on demand), unset → `development` | |
 
 Derived strings (`crates/gymdiff-app/src/build_info.rs`):
 - full version `0.2.0+57.a1b2c3d`, printed by `gymdiff --version` and `just version`;

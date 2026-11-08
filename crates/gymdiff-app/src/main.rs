@@ -8,8 +8,8 @@
 //! - main thread: Slint event loop (UI),
 //! - background thread: Tokio runtime running the [`watcher`], which polls the
 //!   League client (real or simulated) and pushes state updates to the UI,
-//! - `updater` thread (alpha builds): checks for and installs new builds
-//!   ([`updater`]).
+//! - `updater` thread (installed alpha builds): checks for and downloads new
+//!   builds, which Velopack applies at the next launch ([`updater`]).
 
 mod build_info;
 mod debug_events;
@@ -39,6 +39,10 @@ fn main() -> anyhow::Result<()> {
     // In the crash reporter child process this never returns: it must run
     // before anything opens a window or a log file.
     reporting::run_crash_reporter_if_child(&data_dir);
+    // Installer hooks and updates downloaded earlier (Velopack, ADR-0011): may
+    // exit or restart GymDiff, so before the log file and the window, and after
+    // the crash reporter's own exit so that child never applies an update.
+    updater::run_installer_hooks();
     let _log_guard = init_logging();
     let _reports_guard = reporting::start(&data_dir);
     tracing::info!(

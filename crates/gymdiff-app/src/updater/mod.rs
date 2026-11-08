@@ -1,10 +1,7 @@
-//! Auto-update of alpha builds (`docs/Product/Features/Auto-update.md`,
-//! ADR-0010).
+//! Installer integration and auto-update (`docs/Product/Features/Auto-update.md`,
+//! ADR-0011), on Velopack.
 
-mod install;
-mod manifest;
-mod releases;
 mod service;
 mod state;
 
-pub use service::Updater;
+pub use service::{Updater, run_installer_hooks};
