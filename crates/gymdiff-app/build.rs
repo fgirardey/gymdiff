@@ -5,8 +5,8 @@
 //! - `GYMDIFF_BUILD_CHANNEL`: `release`, `alpha`, `preview` or `development`,
 //! - `GYMDIFF_BUILD_TARGET` / `GYMDIFF_BUILD_RUSTC`: target triple and compiler.
 //!
-//! On Windows it also embeds the version resource shown in the file
-//! properties. Without `git` (a source tarball) the build still succeeds, with
+//! On Windows it also embeds the app icon (`design/brand/gymdiff.ico`) and the
+//! version resource shown in the file properties. Without `git` (a source tarball) the build still succeeds, with
 //! build number 0 and commit `unknown`.
 
 use std::path::PathBuf;
@@ -27,6 +27,7 @@ fn main() {
     }
     println!("cargo:rerun-if-env-changed=BUILD_SHA");
     println!("cargo:rerun-if-env-changed=GYMDIFF_CHANNEL");
+    println!("cargo:rerun-if-changed={APP_ICON}");
     for path in git_watch_paths() {
         println!("cargo:rerun-if-changed={}", path.display());
     }
@@ -37,6 +38,10 @@ fn main() {
         embed_windows_resource(&build);
     }
 }
+
+/// Windows icon of the executable: the crest at 256, 48, 32, 24 and 16 px
+/// (`docs/Design/Brand.md`). Relative to the crate directory.
+const APP_ICON: &str = "../../design/brand/gymdiff.ico";
 
 /// What identifies this build, besides the crate version.
 struct Build {
@@ -67,7 +72,7 @@ impl Build {
     }
 }
 
-/// `FILEVERSION` and the strings of Explorer's Details tab.
+/// The icon, `FILEVERSION` and the strings of Explorer's Details tab.
 fn embed_windows_resource(build: &Build) {
     let version = env("CARGO_PKG_VERSION").unwrap_or_default();
     let short = build.commit.get(..7).unwrap_or(&build.commit);
@@ -84,7 +89,8 @@ fn embed_windows_resource(build: &Build) {
         (major << 48) | (minor << 32) | (patch << 16) | u64::from(build.number.min(0xFFFF));
 
     let mut res = winresource::WindowsResource::new();
-    res.set_version_info(winresource::VersionInfo::FILEVERSION, packed)
+    res.set_icon(APP_ICON)
+        .set_version_info(winresource::VersionInfo::FILEVERSION, packed)
         .set_version_info(winresource::VersionInfo::PRODUCTVERSION, packed)
         .set("ProductName", "GymDiff")
         .set("FileDescription", "GymDiff")

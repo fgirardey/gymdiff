@@ -16,6 +16,8 @@ export { Screen }
 
 export component AppWindow inherits Window {
     title: "GymDiff";
+    // Title bar and task bar: the crest (`docs/Design/Brand.md`, app icon).
+    icon: @image-url("images/app-icon.png");
     preferred-width: 400px;
     preferred-height: 640px;
     background: Theme.background;
