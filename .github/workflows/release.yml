@@ -64,7 +64,36 @@ jobs:
             await publishRelease({ github, context, core, exec }, {
               tag: '${{ needs.release-please.outputs.tag }}',
               version: '${{ needs.build.outputs.version }}',
-              build: Number('${{ needs.build.outputs.build }}'),
               sentryRelease: '${{ needs.build.outputs.sentry-release }}',
               dist: 'dist',
             })
+
+  # Windows installer and update packages of the release (Velopack, channel `stable`), merged into
+  # the release created by release-please (ADR-0011).
+  package-windows:
+    needs: [release-please, build]
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    env:
+      PACK_VERSION: ${{ needs.build.outputs.version }}
+      REPO_URL: https://github.com/${{ github.repository }}
+      VPK_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: design/brand
+      - uses: actions/download-artifact@v5
+        with:
+          name: gymdiff-windows-${{ github.sha }}
+          path: dist
+      - name: Install vpk
+        run: dotnet tool install --global vpk --version 1.2.161
+      # The previous stable package lets vpk build a delta; none before the first release.
+      - name: Download the previous release
+        continue-on-error: true
+        run: vpk download github --repoUrl $env:REPO_URL --channel stable --outputDir releases
+      - name: Package
+        run: vpk pack --packId GymDiff --packVersion $env:PACK_VERSION --packDir dist --mainExe gymdiff.exe --packTitle GymDiff --packAuthors "Florian Girardey" --icon design/brand/gymdiff.ico --shortcuts "Desktop,StartMenuRoot" --channel stable --outputDir releases
+      - name: Add to the release
+        run: vpk upload github --repoUrl $env:REPO_URL --channel stable --outputDir releases --merge --publish --releaseName "${{ needs.release-please.outputs.tag }}" --tag "${{ needs.release-please.outputs.tag }}"

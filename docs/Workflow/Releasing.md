@@ -19,13 +19,15 @@ How a GymDiff version is numbered, released and made readable in Sentry. Decisio
 To force a version (e.g. `1.0.0`), add `Release-As: 1.0.0` to the body of a commit on `main`.
 
 ## The alpha channel
-Every merge to `main` is built with channel `alpha` and published by the `publish-alpha` job of `.github/workflows/ci.yml` (`.github/scripts/publish-alpha.mjs`) as its own **pre-release `v<version>-alpha.<build>`**, with `gymdiff-<version>-alpha.<build>-windows-x64.exe` and `manifest.json`. The last 10 alpha releases are kept. Alpha builds list the releases, take the highest alpha build and update themselves ([[Auto-update]], [[ADR-0010 Alpha channel and self-update]]). Tagged releases also carry a `manifest.json`, for the stable channel to come.
+Every merge to `main` is built with channel `alpha`, then the `publish-alpha` job of `.github/workflows/ci.yml` packages it with **Velopack** on a Windows runner ([[ADR-0011 Windows installer and updates with Velopack]]):
+1. `vpk download github --channel alpha --pre` fetches the previous alpha package, so `vpk pack` can build a delta (skipped for the first one);
+2. `vpk pack` (pack id `GymDiff`, version `<version>-alpha.<build>`, channel `alpha`, crest icon, Start menu and Desktop shortcuts) produces `GymDiff-alpha-Setup.exe`, `GymDiff-alpha-Portable.zip`, the full and delta `.nupkg` packages and the feed `releases.alpha.json`;
+3. `vpk upload github --publish --pre` attaches them to a new pre-release `v<version>-alpha.<build>`;
+4. `.github/scripts/prune-alphas.mjs` keeps the last 10 alpha releases.
 
-To test the updater locally, serve a release list in the GitHub API's format (`tag_name`, `draft`, `prerelease`, `assets[].name` and `browser_download_url`), with the manifests and executables it points to, and set `GYMDIFF_UPDATE_URL` (any build then updates itself, so use a copy of the executable):
-```sh
-python3 -m http.server 8765 --directory <folder with releases.json, manifests and executables>
-GYMDIFF_UPDATE_URL=http://127.0.0.1:8765/releases.json ./copy-of-gymdiff
-```
+Installed alpha builds read `releases.alpha.json` and update themselves ([[Auto-update]], [[Installation]]). Tagged releases get the same packages on channel `stable` (job `package-windows` of `release.yml`, merged into the release-please release). `vpk` is a .NET tool pinned to the version of the `velopack` crate (1.2.161): bump both together.
+
+Testing an update needs a build installed by the installer, so it happens on the Windows PC after a merge.
 
 ## Symbols in Sentry
 Every CI release build (`main`, releases, and pull requests labelled `build`) runs `.github/scripts/sentry-upload.mjs`: it reads the version from `gymdiff --version`, uploads the executable, its debug file (`gymdiff.pdb` / `gymdiff.dSYM`) and a source bundle with `sentry-cli debug-files upload --include-sources --wait`, and on Windows creates the Sentry release and links its commits. Without `SENTRY_AUTH_TOKEN`, `SENTRY_ORG` or `SENTRY_PROJECT` (pull requests from forks, for example) it skips with a warning; a Sentry failure is a warning too, so the build keeps its artifacts.
