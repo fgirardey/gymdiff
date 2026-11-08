@@ -19,10 +19,11 @@ default:
 
 # ---------------------------------------------------------------- setup
 
-# One-time setup: commit tooling (needs Node, see docs/Workflow/Development.md)
+# One-time setup: commit tooling (needs Node) and the Windows cross-check (see docs/Workflow/Development.md)
 setup:
     npm install
     git config core.hooksPath .githooks
+    cargo install cargo-xwin --version 0.23.1 --locked
 
 # Check a commit message, or the last commit when none is given
 commitlint message="":
@@ -102,9 +103,22 @@ clippy:
 test:
     cargo test --workspace
 
-# Type-check the Windows build from macOS (catches #[cfg(windows)] errors)
+# Type-check the Windows build from macOS (catches #[cfg(windows)] errors). cargo-xwin brings
+# the Windows C headers that C dependencies need (ring, through Velopack); llvm-ar from
+# rustup's llvm-tools stands in for llvm-lib (an LLVM tool picks its mode from its name).
+[unix]
 check-windows:
-    cargo check --workspace --all-targets --target x86_64-pc-windows-msvc
+    #!/usr/bin/env bash
+    set -euo pipefail
+    tools="{{justfile_directory()}}/target/xwin-tools"
+    mkdir -p "$tools"
+    ln -sf "$(rustc --print sysroot)/lib/rustlib/$(rustc -vV | sed -n 's/host: //p')/bin/llvm-ar" "$tools/llvm-lib"
+    PATH="$tools:$PATH" cargo xwin check --workspace --all-targets --target x86_64-pc-windows-msvc
+
+# On Windows the native check is enough
+[windows]
+check-windows:
+    cargo check --workspace --all-targets
 
 # ---------------------------------------------------------------- Windows PC
 

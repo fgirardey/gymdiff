@@ -1,5 +1,6 @@
 [toolchain]
 channel = "stable"
-components = ["rustfmt", "clippy"]
-# Lets `just check-windows` type-check the Windows build from macOS.
+components = ["rustfmt", "clippy", "llvm-tools"]
+# Lets `just check-windows` type-check the Windows build from macOS (with cargo-xwin;
+# llvm-tools provides the archiver it needs).
 targets = ["x86_64-pc-windows-msvc"]
