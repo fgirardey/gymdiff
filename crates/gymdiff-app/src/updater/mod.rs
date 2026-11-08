@@ -3,6 +3,7 @@
 
 mod install;
 mod manifest;
+mod releases;
 mod service;
 mod state;
 

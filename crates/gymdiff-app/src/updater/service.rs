@@ -8,6 +8,7 @@ use tokio::sync::mpsc;
 
 use super::install;
 use super::manifest::Manifest;
+use super::releases::{self, UpdateChannel};
 use super::state::{UpdateError, UpdateState};
 use crate::AppWindow;
 use crate::build_info::{BUILD, Channel};
@@ -19,9 +20,9 @@ pub struct Updater {
 
 impl Updater {
     /// Starts the update loop if this build updates itself: alpha builds, or
-    /// any build when `GYMDIFF_UPDATE_URL` points at a test manifest.
+    /// any build when `GYMDIFF_UPDATE_URL` points at a test release list.
     pub fn start(window: slint::Weak<AppWindow>) -> Option<Self> {
-        let feed = feed_url()?;
+        let feed = feed()?;
         let (checks, requests) = mpsc::unbounded_channel();
         let spawned = std::thread::Builder::new()
             .name("updater".into())
@@ -52,25 +53,51 @@ impl Updater {
     }
 }
 
-/// Where alpha builds look for updates (ADR-0010).
-const ALPHA_FEED: &str = "https://github.com/fgirardey/gymdiff/releases/download/alpha/latest.json";
+/// GymDiff's releases, newest first (ADR-0010). Without a token GitHub allows
+/// 60 requests an hour, plenty for one check an hour.
+const RELEASES_API: &str = "https://api.github.com/repos/fgirardey/gymdiff/releases?per_page=30";
 /// Lets the first check wait until the app has settled.
 const FIRST_CHECK_DELAY: Duration = Duration::from_secs(5);
 const CHECK_INTERVAL: Duration = Duration::from_hours(1);
 /// Whole download included: an executable is about 20 MB.
 const REQUEST_TIMEOUT: Duration = Duration::from_secs(300);
 
-fn feed_url() -> Option<String> {
-    match std::env::var("GYMDIFF_UPDATE_URL") {
-        Ok(url) if !url.is_empty() => Some(url),
-        _ => (BUILD.channel == Channel::Alpha).then(|| ALPHA_FEED.to_owned()),
-    }
+/// Where this build looks for updates.
+struct Feed {
+    /// The release list, in the GitHub API's format.
+    url: String,
+    channel: UpdateChannel,
+}
+
+/// Stable releases update themselves once their manifest is signed (ADR-0010).
+const STABLE_UPDATES: bool = false;
+
+/// Release builds follow the stable releases, every other build the alpha
+/// releases. Alpha builds always update; release builds once
+/// [`STABLE_UPDATES`] is on; any build when `GYMDIFF_UPDATE_URL` points at a
+/// test release list.
+fn feed() -> Option<Feed> {
+    let channel = if BUILD.channel == Channel::Release {
+        UpdateChannel::Stable
+    } else {
+        UpdateChannel::Alpha
+    };
+    let updates_itself = match channel {
+        UpdateChannel::Alpha => BUILD.channel == Channel::Alpha,
+        UpdateChannel::Stable => STABLE_UPDATES,
+    };
+    let url = match std::env::var("GYMDIFF_UPDATE_URL") {
+        Ok(url) if !url.is_empty() => url,
+        _ if updates_itself => RELEASES_API.to_owned(),
+        _ => return None,
+    };
+    Some(Feed { url, channel })
 }
 
 async fn run(
     window: slint::Weak<AppWindow>,
     mut requests: mpsc::UnboundedReceiver<()>,
-    feed: String,
+    feed: Feed,
 ) {
     let client = match reqwest::Client::builder()
         .user_agent(format!("GymDiff/{}", BUILD.full_version()))
@@ -83,7 +110,7 @@ async fn run(
             return;
         }
     };
-    tracing::info!(%feed, build = BUILD.number, "updates on");
+    tracing::info!(feed = %feed.url, channel = ?feed.channel, build = BUILD.number, "updates on");
     let mut state = UpdateState::Idle;
     push(&window, &state);
     // The newest build on disk: the running one, or one installed since.
@@ -112,20 +139,35 @@ async fn run(
     }
 }
 
-/// One check: reads the manifest, installs a newer build.
+/// One check: finds the channel's latest release, reads its manifest,
+/// installs it when newer.
 async fn check(
     client: &reqwest::Client,
-    feed: &str,
+    feed: &Feed,
     installed: &mut u32,
     window: &slint::Weak<AppWindow>,
 ) -> UpdateState {
     push(window, &UpdateState::Checking);
-    let body = match install::download(client, feed).await {
+    let list = match install::download(client, &feed.url).await {
+        Ok(body) => body,
+        Err(reason) => return failed(reason),
+    };
+    let Some(releases) = releases::parse(&list) else {
+        tracing::warn!(feed = %feed.url, "the update URL does not serve a release list");
+        return failed(UpdateError::NotPublished);
+    };
+    let Some(manifest_url) =
+        releases::latest(&releases, feed.channel).and_then(releases::Release::manifest_url)
+    else {
+        tracing::debug!(channel = ?feed.channel, "no release with a manifest in the channel");
+        return failed(UpdateError::NotPublished);
+    };
+    let body = match install::download(client, manifest_url).await {
         Ok(body) => body,
         Err(reason) => return failed(reason),
     };
     let Some(manifest) = Manifest::parse(&body) else {
-        tracing::warn!(%feed, "the update URL does not serve a manifest");
+        tracing::warn!(manifest_url, "not a manifest");
         return failed(UpdateError::NotPublished);
     };
     if !manifest.is_newer_than(*installed, BUILD.target) {

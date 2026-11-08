@@ -37,6 +37,11 @@ pub async fn download(client: &reqwest::Client, url: &str) -> Result<Vec<u8>, Up
         tracing::warn!(url, "nothing published at the update URL");
         return Err(UpdateError::NotPublished);
     }
+    if status == reqwest::StatusCode::FORBIDDEN || status == reqwest::StatusCode::TOO_MANY_REQUESTS
+    {
+        tracing::warn!(%status, url, "GitHub rate limit reached");
+        return Err(UpdateError::RateLimited);
+    }
     if !status.is_success() {
         tracing::warn!(%status, url, "update server error");
         return Err(UpdateError::NoConnection);
