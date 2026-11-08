@@ -45,6 +45,14 @@ fn main() -> anyhow::Result<()> {
         }
     });
 
+    let consent = gymdiff_diagnostics::ConsentStore::new(&data_dir);
+    window.set_crash_reports(consent.load().enabled);
+    window.on_crash_reports_changed(move |enabled| match consent.set_enabled(enabled) {
+        // Reporting starts or stops at the next launch (see `reporting::start`).
+        Ok(_) => tracing::info!(enabled, "error reports choice saved"),
+        Err(error) => tracing::warn!(%error, "cannot save the error reports choice"),
+    });
+
     let weak = window.as_weak();
     std::thread::Builder::new()
         .name("watcher".into())

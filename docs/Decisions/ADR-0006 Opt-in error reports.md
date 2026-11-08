@@ -41,6 +41,6 @@ Design rules:
 - `gymdiff-app/src/reporting.rs` is the only code that talks to Sentry. It starts only with consent **and** a DSN, sends on panic and on `ERROR` (at most one per minute, asynchronously), and rebuilds every event from the fixed report schema (`before_send` drops everything else; SDK integrations, breadcrumbs, server name and user are off).
 - The DSN is not committed: `GYMDIFF_SENTRY_DSN` at run time, or baked in at build time from the CI repository variable of the same name. It is a write-only key, not a secret, but keeping it out of the source avoids noise from forks and clones.
 - Sentry project in the **EU** region (`ingest.de.sentry.io`), created 2026-11-08. An earlier project in the US region was dropped before any event was sent.
-- Until the Settings UI exists (needs a Pencil frame first), consent can only be set by hand in `diagnostics.json`; so reports are off for everyone.
+- The Settings screen ([[Settings]]) sets the consent; a change applies at the next launch.
 - A new third-party processor (Sentry) must be named in [[Privacy]] and in the product's Riot registration.
 - Status stays `proposed` until the author accepts it after the Sentry project is chosen.

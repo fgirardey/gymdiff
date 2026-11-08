@@ -7,13 +7,17 @@ import { TopBar } from "top-bar.slint";
 export component AppShell inherits VerticalLayout {
     in property <bool> connected;
     in property <string> status-label;
+    in property <bool> settings-active;
     in property <bool> about-active;
+    callback settings-clicked;
     callback about-clicked;
 
     TopBar {
         connected: root.connected;
         status-label: root.status-label;
+        settings-active: root.settings-active;
         about-active: root.about-active;
+        settings-clicked => { root.settings-clicked(); }
         about-clicked => { root.about-clicked(); }
     }
 

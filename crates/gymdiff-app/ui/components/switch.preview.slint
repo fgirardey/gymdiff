@@ -1,0 +1,61 @@
+// Previews of Switch: `just preview components/switch`.
+
+import { Theme } from "../theme.slint";
+import { Switch } from "switch.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Pencil frames `Switch / Off` and `Switch / On` (36 × 20).
+export component SwitchOff inherits Rectangle {
+    width: 36px;
+    height: 20px;
+    Switch { checked: false; }
+}
+
+export component SwitchOn inherits Rectangle {
+    width: 36px;
+    height: 20px;
+    Switch { checked: true; }
+}
+
+// Edit the knobs in the live preview's Data tab; clicks show as the last action.
+export component SwitchPlayground inherits Window {
+    in-out property <bool> checked;
+
+    background: Theme.background;
+    preferred-width: 200px;
+
+    playground := PreviewPlayground {
+        HorizontalLayout {
+            alignment: start;
+            Switch {
+                checked: root.checked;
+                toggled => {
+                    root.checked = !root.checked;
+                    playground.log("toggled");
+                }
+            }
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "Switch";
+    background: Theme.background;
+
+    HorizontalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Switch / Off";
+            SwitchOff { }
+        }
+        PreviewCase {
+            label: "Switch / On";
+            SwitchOn { }
+        }
+    }
+}

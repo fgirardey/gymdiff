@@ -1,0 +1,94 @@
+// Previews of SettingsScreen: `just preview screens/settings`.
+
+import { Theme } from "../theme.slint";
+import { AppShell } from "../shell/app-shell.slint";
+import { SettingsScreen } from "settings.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Pencil frame `App shell / Settings / Default` (400 × 640).
+export component AppShellSettingsDefault inherits Rectangle {
+    width: 400px;
+    height: 640px;
+    background: Theme.background;
+    clip: true;
+
+    AppShell {
+        connected: true;
+        status-label: Fixtures.status-lobby;
+        settings-active: true;
+
+        SettingsScreen { vertical-stretch: 1; }
+    }
+}
+
+// Pencil frame `App shell / Settings / Crash reports on` (400 × 640).
+export component AppShellSettingsCrashReportsOn inherits Rectangle {
+    width: 400px;
+    height: 640px;
+    background: Theme.background;
+    clip: true;
+
+    AppShell {
+        connected: true;
+        status-label: Fixtures.status-lobby;
+        settings-active: true;
+
+        SettingsScreen {
+            vertical-stretch: 1;
+            crash-reports: true;
+        }
+    }
+}
+
+// Edit the knobs in the live preview's Data tab; clicks show as the last action.
+export component SettingsScreenPlayground inherits Window {
+    in-out property <bool> crash-reports;
+    in-out property <bool> all-logs;
+
+    background: Theme.background;
+    preferred-width: 400px;
+    preferred-height: 640px;
+
+    playground := PreviewPlayground {
+        padding: 0;
+        alignment: stretch;
+
+        SettingsScreen {
+            vertical-stretch: 1;
+            crash-reports: root.crash-reports;
+            all-logs: root.all-logs;
+            back => { playground.log("back"); }
+            crash-reports-toggled => {
+                root.crash-reports = !root.crash-reports;
+                playground.log("crash-reports-toggled");
+            }
+            all-logs-toggled => {
+                root.all-logs = !root.all-logs;
+                playground.log("all-logs-toggled");
+            }
+        }
+    }
+}
+
+// Gallery of every state (default component of the file).
+export component Preview inherits Window {
+    title: "SettingsScreen";
+    background: Theme.background;
+
+    HorizontalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "App shell / Settings / Default";
+            AppShellSettingsDefault { }
+        }
+        PreviewCase {
+            label: "App shell / Settings / Crash reports on";
+            AppShellSettingsCrashReportsOn { }
+        }
+    }
+}

@@ -1,0 +1,54 @@
+// Previews of NavButton: `just preview components/nav-button`.
+
+import { Theme } from "../theme.slint";
+import { NavButton } from "nav-button.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Edit the knobs in the live preview's Data tab; clicks show as the last action.
+export component NavButtonPlayground inherits Window {
+    in-out property <bool> active;
+
+    background: Theme.background;
+    preferred-width: 200px;
+
+    playground := PreviewPlayground {
+        HorizontalLayout {
+            alignment: start;
+            NavButton {
+                icon: @image-url("../images/icons/settings.svg");
+                active: root.active;
+                clicked => { playground.log("clicked"); }
+            }
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "NavButton";
+    background: Theme.background;
+
+    HorizontalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Settings";
+            NavButton { icon: @image-url("../images/icons/settings.svg"); }
+        }
+        PreviewCase {
+            label: "Settings, active";
+            NavButton { icon: @image-url("../images/icons/settings.svg"); active: true; }
+        }
+        PreviewCase {
+            label: "About";
+            NavButton { icon: @image-url("../images/icons/info.svg"); }
+        }
+        PreviewCase {
+            label: "About, active";
+            NavButton { icon: @image-url("../images/icons/info.svg"); active: true; }
+        }
+    }
+}

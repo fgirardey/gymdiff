@@ -1,4 +1,4 @@
-// Main window: Welcome (first launch), History and About.
+// Main window: Welcome (first launch), History, Settings and About.
 //
 // Screen map: docs/Product/Screens.md. Each screen lives in screens/, the
 // app shell (top bar) in shell/, shared widgets in components/.
@@ -9,6 +9,7 @@ import { AppShell } from "shell/app-shell.slint";
 import { WelcomeScreen } from "screens/welcome.slint";
 import { HistoryEmpty } from "screens/history.slint";
 import { AboutScreen } from "screens/about.slint";
+import { SettingsScreen } from "screens/settings.slint";
 
 export { Screen }
 
@@ -23,9 +24,15 @@ export component AppWindow inherits Window {
     in property <bool> connected: false;
     in property <string> status-label: "Looking for the League client…";
     in property <string> version;
+    /// Opt-in error reports (docs/Decisions/ADR-0006): set by Rust from the stored consent.
+    in-out property <bool> crash-reports: false;
+    in-out property <bool> all-logs: false;
 
     /// The player clicked "Let's go" on the welcome screen.
     callback welcome-done;
+    /// The player flipped a switch in Settings; `enabled` is the new value.
+    callback crash-reports-changed(enabled: bool);
+    callback all-logs-changed(enabled: bool);
 
     if root.screen == Screen.welcome: WelcomeScreen {
         lets-go => {
@@ -37,7 +44,9 @@ export component AppWindow inherits Window {
     if root.screen != Screen.welcome: AppShell {
         connected: root.connected;
         status-label: root.status-label;
+        settings-active: root.screen == Screen.settings;
         about-active: root.screen == Screen.about;
+        settings-clicked => { root.screen = Screen.settings; }
         about-clicked => { root.screen = Screen.about; }
 
         if root.screen == Screen.history: HistoryEmpty {
@@ -48,6 +57,21 @@ export component AppWindow inherits Window {
             vertical-stretch: 1;
             version: root.version;
             back => { root.screen = Screen.history; }
+        }
+
+        if root.screen == Screen.settings: SettingsScreen {
+            vertical-stretch: 1;
+            crash-reports: root.crash-reports;
+            all-logs: root.all-logs;
+            back => { root.screen = Screen.history; }
+            crash-reports-toggled => {
+                root.crash-reports = !root.crash-reports;
+                root.crash-reports-changed(root.crash-reports);
+            }
+            all-logs-toggled => {
+                root.all-logs = !root.all-logs;
+                root.all-logs-changed(root.all-logs);
+            }
         }
     }
 }

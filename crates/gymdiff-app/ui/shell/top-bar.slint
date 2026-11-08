@@ -4,13 +4,15 @@
 
 import { Theme } from "../theme.slint";
 import { Crest } from "../components/crest.slint";
-import { Icon } from "../components/icon.slint";
+import { NavButton } from "../components/nav-button.slint";
 import { ConnectionStatus } from "connection-status.slint";
 
 export component TopBar inherits Rectangle {
     in property <bool> connected;
     in property <string> status-label;
+    in property <bool> settings-active;
     in property <bool> about-active;
+    callback settings-clicked;
     callback about-clicked;
 
     height: 52px;
@@ -47,22 +49,19 @@ export component TopBar inherits Rectangle {
 
         VerticalLayout {
             alignment: center;
-            Rectangle {
-                width: 36px;
-                height: 36px;
-                border-radius: Theme.radius-m;
+            NavButton {
+                icon: @image-url("../images/icons/settings.svg");
+                active: root.settings-active;
+                clicked => { root.settings-clicked(); }
+            }
+        }
 
-                Icon {
-                    source: @image-url("../images/icons/info.svg");
-                    width: 20px;
-                    height: 20px;
-                    colorize: root.about-active ? Theme.accent : Theme.text-secondary;
-                }
-
-                TouchArea {
-                    mouse-cursor: pointer;
-                    clicked => { root.about-clicked(); }
-                }
+        VerticalLayout {
+            alignment: center;
+            NavButton {
+                icon: @image-url("../images/icons/info.svg");
+                active: root.about-active;
+                clicked => { root.about-clicked(); }
             }
         }
     }

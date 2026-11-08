@@ -1,0 +1,71 @@
+// Previews of SettingRow: `just preview components/setting-row`.
+// The Pencil frames are in screens/settings.preview.slint.
+
+import { Theme } from "../theme.slint";
+import { SettingRow } from "setting-row.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Edit the knobs in the live preview's Data tab; clicks show as the last action.
+export component SettingRowPlayground inherits Window {
+    in-out property <string> label: Fixtures.setting-crash-label;
+    in-out property <string> detail: Fixtures.setting-crash-detail;
+    in-out property <bool> checked;
+
+    background: Theme.background;
+    preferred-width: 352px;
+
+    playground := PreviewPlayground {
+        SettingRow {
+            label: root.label;
+            detail: root.detail;
+            checked: root.checked;
+            toggled => {
+                root.checked = !root.checked;
+                playground.log("toggled");
+            }
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "SettingRow";
+    background: Theme.background;
+    preferred-width: 384px;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Off";
+            SettingRow {
+                label: Fixtures.setting-crash-label;
+                detail: Fixtures.setting-crash-detail;
+            }
+        }
+        PreviewCase {
+            label: "On";
+            SettingRow {
+                label: Fixtures.setting-crash-label;
+                detail: Fixtures.setting-crash-detail;
+                checked: true;
+            }
+        }
+        PreviewCase {
+            label: "Short detail";
+            SettingRow { label: "Dark mode"; detail: "Easier on the eyes."; }
+        }
+        PreviewCase {
+            label: "Narrow width";
+            SettingRow {
+                width: 240px;
+                label: Fixtures.setting-logs-label;
+                detail: Fixtures.setting-logs-detail;
+            }
+        }
+    }
+}
