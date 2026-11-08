@@ -8,9 +8,9 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh   # rustup; the t
 brew install just
 cargo install slint-viewer                                        # optional: live preview of .slint files
 volta install node@24                                             # Node, only for commit linting (or brew install node)
-just setup                                                        # installs commitlint and the commit-msg hook
+just setup                                                        # commitlint, the commit-msg hook and cargo-xwin
 ```
-`rust-toolchain.toml` also installs the `x86_64-pc-windows-msvc` target, used by `just check-windows`.
+`rust-toolchain.toml` also installs the `x86_64-pc-windows-msvc` target and `llvm-tools`, used by `just check-windows`. That recipe runs `cargo xwin check`: Velopack depends on `ring`, which compiles C, so the Windows C headers are needed; cargo-xwin downloads Microsoft's CRT and Windows SDK headers once (about 1 GB, under Microsoft's license) into its cache.
 
 Recommended editor extensions are listed in `.vscode/extensions.json` (rust-analyzer, Slint).
 
