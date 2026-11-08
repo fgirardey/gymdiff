@@ -17,3 +17,14 @@ pub enum LolError {
     #[error("unexpected HTTP status {status} for {url}")]
     UnexpectedStatus { status: u16, url: String },
 }
+
+impl LolError {
+    /// True when the API answered but the payload did not match our models:
+    /// Riot probably changed the API. Unlike a refused connection or an error
+    /// status (normal while the client starts, closes or loads a game), this is
+    /// worth a warning.
+    #[must_use]
+    pub fn is_unexpected_payload(&self) -> bool {
+        matches!(self, Self::Http(error) if error.is_decode())
+    }
+}

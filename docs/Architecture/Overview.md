@@ -64,7 +64,7 @@ The local APIs use certificates signed by Riot's own root CA. For now the client
 
 Local logs stay on the PC. Error reports to a central service are **opt-in** and built from scrubbed `WARN`/`ERROR` events only ([[ADR-0006 Opt-in error reports]], [[Privacy]]); `gymdiff-app/src/reporting.rs` sends them, only with consent and a DSN.
 
-Filter with `RUST_LOG` (default: `info,gymdiff=debug,gymdiff_lol=debug`).
+Filter with `RUST_LOG` (default: `info,gymdiff=debug,gymdiff_lol=debug`). Which level to use: [[Logging]].
 
 ## Configuration (environment variables)
 Variables can live in a git-ignored `.env` at the repository root (template: `.env.example`); `just` recipes load it, plain `cargo run` does not.

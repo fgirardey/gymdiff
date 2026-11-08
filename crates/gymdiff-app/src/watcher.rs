@@ -13,16 +13,21 @@ use crate::AppWindow;
 
 const POLL_INTERVAL: Duration = Duration::from_secs(1);
 const DISCOVERY_INTERVAL: Duration = Duration::from_secs(2);
+/// Failed LCU requests in a row before the client is considered gone.
+const MAX_CONSECUTIVE_ERRORS: u32 = 3;
 
+/// Logs follow `docs/Workflow/Logging.md`: state changes at `INFO`, each poll
+/// at `DEBUG`/`TRACE`. A missing or closing client is normal, never a warning.
 pub async fn run(window: slint::Weak<AppWindow>) {
     let mut state = CompanionState::default();
+    let mut http_error_logged = false;
     push(&window, &state, "");
 
     loop {
         let lockfile = match Lockfile::discover() {
             Ok(lockfile) => lockfile,
             Err(error) => {
-                tracing::debug!(%error, "League client not found");
+                tracing::trace!(%error, "League client not found");
                 tokio::time::sleep(DISCOVERY_INTERVAL).await;
                 continue;
             }
@@ -30,13 +35,19 @@ pub async fn run(window: slint::Weak<AppWindow>) {
         let client = match HttpLolClient::new(lockfile) {
             Ok(client) => client,
             Err(error) => {
-                tracing::error!(%error, "cannot build HTTP client");
+                // A bug (TLS setup), not a game state: report it once, then retry quietly.
+                if http_error_logged {
+                    tracing::debug!(%error, "cannot build HTTP client");
+                } else {
+                    tracing::error!(%error, "cannot build HTTP client");
+                    http_error_logged = true;
+                }
                 tokio::time::sleep(DISCOVERY_INTERVAL).await;
                 continue;
             }
         };
         let source = describe_source(client.lockfile());
-        tracing::info!(%source, "League client found");
+        tracing::debug!(%source, "lockfile found");
 
         state = poll_until_disconnected(&client, state, &window, &source).await;
         state = state.apply(Event::ClientDisconnected);
@@ -51,10 +62,18 @@ async fn poll_until_disconnected(
     source: &str,
 ) -> CompanionState {
     let mut consecutive_errors = 0;
+    // Whether the client answered at least once: until then, failures only
+    // mean a stale lockfile or a client still starting.
+    let mut answered = false;
+    let mut payload_warned = false;
     loop {
         match client.gameflow_phase().await {
             Ok(phase) => {
                 consecutive_errors = 0;
+                if !answered {
+                    answered = true;
+                    tracing::info!(%source, "connected to the League client");
+                }
                 if state.connection != ConnectionStatus::Connected {
                     state = state.apply(Event::ClientConnected);
                 }
@@ -65,8 +84,18 @@ async fn poll_until_disconnected(
             }
             Err(error) => {
                 consecutive_errors += 1;
-                tracing::warn!(%error, consecutive_errors, "LCU request failed");
-                if consecutive_errors >= 3 {
+                if error.is_unexpected_payload() && !payload_warned {
+                    tracing::warn!(%error, "unexpected LCU payload");
+                    payload_warned = true;
+                } else if answered {
+                    tracing::debug!(%error, consecutive_errors, "LCU request failed");
+                } else {
+                    tracing::trace!(%error, consecutive_errors, "LCU request failed");
+                }
+                if consecutive_errors >= MAX_CONSECUTIVE_ERRORS {
+                    if answered {
+                        tracing::info!("League client lost");
+                    }
                     // The client was probably closed (stale lockfile): rediscover.
                     return state;
                 }
@@ -78,7 +107,11 @@ async fn poll_until_disconnected(
             match client.game_stats().await {
                 Ok(Some(live)) => state = state.apply(Event::GameTimeUpdated(live.game_time)),
                 Ok(None) => {}
-                Err(error) => tracing::warn!(%error, "Live Client Data request failed"),
+                Err(error) if error.is_unexpected_payload() && !payload_warned => {
+                    tracing::warn!(%error, "unexpected Live Client Data payload");
+                    payload_warned = true;
+                }
+                Err(error) => tracing::debug!(%error, "Live Client Data request failed"),
             }
         }
 
