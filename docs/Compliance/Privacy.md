@@ -18,7 +18,7 @@ Off until the player turns them on (welcome screen or Settings); turning them of
 - **Preview**: the exact report can be shown and exported before sending.
 - **Retention**: 30 days, then deleted.
 - **Deletion**: send the install id from Settings to the author; matching reports are deleted.
-- **Processor**: Sentry. The project is currently in Sentry's **US** region; moving it to the EU region is an open decision. Named here and in the Riot registration.
+- **Processor**: Sentry, **EU region** (Frankfurt). Named here and in the Riot registration.
 - **Today**: there is no UI to opt in yet, so nothing is sent. Developers can opt in with `{"enabled": true}` in `diagnostics.json` in the data folder (see [[Overview#Configuration (environment variables)]]) and `GYMDIFF_SENTRY_DSN`.
 - **Offline / failures**: local logs keep working; a failed send is dropped silently and never affects the app or the game.
 
