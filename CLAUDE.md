@@ -24,6 +24,8 @@ crates/gymdiff-core/       Pure domain logic (reducer: CompanionState::apply(Eve
 crates/gymdiff-lol/        League local APIs: lockfile, LolClient trait, HTTP client, models.
 crates/gymdiff-simulator/  Fake League client replaying fixtures/scenarios/*.json.
 crates/gymdiff-app/        Slint UI (ui/) + watcher + OS integration (src/platform/ only).
+crates/gymdiff-installer/  Windows installer window (Slint, UI in gymdiff-app/ui/) around Velopack.
+crates/gymdiff-shortcuts/  Start menu and Desktop shortcuts, shared by the app and the installer.
 fixtures/                  Scenarios for the simulator and tests.
 docs/                      Obsidian vault: product, architecture, decisions, workflows.
 design/                    Pencil design files (.pen).

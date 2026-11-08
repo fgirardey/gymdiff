@@ -1,0 +1,12 @@
+// Preview of the whole installer window: `just preview installer-window`.
+//
+// The real InstallerWindow fed with fixtures. Edit `step` in the live preview's Data tab;
+// each step's frame is in installer/installer-screen.preview.slint.
+
+import { InstallerWindow } from "installer-window.slint";
+import { Fixtures } from "preview-kit/fixtures.slint";
+
+export component Preview inherits InstallerWindow {
+    version: Fixtures.installer-version;
+    failure-reason: Fixtures.installer-failure;
+}

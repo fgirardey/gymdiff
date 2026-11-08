@@ -1,0 +1,132 @@
+// Previews of InstallerScreen: `just preview installer/installer-screen`.
+
+import { Theme } from "../theme.slint";
+import { InstallerScreen } from "installer-screen.slint";
+import { InstallerStep } from "../installer-step.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Pencil frame `Installer / Window / Options` (420 × 460).
+export component InstallerWindowOptions inherits Rectangle {
+    width: 420px;
+    height: 460px;
+    clip: true;
+
+    InstallerScreen {
+        step: InstallerStep.options;
+        version: Fixtures.installer-version;
+        failure-reason: Fixtures.installer-failure;
+    }
+}
+
+// Pencil frame `Installer / Window / Installing` (420 × 460).
+export component InstallerWindowInstalling inherits Rectangle {
+    width: 420px;
+    height: 460px;
+    clip: true;
+
+    InstallerScreen {
+        step: InstallerStep.installing;
+        version: Fixtures.installer-version;
+        failure-reason: Fixtures.installer-failure;
+    }
+}
+
+// Pencil frame `Installer / Window / Done` (420 × 460).
+export component InstallerWindowDone inherits Rectangle {
+    width: 420px;
+    height: 460px;
+    clip: true;
+
+    InstallerScreen {
+        step: InstallerStep.done;
+        version: Fixtures.installer-version;
+        failure-reason: Fixtures.installer-failure;
+    }
+}
+
+// Pencil frame `Installer / Window / Failed` (420 × 460).
+export component InstallerWindowFailed inherits Rectangle {
+    width: 420px;
+    height: 460px;
+    clip: true;
+
+    InstallerScreen {
+        step: InstallerStep.failed;
+        version: Fixtures.installer-version;
+        failure-reason: Fixtures.installer-failure;
+    }
+}
+
+// Edit the knobs in the live preview's Data tab; clicks show as the last action.
+export component InstallerScreenPlayground inherits Window {
+    in-out property <InstallerStep> step: InstallerStep.options;
+    in-out property <bool> start-menu: true;
+    in-out property <bool> desktop;
+    in-out property <bool> launch: true;
+
+    background: Theme.background;
+    preferred-width: 420px;
+    preferred-height: 460px;
+
+    playground := PreviewPlayground {
+        padding: 0;
+        alignment: stretch;
+
+        InstallerScreen {
+            vertical-stretch: 1;
+            step: root.step;
+            version: Fixtures.installer-version;
+            failure-reason: Fixtures.installer-failure;
+            start-menu: root.start-menu;
+            desktop: root.desktop;
+            launch: root.launch;
+            start-menu-toggled => {
+                root.start-menu = !root.start-menu;
+                playground.log("start-menu-toggled");
+            }
+            desktop-toggled => {
+                root.desktop = !root.desktop;
+                playground.log("desktop-toggled");
+            }
+            launch-toggled => {
+                root.launch = !root.launch;
+                playground.log("launch-toggled");
+            }
+            install => { playground.log("install"); }
+            cancel => { playground.log("cancel"); }
+            finish => { playground.log("finish"); }
+            close => { playground.log("close"); }
+        }
+    }
+}
+
+// Gallery of every step (default component of the file).
+export component Preview inherits Window {
+    title: "InstallerScreen";
+    background: Theme.background;
+
+    HorizontalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Installer / Window / Options";
+            InstallerWindowOptions { }
+        }
+        PreviewCase {
+            label: "Installer / Window / Installing";
+            InstallerWindowInstalling { }
+        }
+        PreviewCase {
+            label: "Installer / Window / Done";
+            InstallerWindowDone { }
+        }
+        PreviewCase {
+            label: "Installer / Window / Failed";
+            InstallerWindowFailed { }
+        }
+    }
+}
