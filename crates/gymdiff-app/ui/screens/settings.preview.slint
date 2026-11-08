@@ -19,7 +19,11 @@ export component AppShellSettingsDefault inherits Rectangle {
         status-label: Fixtures.status-lobby;
         settings-active: true;
 
-        SettingsScreen { vertical-stretch: 1; }
+        SettingsScreen {
+            vertical-stretch: 1;
+            update-visible: true;
+            update-status: Fixtures.update-up-to-date;
+        }
     }
 }
 
@@ -38,6 +42,69 @@ export component AppShellSettingsCrashReportsOn inherits Rectangle {
         SettingsScreen {
             vertical-stretch: 1;
             crash-reports: true;
+            update-visible: true;
+            update-status: Fixtures.update-up-to-date;
+        }
+    }
+}
+
+// Pencil frame `App shell / Settings / Updates checking` (400 × 640).
+export component AppShellSettingsUpdatesChecking inherits Rectangle {
+    width: 400px;
+    height: 640px;
+    background: Theme.background;
+    clip: true;
+
+    AppShell {
+        connected: true;
+        status-label: Fixtures.status-lobby;
+        settings-active: true;
+
+        SettingsScreen {
+            vertical-stretch: 1;
+            update-visible: true;
+            update-status: Fixtures.update-checking;
+            update-busy: true;
+        }
+    }
+}
+
+// Pencil frame `App shell / Settings / Updates ready` (400 × 640).
+export component AppShellSettingsUpdatesReady inherits Rectangle {
+    width: 400px;
+    height: 640px;
+    background: Theme.background;
+    clip: true;
+
+    AppShell {
+        connected: true;
+        status-label: Fixtures.status-lobby;
+        settings-active: true;
+
+        SettingsScreen {
+            vertical-stretch: 1;
+            update-visible: true;
+            update-status: Fixtures.update-ready;
+        }
+    }
+}
+
+// Pencil frame `App shell / Settings / Updates failed` (400 × 640).
+export component AppShellSettingsUpdatesFailed inherits Rectangle {
+    width: 400px;
+    height: 640px;
+    background: Theme.background;
+    clip: true;
+
+    AppShell {
+        connected: true;
+        status-label: Fixtures.status-lobby;
+        settings-active: true;
+
+        SettingsScreen {
+            vertical-stretch: 1;
+            update-visible: true;
+            update-status: Fixtures.update-failed;
         }
     }
 }
@@ -47,6 +114,9 @@ export component SettingsScreenPlayground inherits Window {
     in-out property <bool> crash-reports;
     in-out property <bool> all-logs;
     in-out property <bool> debug-tools: true;
+    in-out property <bool> update-visible: true;
+    in-out property <string> update-status: Fixtures.update-up-to-date;
+    in-out property <bool> update-busy;
 
     background: Theme.background;
     preferred-width: 400px;
@@ -61,6 +131,10 @@ export component SettingsScreenPlayground inherits Window {
             crash-reports: root.crash-reports;
             all-logs: root.all-logs;
             debug-tools: root.debug-tools;
+            update-visible: root.update-visible;
+            update-status: root.update-status;
+            update-busy: root.update-busy;
+            check-updates => { playground.log("check-updates"); }
             open-debug => { playground.log("open-debug"); }
             back => { playground.log("back"); }
             crash-reports-toggled => {
@@ -92,6 +166,30 @@ export component Preview inherits Window {
         PreviewCase {
             label: "App shell / Settings / Crash reports on";
             AppShellSettingsCrashReportsOn { }
+        }
+        PreviewCase {
+            label: "App shell / Settings / Updates checking";
+            AppShellSettingsUpdatesChecking { }
+        }
+        PreviewCase {
+            label: "App shell / Settings / Updates ready";
+            AppShellSettingsUpdatesReady { }
+        }
+        PreviewCase {
+            label: "App shell / Settings / Updates failed";
+            AppShellSettingsUpdatesFailed { }
+        }
+        PreviewCase {
+            label: "Without updates (not an alpha build)";
+            AppShell {
+                width: 400px;
+                height: 640px;
+                connected: true;
+                status-label: Fixtures.status-lobby;
+                settings-active: true;
+
+                SettingsScreen { vertical-stretch: 1; }
+            }
         }
         PreviewCase {
             label: "With the debug link (debug builds)";

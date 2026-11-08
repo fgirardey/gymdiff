@@ -43,6 +43,7 @@ Hover and pressed states, shown in the `Interaction states` section of the `Foun
 | `state-opacity-hover` | 0.08 | State layer opacity while hovered |
 | `state-opacity-pressed` | 0.12 | State layer opacity while pressed |
 | `press-scale` | 0.97 | Scale of filled and outlined buttons while pressed |
+| `disabled-opacity` | 0.4 | Opacity of a disabled control (e.g. **Check now** while a check runs) |
 | `motion-fast` | 100ms | Hover and press transitions (ease-out) |
 | `motion-medium` | 200ms | Switch toggle, card expand and collapse (ease-out) |
 

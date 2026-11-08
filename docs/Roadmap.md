@@ -23,7 +23,8 @@
 - [x] Settings persistence (`settings.json`, [[ADR-0007 Local persistence]])
 - [x] Versioning (SemVer + build number), releases with release-please, symbolicated Sentry issues ([[ADR-0008 Versioning and releases]])
 - [ ] Windows installer and code signing (options and status: [[Code signing]])
-- [ ] Auto-update
+- [x] Auto-update of alpha builds from `main` ([[Auto-update]])
+- [ ] Stable update channel for friends (tagged releases, signed manifest)
 
 ## MVP — post-game workout
 - [ ] Validate [[Vision]], [[Workout formula]] and [[Post-game workout]] (open questions)
