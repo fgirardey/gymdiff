@@ -20,6 +20,8 @@ Error reports are opt-in ([[ADR-0006 Opt-in error reports]]): the choice must be
 - Note under the switches: reports are deleted after 30 days.
 - Flipping "Send crash reports" saves the consent (`diagnostics.json`, creating or forgetting the install id). Reporting starts or stops at the **next launch**.
 
+- **Debug events** (throwaway, debug builds only, no design): a link at the bottom of Settings opens a screen with buttons that log a warning, log an error, log an error with personal data (to check scrubbing) or panic in a thread, to test the error reports end to end. Delete it once the integration is verified (`ui/screens/debug.slint`, `src/debug_events.rs`).
+
 ## Data
 `diagnostics.json` in the data folder (`ConsentStore` in `gymdiff-diagnostics`).
 
