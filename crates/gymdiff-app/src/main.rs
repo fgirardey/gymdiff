@@ -13,7 +13,6 @@ mod watcher;
 
 use std::path::PathBuf;
 
-use gymdiff_diagnostics::ErrorBuffer;
 use slint::ComponentHandle;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
@@ -23,8 +22,8 @@ slint::include_modules!();
 
 fn main() -> anyhow::Result<()> {
     let data_dir = data_dir();
-    let (_log_guard, errors) = init_logging(&data_dir);
-    let _reports_guard = reporting::start(&data_dir, &errors);
+    let _log_guard = init_logging();
+    let _reports_guard = reporting::start(&data_dir);
     tracing::info!(
         version = env!("CARGO_PKG_VERSION"),
         platform = platform::NAME,
@@ -46,12 +45,21 @@ fn main() -> anyhow::Result<()> {
         }
     });
 
+    // Reporting starts or stops at the next launch (see `reporting::start`).
     let consent = gymdiff_diagnostics::ConsentStore::new(&data_dir);
-    window.set_crash_reports(consent.load().enabled);
-    window.on_crash_reports_changed(move |enabled| match consent.set_enabled(enabled) {
-        // Reporting starts or stops at the next launch (see `reporting::start`).
-        Ok(_) => tracing::info!(enabled, "error reports choice saved"),
-        Err(error) => tracing::warn!(%error, "cannot save the error reports choice"),
+    let choice = consent.load();
+    window.set_crash_reports(choice.crash_reports);
+    window.set_all_logs(choice.logs);
+    let crash_consent = consent.clone();
+    window.on_crash_reports_changed(move |enabled| {
+        match crash_consent.set_crash_reports(enabled) {
+            Ok(_) => tracing::info!(enabled, "crash reports choice saved"),
+            Err(error) => tracing::warn!(%error, "cannot save the crash reports choice"),
+        }
+    });
+    window.on_all_logs_changed(move |enabled| match consent.set_logs(enabled) {
+        Ok(_) => tracing::info!(enabled, "all logs choice saved"),
+        Err(error) => tracing::warn!(%error, "cannot save the all logs choice"),
     });
 
     window.set_debug_tools(cfg!(debug_assertions));
@@ -80,14 +88,8 @@ fn data_dir() -> PathBuf {
 
 /// Logs to stderr and to a daily-rotated file in [`platform::log_dir`].
 /// Attach that file when reporting a Windows-only bug. Also feeds the opt-in
-/// error reports ([`reporting`]).
-fn init_logging(
-    data_dir: &std::path::Path,
-) -> (
-    Option<tracing_appender::non_blocking::WorkerGuard>,
-    ErrorBuffer,
-) {
-    let errors = ErrorBuffer::new(50);
+/// reports ([`reporting`]); levels follow `docs/Workflow/Logging.md`.
+fn init_logging() -> Option<tracing_appender::non_blocking::WorkerGuard> {
     let filter = EnvFilter::try_from_default_env()
         .unwrap_or_else(|_| EnvFilter::new("info,gymdiff=debug,gymdiff_lol=debug"));
     let stderr = fmt::layer().with_writer(std::io::stderr);
@@ -109,9 +111,8 @@ fn init_logging(
         .with(filter)
         .with(stderr)
         .with(file)
-        .with(errors.layer())
-        .with(reporting::ReportLayer::new(errors.clone(), data_dir))
+        .with(reporting::layers())
         .init();
     tracing::info!(log_dir = %log_dir.display(), "logging initialised");
-    (guard, errors)
+    guard
 }

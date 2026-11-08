@@ -34,7 +34,7 @@ flowchart LR
 | `gymdiff-core` | Domain types and logic. Pure functions, reducer `CompanionState::apply(Event)`. | `serde` only |
 | `gymdiff-lol` | League local APIs: lockfile discovery, `LolClient` trait, HTTP client, API models. | `gymdiff-core`, `reqwest` |
 | `gymdiff-simulator` | Fake League client replaying scenarios (development only, never shipped). | `gymdiff-lol` (lockfile format), `axum` |
-| `gymdiff-diagnostics` | Opt-in error reports: scrubbing, consent, bounded capture, preview. No network. See [[ADR-0006 Opt-in error reports]]. | `serde`, `tracing` |
+| `gymdiff-diagnostics` | Opt-in reports: consent and scrubbing. No network. See [[ADR-0006 Opt-in error reports]]. | `serde`, `regex` |
 | `gymdiff-app` | The shipped binary (`gymdiff.exe`): Slint UI, watcher, OS integration. | everything above, `slint` |
 
 ## Rules
@@ -62,7 +62,14 @@ The local APIs use certificates signed by Riot's own root CA. For now the client
 - Windows: `%LOCALAPPDATA%\GymDiff\logs\`
 - macOS: `~/Library/Logs/GymDiff/`
 
-Local logs stay on the PC. Error reports to a central service are **opt-in** and built from scrubbed `WARN`/`ERROR` events only ([[ADR-0006 Opt-in error reports]], [[Privacy]]); `gymdiff-app/src/reporting.rs` sends them, only with consent and a DSN.
+Local logs stay on the PC. Sending to Sentry is **opt-in**, one switch per product ([[ADR-0006 Opt-in error reports]], [[Privacy]]); `gymdiff-app/src/reporting.rs` does it, only with consent and a DSN:
+
+| Level | Local file | Sentry |
+|---|---|---|
+| `ERROR` | yes | **Issue** ("Send crash reports") + Log |
+| `WARN`, `INFO` | yes | Log ("Send all logs") |
+| `DEBUG` | yes (GymDiff crates) | never |
+| `TRACE` | only with `RUST_LOG` | never |
 
 Filter with `RUST_LOG` (default: `info,gymdiff=debug,gymdiff_lol=debug`). Which level to use: [[Logging]].
 
@@ -75,6 +82,6 @@ Variables can live in a git-ignored `.env` at the repository root (template: `.e
 | `GYMDIFF_LIVE_CLIENT_URL` | app | Live Client Data base URL (default `https://127.0.0.1:2999`) |
 | `GYMDIFF_DATA_DIR` | app | Settings folder (default `%APPDATA%\GymDiff\` on Windows, `~/Library/Application Support/GymDiff/` on macOS). Point it at an empty folder to see the welcome screen again |
 | `GYMDIFF_SCENARIO` | simulator | Scenario to replay |
-| `GYMDIFF_SENTRY_DSN` | app | Sentry DSN for opt-in error reports (run time, else build time; unset = reports off) |
+| `GYMDIFF_SENTRY_DSN` | app | Sentry DSN for opt-in reports (run time, else build time; unset = reports off) |
 | `RUST_LOG` | both | Log filter |
 | `GYMDIFF_WIN_HOST`, `GYMDIFF_WIN_REPO` | justfile | Windows PC over SSH (see [[Windows testing]]) |

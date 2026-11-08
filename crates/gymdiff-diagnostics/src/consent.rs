@@ -1,16 +1,32 @@
-//! The player's choice about sending reports, stored locally.
+//! The player's choices about sending reports, stored locally.
 
 use std::io;
 use std::path::{Path, PathBuf};
 
 use serde::{Deserialize, Serialize};
 
-/// The stored choice. The default is **off**, with no install id yet.
+/// The stored choices, one per Settings switch. The default is **all off**,
+/// with no install id yet.
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(default)]
 pub struct Consent {
-    pub enabled: bool,
-    /// Random id, created only when the player opts in; removed on opt-out.
+    /// "Send crash reports": errors and panics. Named `enabled` in files
+    /// written before the logs switch existed.
+    #[serde(alias = "enabled")]
+    pub crash_reports: bool,
+    /// "Send all logs": everyday logs (`INFO` and above).
+    pub logs: bool,
+    /// Random id, created when the player turns a switch on; removed when
+    /// both are off.
     pub install_id: Option<String>,
+}
+
+impl Consent {
+    /// True when at least one kind of report may be sent.
+    #[must_use]
+    pub fn any(&self) -> bool {
+        self.crash_reports || self.logs
+    }
 }
 
 /// Reads and writes [`Consent`] in the app's data folder.
@@ -36,18 +52,27 @@ impl ConsentStore {
             .unwrap_or_default()
     }
 
-    /// Turns sending on (creating an install id if needed) or off (forgetting it).
-    pub fn set_enabled(&self, enabled: bool) -> io::Result<Consent> {
-        let consent = if enabled {
-            Consent {
-                enabled: true,
-                install_id: self
-                    .load()
-                    .install_id
-                    .or_else(|| Some(uuid::Uuid::new_v4().to_string())),
-            }
+    /// Turns crash reports on or off.
+    pub fn set_crash_reports(&self, enabled: bool) -> io::Result<Consent> {
+        self.change(|consent| consent.crash_reports = enabled)
+    }
+
+    /// Turns sending all logs on or off.
+    pub fn set_logs(&self, enabled: bool) -> io::Result<Consent> {
+        self.change(|consent| consent.logs = enabled)
+    }
+
+    /// Applies `change`, creates the install id when a switch is on and
+    /// forgets it when both are off, then saves.
+    fn change(&self, change: impl FnOnce(&mut Consent)) -> io::Result<Consent> {
+        let mut consent = self.load();
+        change(&mut consent);
+        consent.install_id = if consent.any() {
+            consent
+                .install_id
+                .or_else(|| Some(uuid::Uuid::new_v4().to_string()))
         } else {
-            Consent::default()
+            None
         };
         if let Some(dir) = self.path.parent() {
             std::fs::create_dir_all(dir)?;
@@ -74,20 +99,44 @@ mod tests {
     fn corrupt_file_means_off() {
         let dir = tempfile::tempdir().unwrap();
         std::fs::write(dir.path().join(FILE_NAME), "{not json").unwrap();
-        assert!(!ConsentStore::new(dir.path()).load().enabled);
+        assert!(!ConsentStore::new(dir.path()).load().any());
+    }
+
+    #[test]
+    fn reads_files_from_before_the_logs_switch() {
+        let dir = tempfile::tempdir().unwrap();
+        std::fs::write(
+            dir.path().join(FILE_NAME),
+            r#"{"enabled": true, "install_id": "abc"}"#,
+        )
+        .unwrap();
+        let consent = ConsentStore::new(dir.path()).load();
+        assert!(consent.crash_reports && !consent.logs);
+        assert_eq!(consent.install_id.as_deref(), Some("abc"));
     }
 
     #[test]
     fn opt_in_creates_a_stable_id_and_opt_out_forgets_it() {
         let dir = tempfile::tempdir().unwrap();
         let store = ConsentStore::new(dir.path());
-        let first = store.set_enabled(true).unwrap();
-        assert!(first.enabled && first.install_id.is_some());
-        assert_eq!(store.set_enabled(true).unwrap(), first);
+        let first = store.set_crash_reports(true).unwrap();
+        assert!(first.crash_reports && first.install_id.is_some());
+        assert_eq!(store.set_crash_reports(true).unwrap(), first);
         assert_eq!(store.load(), first);
 
-        let off = store.set_enabled(false).unwrap();
+        let off = store.set_crash_reports(false).unwrap();
         assert_eq!(off, Consent::default());
         assert_eq!(store.load(), off);
+    }
+
+    #[test]
+    fn the_id_lives_while_either_switch_is_on() {
+        let dir = tempfile::tempdir().unwrap();
+        let store = ConsentStore::new(dir.path());
+        let id = store.set_logs(true).unwrap().install_id;
+        assert!(id.is_some());
+        assert_eq!(store.set_crash_reports(true).unwrap().install_id, id);
+        assert_eq!(store.set_logs(false).unwrap().install_id, id);
+        assert_eq!(store.set_crash_reports(false).unwrap().install_id, None);
     }
 }
