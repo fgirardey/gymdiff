@@ -34,6 +34,8 @@ png = { workspace = true }
 
 [build-dependencies]
 slint-build = { workspace = true }
+# Version resource of gymdiff.exe (only used when building on Windows).
+winresource = "0.1"
 
 [lints]
 workspace = true

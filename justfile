@@ -63,6 +63,10 @@ record name *args:
 run:
     cargo run -p gymdiff-app
 
+# Full version of a build of the current checkout, e.g. 0.2.0+57.a1b2c3d (see ADR-0008)
+version:
+    @cargo run -q -p gymdiff-app -- --version
+
 # Live preview of ui/<path>.preview.slint (e.g. components/primary-button, app-window):
 # its gallery, or one story (cargo install slint-viewer)
 preview path story="":

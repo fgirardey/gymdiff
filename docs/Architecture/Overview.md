@@ -83,5 +83,6 @@ Variables can live in a git-ignored `.env` at the repository root (template: `.e
 | `GYMDIFF_DATA_DIR` | app | Settings folder (default `%APPDATA%\GymDiff\` on Windows, `~/Library/Application Support/GymDiff/` on macOS). Point it at an empty folder to see the welcome screen again |
 | `GYMDIFF_SCENARIO` | simulator | Scenario to replay |
 | `GYMDIFF_SENTRY_DSN` | app | Sentry DSN for opt-in reports (run time, else build time; unset = reports off) |
+| `GYMDIFF_CHANNEL` | app build | `release` or `preview`, set by CI; unset = `development` ([[ADR-0008 Versioning and releases]]) |
 | `RUST_LOG` | both | Log filter |
 | `GYMDIFF_WIN_HOST`, `GYMDIFF_WIN_REPO` | justfile | Windows PC over SSH (see [[Windows testing]]) |
