@@ -38,6 +38,8 @@ Endpoints used:
 | `GET /lol-gameflow/v1/gameflow-phase` | JSON string: `None`, `Lobby`, `Matchmaking`, `ReadyCheck`, `ChampSelect`, `GameStart`, `InProgress`, `Reconnect`, `WaitingForStats`, `PreEndOfGame`, `EndOfGame` | [[Client status]] |
 | `GET /lol-champ-select/v1/session` *(planned)* | Champion select session; `myTeam[].assignedPosition` | [[Post-game workout]] (role) |
 | `GET /lol-end-of-game/v1/eog-stats-block` *(planned)* | End-of-game stats of every player (position field to confirm) | [[Post-game workout]] |
+| `GET /lol-summoner/v1/current-summoner` | The active summoner: `puuid`, `gameName`, `tagLine` | [[History#Games from before GymDiff]] (whose games to list) |
+| `GET /lol-match-history/v1/products/lol/current-summoner/matches?begIndex=&endIndex=` | The active summoner's recent games, newest first, each with one participant (the summoner): champion, result, K/D/A, lane/role, queue, creation date, duration | [[History#Games from before GymDiff]] |
 | `GET /lol-match-history/v1/games/{gameId}` *(planned, fallback)* | Game details, including positions computed by Riot | [[Post-game workout]] (role) |
 
 ### WebSocket events (not used yet)

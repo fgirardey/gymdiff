@@ -2,11 +2,12 @@
 
 use std::time::Duration;
 
-use gymdiff_core::GamePhase;
+use gymdiff_core::{Game, GamePhase};
 use reqwest::StatusCode;
+use serde::de::DeserializeOwned;
 
 use crate::live_client::GameStats;
-use crate::{Lockfile, LolClient, LolError};
+use crate::{Lockfile, LolClient, LolError, MatchHistory, Summoner};
 
 /// HTTP implementation of [`LolClient`].
 #[derive(Debug, Clone)]
@@ -47,6 +48,26 @@ impl HttpLolClient {
     pub fn lockfile(&self) -> &Lockfile {
         &self.lockfile
     }
+
+    /// `GET`s an LCU path and parses its JSON body. `Ok(None)` on 404: the client has no answer
+    /// for it right now (nobody logged in, endpoint not ready).
+    async fn lcu_get<T: DeserializeOwned>(&self, path: &str) -> Result<Option<T>, LolError> {
+        let url = format!("{}{path}", self.lockfile.base_url());
+        let response = self
+            .http
+            .get(&url)
+            .basic_auth("riot", Some(&self.lockfile.password))
+            .send()
+            .await?;
+        match response.status() {
+            status if status.is_success() => Ok(Some(response.json().await?)),
+            StatusCode::NOT_FOUND => Ok(None),
+            status => Err(LolError::UnexpectedStatus {
+                status: status.as_u16(),
+                url,
+            }),
+        }
+    }
 }
 
 impl LolClient for HttpLolClient {
@@ -68,6 +89,18 @@ impl LolClient for HttpLolClient {
             });
         }
         Ok(response.json().await?)
+    }
+
+    async fn current_summoner(&self) -> Result<Option<Summoner>, LolError> {
+        self.lcu_get("/lol-summoner/v1/current-summoner").await
+    }
+
+    async fn match_history(&self, beg_index: u32, end_index: u32) -> Result<Vec<Game>, LolError> {
+        let path = format!(
+            "/lol-match-history/v1/products/lol/current-summoner/matches?begIndex={beg_index}&endIndex={end_index}"
+        );
+        let history: Option<MatchHistory> = self.lcu_get(&path).await?;
+        Ok(history.map(MatchHistory::into_games).unwrap_or_default())
     }
 
     async fn game_stats(&self) -> Result<Option<GameStats>, LolError> {
