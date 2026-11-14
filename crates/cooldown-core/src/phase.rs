@@ -32,6 +32,25 @@ impl GamePhase {
         matches!(self, Self::GameStart | Self::InProgress | Self::Reconnect)
     }
 
+    /// Whether a game just ended: from the stats screen to the end-of-game screen.
+    #[must_use]
+    pub fn is_after_game(&self) -> bool {
+        matches!(
+            self,
+            Self::WaitingForStats | Self::PreEndOfGame | Self::EndOfGame
+        )
+    }
+
+    /// Whether going from `previous` to this phase may have added a game to the client's match
+    /// history: on reaching the end-of-game screen, and again on leaving the post-game phases,
+    /// since the match history can list the game a little after that screen shows.
+    #[must_use]
+    pub fn may_list_a_new_game(&self, previous: &Self) -> bool {
+        let reached_end = *self == Self::EndOfGame && *previous != Self::EndOfGame;
+        let left_post_game = previous.is_after_game() && !self.is_after_game();
+        reached_end || left_post_game
+    }
+
     /// Short human-readable label, used by the UI.
     #[must_use]
     pub fn label(&self) -> &str {
@@ -117,5 +136,19 @@ mod tests {
     fn in_game_detection() {
         assert!(GamePhase::InProgress.is_in_game());
         assert!(!GamePhase::ChampSelect.is_in_game());
+    }
+
+    #[test]
+    fn a_new_game_may_be_listed_at_the_end_of_game_and_after_it() {
+        use GamePhase::{ChampSelect, EndOfGame, InProgress, Lobby, PreEndOfGame, WaitingForStats};
+        assert!(EndOfGame.may_list_a_new_game(&PreEndOfGame));
+        assert!(Lobby.may_list_a_new_game(&EndOfGame));
+        // A game ended without its end-of-game screen.
+        assert!(GamePhase::None.may_list_a_new_game(&WaitingForStats));
+
+        assert!(!PreEndOfGame.may_list_a_new_game(&WaitingForStats));
+        assert!(!WaitingForStats.may_list_a_new_game(&InProgress));
+        assert!(!ChampSelect.may_list_a_new_game(&Lobby));
+        assert!(!EndOfGame.may_list_a_new_game(&EndOfGame));
     }
 }

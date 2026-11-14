@@ -63,7 +63,7 @@ When cooldown.lol connects to the League client, it reads the **active summoner*
 - On first launch the client usually has recent games, so History opens already filled with these neutral sessions instead of the empty state.
 - Imported games from modes out of scope are not stored, and not shown (see above).
 - Kept from the match history: result, champion, role (when Riot detected one), K/D/A, queue, start and length, and the stats the [[Workout formula]] needs (CS, vision score, damage to champions, and the team's kills and damage to champions for damage share and kill participation). No linked champion. The current-summoner list only describes the player, so the team totals come from the game's detail (`GET /lol-match-history/v1/games/{gameId}`): only the two team sums are kept, never another player's stats or name.
-- The import runs once per client connection (retrying every 10 s until the player is logged in) and stores only games not stored yet (by game id). It also completes a game stored without its stats by an earlier version when the client lists it again. A game cooldown.lol tracked itself is never replaced by its imported copy.
+- The import runs when cooldown.lol connects to the client (retrying every 10 s until the player is logged in), and again when a game ends: on reaching the end-of-game screen, and on leaving the post-game phases, since the client's match history may list the game a little later. Until the [[Post-game workout]] is built, this is how a game played while cooldown.lol is open shows up (as *Skipped*). It stores only games not stored yet (by game id). It also completes a game stored without its stats by an earlier version when the client lists it again. A game cooldown.lol tracked itself is never replaced by its imported copy.
 - The champion names and portraits come from Data Dragon, downloaded in the background ([[ADR-0004 Champion images from Data Dragon]]): until an image is there, the row shows the champion's initials.
 - Built so far: both views, the neutral session headers, the *Skipped* rows with their details and the muted "No workout" rows. The "x of y workouts done" chip, the *Pending/Partial/Done* rows and the "Computing" row come with the post-game workout.
 - The match history of the client is limited (recent games only, see [[#Open questions]]): older games cannot be recovered.
@@ -89,7 +89,7 @@ Pencil frames `History / Main / Before cooldown.lol`, `History / Main / Empty`, 
 Only the local player's own games, after they end (live ones and the client's match history of the active summoner). Never other players' games or names, nothing during a game, no call to the Riot API.
 
 ## How to try it
-`just dev` with the League client open and logged in: History fills from its match history. A throwaway data folder (`COOLDOWN_DATA_DIR=$(mktemp -d) just dev`) shows the first opening. A later game is seen when its end-of-game stats are read.
+`just dev` with the League client open and logged in: History fills from its match history. A throwaway data folder (`COOLDOWN_DATA_DIR=$(mktemp -d) just dev`) shows the first opening. Finish a game: History lists it once the end-of-game screen shows, or once back in the lobby.
 
 ## Windows validation
 - [ ] History survives an app restart
@@ -97,6 +97,7 @@ Only the local player's own games, after they end (live ones and the client's ma
 - [ ] `history.sqlite` in `%APPDATA%\cooldown.lol\`, and gone with the folder when uninstalling with "Also delete my settings"
 - [ ] Games played before the install appear as *Skipped* cards with their computed amounts, newest first, in sessions with a neutral header
 - [ ] Reconnecting the client does not duplicate them
+- [ ] A game played while cooldown.lol is open appears after the end-of-game screen, without restarting anything
 - [ ] How many past games the client really returns (see open questions)
 
 ## Open questions

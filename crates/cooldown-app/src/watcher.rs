@@ -79,6 +79,8 @@ async fn poll_until_disconnected(
         match client.gameflow_phase().await {
             Ok(phase) => {
                 consecutive_errors = 0;
+                // The import at connection reads the latest games already.
+                let just_connected = !answered;
                 if !answered {
                     answered = true;
                     tracing::info!(%source, "connected to the League client");
@@ -91,6 +93,14 @@ async fn poll_until_disconnected(
                 }
                 if phase != state.phase {
                     tracing::info!(phase = phase.label(), "phase changed");
+                    // The game just played: read the match history again (replacing an import
+                    // still running, which would read the same games).
+                    if let Some(history) = history
+                        && !just_connected
+                        && phase.may_list_a_new_game(&state.phase)
+                    {
+                        _import = Some(spawn_past_games_import(client.clone(), history.clone()));
+                    }
                     state = state.apply(Event::PhaseChanged(phase));
                 }
             }
@@ -132,8 +142,9 @@ async fn poll_until_disconnected(
     }
 }
 
-/// Imports the games the client already knows, without holding up the poll. It retries until the
-/// player is logged in, and stops with the connection (when the returned task is dropped).
+/// Imports the games the client already knows, without holding up the poll: at connection, and
+/// again when a game ends. It retries until the player is logged in, and stops with the
+/// connection (when the returned task is dropped).
 fn spawn_past_games_import(client: impl LolClient + 'static, history: HistoryScreen) -> ImportTask {
     ImportTask(tokio::spawn(async move {
         let imported = history_import::import_when_ready(&client, history.store()).await;
