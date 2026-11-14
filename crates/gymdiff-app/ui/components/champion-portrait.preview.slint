@@ -1,0 +1,58 @@
+// Previews of ChampionPortrait: `just preview components/champion-portrait`.
+
+import { Theme } from "../theme.slint";
+import { ChampionPortrait } from "champion-portrait.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// Pencil frame `Champion portrait` (played champion only).
+export component ChampionPortraitStory inherits Rectangle {
+    width: 76px;
+    height: 54px;
+    background: Theme.surface;
+
+    ChampionPortrait {
+        x: 0px;
+        image: Fixtures.game-jinx.champion-image;
+        has-image: true;
+        initials: "JI";
+        role-icon: Fixtures.game-jinx.role-icon;
+        has-role: true;
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "ChampionPortrait";
+    background: Theme.background;
+
+    HorizontalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "With image";
+            ChampionPortraitStory { }
+        }
+
+        PreviewCase {
+            label: "Image not downloaded: initials";
+            ChampionPortrait {
+                has-image: false;
+                initials: "AH";
+                role-icon: Fixtures.game-ahri-no-image.role-icon;
+                has-role: true;
+            }
+        }
+
+        PreviewCase {
+            label: "Role unknown";
+            ChampionPortrait {
+                image: Fixtures.game-no-role.champion-image;
+                has-image: true;
+                has-role: false;
+            }
+        }
+    }
+}

@@ -11,7 +11,7 @@ use gymdiff_lol::{HttpLolClient, Lockfile, LolClient};
 
 use crate::AppWindow;
 use crate::history_import;
-use crate::history_store::HistoryStore;
+use crate::history_screen::HistoryScreen;
 
 const POLL_INTERVAL: Duration = Duration::from_secs(1);
 const DISCOVERY_INTERVAL: Duration = Duration::from_secs(2);
@@ -20,10 +20,14 @@ const MAX_CONSECUTIVE_ERRORS: u32 = 3;
 
 /// Logs follow `docs/Workflow/Logging.md`: state changes at `INFO`, each poll
 /// at `DEBUG`/`TRACE`. A missing or closing client is normal, never a warning.
-pub async fn run(window: slint::Weak<AppWindow>, history: Option<HistoryStore>) {
+pub async fn run(window: slint::Weak<AppWindow>, history: Option<HistoryScreen>) {
     let mut state = CompanionState::default();
     let mut http_error_logged = false;
     push(&window, &state, "");
+    // What was stored last time, before the client even answers.
+    if let Some(history) = history.clone() {
+        tokio::spawn(async move { history.show_last_player().await });
+    }
 
     loop {
         let lockfile = match Lockfile::discover() {
@@ -62,7 +66,7 @@ async fn poll_until_disconnected(
     mut state: CompanionState,
     window: &slint::Weak<AppWindow>,
     source: &str,
-    history: Option<&HistoryStore>,
+    history: Option<&HistoryScreen>,
 ) -> CompanionState {
     let mut consecutive_errors = 0;
     // Whether the client answered at least once: until then, failures only
@@ -130,10 +134,14 @@ async fn poll_until_disconnected(
 
 /// Imports the games the client already knows, without holding up the poll. It retries until the
 /// player is logged in, and stops with the connection (when the returned task is dropped).
-fn spawn_past_games_import(client: impl LolClient + 'static, history: HistoryStore) -> ImportTask {
+fn spawn_past_games_import(client: impl LolClient + 'static, history: HistoryScreen) -> ImportTask {
     ImportTask(tokio::spawn(async move {
-        let imported = history_import::import_when_ready(&client, &history).await;
-        tracing::info!(imported, "past games imported from the client");
+        let imported = history_import::import_when_ready(&client, history.store()).await;
+        tracing::info!(
+            imported = imported.stored,
+            "past games imported from the client"
+        );
+        history.show(&imported.puuid).await;
     }))
 }
 

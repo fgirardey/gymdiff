@@ -1,0 +1,78 @@
+// Previews of ExerciseProgress: `just preview components/exercise-progress`.
+
+import { Theme } from "../theme.slint";
+import { ExerciseProgress } from "exercise-progress.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Edit the knobs in the live preview's Data tab.
+export component ExerciseProgressPlayground inherits Window {
+    in-out property <int> done: 3;
+    in-out property <int> due: 8;
+
+    background: Theme.background;
+    preferred-width: 160px;
+
+    PreviewPlayground {
+        ExerciseProgress {
+            icon: @image-url("../images/icons/burpee.svg");
+            done: root.done;
+            due: root.due;
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "ExerciseProgress";
+    background: Theme.background;
+
+    HorizontalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Nothing done";
+            ExerciseProgress {
+                width: 100px;
+                icon: @image-url("../images/icons/burpee.svg");
+                done: 0;
+                due: 9;
+            }
+        }
+
+        PreviewCase {
+            label: "Half done";
+            ExerciseProgress {
+                width: 100px;
+                icon: @image-url("../images/icons/squat.svg");
+                done: 15;
+                due: 30;
+                color: Theme.warning;
+            }
+        }
+
+        PreviewCase {
+            label: "Plank, done";
+            ExerciseProgress {
+                width: 100px;
+                icon: @image-url("../images/icons/plank.svg");
+                done: 70;
+                due: 70;
+                unit: "s";
+                color: Theme.success;
+            }
+        }
+
+        PreviewCase {
+            label: "Nothing due";
+            ExerciseProgress {
+                width: 100px;
+                icon: @image-url("../images/icons/squat.svg");
+                done: 0;
+                due: 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,117 @@
+// A game's card with its workout: the game on the left (champion, result), the workout on the
+// right (status, K/D/A, the three exercises).
+//
+// Components `Workout card / *` in design/gymdiff.pen; only the status of games without
+// a workout done (*Skipped*) is wired for now.
+
+import { Theme } from "../theme.slint";
+import { ChampionPortrait } from "champion-portrait.slint";
+import { ExerciseProgress } from "exercise-progress.slint";
+import { Icon } from "icon.slint";
+import { GameCardData } from "../models.slint";
+
+export component WorkoutCard inherits Rectangle {
+    in property <GameCardData> game;
+    /// "SKIPPED".
+    in property <string> status;
+    in property <image> status-icon;
+    in property <color> status-color: Theme.text-secondary;
+
+    background: Theme.surface;
+    border-radius: Theme.radius-m;
+    // The card is as tall as its content, the height of the design's `Workout card` (about 88 px).
+    height: row.preferred-height + 2 * 8px;
+
+    row := HorizontalLayout {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        spacing: 10px;
+
+        VerticalLayout {
+            alignment: center;
+            spacing: 2px;
+
+            ChampionPortrait {
+                image: root.game.champion-image;
+                has-image: root.game.has-champion-image;
+                initials: root.game.champion-initials;
+                role-icon: root.game.role-icon;
+                has-role: root.game.has-role;
+            }
+
+            Text {
+                text: root.game.result-label;
+                color: root.game.win ? Theme.success : Theme.danger;
+                font-size: 14px;
+                font-weight: 800;
+                font-italic: true;
+                horizontal-alignment: center;
+            }
+        }
+
+        VerticalLayout {
+            spacing: 6px;
+            alignment: center;
+
+            HorizontalLayout {
+                spacing: Theme.space-xs;
+
+                Icon {
+                    source: root.status-icon;
+                    width: 14px;
+                    height: 14px;
+                    colorize: root.status-color;
+                    y: (parent.height - self.height) / 2;
+                }
+
+                Text {
+                    text: root.status;
+                    color: root.status-color;
+                    font-size: Theme.font-size-body;
+                    font-weight: 700;
+                    letter-spacing: 0.5px;
+                    vertical-alignment: center;
+                }
+
+                Rectangle {
+                    horizontal-stretch: 1;
+                }
+
+                Text {
+                    text: root.game.kda;
+                    color: Theme.text-secondary;
+                    font-size: Theme.font-size-body;
+                    vertical-alignment: center;
+                }
+            }
+
+            HorizontalLayout {
+                spacing: Theme.space-s;
+
+                ExerciseProgress {
+                    icon: @image-url("../images/icons/burpee.svg");
+                    done: root.game.burpees-done;
+                    due: root.game.burpees-due;
+                    horizontal-stretch: 1;
+                }
+
+                ExerciseProgress {
+                    icon: @image-url("../images/icons/squat.svg");
+                    done: root.game.squats-done;
+                    due: root.game.squats-due;
+                    horizontal-stretch: 1;
+                }
+
+                ExerciseProgress {
+                    icon: @image-url("../images/icons/plank.svg");
+                    done: root.game.plank-done;
+                    due: root.game.plank-due;
+                    unit: "s";
+                    horizontal-stretch: 1;
+                }
+            }
+        }
+    }
+}

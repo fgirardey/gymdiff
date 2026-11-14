@@ -4,11 +4,12 @@
 //! The file is never recreated or overwritten when it cannot be read: [`HistoryStore::open`]
 //! fails and the app goes on without a history (`docs/Product/Features/History.md`).
 
+use std::collections::HashSet;
 use std::path::Path;
 use std::sync::{Arc, Mutex, MutexGuard};
 
-use gymdiff_core::{Game, GameResult, GameSource, Role};
-use rusqlite::{Connection, params};
+use gymdiff_core::{Amount, Game, GameResult, GameSource, PlayerStats, Role, Workout};
+use rusqlite::{Connection, OptionalExtension, params};
 
 /// Handle on the history database. Cheap to clone: every clone shares one connection, so there
 /// is one writer, and calls block briefly (call from `spawn_blocking` in async code).
@@ -54,25 +55,25 @@ impl HistoryStore {
         })
     }
 
-    /// Stores `games` of `puuid` that are not stored yet and returns how many were new. A game
-    /// already stored (same player and game id) is never replaced: a game GymDiff tracked keeps
-    /// its workout when the client's match history lists it again.
+    /// Stores `games` of `puuid` and returns how many were stored or completed.
+    ///
+    /// A game already stored (same player and game id) is left alone, with one exception: an
+    /// imported game stored without its stats (by an earlier version) gets them, and its role and
+    /// workout, when the client lists it again. A game GymDiff tracked is never touched, so it
+    /// keeps its workout when the client's match history lists it.
     ///
     /// # Errors
     /// The database cannot be written. Nothing is stored then (one transaction).
     pub fn import_games(&self, puuid: &str, games: &[Game]) -> Result<usize, HistoryError> {
         let mut connection = self.lock();
         let transaction = connection.transaction()?;
-        let mut inserted = 0;
+        let mut stored = 0;
         {
-            let mut insert = transaction.prepare_cached(
-                "INSERT OR IGNORE INTO games
-                    (puuid, game_id, source, started_at, duration_secs, queue_id, champion_id,
-                     role, result, kills, deaths, assists)
-                 VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)",
-            )?;
+            let mut upsert = transaction.prepare_cached(UPSERT_GAME)?;
             for game in games {
-                inserted += insert.execute(params![
+                let stats = game.stats;
+                let workout = game.workout;
+                stored += upsert.execute(params![
                     puuid,
                     // SQLite integers are signed 64 bits; game ids are far below 2^63.
                     i64::try_from(game.game_id).unwrap_or(i64::MAX),
@@ -86,11 +87,55 @@ impl HistoryStore {
                     game.kills,
                     game.deaths,
                     game.assists,
+                    stats.map(|s| s.cs),
+                    stats.map(|s| s.vision_score),
+                    stats.map(|s| s.damage_to_champions),
+                    stats.map(|s| s.team_kills),
+                    stats.map(|s| s.team_damage_to_champions),
+                    workout.map(|w| w.burpees.due),
+                    workout.map(|w| w.burpees.capped),
+                    workout.map(|w| w.squats.due),
+                    workout.map(|w| w.squats.capped),
+                    workout.map(|w| w.plank.due),
+                    workout.map(|w| w.plank.capped),
                 ])?;
             }
         }
         transaction.commit()?;
-        Ok(inserted)
+        Ok(stored)
+    }
+
+    /// The player of the most recent game stored: whose history to show before the client says
+    /// who is logged in. `None` while nothing is stored.
+    ///
+    /// # Errors
+    /// The database cannot be read.
+    pub fn last_puuid(&self) -> Result<Option<String>, HistoryError> {
+        let connection = self.lock();
+        let puuid = connection
+            .query_row(
+                "SELECT puuid FROM games ORDER BY started_at DESC LIMIT 1",
+                [],
+                |row| row.get(0),
+            )
+            .optional()?;
+        Ok(puuid)
+    }
+
+    /// The ids of the games of `puuid` stored with their stats: the ones that need nothing more
+    /// from the client.
+    ///
+    /// # Errors
+    /// The database cannot be read.
+    pub fn ids_with_stats(&self, puuid: &str) -> Result<HashSet<u64>, HistoryError> {
+        let connection = self.lock();
+        let mut select = connection
+            .prepare_cached("SELECT game_id FROM games WHERE puuid = ?1 AND cs IS NOT NULL")?;
+        let ids = select
+            .query_map([puuid], |row| row.get::<_, i64>(0))?
+            .filter_map(|id| id.ok().and_then(|id| u64::try_from(id).ok()))
+            .collect();
+        Ok(ids)
     }
 
     /// The stored games of `puuid`, newest first. A row this version cannot understand (written
@@ -98,17 +143,9 @@ impl HistoryStore {
     ///
     /// # Errors
     /// The database cannot be read.
-    #[cfg_attr(
-        not(test),
-        expect(dead_code, reason = "read by the History screen, the next step")
-    )]
     pub fn games(&self, puuid: &str) -> Result<Vec<Game>, HistoryError> {
         let connection = self.lock();
-        let mut select = connection.prepare_cached(
-            "SELECT game_id, source, started_at, duration_secs, queue_id, champion_id,
-                    role, result, kills, deaths, assists
-             FROM games WHERE puuid = ?1 ORDER BY started_at DESC, game_id DESC",
-        )?;
+        let mut select = connection.prepare_cached(SELECT_GAMES)?;
         let rows = select.query_map([puuid], |row| {
             Ok(StoredGame {
                 game_id: row.get(0)?,
@@ -122,6 +159,21 @@ impl HistoryStore {
                 kills: row.get(8)?,
                 deaths: row.get(9)?,
                 assists: row.get(10)?,
+                stats: StoredStats {
+                    cs: row.get(11)?,
+                    vision_score: row.get(12)?,
+                    damage_to_champions: row.get(13)?,
+                    team_kills: row.get(14)?,
+                    team_damage_to_champions: row.get(15)?,
+                },
+                workout: StoredWorkout {
+                    burpees_due: row.get(16)?,
+                    burpees_capped: row.get(17)?,
+                    squats_due: row.get(18)?,
+                    squats_capped: row.get(19)?,
+                    plank_due: row.get(20)?,
+                    plank_capped: row.get(21)?,
+                },
             })
         })?;
         let mut games = Vec::new();
@@ -182,11 +234,46 @@ const MIGRATIONS: &[&str] = &[
         PRIMARY KEY (puuid, game_id)
     ) WITHOUT ROWID;
     CREATE INDEX games_by_time ON games (puuid, started_at DESC);",
+    // 2: the stats behind the workout and the amounts due, computed when the game is stored (the
+    // formula may change, the amounts of old games must not). All NULL when unknown.
+    "ALTER TABLE games ADD COLUMN cs INTEGER;
+    ALTER TABLE games ADD COLUMN vision_score INTEGER;
+    ALTER TABLE games ADD COLUMN damage_to_champions INTEGER;
+    ALTER TABLE games ADD COLUMN team_kills INTEGER;
+    ALTER TABLE games ADD COLUMN team_damage_to_champions INTEGER;
+    ALTER TABLE games ADD COLUMN burpees_due INTEGER;
+    ALTER TABLE games ADD COLUMN burpees_capped INTEGER;
+    ALTER TABLE games ADD COLUMN squats_due INTEGER;
+    ALTER TABLE games ADD COLUMN squats_capped INTEGER;
+    ALTER TABLE games ADD COLUMN plank_due INTEGER;
+    ALTER TABLE games ADD COLUMN plank_capped INTEGER;",
 ];
 
 fn schema_version(connection: &Connection) -> Result<u32, HistoryError> {
     Ok(connection.query_row("PRAGMA user_version", [], |row| row.get(0))?)
 }
+
+const UPSERT_GAME: &str = "INSERT INTO games
+        (puuid, game_id, source, started_at, duration_secs, queue_id, champion_id, role, result,
+         kills, deaths, assists, cs, vision_score, damage_to_champions, team_kills,
+         team_damage_to_champions, burpees_due, burpees_capped, squats_due, squats_capped,
+         plank_due, plank_capped)
+     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18,
+             ?19, ?20, ?21, ?22, ?23)
+     ON CONFLICT (puuid, game_id) DO UPDATE SET
+        role = excluded.role, cs = excluded.cs, vision_score = excluded.vision_score,
+        damage_to_champions = excluded.damage_to_champions, team_kills = excluded.team_kills,
+        team_damage_to_champions = excluded.team_damage_to_champions,
+        burpees_due = excluded.burpees_due, burpees_capped = excluded.burpees_capped,
+        squats_due = excluded.squats_due, squats_capped = excluded.squats_capped,
+        plank_due = excluded.plank_due, plank_capped = excluded.plank_capped
+     WHERE games.source = 'imported' AND games.cs IS NULL AND excluded.cs IS NOT NULL";
+
+const SELECT_GAMES: &str = "SELECT game_id, source, started_at, duration_secs, queue_id,
+        champion_id, role, result, kills, deaths, assists, cs, vision_score,
+        damage_to_champions, team_kills, team_damage_to_champions, burpees_due, burpees_capped,
+        squats_due, squats_capped, plank_due, plank_capped
+     FROM games WHERE puuid = ?1 ORDER BY started_at DESC, game_id DESC";
 
 /// The schema version of this GymDiff: the number of migrations.
 #[allow(clippy::cast_possible_truncation)] // a handful of migrations
@@ -205,10 +292,6 @@ fn migrate(connection: &Connection, found: u32) -> Result<(), HistoryError> {
 }
 
 /// A row as stored; codes are turned into [`Game`] values in [`StoredGame::into_game`].
-#[cfg_attr(
-    not(test),
-    expect(dead_code, reason = "read by the History screen, the next step")
-)]
 struct StoredGame {
     game_id: i64,
     source: String,
@@ -221,13 +304,61 @@ struct StoredGame {
     kills: u32,
     deaths: u32,
     assists: u32,
+    stats: StoredStats,
+    workout: StoredWorkout,
+}
+
+struct StoredStats {
+    cs: Option<u32>,
+    vision_score: Option<u32>,
+    damage_to_champions: Option<u32>,
+    team_kills: Option<u32>,
+    team_damage_to_champions: Option<u32>,
+}
+
+struct StoredWorkout {
+    burpees_due: Option<u32>,
+    burpees_capped: Option<bool>,
+    squats_due: Option<u32>,
+    squats_capped: Option<bool>,
+    plank_due: Option<u32>,
+    plank_capped: Option<bool>,
+}
+
+impl StoredStats {
+    /// `None` unless every column is there.
+    fn into_stats(self) -> Option<PlayerStats> {
+        Some(PlayerStats {
+            cs: self.cs?,
+            vision_score: self.vision_score?,
+            damage_to_champions: self.damage_to_champions?,
+            team_kills: self.team_kills?,
+            team_damage_to_champions: self.team_damage_to_champions?,
+        })
+    }
+}
+
+impl StoredWorkout {
+    /// `None` unless every column is there.
+    fn into_workout(self) -> Option<Workout> {
+        Some(Workout {
+            burpees: Amount {
+                due: self.burpees_due?,
+                capped: self.burpees_capped?,
+            },
+            squats: Amount {
+                due: self.squats_due?,
+                capped: self.squats_capped?,
+            },
+            plank: Amount {
+                due: self.plank_due?,
+                capped: self.plank_capped?,
+            },
+        })
+    }
 }
 
 impl StoredGame {
-    #[cfg_attr(
-        not(test),
-        expect(dead_code, reason = "read by the History screen, the next step")
-    )]
     fn into_game(self) -> Option<Game> {
         Some(Game {
             game_id: u64::try_from(self.game_id).ok()?,
@@ -251,6 +382,8 @@ impl StoredGame {
             kills: self.kills,
             deaths: self.deaths,
             assists: self.assists,
+            stats: self.stats.into_stats(),
+            workout: self.workout.into_workout(),
         })
     }
 }
@@ -281,11 +414,6 @@ fn role_code(role: Role) -> &'static str {
         Role::Support => "support",
     }
 }
-
-#[cfg_attr(
-    not(test),
-    expect(dead_code, reason = "read by the History screen, the next step")
-)]
 fn role_from_code(code: &str) -> Option<Role> {
     match code {
         "top" => Some(Role::Top),
@@ -314,6 +442,36 @@ mod tests {
             kills: 2,
             deaths: 4,
             assists: 17,
+            stats: Some(PlayerStats {
+                cs: 180,
+                vision_score: 60,
+                damage_to_champions: 9_000,
+                team_kills: 30,
+                team_damage_to_champions: 70_000,
+            }),
+            workout: Some(Workout {
+                burpees: Amount {
+                    due: 6,
+                    capped: false,
+                },
+                squats: Amount {
+                    due: 50,
+                    capped: true,
+                },
+                plank: Amount {
+                    due: 40,
+                    capped: false,
+                },
+            }),
+        }
+    }
+
+    /// A game as the first version stored it: no stats, no workout.
+    fn bare(game_id: u64, started_at: i64) -> Game {
+        Game {
+            stats: None,
+            workout: None,
+            ..game(game_id, started_at)
         }
     }
 
@@ -462,5 +620,61 @@ mod tests {
             .map(|g| g.game_id)
             .collect();
         assert_eq!(ids, [2]);
+    }
+
+    #[test]
+    fn the_last_player_is_the_one_of_the_most_recent_game() {
+        let store = HistoryStore::open_in_memory().unwrap();
+        assert_eq!(store.last_puuid().unwrap(), None);
+        store.import_games("p1", &[game(1, 100)]).unwrap();
+        store.import_games("p2", &[game(1, 500)]).unwrap();
+        store.import_games("p1", &[game(2, 300)]).unwrap();
+        assert_eq!(store.last_puuid().unwrap().as_deref(), Some("p2"));
+    }
+
+    #[test]
+    fn a_game_stored_without_stats_gets_them_when_listed_again() {
+        let store = HistoryStore::open_in_memory().unwrap();
+        store.import_games("p1", &[bare(1, 100)]).unwrap();
+        assert_eq!(store.ids_with_stats("p1").unwrap(), HashSet::new());
+
+        let completed = Game {
+            role: Some(Role::Top),
+            ..game(1, 100)
+        };
+        assert_eq!(
+            store
+                .import_games("p1", std::slice::from_ref(&completed))
+                .unwrap(),
+            1
+        );
+        assert_eq!(store.games("p1").unwrap(), [completed]);
+        assert_eq!(store.ids_with_stats("p1").unwrap(), HashSet::from([1]));
+
+        // Once complete, a game is never rewritten.
+        assert_eq!(store.import_games("p1", &[bare(1, 100)]).unwrap(), 0);
+        assert_eq!(store.import_games("p1", &[game(1, 100)]).unwrap(), 0);
+    }
+
+    #[test]
+    fn a_game_stored_by_the_first_version_is_still_readable() {
+        // Version 1 of the schema, then a game, then the migration to version 2.
+        let connection = Connection::open_in_memory().unwrap();
+        connection.execute_batch(MIGRATIONS[0]).unwrap();
+        connection.pragma_update(None, "user_version", 1).unwrap();
+        connection
+            .execute(
+                "INSERT INTO games VALUES ('p1', 7, 'imported', 100, 1800, 420, 103, 'top',
+                 'win', 1, 2, 3)",
+                [],
+            )
+            .unwrap();
+        migrate(&connection, 1).unwrap();
+        let store = HistoryStore {
+            connection: Arc::new(Mutex::new(connection)),
+        };
+        let games = store.games("p1").unwrap();
+        assert_eq!(games.len(), 1);
+        assert_eq!((games[0].stats, games[0].workout), (None, None));
     }
 }

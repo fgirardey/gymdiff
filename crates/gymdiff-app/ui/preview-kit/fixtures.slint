@@ -4,6 +4,9 @@
 // `src/watcher.rs` and `GamePhase::label` in gymdiff-core. When a screen takes a
 // struct from `ui/models.slint`, its sample values go here too.
 
+import { GameCardData, SessionData } from "../models.slint";
+import { RoleIcons } from "../role-icons.slint";
+
 export global Fixtures {
     out property <string> version: "0.1.0 (build 57 · a1b2c3d)";
 
@@ -23,4 +26,150 @@ export global Fixtures {
     out property <string> installer-failure: "the installation was interrupted";
     out property <string> uninstall-delete-detail: "Preferences, error-report choice and install id. Keep them to pick up where you left off if you reinstall.";
     out property <string> setting-logs-detail: "Also send everyday logs, scrubbed the same way. Helps fix bugs that don't crash.";
+
+    // Games, as Rust sends them (src/history_view.rs). Portraits use the Data Dragon squares
+    // kept in design/assets (the app downloads them, ADR-0004).
+    out property <GameCardData> game-jinx: {
+        champion-image: @image-url("../../../../design/assets/champions/Jinx.png"),
+        has-champion-image: true,
+        champion-initials: "JI",
+        role-icon: RoleIcons.bottom,
+        has-role: true,
+        result-label: "WIN",
+        win: true,
+        kda: "9/3/7",
+        has-workout: true,
+        burpees-done: 0,
+        burpees-due: 5,
+        squats-done: 0,
+        squats-due: 0,
+        plank-done: 0,
+        plank-due: 30,
+        reason: "",
+    };
+    out property <GameCardData> game-ashe: {
+        champion-image: @image-url("../../../../design/assets/champions/Ashe.png"),
+        has-champion-image: true,
+        champion-initials: "AS",
+        role-icon: RoleIcons.bottom,
+        has-role: true,
+        result-label: "LOSS",
+        win: false,
+        kda: "2/6/9",
+        has-workout: true,
+        burpees-done: 0,
+        burpees-due: 8,
+        squats-done: 0,
+        squats-due: 35,
+        plank-done: 0,
+        plank-due: 60,
+        reason: "",
+    };
+    out property <GameCardData> game-kaisa: {
+        champion-image: @image-url("../../../../design/assets/champions/Kaisa.png"),
+        has-champion-image: true,
+        champion-initials: "KA",
+        role-icon: RoleIcons.bottom,
+        has-role: true,
+        result-label: "WIN",
+        win: true,
+        kda: "11/4/6",
+        has-workout: true,
+        burpees-done: 0,
+        burpees-due: 3,
+        squats-done: 0,
+        squats-due: 0,
+        plank-done: 0,
+        plank-due: 40,
+        reason: "",
+    };
+    /// The image is not downloaded (yet): the initials stand in.
+    out property <GameCardData> game-ahri-no-image: {
+        champion-image: @image-url("../../../../design/assets/champions/Ahri.png"),
+        has-champion-image: false,
+        champion-initials: "AH",
+        role-icon: RoleIcons.middle,
+        has-role: true,
+        result-label: "WIN",
+        win: true,
+        kda: "7/2/10",
+        has-workout: true,
+        burpees-done: 0,
+        burpees-due: 0,
+        squats-done: 0,
+        squats-due: 12,
+        plank-done: 0,
+        plank-due: 20,
+        reason: "",
+    };
+    out property <GameCardData> game-vi: {
+        champion-image: @image-url("../../../../design/assets/champions/Vi.png"),
+        has-champion-image: true,
+        champion-initials: "VI",
+        role-icon: RoleIcons.jungle,
+        has-role: true,
+        result-label: "LOSS",
+        win: false,
+        kda: "4/7/5",
+        has-workout: true,
+        burpees-done: 0,
+        burpees-due: 8,
+        squats-done: 0,
+        squats-due: 0,
+        plank-done: 0,
+        plank-due: 70,
+        reason: "",
+    };
+    out property <GameCardData> game-no-role: {
+        champion-image: @image-url("../../../../design/assets/champions/Garen.png"),
+        has-champion-image: true,
+        champion-initials: "GA",
+        role-icon: RoleIcons.top,
+        has-role: false,
+        result-label: "WIN",
+        win: true,
+        kda: "9/3/12",
+        has-workout: false,
+        burpees-done: 0,
+        burpees-due: 0,
+        squats-done: 0,
+        squats-due: 0,
+        plank-done: 0,
+        plank-due: 0,
+        reason: "Couldn't detect your role",
+    };
+    out property <GameCardData> game-remake: {
+        champion-image: @image-url("../../../../design/assets/champions/Ahri.png"),
+        has-champion-image: true,
+        champion-initials: "AH",
+        role-icon: RoleIcons.middle,
+        has-role: false,
+        result-label: "REMAKE",
+        win: false,
+        kda: "0/0/0",
+        has-workout: false,
+        burpees-done: 0,
+        burpees-due: 0,
+        squats-done: 0,
+        squats-due: 0,
+        plank-done: 0,
+        plank-due: 0,
+        reason: "Remake",
+    };
+
+    // Sessions of games from before GymDiff, like frame `History / Main / Before GymDiff`.
+    out property <[SessionData]> sessions-before-gymdiff: [
+        {
+            label: "TODAY · #1",
+            subtitle: "3 games · before GymDiff",
+            neutral: true,
+            games: [self.game-jinx, self.game-ashe, self.game-kaisa],
+        },
+        {
+            label: "SAT 7 NOV · #2",
+            subtitle: "2 games · before GymDiff",
+            neutral: true,
+            games: [self.game-ahri-no-image, self.game-vi],
+        },
+    ];
 }

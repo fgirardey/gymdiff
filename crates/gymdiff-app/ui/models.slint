@@ -1,0 +1,38 @@
+// Structs shared by the screens and the previews; Rust fills them (see src/history_view.rs).
+
+/// One game of the History screen. A game with a workout shows its amounts; one without
+/// (`has-workout` false) shows the muted card with `reason`.
+export struct GameCardData {
+    /// The champion played; the initials stand in until the image is downloaded (ADR-0004).
+    champion-image: image,
+    has-champion-image: bool,
+    champion-initials: string,
+    /// League's position symbol, hidden when the role is unknown.
+    role-icon: image,
+    has-role: bool,
+    /// "WIN", "LOSS" or "REMAKE".
+    result-label: string,
+    win: bool,
+    /// "9/3/7".
+    kda: string,
+    has-workout: bool,
+    burpees-done: int,
+    burpees-due: int,
+    squats-done: int,
+    squats-due: int,
+    plank-done: int,
+    plank-due: int,
+    /// Muted card only: "Remake", "Couldn't detect your role".
+    reason: string,
+}
+
+/// A run of games with its header. `neutral` sessions (games from before GymDiff) have no ring
+/// and no totals.
+export struct SessionData {
+    /// "TODAY · #1".
+    label: string,
+    /// "5 games · before GymDiff".
+    subtitle: string,
+    neutral: bool,
+    games: [GameCardData],
+}

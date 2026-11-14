@@ -40,7 +40,7 @@ Endpoints used:
 | `GET /lol-end-of-game/v1/eog-stats-block` *(planned)* | End-of-game stats of every player (position field to confirm) | [[Post-game workout]] |
 | `GET /lol-summoner/v1/current-summoner` | The active summoner: `puuid`, `gameName`, `tagLine` | [[History#Games from before GymDiff]] (whose games to list) |
 | `GET /lol-match-history/v1/products/lol/current-summoner/matches?begIndex=&endIndex=` | The active summoner's recent games, newest first, each with one participant (the summoner): champion, result, K/D/A, lane/role, queue, creation date, duration | [[History#Games from before GymDiff]] |
-| `GET /lol-match-history/v1/games/{gameId}` *(planned, fallback)* | Game details, including positions computed by Riot | [[Post-game workout]] (role) |
+| `GET /lol-match-history/v1/games/{gameId}` | The game with its ten participants (team, kills, damage to champions, lane/role, summoner spells, CS, vision score) | [[History#Games from before GymDiff]]: only the sums of the player's team are kept. Also planned as a fallback for [[Post-game workout]] (role) |
 
 ### WebSocket events (not used yet)
 - URL: `wss://127.0.0.1:<port>/`, same Basic auth

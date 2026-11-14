@@ -41,6 +41,8 @@ interprocess = "2"
 # Game history in a local SQLite database, built in so nothing is installed (ADR-0007).
 rusqlite = { version = "0.41.1", features = ["bundled"] }
 thiserror = { workspace = true }
+# Champion names and images from Data Dragon (ADR-0004).
+reqwest = { workspace = true }
 
 [dev-dependencies]
 # Paused clock, to test the import's retries without waiting.

@@ -26,6 +26,14 @@ export global Theme {
     // Radius
     out property <length> radius-m: 8px;
     out property <length> radius-dialog: 16px;
+    out property <length> radius-panel: 10px;
+
+    // Tints of a session panel: its header, the line under it, its games area (`text-secondary`
+    // or the session colour at these opacities), and a card without workout.
+    out property <float> tint-header: 0.12;
+    out property <float> tint-line: 0.4;
+    out property <float> tint-games: 0.04;
+    out property <float> muted-opacity: 0.75;
 
     // Interaction
     out property <float> state-opacity-hover: 0.08;

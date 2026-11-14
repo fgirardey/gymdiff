@@ -15,9 +15,12 @@
 //!   builds, which Velopack applies at the next launch ([`updater`]).
 
 mod build_info;
+mod champion_catalog;
 mod debug_events;
 mod history_import;
+mod history_screen;
 mod history_store;
+mod history_view;
 mod platform;
 mod reporting;
 mod settings;
@@ -30,7 +33,7 @@ mod updater;
 mod watcher;
 
 use std::cell::RefCell;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::rc::Rc;
 use std::time::Duration;
 
@@ -132,14 +135,7 @@ fn main() -> anyhow::Result<()> {
     window.set_debug_tools(cfg!(debug_assertions));
     window.on_debug_event(|kind| debug_events::fire(kind.as_str()));
 
-    // Without a readable history the app still works, it just has none (see `HistoryStore::open`).
-    let history = match history_store::HistoryStore::open(&data_dir) {
-        Ok(store) => Some(store),
-        Err(error) => {
-            tracing::warn!(%error, "cannot open the history: going on without it");
-            None
-        }
-    };
+    let history_screen = start_history(&window, &data_dir);
 
     let weak = window.as_weak();
     std::thread::Builder::new()
@@ -149,7 +145,7 @@ fn main() -> anyhow::Result<()> {
                 .enable_all()
                 .build()
                 .expect("failed to build the Tokio runtime");
-            runtime.block_on(watcher::run(weak, history));
+            runtime.block_on(watcher::run(weak, history_screen));
         })?;
 
     let tray = start_tray(&window);
@@ -205,6 +201,22 @@ fn start_tray(window: &AppWindow) -> Rc<RefCell<Option<tray::Tray>>> {
         slint::CloseRequestResponse::HideWindow
     });
     tray
+}
+
+/// Opens the history database and the champion catalog, for the History screen. Without a
+/// readable history the app still works, it just has none (see `HistoryStore::open`).
+fn start_history(window: &AppWindow, data_dir: &Path) -> Option<history_screen::HistoryScreen> {
+    match history_store::HistoryStore::open(data_dir) {
+        Ok(store) => Some(history_screen::HistoryScreen::new(
+            store,
+            champion_catalog::ChampionCatalog::new(data_dir),
+            window.as_weak(),
+        )),
+        Err(error) => {
+            tracing::warn!(%error, "cannot open the history: going on without it");
+            None
+        }
+    }
 }
 
 /// The settings folder: [`platform::data_dir`], or `GYMDIFF_DATA_DIR` when set

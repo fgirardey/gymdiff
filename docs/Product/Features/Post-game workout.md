@@ -16,7 +16,7 @@ Turns the dead time between games into a workout, and gives the end-of-game stat
 
 ## Scope
 - Queues on Summoner's Rift: ranked solo/duo, ranked flex, normal draft, normal blind, swiftplay.
-- Out of scope for the MVP: ARAM, rotating modes, arena, custom games, practice tool, bot games, spectator.
+- Out of scope for the MVP: ARAM, rotating modes, arena, custom games, practice tool, bot games, spectator. These games are **not shown anywhere**, not even in [[History]].
 - No overlay: nothing is shown during the game.
 
 ## Behaviour
@@ -30,7 +30,7 @@ There is no Workout screen: the main screen is [[History]], and the workout is a
 | In game (`GameStart`, `InProgress`, `Reconnect`) | Same. Nothing new appears during the game. |
 | `WaitingForStats`, `PreEndOfGame` | History, with a "Game over · Computing your workout…" card on top of the current session. No modal yet. |
 | `EndOfGame`, workout ready | The **workout prompt** opens on its own over History. The game's card in History shows *Pending*. |
-| `EndOfGame`, no workout (remake, mode out of scope, role not detected, stats unreadable) | No modal. The game's card in History shows "No workout" and the reason (see [[#Edge cases]]). |
+| `EndOfGame`, no workout (remake, role not detected, stats unreadable) | No modal. The game's card in History shows "No workout" and the reason (see [[#Edge cases]]). |
 
 ### Workout modal
 The workout opens in two parts: a **prompt**, then, once started, the **steps** in a sheet.
@@ -102,7 +102,7 @@ Exercises with 0 to do have no step (dimmed in the prompt, "0, target reached" i
 | Situation | Behaviour |
 |---|---|
 | Remake (< 5 min or flagged by the client) | No modal. History card "No workout · Remake". Not counted in the session. |
-| Mode out of scope (ARAM, arena, …) | No modal. History card "No workout · This mode isn't covered yet". Not counted. |
+| Mode out of scope (ARAM, arena, …) | No modal, and no card: the game is not in History at all. |
 | Role not detected (no source below gives a position) | No modal. History card "No workout · Couldn't detect your role". Not counted. Logged with the payloads. The player is never asked. |
 | End-of-game stats unavailable (endpoint missing, malformed payload) | No modal. History card "No workout · Couldn't read the end-of-game stats". Nothing counted. Logged with the payload. |
 | Player leaves the end-of-game screen before stats arrive | Keep trying while the client is connected; if the stats never arrive, same as above. |
@@ -139,7 +139,7 @@ Pencil frames `Post-game workout / Modal / *` (the modal over History), and `His
 Extend `synthetic-full-game` (or add one scenario per case) with:
 - a champion select session with an assigned position,
 - an end-of-game stats block at `EndOfGame`,
-- variants: Support, blind pick (no champ select position, role from the other sources), no position anywhere, remake, ARAM.
+- variants: Support, blind pick (no champ select position, role from the other sources), no position anywhere, remake, ARAM (shows nothing).
 
 ## Windows validation
 - [ ] The workout appears after a real ranked or normal game
@@ -147,7 +147,7 @@ Extend `synthetic-full-game` (or add one scenario per case) with:
 - [ ] Blind pick: role detected without champ select
 - [ ] Record which sources give a position in each queue
 - [ ] Remake shows no workout
-- [ ] ARAM shows "not covered"
+- [ ] An ARAM game shows nothing in History
 - [ ] Taskbar flash, no focus stealing
 - [ ] Plank countdown stays accurate when the window is in the background
 - [ ] Record the end-of-game payload as a fixture

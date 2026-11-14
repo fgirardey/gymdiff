@@ -1,5 +1,5 @@
 ---
-status: in progress (empty state only)
+status: in progress (games from before GymDiff; the workout flow is not built yet)
 moment: always
 design: "sketched: History / Main / *"
 ---
@@ -45,16 +45,21 @@ The workout is the main content; the game is kept, smaller, on the side. Inside 
   - the three exercises side by side: number done (display font, title size), "/ due" next to it, then the pictogram and a progress bar (`success` when complete, `warning` when partial, empty track otherwise).
 - The pending card has an `accent` outline.
 - While the end-of-game stats are read, a "Game over · Computing your workout…" card (`accent` outline, spinner) sits on top of the current session.
-- A game without a workout (remake, mode out of scope, role not detected, stats unreadable) shows a muted card: the game on the left, "NO WORKOUT", the reason, and "Not counted in the session".
+- A game of a mode out of scope (ARAM, arena, custom games, practice tool…) is **not shown at all**: no card, no place in a session, and it does not bridge two sessions (see [[Post-game workout#Scope]]).
+- A game without a workout (remake, role not detected, stats unreadable) shows a muted card: the game on the left, "NO WORKOUT", the reason, and "Not counted in the session".
 - Clicking a card expands it below the game and workout: one line per exercise with its pictogram, the stat that produced it, its value (`danger` under target) and "/ target", then "Champion · Role · with Linked · game length". Clicking again collapses it. One card expanded at a time.
 
 ### Games from before GymDiff
 When GymDiff connects to the League client, it reads the **active summoner** and the client's **match history** (the player's own recent games) and lists the games it has not stored yet. This is the only way to show history from before the installation.
-- Such a game is **imported**: it has no workout, since GymDiff was not there to read its end-of-game stats. It shows the muted **"No workout"** card: the game on the left, "NO WORKOUT", the reason "Played before GymDiff", "Not counted in the session".
-- Imported games group into sessions like any other game (same 1-hour rule). A session made only of imported games has a **neutral header**: `text-secondary` tint, label ("Sun 1 Nov · #1"), "5 games · before GymDiff", no ring and no exercise totals.
-- Imported games from modes out of scope (ARAM, arena, custom…) are listed too, with the reason "Mode not supported".
-- Only what the match history gives is kept: result, champion, role (when Riot detected one), K/D/A, queue, start and length. No linked champion and no formula stats.
-- The import runs once per client connection and stores only games not stored yet (by game id). A game GymDiff tracked itself is never replaced by its imported copy.
+- Such a game is **imported**. GymDiff was not there to offer the workout, so it is shown as **skipped**: the workout is computed with the [[Workout formula]] from the game's stats in the match history, and the game gets the usual *Skipped* card ("0/5", "0/35", "0s/30s"…). The played champion portrait has no linked champion (the match history does not give it).
+- An imported game whose role Riot did not detect cannot be computed: it shows the muted "No workout" card with the reason "Couldn't detect your role", like a tracked game.
+- Imported games group into sessions like any other game (same 1-hour rule), but they **never count in the session summary**: not in the ring, the "x of y workouts done" line, the totals or the session colour. A session made only of imported games has a **neutral header**: `text-secondary` tint, label ("Sun 1 Nov · #1"), "5 games · before GymDiff", no ring and no exercise totals. A session mixing both is summarised from its tracked games only.
+- On first launch the client usually has recent games, so History opens already filled with these neutral sessions instead of the empty state.
+- Imported games from modes out of scope are not stored, and not shown (see above).
+- Kept from the match history: result, champion, role (when Riot detected one), K/D/A, queue, start and length, and the stats the [[Workout formula]] needs (CS, vision score, damage to champions, and the team's kills and damage to champions for damage share and kill participation). No linked champion. The current-summoner list only describes the player, so the team totals come from the game's detail (`GET /lol-match-history/v1/games/{gameId}`): only the two team sums are kept, never another player's stats or name.
+- The import runs once per client connection (retrying every 10 s until the player is logged in) and stores only games not stored yet (by game id). It also completes a game stored without its stats by an earlier version when the client lists it again. A game GymDiff tracked itself is never replaced by its imported copy.
+- The champion names and portraits come from Data Dragon, downloaded in the background ([[ADR-0004 Champion images from Data Dragon]]): until an image is there, the card shows the champion's initials.
+- Built so far: the neutral session headers, the *Skipped* cards and the muted "No workout" cards. The rings, colours, *Pending/Partial/Done* cards, "Computing" card and expanded card come with the post-game workout.
 - The match history of the client is limited (recent games only, see [[#Open questions]]): older games cannot be recovered.
 - Another summoner logging into the same client on the same PC: games are kept per player (`puuid`), History shows the active summoner's games only.
 
@@ -66,13 +71,13 @@ When GymDiff connects to the League client, it reads the **active summoner** and
 - If the history file cannot be read: show the empty state with "Couldn't read your history" and keep the file untouched (never overwrite it).
 
 ## Data
-- Stored per game: player (`puuid`), game id, source (*tracked* or *imported*), start and end time, queue, champion, role, linked champion, result, K/D/A, the stats used by the [[Workout formula]], the computed amounts due (and caps applied), the amounts done per exercise, and the workout status. An imported game has no linked champion, formula stats, amounts or status.
+- Stored per game: player (`puuid`), game id, source (*tracked* or *imported*), start and end time, queue, champion, role, linked champion, result, K/D/A, the stats used by the [[Workout formula]], the computed amounts due (and caps applied), the amounts done per exercise, and the workout status. An imported game has no linked champion; its status is *skipped*, its amounts done are 0, and its amounts due are computed at import with the formula of the time.
 - Store the stats, not only the amounts: if the formula changes, old games keep the amounts computed at the time (amounts are stored too).
 - Location: `%APPDATA%\GymDiff\` on Windows, `~/Library/Application Support/GymDiff/` on macOS. One SQLite database, `history.sqlite` ([[ADR-0007 Local persistence]]); its `-wal` and `-shm` files next to it while the app runs.
 - Sessions are computed from the stored games (pure function in `gymdiff-core`), never stored.
 
 ## Design
-Pencil frames `History / Main / Empty`, `History / Main / Nominal`, `History / Main / Game expanded`, `History / Main / Computing`, `History / Main / No workout`. See [[Screens#Frames]].
+Pencil frames `History / Main / Before GymDiff`, `History / Main / Empty`, `History / Main / Nominal`, `History / Main / Game expanded`, `History / Main / Computing`, `History / Main / No workout`, built from the `Session / *` and `Workout card / *` components. See [[Screens#Frames]].
 
 ## Compliance
 Only the local player's own games, after they end (live ones and the client's match history of the active summoner). Never other players' games or names, nothing during a game, no call to the Riot API.
@@ -84,12 +89,13 @@ A scenario chaining several games with short and long breaks (two sessions), plu
 - [ ] History survives an app restart
 - [ ] A break over 1 hour starts a new session
 - [ ] `history.sqlite` in `%APPDATA%\GymDiff\`, and gone with the folder when uninstalling with "Also delete my settings"
-- [ ] Games played before the install appear as "No workout · Played before GymDiff", newest first, in sessions
+- [ ] Games played before the install appear as *Skipped* cards with their computed amounts, newest first, in sessions with a neutral header
 - [ ] Reconnecting the client does not duplicate them
 - [ ] How many past games the client really returns (see open questions)
 
 ## Open questions
-- How many past games does the LCU match history return (pages of 20? a hard cap?), and does its `timeline.lane` match the role Riot shows? To check on the Windows PC.
+- How many past games does the LCU match history return? Seen on the macOS client: 21 games at one moment, 3 a little later, and `begIndex`/`endIndex` ignored in the second case (the same games came back for every page). It looks like a cache the client fills as its own match history is browsed. To check on the Windows PC. The import stops when a page brings no new game, so this never loops.
+- Roles: `timeline.lane` alone is not reliable (Riot called a top laner `JUNGLE`). GymDiff reads a `JUNGLE` without Smite (summoner spell 11) as top. To validate on more real games, on Windows too.
 - Empty-state wording once the client can fill History: kept as is for now.
 - Keep everything forever, or only the last N days?
 - Allow fixing the numbers done from History (e.g. forgot to finish the flow)?

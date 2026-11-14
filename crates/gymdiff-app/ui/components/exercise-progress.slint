@@ -1,0 +1,67 @@
+// One exercise of a workout card: the number done over the number due, then the exercise's
+// pictogram and a progress bar.
+//
+// `Exercise B / S / P` of the `Workout card / *` components in design/gymdiff.pen.
+
+import { Theme } from "../theme.slint";
+import { Icon } from "icon.slint";
+
+export component ExerciseProgress inherits VerticalLayout {
+    in property <image> icon;
+    /// Done, shown with its unit when there is one ("30s").
+    in property <int> done;
+    in property <int> due;
+    /// "s" for the plank, empty for repetitions.
+    in property <string> unit;
+    in property <color> color: Theme.text-secondary;
+
+    spacing: 3px;
+
+    HorizontalLayout {
+        spacing: 1px;
+        alignment: start;
+
+        Text {
+            text: root.done + root.unit;
+            color: root.color;
+            font-size: Theme.font-size-title;
+            font-weight: 800;
+            font-italic: true;
+            vertical-alignment: bottom;
+        }
+
+        Text {
+            text: "/" + root.due + root.unit;
+            color: root.color;
+            font-size: Theme.font-size-body;
+            vertical-alignment: bottom;
+        }
+    }
+
+    HorizontalLayout {
+        spacing: Theme.space-xs;
+
+        Icon {
+            source: root.icon;
+            width: 16px;
+            height: 16px;
+            colorize: Theme.text-primary;
+            y: (parent.height - self.height) / 2;
+        }
+
+        // The track; the filled part is `done / due` of it.
+        Rectangle {
+            height: 4px;
+            y: (parent.height - self.height) / 2;
+            border-radius: 2px;
+            background: Theme.border;
+            clip: true;
+
+            Rectangle {
+                x: 0px;
+                width: root.due > 0 ? parent.width * min(1.0, root.done / root.due) : 0px;
+                background: root.color;
+            }
+        }
+    }
+}

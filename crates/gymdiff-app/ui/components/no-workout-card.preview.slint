@@ -1,0 +1,42 @@
+// Previews of NoWorkoutCard: `just preview components/no-workout-card`.
+
+import { Theme } from "../theme.slint";
+import { NoWorkoutCard } from "no-workout-card.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// Pencil frame `Workout card / No workout` (352 wide).
+export component WorkoutCardNoWorkout inherits Rectangle {
+    width: 352px;
+    background: Theme.background;
+    height: card.height;
+
+    card := NoWorkoutCard {
+        game: Fixtures.game-remake;
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "NoWorkoutCard";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Workout card / No workout (Remake)";
+            WorkoutCardNoWorkout { }
+        }
+
+        PreviewCase {
+            label: "Role not detected";
+            NoWorkoutCard {
+                width: 352px;
+                game: Fixtures.game-no-role;
+            }
+        }
+    }
+}
