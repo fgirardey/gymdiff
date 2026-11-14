@@ -15,7 +15,7 @@ The product started as **GymDiff**. Its new identity, **cooldown.lol**, is alrea
 - **Clean break**: nothing migrates from GymDiff. The few alpha installs are uninstalled by hand and replaced by the new installer; their history and settings start empty.
 - **GitHub repository**: `fgirardey/cooldown.lol` (renamed from `fgirardey/gymdiff`), which the updater reads.
 - **Sentry project**: `cooldown` (renamed from `gymdiff`), set in the `SENTRY_PROJECT` variable.
-- **Local checkouts** (such as `C:\dev\gymdiff`) keep their folder name: only a default path in the `justfile`.
+- **Local checkouts**: `cooldown.lol` too, on the Mac and on the Windows PC (`C:\dev\cooldown.lol`, the default of `COOLDOWN_WIN_REPO` in the `justfile`).
 
 ## Alternatives considered
 - **Migrate the data folder** on first launch — keeps the alpha history, but adds code that only serves a handful of testers, once.
