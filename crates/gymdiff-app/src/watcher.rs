@@ -10,6 +10,8 @@ use gymdiff_core::{CompanionState, ConnectionStatus, Event};
 use gymdiff_lol::{HttpLolClient, Lockfile, LolClient};
 
 use crate::AppWindow;
+use crate::history_import;
+use crate::history_store::HistoryStore;
 
 const POLL_INTERVAL: Duration = Duration::from_secs(1);
 const DISCOVERY_INTERVAL: Duration = Duration::from_secs(2);
@@ -18,7 +20,7 @@ const MAX_CONSECUTIVE_ERRORS: u32 = 3;
 
 /// Logs follow `docs/Workflow/Logging.md`: state changes at `INFO`, each poll
 /// at `DEBUG`/`TRACE`. A missing or closing client is normal, never a warning.
-pub async fn run(window: slint::Weak<AppWindow>) {
+pub async fn run(window: slint::Weak<AppWindow>, history: Option<HistoryStore>) {
     let mut state = CompanionState::default();
     let mut http_error_logged = false;
     push(&window, &state, "");
@@ -49,23 +51,26 @@ pub async fn run(window: slint::Weak<AppWindow>) {
         let source = describe_source(client.lockfile());
         tracing::debug!(%source, "lockfile found");
 
-        state = poll_until_disconnected(&client, state, &window, &source).await;
+        state = poll_until_disconnected(&client, state, &window, &source, history.as_ref()).await;
         state = state.apply(Event::ClientDisconnected);
         push(&window, &state, "");
     }
 }
 
 async fn poll_until_disconnected(
-    client: &impl LolClient,
+    client: &(impl LolClient + Clone + 'static),
     mut state: CompanionState,
     window: &slint::Weak<AppWindow>,
     source: &str,
+    history: Option<&HistoryStore>,
 ) -> CompanionState {
     let mut consecutive_errors = 0;
     // Whether the client answered at least once: until then, failures only
     // mean a stale lockfile or a client still starting.
     let mut answered = false;
     let mut payload_warned = false;
+    // Dropped (so stopped) when the client goes away.
+    let mut _import: Option<ImportTask> = None;
     loop {
         match client.gameflow_phase().await {
             Ok(phase) => {
@@ -73,6 +78,9 @@ async fn poll_until_disconnected(
                 if !answered {
                     answered = true;
                     tracing::info!(%source, "connected to the League client");
+                    if let Some(history) = history {
+                        _import = Some(spawn_past_games_import(client.clone(), history.clone()));
+                    }
                 }
                 if state.connection != ConnectionStatus::Connected {
                     state = state.apply(Event::ClientConnected);
@@ -117,6 +125,24 @@ async fn poll_until_disconnected(
 
         push(window, &state, source);
         tokio::time::sleep(POLL_INTERVAL).await;
+    }
+}
+
+/// Imports the games the client already knows, without holding up the poll. It retries until the
+/// player is logged in, and stops with the connection (when the returned task is dropped).
+fn spawn_past_games_import(client: impl LolClient + 'static, history: HistoryStore) -> ImportTask {
+    ImportTask(tokio::spawn(async move {
+        let imported = history_import::import_when_ready(&client, &history).await;
+        tracing::info!(imported, "past games imported from the client");
+    }))
+}
+
+/// A running import, aborted when dropped.
+struct ImportTask(tokio::task::JoinHandle<()>);
+
+impl Drop for ImportTask {
+    fn drop(&mut self) {
+        self.0.abort();
     }
 }
 

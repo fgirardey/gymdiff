@@ -68,7 +68,7 @@ When GymDiff connects to the League client, it reads the **active summoner** and
 ## Data
 - Stored per game: player (`puuid`), game id, source (*tracked* or *imported*), start and end time, queue, champion, role, linked champion, result, K/D/A, the stats used by the [[Workout formula]], the computed amounts due (and caps applied), the amounts done per exercise, and the workout status. An imported game has no linked champion, formula stats, amounts or status.
 - Store the stats, not only the amounts: if the formula changes, old games keep the amounts computed at the time (amounts are stored too).
-- Location: `%APPDATA%\GymDiff\` on Windows, `~/Library/Application Support/GymDiff/` on macOS. Format to decide in an ADR at implementation.
+- Location: `%APPDATA%\GymDiff\` on Windows, `~/Library/Application Support/GymDiff/` on macOS. One SQLite database, `history.sqlite` ([[ADR-0007 Local persistence]]); its `-wal` and `-shm` files next to it while the app runs.
 - Sessions are computed from the stored games (pure function in `gymdiff-core`), never stored.
 
 ## Design
@@ -83,7 +83,7 @@ A scenario chaining several games with short and long breaks (two sessions), plu
 ## Windows validation
 - [ ] History survives an app restart
 - [ ] A break over 1 hour starts a new session
-- [ ] File in `%APPDATA%\GymDiff\`
+- [ ] `history.sqlite` in `%APPDATA%\GymDiff\`, and gone with the folder when uninstalling with "Also delete my settings"
 - [ ] Games played before the install appear as "No workout · Played before GymDiff", newest first, in sessions
 - [ ] Reconnecting the client does not duplicate them
 - [ ] How many past games the client really returns (see open questions)
