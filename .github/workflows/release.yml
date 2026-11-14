@@ -96,7 +96,7 @@ jobs:
         continue-on-error: true
         run: vpk download github --repoUrl $env:REPO_URL --channel stable --outputDir releases
       - name: Package
-        run: vpk pack --packId cooldown.lol --packVersion $env:PACK_VERSION --packDir dist --mainExe cooldown.exe --packTitle cooldown.lol --packAuthors "Florian Girardey" --icon design/brand/cooldown.ico --shortcuts None --channel stable --outputDir releases
+        run: vpk pack --packId cooldown.lol --packVersion $env:PACK_VERSION --packDir dist --mainExe cooldown.exe --packTitle cooldown.lol --packAuthors "Florian Girardey" --icon design/brand/cooldown.ico --shortcuts None --noPortable --channel stable --outputDir releases
       # Our installer window (ADR-0012) embeds Velopack's setup and takes its name, so the
       # release offers one cooldown.lol-stable-Setup.exe that asks for the shortcuts.
       - name: Build the installer

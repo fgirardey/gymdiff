@@ -19,7 +19,7 @@ Development happens on macOS against the simulator ([[ADR-0003 macOS-first devel
 |---|---|---|
 | Alpha installer (`cooldown.lol-alpha-Setup.exe`, builds of `main`) | `alpha` | yes, to the latest alpha |
 | Stable installer (`cooldown.lol-stable-Setup.exe`, tagged releases) | `stable` | not yet (switched on once updates are signed) |
-| Portable zip, pull request built on demand (`build` label), local build | — | no |
+| Pull request built on demand (`build` label), local build | — | no |
 
 **When it checks** (installed alpha builds only):
 - a few seconds after launch,
@@ -70,7 +70,7 @@ None: updates do not depend on the League client. Needs an installed build, so i
 - [ ] Installed with `cooldown.lol-alpha-Setup.exe` ([[Installation]]), Settings shows the Updates section.
 - [ ] A merge to `main` → within an hour (or Check now) Settings says the new build is ready; the next launch runs it (About shows the new build).
 - [ ] Offline → `no connection`.
-- [ ] The portable zip's `cooldown.exe` has no Updates section.
+- [ ] A pull request's `cooldown.exe` has no Updates section.
 
 ## Open questions
 - Stable channel for friends: same mechanism on tagged releases, when to switch it on?

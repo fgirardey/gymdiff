@@ -1,13 +1,12 @@
 // Publishes a tagged release from actions/github-script (see docs/Workflow/Releasing.md):
-// attaches the builds and their SHA256SUMS to the GitHub Release created by release-please, then
-// finalizes the Sentry release and records a production deploy. The Windows installer and update
-// packages are added by the package-windows job (vpk, ADR-0011).
+// attaches the macOS build to the GitHub Release created by release-please, then finalizes the
+// Sentry release and records a production deploy. The Windows installer and update packages are
+// added by the package-windows job (vpk, ADR-0011).
 // Usage in a workflow step, after actions/download-artifact into `dist/`:
 //   const { default: publishRelease } = await import('${{ github.workspace }}/.github/scripts/publish-release.mjs')
 //   await publishRelease({ github, context, core, exec }, { tag, version, sentryRelease, dist: 'dist' })
 // Needs `contents: write`. Sentry steps need SENTRY_AUTH_TOKEN, SENTRY_ORG and SENTRY_PROJECT.
-import { createHash } from 'node:crypto';
-import { readFile, readdir, writeFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 /** sentry-cli, pinned like in sentry-upload.mjs. */
@@ -15,8 +14,6 @@ const SENTRY_CLI = ['--yes', '@sentry/cli@3.8.2'];
 
 /** Artifact name prefix and file inside → asset name, `{v}` being the version. */
 const ASSETS = [
-  { artifact: 'cooldown-windows-', file: 'cooldown.exe', asset: 'cooldown-{v}-windows-x64.exe' },
-  { artifact: 'cooldown-recorder-windows-', file: 'cooldown-recorder.exe', asset: 'cooldown-recorder-{v}-windows-x64.exe' },
   { artifact: 'cooldown-macos-', file: 'cooldown-macos.tar.gz', asset: 'cooldown-{v}-macos-arm64.tar.gz' },
 ];
 
@@ -35,15 +32,10 @@ export default async function publishRelease({ github, context, core, exec }, { 
     files.push({ source: path.join(dist, folder, file), name: asset.replace('{v}', version) });
   }
 
-  const sums = [];
   for (const { source, name } of files) {
     const data = await readFile(source);
-    sums.push(`${createHash('sha256').update(data).digest('hex')}  ${name}`);
     await uploadAsset(github, { owner, repo, release, name, data, type: 'application/octet-stream' });
   }
-  const sumsFile = path.join(dist, 'SHA256SUMS');
-  await writeFile(sumsFile, `${sums.join('\n')}\n`);
-  await uploadAsset(github, { owner, repo, release, name: 'SHA256SUMS', data: await readFile(sumsFile), type: 'text/plain' });
 
   core.info(`Attached ${files.length} builds to ${release.html_url}`);
 

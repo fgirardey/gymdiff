@@ -28,7 +28,7 @@ cooldown.lol reacts to games ([[Post-game workout]]): closed by mistake, it miss
 - turning it on again re-enables it in Task Manager too;
 - if the welcome screen has never been seen ([[First launch]]), cooldown.lol shows its window anyway.
 
-**Not installed.** The portable zip, a pull request's `cooldown.exe` and local builds also hide in the notification area and stay single, but offer no Startup section (Windows would start a file that may move).
+**Not installed.** A pull request's `cooldown.exe` and local builds also hide in the notification area and stay single, but offer no Startup section (Windows would start a file that may move).
 
 ## Data
 None from League. Start with Windows is the value `cooldown.lol` in `HKCU\Software\Microsoft\Windows\CurrentVersion\Run` (per user, no administrator rights): `"%LOCALAPPDATA%\cooldown.lol\cooldown.exe" --background`. Task Manager's choice is in `…\Explorer\StartupApproved\Run`. Nothing in `settings.json`: the registry is the truth.

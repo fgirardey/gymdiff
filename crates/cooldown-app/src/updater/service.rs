@@ -74,7 +74,7 @@ pub fn run_installer_hooks(data_dir: &Path) {
 }
 
 /// True when cooldown.lol was installed by the installer (Velopack), not run from
-/// the portable zip or a local build.
+/// a pull request build or a local build.
 pub fn is_installed() -> bool {
     UpdateManager::new(GithubSource::new(REPOSITORY, None, false), None, None).is_ok()
 }

@@ -44,7 +44,7 @@ If installing fails: **Failed** screen with a short reason ("the installation co
 
 Either way it removes the app, its Start menu and Desktop shortcuts, its startup entry and `%LOCALAPPDATA%\cooldown.lol`, including the logs. Settings, the error-report consent, the install id and the game history in `%APPDATA%\cooldown.lol` are kept, so a reinstall starts where the player left off (no welcome screen again), unless **Also delete my settings** was on: then `%APPDATA%\cooldown.lol` goes too. Windows' own uninstall always keeps them.
 
-**Not installed.** The portable zip, a pull request's `cooldown.exe` and local builds run as before but do not update themselves and offer no shortcuts, startup entry or uninstall (no Updates, Shortcuts, Startup or Uninstall section in Settings).
+**Not installed.** A pull request's `cooldown.exe` and local builds run as before but do not update themselves and offer no shortcuts, startup entry or uninstall (no Updates, Shortcuts, Startup or Uninstall section in Settings).
 
 ## Data
 None from League. Files: `%LOCALAPPDATA%\cooldown.lol` (app, Velopack's `Update.exe`, logs), `%APPDATA%\cooldown.lol` (settings, consent, `history.sqlite`; while an uninstall that deletes them is running, the marker `delete-on-uninstall`). Registry: the startup entry ([[Running in the background#Data]]).
