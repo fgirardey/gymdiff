@@ -1,6 +1,6 @@
 ---
 name: opening-a-pull-request
-description: Use when opening or updating a GymDiff pull request — fills .github/pull_request_template.md, generates and publishes UI screenshots with just pr-screenshots, and creates the PR with gh
+description: Use when opening or updating a cooldown.lol pull request — fills .github/pull_request_template.md, generates and publishes UI screenshots with just pr-screenshots, and creates the PR with gh
 ---
 
 # Opening a pull request

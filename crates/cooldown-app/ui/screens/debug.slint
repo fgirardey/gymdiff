@@ -1,0 +1,61 @@
+// THROWAWAY debug screen: buttons that fire events to test the integration
+// (error reports). Reached from Settings, in debug builds only. No Pencil frame.
+// Delete it with `Screen.debug`, its route in app-window.slint and the Rust handler.
+
+import { Theme } from "../theme.slint";
+import { BackLink } from "../components/back-link.slint";
+import { PrimaryButton } from "../components/primary-button.slint";
+
+export component DebugScreen inherits VerticalLayout {
+    /// `kind` is one of "warning", "error", "scrubbed-error", "panic".
+    callback fire(kind: string);
+    callback back;
+
+    padding: Theme.space-l;
+    spacing: Theme.space-m;
+    alignment: start;
+
+    HorizontalLayout {
+        alignment: start;
+        BackLink {
+            text: "Settings";
+            clicked => { root.back(); }
+        }
+    }
+
+    Text {
+        text: "DEBUG EVENTS";
+        color: Theme.text-primary;
+        font-size: Theme.font-size-title;
+        font-weight: 800;
+        font-italic: true;
+        letter-spacing: 1px;
+    }
+
+    PrimaryButton {
+        text: "Log a warning";
+        clicked => { root.fire("warning"); }
+    }
+
+    PrimaryButton {
+        text: "Log an error";
+        clicked => { root.fire("error"); }
+    }
+
+    PrimaryButton {
+        text: "Log an error with personal data";
+        clicked => { root.fire("scrubbed-error"); }
+    }
+
+    PrimaryButton {
+        text: "Panic (in a thread)";
+        clicked => { root.fire("panic"); }
+    }
+
+    Text {
+        text: "Reaches Sentry only if crash reports were on at launch and COOLDOWN_SENTRY_DSN is set. Errors are sent at most once a minute. The personal data one must arrive scrubbed.";
+        color: Theme.text-secondary;
+        font-size: Theme.font-size-caption;
+        wrap: word-wrap;
+    }
+}

@@ -88,7 +88,7 @@ jobs:
           key: installer
       - uses: actions/download-artifact@v5
         with:
-          name: gymdiff-windows-${{ github.sha }}
+          name: cooldown-windows-${{ github.sha }}
           path: dist
       - name: Install vpk
         run: dotnet tool install --global vpk --version 1.2.161
@@ -97,16 +97,16 @@ jobs:
         continue-on-error: true
         run: vpk download github --repoUrl $env:REPO_URL --channel alpha --pre --outputDir releases
       - name: Package
-        run: vpk pack --packId GymDiff --packVersion $env:PACK_VERSION --packDir dist --mainExe gymdiff.exe --packTitle GymDiff --packAuthors "Florian Girardey" --icon design/brand/gymdiff.ico --shortcuts None --channel alpha --outputDir releases
+        run: vpk pack --packId cooldown.lol --packVersion $env:PACK_VERSION --packDir dist --mainExe cooldown.exe --packTitle cooldown.lol --packAuthors "Florian Girardey" --icon design/brand/cooldown.ico --shortcuts None --channel alpha --outputDir releases
       # Our installer window (ADR-0012) embeds Velopack's setup and takes its name, so the
-      # release offers one GymDiff-alpha-Setup.exe that asks for the shortcuts.
+      # release offers one cooldown.lol-alpha-Setup.exe that asks for the shortcuts.
       - name: Build the installer
         env:
-          GYMDIFF_VELOPACK_SETUP: ${{ github.workspace }}/releases/GymDiff-alpha-Setup.exe
-          GYMDIFF_INSTALLER_VERSION: ${{ needs.build.outputs.version }} (build ${{ needs.build.outputs.build }})
-        run: cargo build --release -p gymdiff-installer
+          COOLDOWN_VELOPACK_SETUP: ${{ github.workspace }}/releases/cooldown.lol-alpha-Setup.exe
+          COOLDOWN_INSTALLER_VERSION: ${{ needs.build.outputs.version }} (build ${{ needs.build.outputs.build }})
+        run: cargo build --release -p cooldown-installer
       - name: Swap in the installer
-        run: Copy-Item target/release/gymdiff-installer.exe releases/GymDiff-alpha-Setup.exe -Force
+        run: Copy-Item target/release/cooldown-installer.exe releases/cooldown.lol-alpha-Setup.exe -Force
       - name: Publish
         run: vpk upload github --repoUrl $env:REPO_URL --channel alpha --outputDir releases --publish --pre --releaseName "v$env:PACK_VERSION" --tag "v$env:PACK_VERSION" --targetCommitish ${{ github.sha }}
       - name: Keep the last 10 alpha releases

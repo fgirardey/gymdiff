@@ -16,20 +16,20 @@ Until now every build said `0.1.0` (the crate version), whether it came from a p
 | Version | `[workspace.package] version` in `Cargo.toml`, written by **release-please** | `0.2.0` |
 | Build number | `git rev-list --count HEAD`: grows with every commit on `main`, same for every build of a commit, also works locally | `57` |
 | Commit | `BUILD_SHA` in CI (the PR head, not GitHub's merge commit), else `git rev-parse HEAD` | `a1b2c3d` |
-| Channel | `GYMDIFF_CHANNEL` at build time: `release` (tagged release), `alpha` (`main`, installs update themselves, [[ADR-0011 Windows installer and updates with Velopack]]), `preview` (pull request built on demand), unset → `development` | |
+| Channel | `COOLDOWN_CHANNEL` at build time: `release` (tagged release), `alpha` (`main`, installs update themselves, [[ADR-0011 Windows installer and updates with Velopack]]), `preview` (pull request built on demand), unset → `development` | |
 
-Derived strings (`crates/gymdiff-app/src/build_info.rs`):
-- full version `0.2.0+57.a1b2c3d`, printed by `gymdiff --version` and `just version`;
+Derived strings (`crates/cooldown-app/src/build_info.rs`):
+- full version `0.2.0+57.a1b2c3d`, printed by `cooldown --version` and `just version`;
 - About screen `0.2.0 (build 57 · a1b2c3d)`, with `· alpha`, `· preview` or `· dev` outside releases;
-- Sentry release `gymdiff@0.2.0+57` (Sentry orders it as SemVer), Sentry environment = channel (`production`, `alpha`, `preview`, `development`);
+- Sentry release `cooldown@0.2.0+57` (Sentry orders it as SemVer), Sentry environment = channel (`production`, `alpha`, `preview`, `development`);
 - Windows file version `0.2.0.57`, product version = full version (Explorer → Properties → Details).
 
 Releases:
 1. release-please keeps a `chore: release x.y.z` pull request open on `main`, with `CHANGELOG.md` (features, fixes, performance) and the version bumped in `Cargo.toml` and `Cargo.lock`. Before 1.0, a breaking change bumps the minor version.
-2. Merging it tags `vx.y.z` and creates the GitHub Release; `release.yml` builds that commit with channel `release`, attaches `gymdiff-x.y.z-windows-x64.exe`, the recorder, `gymdiff-x.y.z-macos-arm64.tar.gz` and `SHA256SUMS`, then finalizes the Sentry release and records a `production` deploy.
+2. Merging it tags `vx.y.z` and creates the GitHub Release; `release.yml` builds that commit with channel `release`, attaches `cooldown-x.y.z-windows-x64.exe`, the recorder, `cooldown-x.y.z-macos-arm64.tar.gz` and `SHA256SUMS`, then finalizes the Sentry release and records a `production` deploy.
 
 Symbols:
-- Release builds keep line-level debug info in a separate file (`debug = "limited"`, `split-debuginfo = "packed"`): `gymdiff.pdb` on Windows, `gymdiff.dSYM` on macOS. They are uploaded, never shipped.
+- Release builds keep line-level debug info in a separate file (`debug = "limited"`, `split-debuginfo = "packed"`): `cooldown.pdb` on Windows, `cooldown.dSYM` on macOS. They are uploaded, never shipped.
 - **Every** CI release build uploads its executable, debug file and a source bundle with `sentry-cli debug-files upload --include-sources`. Release builds run on `main` after every merge (what the alpha channel will ship) and for releases; pull requests only run the checks, and get release builds on demand with the `build` label (revised 2026-11-08: a release build takes ~15 minutes and held the runners on every push). Sentry matches them to events by debug id, so the release name does not matter for symbolication.
 - The Windows build also creates the Sentry release and links its commits (`set-commits --local`).
 

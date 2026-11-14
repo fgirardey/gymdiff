@@ -7,7 +7,7 @@
      No UI change: write "No UI change." -->
 
 ## How to try it
-<!-- e.g. `just dev`, `GYMDIFF_DATA_DIR=$(mktemp -d) just dev` (first launch), `just preview screens/history` -->
+<!-- e.g. `just dev`, `COOLDOWN_DATA_DIR=$(mktemp -d) just dev` (first launch), `just preview screens/history` -->
 
 ## Notes for the reviewer
 <!-- Where to start reading, trade-offs, what is left for a follow-up. Delete if empty. -->

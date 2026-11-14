@@ -1,9 +1,9 @@
-# GymDiff — Home
+# cooldown.lol — Home
 
 Open the `docs/` folder as an **Obsidian vault**. This vault is the written memory of the project: Claude Code reads it to implement features (see `CLAUDE.md` at the repository root).
 
 ## Product
-- [[Vision]] — what GymDiff is, for whom, and why
+- [[Vision]] — what cooldown.lol is, for whom, and why
 - [[Features]] — index of feature notes
 - [[Screens]] — window, top bar, screens and their Pencil frames
 - [[Champion portraits]] — played and linked champion
@@ -34,6 +34,7 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 - [[ADR-0012 Installer window in Slint over Velopack]]
 - [[ADR-0013 Notification area, startup and uninstall from the app]]
 - [[ADR-0014 Import past games from the client]]
+- [[ADR-0015 Rename to cooldown.lol]]
 
 ## Workflow
 - [[Development]] — the daily loop on macOS

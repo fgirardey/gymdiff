@@ -2,8 +2,8 @@
 // release, from actions/github-script (see docs/Workflow/Releasing.md).
 // Usage in a workflow step, after `cargo build --release`:
 //   const { default: sentryUpload } = await import('${{ github.workspace }}/.github/scripts/sentry-upload.mjs')
-//   await sentryUpload({ core, exec }, { binary: 'target/release/gymdiff', debugFiles: [...], createRelease: true })
-// Sets the step outputs `version` (SemVer), `build` (number) and `sentry-release` (e.g. gymdiff@0.2.0+57), read from
+//   await sentryUpload({ core, exec }, { binary: 'target/release/cooldown', debugFiles: [...], createRelease: true })
+// Sets the step outputs `version` (SemVer), `build` (number) and `sentry-release` (e.g. cooldown@0.2.0+57), read from
 // `<binary> --version`. Needs SENTRY_AUTH_TOKEN, SENTRY_ORG and SENTRY_PROJECT in the environment;
 // without them (pull requests from forks) it only sets the outputs. A Sentry failure is a warning:
 // it never costs the build its artifacts. No GitHub permissions.
@@ -13,14 +13,14 @@ const SENTRY_CLI = ['--yes', '@sentry/cli@3.8.2'];
 
 export default async function sentryUpload({ core, exec }, { binary, debugFiles, createRelease }) {
   const { stdout } = await exec.getExecOutput(binary, ['--version'], { silent: true });
-  // `gymdiff 0.2.0+57.a1b2c3d`, from BuildInfo::full_version.
-  const match = /^gymdiff (\S+?)\+(\d+)\./.exec(stdout.trim());
+  // `cooldown 0.2.0+57.a1b2c3d`, from BuildInfo::full_version.
+  const match = /^cooldown (\S+?)\+(\d+)\./.exec(stdout.trim());
   if (!match) {
     core.setFailed(`Unexpected version output: ${stdout.trim()}`);
     return;
   }
   const [, version, build] = match;
-  const release = `gymdiff@${version}+${build}`;
+  const release = `cooldown@${version}+${build}`;
   core.setOutput('version', version);
   core.setOutput('build', build);
   core.setOutput('sentry-release', release);

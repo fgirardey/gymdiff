@@ -1,12 +1,12 @@
 # Design with Pencil
 
-[Pencil](https://pencil.dev) is the design tool of GymDiff (see [[ADR-0002 Docs and design as sources of truth]]). Its files (`design/*.pen`) are the design memory of the project; Claude Code reads them through Pencil's MCP server.
+[Pencil](https://pencil.dev) is the design tool of cooldown.lol (see [[ADR-0002 Docs and design as sources of truth]]). Its files (`design/*.pen`) are the design memory of the project; Claude Code reads them through Pencil's MCP server.
 
 ## Setup
 1. Install the Pencil desktop app.
-2. Create `design/gymdiff.pen` (*New file*, save it in the repository's `design/` folder).
+2. Create `design/cooldown.pen` (*New file*, save it in the repository's `design/` folder).
 3. Connect Claude Code to Pencil's MCP server following Pencil's docs: <https://docs.pencil.dev/ai-integration>.
-4. Check: with the file open in Pencil, ask Claude Code to list the pages and frames of `design/gymdiff.pen`.
+4. Check: with the file open in Pencil, ask Claude Code to list the pages and frames of `design/cooldown.pen`.
 
 ## Organising the file
 Conventions are in `design/README.md`. Summary:

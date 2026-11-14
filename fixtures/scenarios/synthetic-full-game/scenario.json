@@ -2,7 +2,7 @@
   "description": "Hand-written full flow: lobby -> champ select -> 20 min game -> end of game",
   "synthetic": true,
   "steps": [
-    { "at": 0, "note": "Client open, idle; a summoner is logged in and the client remembers past games (two sessions, an ARAM game and a remake) from before GymDiff, with the detail of each",
+    { "at": 0, "note": "Client open, idle; a summoner is logged in and the client remembers past games (two sessions, an ARAM game and a remake) from before cooldown.lol, with the detail of each",
       "lcu": {
           "/lol-gameflow/v1/gameflow-phase": "None",
           "/lol-summoner/v1/current-summoner": {

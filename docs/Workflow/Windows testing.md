@@ -5,10 +5,10 @@ The Mac covers most of the work. The **Windows PC** validates what only it can: 
 ## Ways to get a Windows build
 | Option | When | How |
 |---|---|---|
-| **Alpha** | default: always the latest `main`, updates itself | once: run `GymDiff-alpha-Setup.exe` from the newest alpha pre-release on GitHub (SmartScreen → More info → Run anyway, [[Installation]]); then each merge is downloaded and applied at the next launch ([[Auto-update]]) |
-| **CI artifact** | a pull request, before merging | add the `build` label to the PR → GitHub Actions → *Artifacts* → `gymdiff-windows-<sha>` (app) or `gymdiff-recorder-windows-<sha>` ([[Recorder]]); run `Unblock-File` on the `.exe` first |
+| **Alpha** | default: always the latest `main`, updates itself | once: run `cooldown.lol-alpha-Setup.exe` from the newest alpha pre-release on GitHub (SmartScreen → More info → Run anyway, [[Installation]]); then each merge is downloaded and applied at the next launch ([[Auto-update]]) |
+| **CI artifact** | a pull request, before merging | add the `build` label to the PR → GitHub Actions → *Artifacts* → `cooldown-windows-<sha>` (app) or `cooldown-recorder-windows-<sha>` ([[Recorder]]); run `Unblock-File` on the `.exe` first |
 | **Build on the PC over SSH** | fast loop on Windows-specific code | `just win-build` from the Mac |
-| **Build on the PC directly** | debugging on the PC | `cargo run -p gymdiff-app` in a terminal on the PC (debug builds keep the console with live logs) |
+| **Build on the PC directly** | debugging on the PC | `cargo run -p cooldown-app` in a terminal on the PC (debug builds keep the console with live logs) |
 
 ## One-time setup of the PC
 1. Install Rust: <https://rustup.rs> (accept the Visual Studio C++ Build Tools prompt).
@@ -20,19 +20,19 @@ The Mac covers most of the work. The **Windows PC** validates what only it can: 
    - the commands assume the default `cmd.exe` SSH shell,
    - on the Mac, export (e.g. in `~/.zshrc`):
      ```sh
-     export GYMDIFF_WIN_HOST="florian@<pc-name>.local"
-     export GYMDIFF_WIN_REPO='C:\dev\gymdiff'
+     export COOLDOWN_WIN_HOST="florian@<pc-name>.local"
+     export COOLDOWN_WIN_REPO='C:\dev\gymdiff'
      ```
    - the PC must be able to `git pull` the repository (remote reachable from both machines).
 
-A GUI app started over SSH does not appear on the Windows desktop: `just win-build` only builds. Launch `target\release\gymdiff.exe` on the PC.
+A GUI app started over SSH does not appear on the Windows desktop: `just win-build` only builds. Launch `target\release\cooldown.exe` on the PC.
 
 ## Test session checklist
 - [ ] App starts, finds the client (lockfile) and shows "Connected"
 - [ ] Phases follow the client (lobby → champ select → game → end of game)
 - [ ] In-game data is correct (compare with the game)
 - [ ] App recovers when the client restarts
-- [ ] No noticeable impact on game performance (Task Manager: CPU/RAM of `gymdiff.exe`)
+- [ ] No noticeable impact on game performance (Task Manager: CPU/RAM of `cooldown.exe`)
 - [ ] Feature-specific checks from the feature note's *Windows validation* section
 
 ## When something only breaks on Windows

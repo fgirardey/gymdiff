@@ -6,13 +6,13 @@
 // Needs `actions: read` and `pull-requests: write` (plus `contents: read` to check out the repository). See docs/Workflow/Pull requests.md.
 
 /** Hidden marker that identifies the comment to update. */
-const MARKER = '<!-- gymdiff:pr-builds -->';
+const MARKER = '<!-- cooldown:pr-builds -->';
 
 /** Artifact name prefix → platform shown in the comment, in display order. */
 const PLATFORMS = [
-  ['gymdiff-windows-', 'Windows', '`gymdiff.exe`'],
-  ['gymdiff-recorder-windows-', 'Windows recorder', '`gymdiff-recorder.exe` (see docs/Workflow/Recorder.md)'],
-  ['gymdiff-macos-', 'macOS', '`gymdiff-macos.tar.gz` (`tar -xzf` keeps the executable bit)'],
+  ['cooldown-windows-', 'Windows', '`cooldown.exe`'],
+  ['cooldown-recorder-windows-', 'Windows recorder', '`cooldown-recorder.exe` (see docs/Workflow/Recorder.md)'],
+  ['cooldown-macos-', 'macOS', '`cooldown-macos.tar.gz` (`tar -xzf` keeps the executable bit)'],
 ];
 
 export default async function commentBuilds({ github, context, core }) {

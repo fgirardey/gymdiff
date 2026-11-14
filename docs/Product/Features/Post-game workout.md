@@ -6,7 +6,7 @@ design: "sketched: Post-game workout / Modal / *"
 
 # Post-game workout
 
-The MVP feature. When a Summoner's Rift game ends, GymDiff shows the role's key stats and the workout they convert into, computed with the [[Workout formula]].
+The MVP feature. When a Summoner's Rift game ends, cooldown.lol shows the role's key stats and the workout they convert into, computed with the [[Workout formula]].
 
 ## User story
 As a player who just finished a game, I want to see right away how many burpees, squats and seconds of plank I owe, and why, so that I do them before queuing again.
@@ -96,7 +96,7 @@ Exercises with 0 to do have no step (dimmed in the prompt, "0, target reached" i
 
 #### Interruptions
 - If the next workout is ready while one is unfinished (modal open or closed), the unfinished steps are recorded as 0 and the new workout replaces it. A game without a workout (remake, …) does not close the pending one.
-- If GymDiff quits during a workout, the steps already recorded are kept and the rest count as 0.
+- If cooldown.lol quits during a workout, the steps already recorded are kept and the rest count as 0.
 
 ### Edge cases
 | Situation | Behaviour |
@@ -106,13 +106,13 @@ Exercises with 0 to do have no step (dimmed in the prompt, "0, target reached" i
 | Role not detected (no source below gives a position) | No modal. History card "No workout · Couldn't detect your role". Not counted. Logged with the payloads. The player is never asked. |
 | End-of-game stats unavailable (endpoint missing, malformed payload) | No modal. History card "No workout · Couldn't read the end-of-game stats". Nothing counted. Logged with the payload. |
 | Player leaves the end-of-game screen before stats arrive | Keep trying while the client is connected; if the stats never arrive, same as above. |
-| GymDiff started while already on the end-of-game screen | Compute the workout and open the modal normally. |
+| cooldown.lol started while already on the end-of-game screen | Compute the workout and open the modal normally. |
 | Same game seen twice (polling) | Counted once (keyed by game id). |
 | Every handled or unhandled game | Saved to [[History]]. |
 | Client closes after the game | The modal and History stay as they are. |
 
 ### Window and attention
-- The workout modal opens inside the GymDiff window (see [[Screens]]); GymDiff does **not** steal focus from the League client and does not bring its window to the front.
+- The workout modal opens inside the cooldown.lol window (see [[Screens]]); cooldown.lol does **not** steal focus from the League client and does not bring its window to the front.
 - Proposal: flash the taskbar button on Windows when a new workout is ready (macOS: no-op stub).
 
 ## Data
@@ -155,5 +155,5 @@ Extend `synthetic-full-game` (or add one scenario per case) with:
 ## Open questions
 - Can the player record more than the number due (extra reps)?
 - Which sound at the end of the plank, and can it be muted?
-- Should GymDiff start with Windows / live in the tray so it never misses a game?
+- Should cooldown.lol start with Windows / live in the tray so it never misses a game?
 - If the window is minimised when the workout is ready, should the modal wait for the window to be restored?

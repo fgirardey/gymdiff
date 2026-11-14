@@ -1,6 +1,6 @@
 # Logging
 
-How to pick a log level in GymDiff. Logs use `tracing`. Where each level ends up is described in [[Overview#Logging]] and [[Privacy]].
+How to pick a log level in cooldown.lol. Logs use `tracing`. Where each level ends up is described in [[Overview#Logging]] and [[Privacy]].
 
 ## The rule: log state changes, not ticks
 The app runs loops (the watcher polls the League client every second). A line logged on every iteration hides everything else.

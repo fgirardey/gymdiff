@@ -13,7 +13,7 @@ Map of the app's screens and how the player moves between them. Each screen's be
 ## Layout
 ```
 ┌────────────────────────────────────┐
-│ ◆ GYMDIFF     ● Connected · Lobby ⓘ│  top bar
+│ ◆ COOLDOWN     ● Connected · Lobby ⓘ│  top bar
 ├────────────────────────────────────┤
 │                                    │
 │              History               │
@@ -23,7 +23,7 @@ Map of the app's screens and how the player moves between them. Each screen's be
 └────────────────────────────────────┘
 ```
 - **No sidebar.** **History** is the main screen and takes the full width (400 px).
-- **Top bar** (52 px), on every screen except Welcome: the Crest and the "GYMDIFF" wordmark on the left; on the right the connection dot and client phase (replaces the current [[Client status]] card), a **Settings** button (gear) and an **About** button (ⓘ). The button of the screen being shown is marked with a `border` background and a `text-primary` icon.
+- **Top bar** (52 px), on every screen except Welcome: the Crest and the "COOLDOWN" wordmark on the left; on the right the connection dot and client phase (replaces the current [[Client status]] card), a **Settings** button (gear) and an **About** button (ⓘ). The button of the screen being shown is marked with a `border` background and a `text-primary` icon.
 - **Settings** and **About** open from the top bar buttons and have a "‹ History" link back. There is no other navigation.
 - The window opens on **History**. Navigation never changes on its own.
 - **Workout modal**: when a game ends and its workout is ready, a **prompt** opens over History, like a matchmaking "match found" prompt: a centred dialog with a big round **Start workout** button, what is due, and Later / Skip workout (see [[Post-game workout#Prompt ("Workout ready")]]). Once started, the steps open as a **sheet** rising over History: full width, from just under the top bar to the bottom of the window, rounded top corners, header "POST-GAME WORKOUT" and a close button (×). Closing it returns to History. If About is shown when the workout is ready, the app goes back to History first.
@@ -55,16 +55,25 @@ flowchart LR
 ```
 
 ## Frames
-In `design/gymdiff.pen`, at 400 × 640. First sketches, to validate. Every screen except Welcome is an instance of the `App shell / Top bar / Default` component with its `Content` slot replaced. Modal frames show the prompt or the sheet over a dimmed copy of `History / Main / Nominal`.
+In `design/cooldown.pen`, at 400 × 640. First sketches, to validate. Every screen except Welcome is an instance of the `App shell / Top bar / Default` component with its `Content` slot replaced. Modal frames show the prompt or the sheet over a dimmed copy of `History / Main / Nominal`.
 
-The canvas is a stack of sections, each starting with a `Flow label / …` title: `Foundations` (the `Brand / Logo` and `Foundations` boards), `Primitives`, `Core components`, `History components`, then the screens. History screens are built from the History components: each session is a `Session / *` instance whose `Games` slot holds `Workout card / *` instances. Screens are laid out along the user flow: one row per stage, left to right in the order the player sees the screens, with arrows labelled by the action that leads to the next frame ("Let's go", "Start workout", "Close", …).
+The canvas is a stack of sections, each starting with a `Flow label / …` title: `Foundations` (the `Brand / Logo` and `Foundations` boards), `Primitives`, `Controls`, `Core components`, `History components`, then the screens. History screens are built from the History components: each session is a `Session header / *` instance followed by `Game row / *` instances. Every button, icon button and text link in the screens is an instance of a `Controls` component. Screens are laid out along the user flow: one row per stage, left to right in the order the player sees the screens, with arrows labelled by the action that leads to the next frame ("Let's go", "Start workout", "Close", …).
 
 **Primitives**
 | Frame | Shows |
 |---|---|
 | `Logo / <Crest, Lockup>` | Logo components ([[Brand]]) |
 | `Switch / <Off, On>` | On/off switch, reusable components |
-| `Exercise icon / <Burpee, Squat, Plank> / <16, 28, 56>` | Exercise pictograms, reusable components (generated in Pencil) |
+| `Exercise icon / <Burpee, Squat, Plank> / <16, 28, 44, 56>` | Exercise pictograms, reusable components (generated in Pencil) |
+
+**Controls** (board `Controls library`)
+| Frame | Shows |
+|---|---|
+| `Button / <Primary, Secondary, Danger>` | 44 px buttons, optional leading icon |
+| `Button / Primary / Small` | Inline Start button of a pending game row |
+| `Icon button` | 36 px icon button (top bar navigation, dialog close) |
+| `Text link` | Text link with optional leading icon (Back, Later) |
+| `<component> / <Hover, Pressed, Focus, Disabled>` (+ `Icon button / Selected`) | One reusable instance per state, and the **State rules** table ([[Tokens#Interaction]]) |
 
 **Core components**
 | Frame | Shows |
@@ -75,16 +84,19 @@ The canvas is a stack of sections, each starting with a `Flow label / …` title
 **History components**
 | Frame | Shows |
 |---|---|
-| `Session / <Current, All done, Half done, Less than half, Before GymDiff>` | Session panel: summary header in the session colour (neutral for a session of imported games) and a `Games` slot for the workout cards ([[History#Session summary]]) |
-| `Workout card / <Pending, Pending expanded, Done, Partial, Skipped>` | Workout card per status, expanded variant with the stat lines ([[History#Workout cards]]) |
-| `Workout card / Computing` | "Game over · Computing your workout…" card |
-| `Workout card / No workout` | Muted card of a game without a workout, with the reason |
+| `Session header / <Games, Workouts, Workouts / Current>` | Session title, status chips and win/loss count, per History view ([[History#Session summary]]) |
+| `Game row / Games / <Pending, Done, Partial, Skipped, No workout, Before cooldown.lol>` | Game row of the Games view: champion, KDA and stat gauges, workout status ([[History#Workout cards]]) |
+| `Game row / Games / Done expanded` | Same row opened on its details |
+| `Game row / Workouts / <Pending, Done, Partial, Skipped>` | Game row of the Workouts view: one column per exercise |
+| `Game row / Workouts / <Done, Partial> expanded` | Same rows opened on their details |
+| `Game row / Computing` | "Game over · Computing your workout…" row |
+| `Stat icon / <Farming, Damage share, Kill participation, Vision, Deaths>` | Stat pictograms used in the game rows |
 
 **1 · First launch → first game**
 | Frame | Shows |
 |---|---|
 | `First launch / Welcome / Default` | Welcome screen |
-| `History / Main / Before GymDiff` | First opening: sessions of games imported from the client, neutral headers, *Skipped* cards with the computed amounts |
+| `History / Main / Before cooldown.lol` | First opening: sessions of games imported from the client, neutral headers, *Skipped* cards with the computed amounts |
 | `History / Main / Computing` | A game just ended: "Game over · Computing your workout…" card on top |
 
 **2 · Post-game workout**
@@ -124,7 +136,7 @@ The canvas is a stack of sections, each starting with a `Flow label / …` title
 |---|---|
 | `Installer / Window / Options` | Installer: welcome, shortcut and startup choices |
 | `Installer / Window / Installing` | Installer: installation in progress |
-| `Installer / Window / Done` | Installer: installed, Launch GymDiff switch and Finish |
+| `Installer / Window / Done` | Installer: installed, Launch cooldown.lol switch and Finish |
 | `Installer / Window / Failed` | Installer: installation failed |
 
 ## Open questions
