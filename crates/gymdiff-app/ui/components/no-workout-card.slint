@@ -1,0 +1,88 @@
+// The muted card of a game without a workout: the game on the left, "NO WORKOUT" and the reason
+// on the right.
+//
+// Component `Workout card / No workout` in design/gymdiff.pen.
+
+import { Theme } from "../theme.slint";
+import { ChampionPortrait } from "champion-portrait.slint";
+import { Icon } from "icon.slint";
+import { GameCardData } from "../models.slint";
+
+export component NoWorkoutCard inherits Rectangle {
+    in property <GameCardData> game;
+
+    background: Theme.surface;
+    border-radius: Theme.radius-m;
+    opacity: Theme.muted-opacity;
+    height: row.preferred-height + 2 * 8px;
+
+    row := HorizontalLayout {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        spacing: 10px;
+
+        VerticalLayout {
+            alignment: center;
+            spacing: 2px;
+
+            ChampionPortrait {
+                image: root.game.champion-image;
+                has-image: root.game.has-champion-image;
+                initials: root.game.champion-initials;
+                role-icon: root.game.role-icon;
+                has-role: root.game.has-role;
+            }
+
+            Text {
+                text: root.game.result-label;
+                color: root.game.win ? Theme.success : Theme.danger;
+                font-size: 14px;
+                font-weight: 800;
+                font-italic: true;
+                horizontal-alignment: center;
+            }
+        }
+
+        VerticalLayout {
+            spacing: 2px;
+            alignment: center;
+
+            HorizontalLayout {
+                spacing: Theme.space-xs;
+                alignment: start;
+
+                Icon {
+                    source: @image-url("../images/icons/circle-slash.svg");
+                    width: 14px;
+                    height: 14px;
+                    colorize: Theme.text-secondary;
+                    y: (parent.height - self.height) / 2;
+                }
+
+                Text {
+                    text: "NO WORKOUT";
+                    color: Theme.text-secondary;
+                    font-size: 14px;
+                    font-weight: 800;
+                    font-italic: true;
+                    vertical-alignment: center;
+                }
+            }
+
+            Text {
+                text: root.game.reason;
+                color: Theme.text-primary;
+                font-size: Theme.font-size-caption;
+                wrap: word-wrap;
+            }
+
+            Text {
+                text: "Not counted in the session";
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-caption;
+            }
+        }
+    }
+}

@@ -57,7 +57,7 @@ flowchart LR
 ## Frames
 In `design/gymdiff.pen`, at 400 × 640. First sketches, to validate. Every screen except Welcome is an instance of the `App shell / Top bar / Default` component with its `Content` slot replaced. Modal frames show the prompt or the sheet over a dimmed copy of `History / Main / Nominal`.
 
-The canvas is a stack of sections, each starting with a `Flow label / …` title: `Foundations` (the `Brand / Logo` and `Foundations` boards), `Primitives`, `Core components`, then the screens. Screens are laid out along the user flow: one row per stage, left to right in the order the player sees the screens, with arrows labelled by the action that leads to the next frame ("Let's go", "Start workout", "Close", …).
+The canvas is a stack of sections, each starting with a `Flow label / …` title: `Foundations` (the `Brand / Logo` and `Foundations` boards), `Primitives`, `Core components`, `History components`, then the screens. History screens are built from the History components: each session is a `Session / *` instance whose `Games` slot holds `Workout card / *` instances. Screens are laid out along the user flow: one row per stage, left to right in the order the player sees the screens, with arrows labelled by the action that leads to the next frame ("Let's go", "Start workout", "Close", …).
 
 **Primitives**
 | Frame | Shows |
@@ -72,11 +72,19 @@ The canvas is a stack of sections, each starting with a `Flow label / …` title
 | `App shell / Top bar / Default` | The top bar (Crest, wordmark, connection status, Settings and About buttons) and the `Content` slot, reusable component |
 | `Champion portrait` | Played + linked champion placeholder, reusable component ([[Champion portraits]]) |
 
+**History components**
+| Frame | Shows |
+|---|---|
+| `Session / <Current, All done, Half done, Less than half, Before GymDiff>` | Session panel: summary header in the session colour (neutral for a session of imported games) and a `Games` slot for the workout cards ([[History#Session summary]]) |
+| `Workout card / <Pending, Pending expanded, Done, Partial, Skipped>` | Workout card per status, expanded variant with the stat lines ([[History#Workout cards]]) |
+| `Workout card / Computing` | "Game over · Computing your workout…" card |
+| `Workout card / No workout` | Muted card of a game without a workout, with the reason |
+
 **1 · First launch → first game**
 | Frame | Shows |
 |---|---|
 | `First launch / Welcome / Default` | Welcome screen |
-| `History / Main / Empty` | No game stored yet |
+| `History / Main / Before GymDiff` | First opening: sessions of games imported from the client, neutral headers, *Skipped* cards with the computed amounts |
 | `History / Main / Computing` | A game just ended: "Game over · Computing your workout…" card on top |
 
 **2 · Post-game workout**
@@ -96,6 +104,7 @@ The canvas is a stack of sections, each starting with a `Flow label / …` title
 |---|---|
 | `Post-game workout / Modal / Prompt (Support)` | Support variant, with 0 squats (dimmed) |
 | `History / Main / No workout` | Remake and role not detected: muted "No workout" cards with the reason |
+| `History / Main / Empty` | No game stored yet and none in the client's match history |
 
 **4 · About & Settings**
 | Frame | Shows |

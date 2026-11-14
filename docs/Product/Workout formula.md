@@ -20,7 +20,7 @@ Each role has one **main stat**, the thing that role is judged on first. It driv
 | Plank | seconds | Deaths (every role) |
 
 ## Inputs
-From the end-of-game stats of the local player (see [[Post-game workout#Data]]):
+From the end-of-game stats of the local player (see [[Post-game workout#Data]]), or, for a game imported from the client's match history, from that history (see [[History#Games from before GymDiff]]):
 - `minutes` = game length in seconds / 60
 - `deaths`
 - `cs` = minions killed + neutral minions killed

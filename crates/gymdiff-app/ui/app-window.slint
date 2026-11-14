@@ -8,12 +8,15 @@ import { Screen } from "screen.slint";
 import { AppShell } from "shell/app-shell.slint";
 import { WelcomeScreen } from "screens/welcome.slint";
 import { HistoryEmpty } from "screens/history.slint";
+import { HistorySessions } from "screens/history-sessions.slint";
+import { SessionData, GameCardData } from "models.slint";
+import { RoleIcons } from "role-icons.slint";
 import { AboutScreen } from "screens/about.slint";
 import { SettingsScreen } from "screens/settings.slint";
 import { SettingsUninstallDialog } from "screens/settings-uninstall-dialog.slint";
 import { DebugScreen } from "screens/debug.slint";
 
-export { Screen }
+export { Screen, SessionData, GameCardData, RoleIcons }
 
 export component AppWindow inherits Window {
     title: "GymDiff";
@@ -28,6 +31,8 @@ export component AppWindow inherits Window {
     in property <bool> connected: false;
     in property <string> status-label: "Looking for the League client…";
     in property <string> version;
+    /// The games of the History screen, newest session first (set by Rust from the history).
+    in property <[SessionData]> sessions;
     /// Opt-in error reports (docs/Decisions/ADR-0006): set by Rust from the stored consent.
     in-out property <bool> crash-reports: false;
     in-out property <bool> all-logs: false;
@@ -83,8 +88,13 @@ export component AppWindow inherits Window {
         settings-clicked => { root.screen = Screen.settings; }
         about-clicked => { root.screen = Screen.about; }
 
-        if root.screen == Screen.history: HistoryEmpty {
+        if root.screen == Screen.history && root.sessions.length == 0: HistoryEmpty {
             vertical-stretch: 1;
+        }
+
+        if root.screen == Screen.history && root.sessions.length > 0: HistorySessions {
+            vertical-stretch: 1;
+            sessions: root.sessions;
         }
 
         if root.screen == Screen.about: AboutScreen {

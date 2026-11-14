@@ -36,6 +36,17 @@ Colours come from the brand direction chosen in Pencil (see [[Brand]]): a K/DA r
 |---|---|
 | `radius-m` | 8px |
 | `radius-dialog` | 16px |
+| `radius-panel` | 10px (session panel, champion portrait) |
+
+## Session panel
+Tints of a session panel ([[History#Session summary]]): the session's colour (`text-secondary` for a session of games from before GymDiff) at these opacities. These values are literal in the Pencil `Session / *` components, not variables yet.
+
+| Token | Value | Usage |
+|---|---|---|
+| `tint-header` | 0.12 | Summary header background |
+| `tint-line` | 0.4 | Line under the summary header |
+| `tint-games` | 0.04 | Games area background |
+| `muted-opacity` | 0.75 | "No workout" card |
 
 ## Interaction
 Hover and pressed states, shown in the `Interaction states` section of the `Foundations` page. Every interactive control adds a **state layer** in its content colour (Material), filled and outlined buttons also **shrink** while pressed (iOS), and every change eases out.

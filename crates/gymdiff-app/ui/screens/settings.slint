@@ -34,7 +34,7 @@ export component SettingsScreen inherits Rectangle {
     /// Shows the Uninstall section (installed builds).
     in property <bool> uninstall-visible;
     /// Scroll position (negative when scrolled down), and the content's height.
-    in-out property <length> scroll-y <=> flick.viewport-y;
+    in-out property <length> scroll-y <=> flick.content-y;
     out property <length> content-height: content.preferred-height;
     callback back;
     callback open-debug;
@@ -49,8 +49,8 @@ export component SettingsScreen inherits Rectangle {
     callback uninstall-clicked;
 
     flick := Flickable {
-        viewport-width: self.width;
-        viewport-height: max(self.height, content.preferred-height);
+        content-width: self.width;
+        content-height: max(self.height, content.preferred-height);
 
         content := VerticalLayout {
             width: parent.width;

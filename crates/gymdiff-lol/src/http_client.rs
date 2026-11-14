@@ -2,12 +2,14 @@
 
 use std::time::Duration;
 
-use gymdiff_core::{Game, GamePhase};
+use gymdiff_core::GamePhase;
 use reqwest::StatusCode;
 use serde::de::DeserializeOwned;
 
 use crate::live_client::GameStats;
-use crate::{Lockfile, LolClient, LolError, MatchHistory, Summoner};
+use crate::{
+    GameDetail, Lockfile, LolClient, LolError, MatchHistory, PastGame, Summoner, TeamTotals,
+};
 
 /// HTTP implementation of [`LolClient`].
 #[derive(Debug, Clone)]
@@ -95,12 +97,27 @@ impl LolClient for HttpLolClient {
         self.lcu_get("/lol-summoner/v1/current-summoner").await
     }
 
-    async fn match_history(&self, beg_index: u32, end_index: u32) -> Result<Vec<Game>, LolError> {
+    async fn match_history(
+        &self,
+        beg_index: u32,
+        end_index: u32,
+    ) -> Result<Vec<PastGame>, LolError> {
         let path = format!(
             "/lol-match-history/v1/products/lol/current-summoner/matches?begIndex={beg_index}&endIndex={end_index}"
         );
         let history: Option<MatchHistory> = self.lcu_get(&path).await?;
         Ok(history.map(MatchHistory::into_games).unwrap_or_default())
+    }
+
+    async fn team_totals(
+        &self,
+        game_id: u64,
+        team_id: u32,
+    ) -> Result<Option<TeamTotals>, LolError> {
+        let detail: Option<GameDetail> = self
+            .lcu_get(&format!("/lol-match-history/v1/games/{game_id}"))
+            .await?;
+        Ok(detail.and_then(|detail| detail.team_totals(team_id)))
     }
 
     async fn game_stats(&self) -> Result<Option<GameStats>, LolError> {

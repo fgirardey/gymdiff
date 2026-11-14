@@ -25,6 +25,6 @@ pub use client::LolClient;
 pub use error::LolError;
 pub use http_client::{DEFAULT_LIVE_CLIENT_URL, HttpLolClient};
 pub use lockfile::Lockfile;
-pub use match_history::MatchHistory;
+pub use match_history::{GameDetail, MatchHistory, PastGame, TeamTotals};
 pub use raw::Api;
 pub use summoner::Summoner;

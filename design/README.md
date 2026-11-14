@@ -17,7 +17,7 @@ Add more `.pen` files only if the main one becomes hard to navigate (e.g. `overl
 
 So that Claude (and you, in six months) can find things:
 
-- **One canvas, stacked sections**, top to bottom: `Foundations` (brand and tokens boards), `Primitives` (logo, switch, exercise pictograms), `Core components` (app shell, champion portrait), then the screen rows. Each section starts with a `Flow label / …` title.
+- **One canvas, stacked sections**, top to bottom: `Foundations` (brand and tokens boards), `Primitives` (logo, switch, exercise pictograms), `Core components` (app shell, champion portrait), `History components` (session panels, workout cards), then the screen rows. Each section starts with a `Flow label / …` title.
 - **Frame names mirror the feature notes** in `docs/Product/Features/`: `<Feature> / <Screen> / <State>`, e.g. `Champ Select / Main / Loading`. Every state the UI can be in gets a frame (empty, loading, error, nominal).
 - **Real sizes**: frames use the actual window or overlay size in logical pixels. Note the target resolution in the frame name when it matters (`… @1080p`).
 - **Tokens first**: colors, spacing, radius and type sizes come from the `Foundations` board and are mirrored in [`docs/Design/Tokens.md`](../docs/Design/Tokens.md). Do not use one-off values.

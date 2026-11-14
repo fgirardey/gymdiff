@@ -2300,6 +2300,7 @@ dependencies = [
  "gymdiff-shortcuts",
  "interprocess",
  "png",
+ "reqwest 0.12.28",
  "rusqlite",
  "sentry",
  "serde",

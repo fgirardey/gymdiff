@@ -12,9 +12,11 @@ pub mod game;
 pub mod phase;
 pub mod session;
 pub mod state;
+pub mod workout;
 
 pub use event::Event;
-pub use game::{Game, GameResult, GameSource, NoWorkoutReason, Role};
+pub use game::{Game, GameResult, GameSource, NoWorkoutReason, PlayerStats, Role};
 pub use phase::GamePhase;
 pub use session::{Session, group_into_sessions};
 pub use state::{CompanionState, ConnectionStatus};
+pub use workout::{Amount, Workout};
