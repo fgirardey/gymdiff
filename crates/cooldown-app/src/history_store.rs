@@ -564,6 +564,8 @@ mod tests {
             .unwrap();
         let reopened = HistoryStore::open(&dir).unwrap();
         assert_eq!(reopened.games("p1").unwrap(), [game(1, 100)]);
+        // Windows cannot delete a file that is still open.
+        drop(reopened);
         std::fs::remove_dir_all(dir).unwrap();
     }
 

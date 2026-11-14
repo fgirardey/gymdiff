@@ -206,8 +206,7 @@ impl GameView {
             has_role: self.role.is_some(),
             role_icon: self
                 .role
-                .map(|role| role_icon(role_icons, role))
-                .unwrap_or_default(),
+                .map_or_else(Default::default, |role| role_icon(role_icons, role)),
             role_name: self.role.map_or("Role not detected", role_name).into(),
             queue: self.queue.into(),
             result_label: result_label(self.result).into(),
@@ -319,8 +318,7 @@ fn game_view(game: &Game, champion: &impl Fn(u32) -> Option<ChampionInfo>) -> Ga
     let targets = game.role.map(role_targets);
     let stats = game
         .stats
-        .map(|stats| stat_views(game, &stats, targets))
-        .unwrap_or_default();
+        .map_or_else(Default::default, |stats| stat_views(game, &stats, targets));
     let workout = match (game.workout, game.stats, targets) {
         (Some(workout), Some(stats), Some((main, secondary))) => WorkoutView::Skipped(vec![
             stat_exercise(Exercise::Burpees, main, workout.burpees, game, &stats),

@@ -106,7 +106,7 @@ impl LolClient for HttpLolClient {
             "/lol-match-history/v1/products/lol/current-summoner/matches?begIndex={beg_index}&endIndex={end_index}"
         );
         let history: Option<MatchHistory> = self.lcu_get(&path).await?;
-        Ok(history.map(MatchHistory::into_games).unwrap_or_default())
+        Ok(history.map_or_else(Vec::new, MatchHistory::into_games))
     }
 
     async fn team_totals(
