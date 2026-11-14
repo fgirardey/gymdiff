@@ -9,9 +9,6 @@
 //!
 //! The password changes on every client restart. Requests to the LCU API use
 //! HTTP Basic auth with the user `riot` and this password.
-//!
-//! The simulator writes a lockfile with the same format (protocol `http`), so
-//! the app discovers it exactly like the real client.
 
 use std::path::{Path, PathBuf};
 use std::str::FromStr;
@@ -24,7 +21,7 @@ pub struct Lockfile {
     pub pid: u32,
     pub port: u16,
     pub password: String,
-    /// `https` for the real client, `http` for the simulator.
+    /// `https` for the League client.
     pub protocol: String,
 }
 
@@ -83,7 +80,8 @@ impl FromStr for Lockfile {
     }
 }
 
-/// Environment variable overriding the lockfile location (used by the simulator).
+/// Environment variable overriding the lockfile location (League installed outside the default
+/// folders).
 pub const LOCKFILE_ENV: &str = "COOLDOWN_LOCKFILE";
 
 /// Paths where the lockfile is looked for, in order.

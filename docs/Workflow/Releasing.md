@@ -17,7 +17,7 @@ How a cooldown.lol version is numbered, released and made readable in Sentry. De
    - packages the Windows build with Velopack (job `package-windows`, see below) and attaches the installer `cooldown.lol-stable-Setup.exe`, the update packages and the feed `releases.stable.json` to the release,
    - attaches `cooldown-x.y.z-macos-arm64.tar.gz`, finalizes the Sentry release and records a `production` deploy (`.github/scripts/publish-release.mjs`).
 
-The release holds what a player or the updater needs, plus the macOS build: no bare `cooldown.exe`, no portable zip, no `SHA256SUMS`, no recorder. The recorder is a development tool taken from the CI artifacts ([[Recorder]]).
+The release holds what a player or the updater needs, plus the macOS build: no bare `cooldown.exe`, no portable zip, no `SHA256SUMS`.
 
 To force a version (e.g. `1.0.0`), add `Release-As: 1.0.0` to the body of a commit on `main`.
 

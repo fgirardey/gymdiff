@@ -7,7 +7,6 @@ flowchart LR
     subgraph sources[Data sources]
         LCU[League client<br/>LCU API]
         LIVE[Game process<br/>Live Client Data API]
-        SIM[cooldown-simulator<br/>fake LCU + Live Client]
     end
 
     subgraph app[cooldown-app]
@@ -21,7 +20,6 @@ flowchart LR
 
     LCU --> LOL
     LIVE --> LOL
-    SIM -. same protocols .-> LOL
     LOL --> W
     W -- Event --> CORE
     CORE -- CompanionState --> W
@@ -33,7 +31,6 @@ flowchart LR
 |---|---|---|
 | `cooldown-core` | Domain types and logic. Pure functions, reducer `CompanionState::apply(Event)`. | `serde` only |
 | `cooldown-lol` | League local APIs: lockfile discovery, `LolClient` trait, HTTP client, API models. | `cooldown-core`, `reqwest` |
-| `cooldown-simulator` | Fake League client replaying scenarios (development only, never shipped). | `cooldown-lol` (lockfile format), `axum` |
 | `cooldown-diagnostics` | Opt-in reports: consent and scrubbing. No network. See [[ADR-0006 Opt-in error reports]]. | `serde`, `regex` |
 | `cooldown-shortcuts` | cooldown.lol's Start menu and Desktop shortcuts and its startup entry on Windows (create, remove, exists), and where Velopack installed it. See [[ADR-0012 Installer window in Slint over Velopack]], [[ADR-0013 Notification area, startup and uninstall from the app]]. | `dirs`, `mslnk`, `winreg` (Windows only) |
 | `cooldown-app` | The shipped binary (`cooldown.exe`): Slint UI, watcher, OS integration, updates (Velopack). | everything above, `slint`, `velopack` |
@@ -41,7 +38,7 @@ flowchart LR
 
 ## Rules
 1. **Core is pure.** No I/O, no `#[cfg(target_os)]`, no async. If it can't be unit-tested on any machine, it doesn't belong in core.
-2. **One way in.** The app reads game data only through the `LolClient` trait. The real client and the simulator speak the same protocols, so the code path is identical in development and production.
+2. **One way in.** The app reads game data only through the `LolClient` trait. The League client is the same on macOS and Windows, so the code path is identical in development and production.
 3. **OS code is fenced.** Everything platform-specific lives in `cooldown-app/src/platform/`. Each platform module exposes the same functions; macOS may stub Windows-only behaviour.
 4. **State flows one way.** Data source → `Event` → reducer → `CompanionState` → UI. The UI never calls the network.
 
@@ -82,12 +79,10 @@ Variables can live in a git-ignored `.env` at the repository root (template: `.e
 
 | Variable | Used by | Purpose |
 |---|---|---|
-| `COOLDOWN_LOCKFILE` | app | Lockfile path (the simulator writes one in `target/simulator/`) |
-| `COOLDOWN_LIVE_CLIENT_URL` | app | Live Client Data base URL (default `https://127.0.0.1:2999`) |
+| `COOLDOWN_LOCKFILE` | app | Lockfile path, for a League client installed outside the default folders |
 | `COOLDOWN_DATA_DIR` | app | Settings folder (default `%APPDATA%\cooldown.lol\` on Windows, `~/Library/Application Support/cooldown.lol/` on macOS). Point it at an empty folder to see the welcome screen again |
-| `COOLDOWN_SCENARIO` | simulator | Scenario to replay |
 | `COOLDOWN_SENTRY_DSN` | app | Sentry DSN for opt-in reports (run time, else build time; unset = reports off) |
 | `COOLDOWN_TEST_CRASH` | app | Fires a test event at start: `error`, `panic`, `stack-overflow`… (see [[Releasing]]) |
 | `COOLDOWN_CHANNEL` | app build | `release`, `alpha` or `preview`, set by CI; unset = `development` ([[ADR-0008 Versioning and releases]]) |
-| `RUST_LOG` | both | Log filter |
+| `RUST_LOG` | app | Log filter |
 | `COOLDOWN_WIN_HOST`, `COOLDOWN_WIN_REPO` | justfile | Windows PC over SSH (see [[Windows testing]]) |

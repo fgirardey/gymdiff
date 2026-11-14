@@ -5,7 +5,7 @@ Every pull request follows `.github/pull_request_template.md`, which GitHub pre-
 ## The template
 - **What and why**: the user-visible change and its reason, with a link to the feature note (`docs/Product/Features/`).
 - **Screenshots**: one image per Pencil frame touched, generated (below). "No UI change." otherwise.
-- **How to try it**: the `just` command and scenario that show the change.
+- **How to try it**: the `just` command that shows the change, and what the League client must be doing.
 - **Notes for the reviewer**: where to start, trade-offs, follow-ups.
 - **Checklist**: `just check`, docs, Pencil match, [[Riot policies]], Windows testing.
 
@@ -24,12 +24,12 @@ just screenshots [paths…]              # only render to target/screenshots, pu
 
 Screenshots use the fonts of the machine that renders them (macOS here, Segoe UI on Windows): they show layout and content, not the exact Windows rendering.
 
-A screen without a Pencil story has no screenshot: add the story first ([[Previews]]). For a flow (navigation, live state from the simulator), add a recording of `just dev` by hand.
+A screen without a Pencil story has no screenshot: add the story first ([[Previews]]). For a flow (navigation, live state from the League client), add a recording of `just dev` by hand.
 
 ## Builds
 A pull request runs only the checks (`commitlint`, `fmt`, clippy and tests on Windows and macOS, `.github/workflows/ci.yml`); a new push cancels the previous run. Release builds take about 15 minutes, so they run on `main` after every merge, and on a pull request **on demand**: add the **`build`** label (for a risky Windows change, or to try a build before merging).
 
-With the label, every push builds the pull request (`.github/workflows/pr-build.yml`) and CI comments the builds on the PR, in one comment updated on every build: a link to `cooldown.exe` (Windows), `cooldown-recorder.exe` (Windows, [[Recorder]]) and `cooldown-macos.tar.gz` (macOS), from the run of the latest commit. GitHub serves them as zip files, kept 14 days, to signed-in users. The builds come from `.github/workflows/build.yml` (channel `preview`, About shows `· preview`), which also uploads their debug symbols and sources to Sentry ([[Releasing]]). The `pr-builds` job runs `.github/scripts/pr-builds-comment.mjs` after the builds, even when one of them failed (the comment then says which). Pull requests from forks get no comment: their token is read-only. Remove the label to stop building.
+With the label, every push builds the pull request (`.github/workflows/pr-build.yml`) and CI comments the builds on the PR, in one comment updated on every build: a link to `cooldown.exe` (Windows) and `cooldown-macos.tar.gz` (macOS), from the run of the latest commit. GitHub serves them as zip files, kept 14 days, to signed-in users. The builds come from `.github/workflows/build.yml` (channel `preview`, About shows `· preview`), which also uploads their debug symbols and sources to Sentry ([[Releasing]]). The `pr-builds` job runs `.github/scripts/pr-builds-comment.mjs` after the builds, even when one of them failed (the comment then says which). Pull requests from forks get no comment: their token is read-only. Remove the label to stop building.
 
 ## Opening the PR
 ```sh

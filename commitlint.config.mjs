@@ -10,7 +10,7 @@ export default {
     'scope-enum': [
       2,
       'always',
-      ['core', 'lol', 'simulator', 'app', 'ui', 'design', 'docs', 'fixtures', 'deps', 'ci', 'tooling'],
+      ['core', 'lol', 'app', 'ui', 'design', 'docs', 'deps', 'ci', 'tooling'],
     ],
   },
 };

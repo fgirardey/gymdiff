@@ -6,7 +6,7 @@ The Mac covers most of the work. The **Windows PC** validates what only it can: 
 | Option | When | How |
 |---|---|---|
 | **Alpha** | default: always the latest `main`, updates itself | once: run `cooldown.lol-alpha-Setup.exe` from the newest alpha pre-release on GitHub (SmartScreen → More info → Run anyway, [[Installation]]); then each merge is downloaded and applied at the next launch ([[Auto-update]]) |
-| **CI artifact** | a pull request, before merging | add the `build` label to the PR → GitHub Actions → *Artifacts* → `cooldown-windows-<sha>` (app) or `cooldown-recorder-windows-<sha>` ([[Recorder]]); run `Unblock-File` on the `.exe` first |
+| **CI artifact** | a pull request, before merging | add the `build` label to the PR → GitHub Actions → *Artifacts* → `cooldown-windows-<sha>` (app); run `Unblock-File` on the `.exe` first |
 | **Build on the PC over SSH** | fast loop on Windows-specific code | `just win-build` from the Mac |
 | **Build on the PC directly** | debugging on the PC | `cargo run -p cooldown-app` in a terminal on the PC (debug builds keep the console with live logs) |
 
@@ -39,4 +39,4 @@ A GUI app started over SSH does not appear on the Windows desktop: `just win-bui
 1. Reproduce, then `just win-logs` on the Mac: the latest log lands in `target/windows.log`.
    (Central error reports are opt-in and do not replace this: see [[Privacy]].)
 2. Ask Claude Code to analyse it together with the relevant code.
-3. If the bug comes from unexpected API data, add the payload to a scenario so it can be reproduced on the Mac.
+3. If the bug comes from unexpected API data, add the payload as a fixture to the unit tests of the model that parses it (`cooldown-lol`), so it can be reproduced on the Mac.

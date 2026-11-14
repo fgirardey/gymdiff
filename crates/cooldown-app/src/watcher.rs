@@ -155,11 +155,7 @@ impl Drop for ImportTask {
 }
 
 fn describe_source(lockfile: &Lockfile) -> String {
-    if lockfile.protocol == "http" {
-        format!("Simulator on port {}", lockfile.port)
-    } else {
-        format!("League client on port {}", lockfile.port)
-    }
+    format!("League client on port {}", lockfile.port)
 }
 
 fn push(window: &slint::Weak<AppWindow>, state: &CompanionState, source: &str) {

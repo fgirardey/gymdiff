@@ -31,9 +31,6 @@ The `welcome_seen` field of `settings.json` ([[ADR-0007 Local persistence]]; ear
 ## Compliance
 Includes Riot's disclaimer. Nothing shown during a game.
 
-## Simulator scenario
-None needed: start the app with an empty settings folder.
-
 ## Windows validation
 - [ ] Welcome shown on first start, not on the second
 - [ ] Flag stored under `%APPDATA%\cooldown.lol\`

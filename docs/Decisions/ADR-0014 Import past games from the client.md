@@ -22,7 +22,7 @@ date: 2026-11-08
 - **Only track games from the install onwards** — simplest, but an empty History for a new player.
 
 ## Consequences
-- `LolClient` gains the active summoner and the match history; the simulator serves both.
+- `LolClient` gains the active summoner and the match history.
 - `cooldown-core` gets a `Game` model (tracked or imported) and a pure function that groups games into sessions.
 - The history depth is bounded by what the client returns; to confirm on the Windows PC.
 - Games of the modes out of scope (ARAM, arena…) are neither stored nor shown, so a game of another mode never bridges two sessions.

@@ -135,8 +135,8 @@ Pencil frames `Post-game workout / Modal / *` (the modal over History), and `His
 - Shows only the local player's own stats, all visible on Riot's end-of-game screen.
 - To check before release: whether Riot expects the Riot API (match-v5) rather than the LCU for end-of-game stats ([[Riot policies]]).
 
-## Simulator scenario
-Extend `synthetic-full-game` (or add one scenario per case) with:
+## Test cases
+Unit tests on fixtures of the real payloads (see [[ADR-0016 Develop against the League client]]) for:
 - a champion select session with an assigned position,
 - an end-of-game stats block at `EndOfGame`,
 - variants: Support, blind pick (no champ select position, role from the other sources), no position anywhere, remake, ARAM (shows nothing).

@@ -1,9 +1,8 @@
 # Roadmap
 
 ## Now — foundations
-- [x] Workspace skeleton (core / lol / simulator / app)
+- [x] Workspace skeleton (core / lol / app)
 - [x] Lockfile discovery, gameflow phase, in-game clock ([[Client status]])
-- [x] Simulator with scenario replay
 - [x] CI on Windows and macOS with a Windows build artifact
 - [x] Write the [[Vision]] (draft)
 - [x] Create `design/cooldown.pen` with the `Foundations` page and real [[Tokens]]
@@ -16,9 +15,8 @@
 
 ## Next — technical
 - [ ] Trust Riot's root certificate (`riotgames.pem`) instead of accepting any certificate
-- [ ] LCU WebSocket event stream (WAMP) instead of polling, emulated by the simulator
+- [ ] LCU WebSocket event stream (WAMP) instead of polling
 - [ ] Process-based client discovery (fallback when the install folder is not the default)
-- [x] `cooldown-recorder`: record real sessions on Windows into scenarios ([[Recorder]]); WebSocket events not recorded yet
 - [ ] Overlay window on Windows (always on top, click-through, positioned over the game)
 - [x] Settings persistence (`settings.json`, [[ADR-0007 Local persistence]])
 - [x] Versioning (SemVer + build number), releases with release-please, symbolicated Sentry issues ([[ADR-0008 Versioning and releases]])
@@ -34,7 +32,7 @@
 - [ ] Validate the sketches, then mark the features `designed`
 - [x] [[First launch]] welcome screen (first persisted flag)
 - [ ] Core: workout formula, sessions, with tests
-- [ ] LCU: end-of-game stats, champ select role, simulator scenarios
+- [ ] LCU: end-of-game stats, champ select role
 - [ ] UI: workout screen and its states
 - [ ] [[History]]: persisted games, sessions split on 1-hour breaks, timeline screen
 

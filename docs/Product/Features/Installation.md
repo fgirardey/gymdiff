@@ -55,9 +55,6 @@ None from League. Files: `%LOCALAPPDATA%\cooldown.lol` (app, Velopack's `Update.
 ## Compliance
 Nothing shown during a game; installing our own app is outside [[Riot policies]].
 
-## Simulator scenario
-None.
-
 ## Windows validation
 - [ ] `cooldown.lol-alpha-Setup.exe` installs without admin rights, after SmartScreen's "Run anyway"; only the chosen shortcuts exist, with the crest; cooldown.lol starts only if "Launch cooldown.lol" was on.
 - [ ] Settings → Shortcuts adds and removes each shortcut; a shortcut deleted by hand shows as off.

@@ -24,8 +24,8 @@ As a …, I want … so that …
 ## Compliance
 *Does this show information during a game? Check [[Riot policies]].*
 
-## Simulator scenario
-*Which scenario in `fixtures/scenarios/` exercises it?*
+## How to try it
+*Which `just` command, with which League client state, shows it?*
 
 ## Windows validation
 - [ ] …

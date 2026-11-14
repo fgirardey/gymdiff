@@ -63,9 +63,6 @@ Section **Updates** under the error reports in `App shell / Settings / Default` 
 ## Compliance
 Nothing shown during a game; no interaction with the game process. Updating our own executable is outside [[Riot policies]].
 
-## Simulator scenario
-None: updates do not depend on the League client. Needs an installed build, so it is tested on the Windows PC after a merge. Code: `crates/cooldown-app/src/updater/`.
-
 ## Windows validation
 - [ ] Installed with `cooldown.lol-alpha-Setup.exe` ([[Installation]]), Settings shows the Updates section.
 - [ ] A merge to `main` → within an hour (or Check now) Settings says the new build is ready; the next launch runs it (About shows the new build).
