@@ -12,7 +12,7 @@ The Mac covers most of the work. The **Windows PC** validates what only it can: 
 
 ## One-time setup of the PC
 1. Install Rust: <https://rustup.rs> (accept the Visual Studio C++ Build Tools prompt).
-2. Install Git and clone the repository, e.g. in `C:\dev\gymdiff`.
+2. Install Git and clone the repository, e.g. in `C:\dev\cooldown.lol`.
 3. Optional: `winget install Casey.Just`.
 4. For `just win-build` / `just win-logs` from the Mac:
    - enable **OpenSSH Server** (*Settings → System → Optional features → OpenSSH Server*), start the `sshd` service and set it to automatic,
@@ -21,7 +21,7 @@ The Mac covers most of the work. The **Windows PC** validates what only it can: 
    - on the Mac, export (e.g. in `~/.zshrc`):
      ```sh
      export COOLDOWN_WIN_HOST="florian@<pc-name>.local"
-     export COOLDOWN_WIN_REPO='C:\dev\gymdiff'
+     export COOLDOWN_WIN_REPO='C:\dev\cooldown.lol'
      ```
    - the PC must be able to `git pull` the repository (remote reachable from both machines).
 

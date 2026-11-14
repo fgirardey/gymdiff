@@ -11,7 +11,7 @@ sim_live_url := "http://127.0.0.1:12999"
 
 # Windows PC reachable over SSH (see docs/Workflow/Windows testing.md)
 win_host := env("COOLDOWN_WIN_HOST", "")
-win_repo := env("COOLDOWN_WIN_REPO", "C:\\dev\\gymdiff")
+win_repo := env("COOLDOWN_WIN_REPO", "C:\\dev\\cooldown.lol")
 
 # List recipes
 default:
