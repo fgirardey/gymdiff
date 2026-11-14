@@ -49,7 +49,7 @@ Endpoints used:
   - subscribe to one endpoint: `[5, "OnJsonApiEvent_lol-gameflow_v1_session"]` (path without leading slash, `/` → `_`)
   - events arrive as `[8, "OnJsonApiEvent", { "uri": "...", "eventType": "Create|Update|Delete", "data": ... }]`
 
-Moving from polling to this event stream is on the [[Roadmap]]; the simulator will need to emulate it too.
+Moving from polling to this event stream is on the [[Roadmap]].
 
 ## Live Client Data API
 

@@ -1,7 +1,7 @@
 //! The companion's application state and the events that change it.
 //!
 //! The state is a plain value updated by a pure reducer ([`CompanionState::apply`]).
-//! Data sources (real client, simulator, fixtures) only produce [`Event`]s;
+//! Data sources (the League client) only produce [`Event`]s;
 //! the UI only renders a [`CompanionState`].
 
 use crate::{Event, GamePhase};

@@ -10,7 +10,7 @@
 //! See `docs/Architecture/League APIs.md` for details.
 //!
 //! Everything else in the app talks to the game through the [`LolClient`]
-//! trait, so the real client and the simulator are interchangeable.
+//! trait, so tests can provide in-memory fakes.
 
 mod client;
 mod error;
@@ -18,7 +18,6 @@ mod http_client;
 pub mod live_client;
 pub mod lockfile;
 pub mod match_history;
-mod raw;
 pub mod summoner;
 
 pub use client::LolClient;
@@ -26,5 +25,4 @@ pub use error::LolError;
 pub use http_client::{DEFAULT_LIVE_CLIENT_URL, HttpLolClient};
 pub use lockfile::Lockfile;
 pub use match_history::{GameDetail, MatchHistory, PastGame, TeamTotals};
-pub use raw::Api;
 pub use summoner::Summoner;

@@ -22,18 +22,16 @@ Development happens on **macOS** against a **simulated League client**; builds a
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh   # Rust (toolchain pinned by rust-toolchain.toml)
 brew install just                                                 # task runner
 
-# Run the app against the simulator
+# Open the League client, log in, then run the app against it
 just dev
 ```
 
-The window shows the simulated client going from lobby to champion select, then an in-game clock (scenario played at 10× speed).
+The top bar shows the client's phase (lobby, champion select, in game…) and History lists your recent games. The macOS client is enough for everything except what is Windows-only.
 
 Other recipes: `just` lists them all.
 
 ```sh
 just check          # fmt + clippy + tests + Windows type-check — run before committing
-just run            # the app against a real League client
-just sim --speed 5  # only the simulator
 just win-build      # build on the Windows PC over SSH
 ```
 
@@ -43,9 +41,7 @@ just win-build      # build on the Windows PC over SSH
 crates/
   cooldown-core/       pure domain logic (no I/O, no OS code)
   cooldown-lol/        League local APIs (lockfile, LCU, Live Client Data)
-  cooldown-simulator/  fake League client for development
   cooldown-app/        Slint UI + OS integration
-fixtures/             simulator scenarios and test data
 docs/                 Obsidian vault (product, architecture, decisions, workflows)
 design/               Pencil design files
 ```

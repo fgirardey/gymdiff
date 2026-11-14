@@ -1,6 +1,6 @@
 ---
 name: implementing-a-feature
-description: Use when implementing or extending a cooldown.lol feature described in docs/Product/Features/ — reads the spec and Pencil frames, then builds core logic, data source, UI and a simulator scenario in that order
+description: Use when implementing or extending a cooldown.lol feature described in docs/Product/Features/ — reads the spec and Pencil frames, then builds core logic, data source and UI in that order
 ---
 
 # Implementing a feature
@@ -12,7 +12,6 @@ description: Use when implementing or extending a cooldown.lol feature described
    1. `cooldown-core`: new `Event` variants, reducer changes, unit tests.
    2. Data source: `cooldown-lol` (models with lenient serde + fixture parsing test, `LolClient` method) and the app's `watcher.rs`.
    3. UI: previews first (one story per state frame, see `docs/Workflow/Previews.md`), then the `.slint` components until each story matches its frame (see the `pencil-to-slint` skill), then wire properties/callbacks in Rust.
-5. **Simulator**: add or extend a scenario so the feature runs in `just dev` (see the `writing-a-simulator-scenario` skill).
-6. **Verify**: `just check` passes; if possible run `just dev` and compare with the frames.
-7. **Docs**: update the feature note if behaviour changed during implementation; write an ADR for any significant trade-off.
-8. **Commit** with the `committing-with-commitlint` skill. In the description, list what must be tested on the Windows PC (`docs/Workflow/Windows testing.md`).
+5. **Verify**: `just check` passes; run `just dev` against the League client (open it and log in) and compare with the frames. A state you cannot reach on demand (end of game, champion select roles) is covered by unit tests on fixtures of the real payloads and checked on the Windows PC.
+6. **Docs**: update the feature note if behaviour changed during implementation; write an ADR for any significant trade-off.
+7. **Commit** with the `committing-with-commitlint` skill. In the description, list what must be tested on the Windows PC (`docs/Workflow/Windows testing.md`).

@@ -8,7 +8,7 @@ How a feature travels from idea to a validated Windows build.
 | 2. Spec | `Product/Features/<Feature>.md` from `_templates/Feature.md` | you (+ Claude to challenge it) | behaviour covers every state, compliance checked ([[Riot policies]]) |
 | 3. Design | frames `<Feature> / <Screen> / <State>` in `design/cooldown.pen` | you (+ Claude via Pencil MCP) | every state has a frame, tokens only |
 | 4. Decision (if any) | `Decisions/ADR-XXXX ….md` | you + Claude | status `accepted` |
-| 5. Implementation | code, tests, scenario | Claude Code | `just check` passes, works in `just dev` |
+| 5. Implementation | code, tests | Claude Code | `just check` passes, works in `just dev` |
 | 6. Windows validation | checklist in the feature note | you, on the PC | boxes ticked, status `validated on Windows` |
 
 ## Prompting Claude Code

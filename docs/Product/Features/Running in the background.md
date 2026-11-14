@@ -41,9 +41,6 @@ None from League. Start with Windows is the value `cooldown.lol` in `HKCU\Softwa
 ## Compliance
 Nothing shown during a game; the icon is cooldown.lol's own. Starting with Windows does not touch League. See [[Riot policies]].
 
-## Simulator scenario
-None: `just dev` shows the icon in the macOS menu bar; close the window and reopen it from there.
-
 ## Windows validation
 - [ ] The crest shows in the notification area; left click opens the window, right click shows Open cooldown.lol / Quit cooldown.lol.
 - [ ] Closing the window keeps cooldown.lol running (Task Manager); Quit cooldown.lol stops it.

@@ -88,8 +88,8 @@ Pencil frames `History / Main / Before cooldown.lol`, `History / Main / Empty`, 
 ## Compliance
 Only the local player's own games, after they end (live ones and the client's match history of the active summoner). Never other players' games or names, nothing during a game, no call to the Riot API.
 
-## Simulator scenario
-A scenario chaining several games with short and long breaks (two sessions), plus a remake, and a client match history with games older than the first tracked one (see `GET /lol-match-history/v1/products/lol/current-summoner/matches`).
+## How to try it
+`just dev` with the League client open and logged in: History fills from its match history. A throwaway data folder (`COOLDOWN_DATA_DIR=$(mktemp -d) just dev`) shows the first opening. A later game is seen when its end-of-game stats are read.
 
 ## Windows validation
 - [ ] History survives an app restart

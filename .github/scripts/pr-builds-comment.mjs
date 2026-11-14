@@ -11,7 +11,6 @@ const MARKER = '<!-- cooldown:pr-builds -->';
 /** Artifact name prefix → platform shown in the comment, in display order. */
 const PLATFORMS = [
   ['cooldown-windows-', 'Windows', '`cooldown.exe`'],
-  ['cooldown-recorder-windows-', 'Windows recorder', '`cooldown-recorder.exe` (see docs/Workflow/Recorder.md)'],
   ['cooldown-macos-', 'macOS', '`cooldown-macos.tar.gz` (`tar -xzf` keeps the executable bit)'],
 ];
 

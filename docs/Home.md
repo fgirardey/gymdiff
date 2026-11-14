@@ -22,7 +22,7 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 ## Decisions
 - [[ADR-0001 Native UI with Slint]]
 - [[ADR-0002 Docs and design as sources of truth]]
-- [[ADR-0003 macOS-first development with a simulator]]
+- [[ADR-0003 macOS-first development with a simulator]] (superseded)
 - [[ADR-0004 Champion images from Data Dragon]]
 - [[ADR-0005 Bundle the role symbols]]
 - [[ADR-0006 Opt-in error reports]]
@@ -35,10 +35,10 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 - [[ADR-0013 Notification area, startup and uninstall from the app]]
 - [[ADR-0014 Import past games from the client]]
 - [[ADR-0015 Rename to cooldown.lol]]
+- [[ADR-0016 Develop against the League client]]
 
 ## Workflow
 - [[Development]] — the daily loop on macOS
-- [[Simulator]] — scenarios and how to write them
 - [[Previews]] — stories, playgrounds and galleries of the Slint UI
 - [[Windows testing]] — building and testing on the Windows PC
 - [[Spec to code]] — how a feature goes from idea to implementation

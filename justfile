@@ -6,9 +6,6 @@ set dotenv-load
 
 set windows-shell := ["powershell.exe", "-NoLogo", "-NoProfile", "-Command"]
 
-sim_lockfile := justfile_directory() / "target" / "simulator" / "lockfile"
-sim_live_url := "http://127.0.0.1:12999"
-
 # Windows PC reachable over SSH (see docs/Workflow/Windows testing.md)
 win_host := env("COOLDOWN_WIN_HOST", "")
 win_repo := env("COOLDOWN_WIN_REPO", "C:\\dev\\cooldown.lol")
@@ -31,37 +28,8 @@ commitlint message="":
 
 # ---------------------------------------------------------------- dev loop
 
-# App + simulator together (the main dev loop on macOS)
-[unix]
-dev speed="10" scenario="fixtures/scenarios/synthetic-full-game/scenario.json":
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cargo build -p cooldown-simulator -p cooldown-app
-    ./target/debug/cooldown-simulator --speed {{speed}} --loop \
-        --scenario "{{scenario}}" --lockfile "{{sim_lockfile}}" &
-    SIM_PID=$!
-    trap 'kill -INT $SIM_PID 2>/dev/null || true' EXIT
-    sleep 1
-    COOLDOWN_LOCKFILE="{{sim_lockfile}}" COOLDOWN_LIVE_CLIENT_URL="{{sim_live_url}}" \
-        ./target/debug/cooldown
-
-# Only the simulator (pass extra args, e.g. `just sim --speed 5`)
-sim *args:
-    cargo run -p cooldown-simulator -- --lockfile "{{sim_lockfile}}" {{args}}
-
-# The app against the simulator started with `just sim`
-[unix]
-app-sim:
-    COOLDOWN_LOCKFILE="{{sim_lockfile}}" COOLDOWN_LIVE_CLIENT_URL="{{sim_live_url}}" \
-        cargo run -p cooldown-app
-
-# Record a real session into fixtures/scenarios/recorded-<name> (read-only, anonymised;
-# run on the PC with the League client open, e.g. `just record 2026-11-07-ranked`)
-record name *args:
-    cargo run --release -p cooldown-recorder -- {{name}} {{args}}
-
-# The app against the real League client
-run:
+# The app against the League client running on this machine (the main dev loop)
+dev:
     cargo run -p cooldown-app
 
 # Full version of a build of the current checkout, e.g. 0.2.0+57.a1b2c3d (see ADR-0008)

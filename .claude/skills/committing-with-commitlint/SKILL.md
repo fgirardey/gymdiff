@@ -119,10 +119,8 @@ Scope from the paths the commit touches (omit it when a commit spans several are
 |---|---|
 | `crates/cooldown-core/` | `core` |
 | `crates/cooldown-lol/` | `lol` |
-| `crates/cooldown-simulator/` | `simulator` |
 | `crates/cooldown-app/ui/` | `ui` |
 | `crates/cooldown-app/` (other) | `app` |
-| `fixtures/` | `fixtures` |
 | `design/` | `design` |
 | `docs/` only | `docs` (or no scope) |
 | `Cargo.lock`, dependency bumps | `deps` |

@@ -17,7 +17,7 @@ Shown in the top bar, on every screen except Welcome (see [[Screens]]).
 - When the client answers: green dot, "Connected · <phase>" (phase label from `GamePhase::label`, e.g. "Connected · Lobby").
 - When requests fail: red dot, "Error: <message>", cut with an ellipsis if too long.
 - When the client closes: back to the disconnected state within a few seconds.
-- The in-game clock is still tracked in `CompanionState` but no longer shown: the top bar has no room for it. The data source (simulator or real client) is only logged.
+- The in-game clock is still tracked in `CompanionState` but no longer shown: the top bar has no room for it. The data source (the League client) is only logged.
 
 ## Data
 - Phase: LCU `GET /lol-gameflow/v1/gameflow-phase`
@@ -25,8 +25,8 @@ Shown in the top bar, on every screen except Welcome (see [[Screens]]).
 
 See [[League APIs]].
 
-## Simulator scenario
-`fixtures/scenarios/synthetic-full-game`
+## How to try it
+`just dev` with the League client open and logged in: the top bar follows its phase.
 
 ## Windows validation
 - [ ] Detects the real client through the lockfile

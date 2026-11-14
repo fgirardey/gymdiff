@@ -1,6 +1,6 @@
 # Previews
 
-See a component or a screen in all its states, with fixed data, without running the simulator. Previews are written **before** the component is finished: they are the demo the component has to match (demo-driven development, like Storybook or Xcode Previews).
+See a component or a screen in all its states, with fixed data, without running the League client. Previews are written **before** the component is finished: they are the demo the component has to match (demo-driven development, like Storybook or Xcode Previews).
 
 ```sh
 just preview components/primary-button                          # gallery of ui/components/primary-button.preview.slint
@@ -47,7 +47,7 @@ Preview files are the one exception to "main item first" (see [[Code organisatio
 
 ## Data
 - Use `Fixtures.*` for values shared by several previews, and keep them identical to what Rust sends (e.g. status labels from `status_label` in `src/watcher.rs`). One-off values stay inline.
-- A preview that needs the simulator isn't a preview: use `just dev` and a scenario ([[Simulator]]).
+- A preview that needs the League client isn't a preview: use `just dev`.
 
 ## Demo-driven loop
 1. Read the feature note: list the states of the screen or component.
