@@ -26,7 +26,7 @@ Derived strings (`crates/cooldown-app/src/build_info.rs`):
 
 Releases:
 1. release-please keeps a `chore: release x.y.z` pull request open on `main`, with `CHANGELOG.md` (features, fixes, performance) and the version bumped in `Cargo.toml` and `Cargo.lock`. Before 1.0, a breaking change bumps the minor version.
-2. Merging it tags `vx.y.z` and creates the GitHub Release; `release.yml` builds that commit with channel `release`, attaches `cooldown-x.y.z-windows-x64.exe`, the recorder, `cooldown-x.y.z-macos-arm64.tar.gz` and `SHA256SUMS`, then finalizes the Sentry release and records a `production` deploy.
+2. Merging it tags `vx.y.z` and creates the GitHub Release; `release.yml` builds that commit with channel `release`, packages the Windows build with Velopack ([[ADR-0011 Windows installer and updates with Velopack]]) into the release, attaches `cooldown-x.y.z-macos-arm64.tar.gz`, then finalizes the Sentry release and records a `production` deploy. Revised 2026-11-14: the release no longer carries the bare `cooldown.exe`, the recorder or `SHA256SUMS` (the installer and its update packages cover what Windows players need); macOS stays built and attached.
 
 Symbols:
 - Release builds keep line-level debug info in a separate file (`debug = "limited"`, `split-debuginfo = "packed"`): `cooldown.pdb` on Windows, `cooldown.dSYM` on macOS. They are uploaded, never shipped.
