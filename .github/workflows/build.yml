@@ -3,7 +3,8 @@ name: Build
 # Release builds of cooldown.lol for Windows and macOS, called by ci.yml (channel `alpha`, main),
 # pr-build.yml (channel `preview`) and release.yml (channel `release`). Uploads the debug files
 # and sources to Sentry so its stack traces are symbolicated (see docs/Workflow/Releasing.md
-# and ADR-0008).
+# and ADR-0008). With `velopack-channel`, the Windows job also packages its build with Velopack
+# and builds the installer around it (ADR-0011, ADR-0012), for the caller to publish.
 
 on:
   workflow_call:
@@ -12,6 +13,10 @@ on:
         description: "`alpha` (main), `preview` (pull requests labelled `build`) or `release` (tagged release)."
         type: string
         required: true
+      velopack-channel:
+        description: "Velopack channel to package the Windows build for: `alpha` or `stable`. Empty: no package."
+        type: string
+        default: ""
     outputs:
       version:
         description: SemVer of the build, e.g. 0.2.0.
@@ -28,6 +33,7 @@ env:
   # Commit the builds are named after: the branch head on a pull request
   # (github.sha is then a temporary merge commit), the pushed commit otherwise.
   BUILD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+  REPO_URL: https://github.com/${{ github.repository }}
 
 jobs:
   build:
@@ -48,6 +54,7 @@ jobs:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       SENTRY_ORG: ${{ vars.SENTRY_ORG }}
       SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT }}
+      WINDOWS_PACKAGES: -p cooldown-app ${{ inputs.velopack-channel && '-p cooldown-installer' || '' }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -58,9 +65,11 @@ jobs:
         with:
           key: release
 
+      # The installer is built with the app when it is packaged below: one set of packages, so
+      # one build of Slint for both.
       - name: Release build (Windows)
         if: runner.os == 'Windows'
-        run: cargo build --release -p cooldown-app
+        run: cargo build --release ${{ env.WINDOWS_PACKAGES }}
       - name: Release build (macOS)
         if: runner.os == 'macOS'
         # Tarred so the binary keeps its executable bit inside the artifact zip.
@@ -100,3 +109,46 @@ jobs:
           name: cooldown-macos-${{ env.BUILD_SHA }}
           path: cooldown-macos.tar.gz
           retention-days: 14
+
+      # Velopack package of the Windows build (ADR-0011): installer, update packages and the feed
+      # of the channel, uploaded as one artifact that the caller publishes with `vpk upload`. Done
+      # here, where the dependencies of the installer are already compiled.
+      - name: Install vpk
+        if: runner.os == 'Windows' && inputs.velopack-channel
+        run: dotnet tool install --global vpk --version 1.2.161
+      # The previous package of the channel lets vpk build a delta; none before the first one.
+      - name: Download the previous package
+        if: runner.os == 'Windows' && inputs.velopack-channel
+        continue-on-error: true
+        env:
+          VPK_TOKEN: ${{ github.token }}
+        run: vpk download github --repoUrl ${{ env.REPO_URL }} --channel ${{ inputs.velopack-channel }} ${{ inputs.velopack-channel == 'alpha' && '--pre' || '' }} --outputDir releases
+      - name: Package
+        if: runner.os == 'Windows' && inputs.velopack-channel
+        env:
+          # Alpha packages are v<version>-alpha.<build>, stable ones v<version>.
+          PACK_VERSION: ${{ steps.sentry.outputs.version }}${{ inputs.velopack-channel == 'alpha' && format('-alpha.{0}', steps.sentry.outputs.build) || '' }}
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item target/release/cooldown.exe dist/
+          vpk pack --packId cooldown.lol --packVersion $env:PACK_VERSION --packDir dist --mainExe cooldown.exe --packTitle cooldown.lol --packAuthors "Florian Girardey" --icon design/brand/cooldown.ico --shortcuts None --noPortable --channel ${{ inputs.velopack-channel }} --outputDir releases
+      # Our installer window (ADR-0012) embeds Velopack's setup and takes its name, so the
+      # release offers one cooldown.lol-<channel>-Setup.exe that asks for the shortcuts. The same
+      # packages as the release build: only the installer is compiled again.
+      - name: Build the installer
+        if: runner.os == 'Windows' && inputs.velopack-channel
+        env:
+          COOLDOWN_VELOPACK_SETUP: ${{ github.workspace }}/releases/cooldown.lol-${{ inputs.velopack-channel }}-Setup.exe
+          COOLDOWN_INSTALLER_VERSION: ${{ steps.sentry.outputs.version }}${{ inputs.velopack-channel == 'alpha' && format(' (build {0})', steps.sentry.outputs.build) || '' }}
+        run: cargo build --release ${{ env.WINDOWS_PACKAGES }}
+      - name: Swap in the installer
+        if: runner.os == 'Windows' && inputs.velopack-channel
+        run: Copy-Item target/release/cooldown-installer.exe releases/cooldown.lol-${{ inputs.velopack-channel }}-Setup.exe -Force
+      - name: Upload the Velopack package
+        if: runner.os == 'Windows' && inputs.velopack-channel
+        uses: actions/upload-artifact@v4
+        with:
+          name: cooldown-velopack-${{ env.BUILD_SHA }}
+          path: releases
+          retention-days: 14
+

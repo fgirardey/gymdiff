@@ -22,14 +22,15 @@ The release holds what a player or the updater needs, plus the macOS build: no b
 To force a version (e.g. `1.0.0`), add `Release-As: 1.0.0` to the body of a commit on `main`.
 
 ## The alpha channel
-Every merge to `main` is built with channel `alpha`, then the `publish-alpha` job of `.github/workflows/ci.yml` packages it with **Velopack** on a Windows runner ([[ADR-0011 Windows installer and updates with Velopack]]):
+Every merge to `main` is built with channel `alpha`. The Windows job of `.github/workflows/build.yml` then packages its build with **Velopack** ([[ADR-0011 Windows installer and updates with Velopack]]), in the same job so the installer reuses the dependencies compiled for the app:
 1. `vpk download github --channel alpha --pre` fetches the previous alpha package, so `vpk pack` can build a delta (skipped for the first one);
 2. `vpk pack` (pack id `cooldown.lol`, version `<version>-alpha.<build>`, channel `alpha`, crest icon, no shortcuts, `--noPortable`) produces `cooldown.lol-alpha-Setup.exe`, the full and delta `.nupkg` packages and the feed `releases.alpha.json`;
-3. `cargo build --release -p cooldown-installer`, with `COOLDOWN_VELOPACK_SETUP` pointing at Velopack's setup, builds our installer window around it ([[ADR-0012 Installer window in Slint over Velopack]]), which then replaces `cooldown.lol-alpha-Setup.exe`;
-4. `vpk upload github --publish --pre` attaches everything to a new pre-release `v<version>-alpha.<build>`;
-5. `.github/scripts/prune-alphas.mjs` keeps the last 10 alpha releases.
+3. the release build runs again with `COOLDOWN_VELOPACK_SETUP` pointing at Velopack's setup: only `cooldown-installer` is compiled again, our installer window around that setup ([[ADR-0012 Installer window in Slint over Velopack]]), which then replaces `cooldown.lol-alpha-Setup.exe`. The app and the installer are always built by one `cargo build` with the same `-p` list, so Slint is compiled once for both;
+4. the `releases` folder is uploaded as the artifact `cooldown-velopack-<sha>`.
 
-Installed alpha builds read `releases.alpha.json` and update themselves ([[Auto-update]], [[Installation]]). Tagged releases get the same packages on channel `stable` (job `package-windows` of `release.yml`, merged into the release-please release). `vpk` is a .NET tool pinned to the version of the `velopack` crate (1.2.161): bump both together.
+The `publish-alpha` job of `.github/workflows/ci.yml` then downloads that artifact, `vpk upload github --publish --pre` attaches everything to a new pre-release `v<version>-alpha.<build>`, and `.github/scripts/prune-alphas.mjs` keeps the last 10 alpha releases.
+
+Installed alpha builds read `releases.alpha.json` and update themselves ([[Auto-update]], [[Installation]]). Tagged releases get the same packages on channel `stable`: `build.yml` packages them (input `velopack-channel`, empty for pull request builds, which are not packaged) and the `package-windows` job of `release.yml` merges them into the release-please release. `vpk` is a .NET tool pinned to the version of the `velopack` crate (1.2.161): bump both together.
 
 Testing an update needs a build installed by the installer, so it happens on the Windows PC after a merge.
 
