@@ -1,0 +1,96 @@
+// Previews of HistoryRefresh: `just preview screens/history-refresh`.
+
+import { Theme } from "../theme.slint";
+import { HistoryRefresh } from "history-refresh.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
+
+// Pencil frame `History refresh`.
+export component HistoryRefreshIdle inherits Rectangle {
+    width: 165px;
+    height: 32px;
+    background: Theme.background;
+
+    HistoryRefresh { updated: "Updated 2 min ago"; }
+}
+
+// Pencil frame `History refresh / Updating`.
+export component HistoryRefreshUpdating inherits Rectangle {
+    width: 165px;
+    height: 32px;
+    background: Theme.background;
+
+    HistoryRefresh {
+        updated: "Updated 2 min ago";
+        refreshing: true;
+    }
+}
+
+// Pencil frame `History refresh / Offline`.
+export component HistoryRefreshOffline inherits Rectangle {
+    width: 165px;
+    height: 32px;
+    background: Theme.background;
+
+    HistoryRefresh {
+        updated: "Updated 2 h ago";
+        enabled: false;
+    }
+}
+
+// Edit the knobs in the live preview's Data tab; clicks show as the last action.
+export component HistoryRefreshPlayground inherits Window {
+    in-out property <string> updated: "Updated just now";
+    in-out property <bool> refreshing;
+    in-out property <bool> enabled: true;
+
+    background: Theme.background;
+    preferred-width: 300px;
+
+    playground := PreviewPlayground {
+        HorizontalLayout {
+            alignment: start;
+            HistoryRefresh {
+                updated: root.updated;
+                refreshing: root.refreshing;
+                enabled: root.enabled;
+                clicked => { playground.log("clicked"); }
+            }
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "HistoryRefresh";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "History refresh";
+            HistoryRefreshIdle { }
+        }
+
+        PreviewCase {
+            label: "History refresh / Updating";
+            HistoryRefreshUpdating { }
+        }
+
+        PreviewCase {
+            label: "History refresh / Offline";
+            HistoryRefreshOffline { }
+        }
+
+        PreviewCase {
+            label: "Before the first read";
+            HorizontalLayout {
+                alignment: start;
+                HistoryRefresh { }
+            }
+        }
+    }
+}

@@ -28,6 +28,13 @@ The screen's title row holds "HISTORY", a **view switch** and a one-line legend 
 
 The view picked stays while the app runs; it is not saved.
 
+### Refresh
+At the right end of the title row, after the legend and a short divider: when History was last read from the League client, and a **refresh button** (32 px square, `surface` with a `border` outline, the Lucide refresh icon in `text-secondary`) that reads it again now (see [[#Games from before cooldown.lol]]).
+- Label, `text-secondary`: "Updated just now", "Updated 2 min ago", "Updated 3 h ago", "Updated 2 d ago", counted from the end of the last read in this run of the app and kept current while the window is open. Nothing before the first read.
+- While a read runs (from the button, at connection or after a game): "Updating…", button disabled.
+- Without the League client: button disabled, the label stays.
+- History also refreshes on its own, so the button is for when the player does not want to wait (or doubts it worked). There is no timer: nothing counts down to the next read.
+
 ### Session header
 Each session starts with a **header** line, not a panel: the label (display font, e.g. "TODAY · #1") on the left, then chips on the right:
 - a summary chip: "x of y workouts done" in the session's colour on a tint of it, partial workouts counting as not done (see the table); for a session of games from before cooldown.lol, "5 games · before cooldown.lol" in `text-secondary` on `surface`;
@@ -63,7 +70,7 @@ When cooldown.lol connects to the League client, it reads the **active summoner*
 - On first launch the client usually has recent games, so History opens already filled with these neutral sessions instead of the empty state.
 - Imported games from modes out of scope are not stored, and not shown (see above).
 - Kept from the match history: result, champion, role (when Riot detected one), K/D/A, queue, start and length, and the stats the [[Workout formula]] needs (CS, vision score, damage to champions, and the team's kills and damage to champions for damage share and kill participation). No linked champion. The current-summoner list only describes the player, so the team totals come from the game's detail (`GET /lol-match-history/v1/games/{gameId}`): only the two team sums are kept, never another player's stats or name.
-- The import runs once per client connection (retrying every 10 s until the player is logged in) and stores only games not stored yet (by game id). It also completes a game stored without its stats by an earlier version when the client lists it again. A game cooldown.lol tracked itself is never replaced by its imported copy.
+- The import runs when cooldown.lol connects to the client (retrying every 10 s until the player is logged in), and again when a game ends: on reaching the end-of-game screen, and on leaving the post-game phases, since the client's match history may list the game a little later. Until the [[Post-game workout]] is built, this is how a game played while cooldown.lol is open shows up (as *Skipped*). It stores only games not stored yet (by game id). It also completes a game stored without its stats by an earlier version when the client lists it again. A game cooldown.lol tracked itself is never replaced by its imported copy.
 - The champion names and portraits come from Data Dragon, downloaded in the background ([[ADR-0004 Champion images from Data Dragon]]): until an image is there, the row shows the champion's initials.
 - Built so far: both views, the neutral session headers, the *Skipped* rows with their details and the muted "No workout" rows. The "x of y workouts done" chip, the *Pending/Partial/Done* rows and the "Computing" row come with the post-game workout.
 - The match history of the client is limited (recent games only, see [[#Open questions]]): older games cannot be recovered.
@@ -83,13 +90,13 @@ When cooldown.lol connects to the League client, it reads the **active summoner*
 - Sessions are computed from the stored games (pure function in `cooldown-core`), never stored.
 
 ## Design
-Pencil frames `History / Main / Before cooldown.lol`, `History / Main / Empty`, `History / Main / Nominal`, `History / Main / Game expanded`, `History / Main / Computing`, `History / Main / No workout`, and the `History / Main / … (desktop)` frames of both views, built from the `Session header / *` and `Game row / *` components and the `Stat icon / *` pictograms. See [[Screens#Frames]].
+The refresh is the `History refresh` component and its `/ Updating`, `/ Offline` and `/ Hover` variants (`History components`), placed in every title row. Pencil frames `History / Main / Before cooldown.lol`, `History / Main / Empty`, `History / Main / Nominal`, `History / Main / Game expanded`, `History / Main / Computing`, `History / Main / No workout`, and the `History / Main / … (desktop)` frames of both views, built from the `Session header / *` and `Game row / *` components and the `Stat icon / *` pictograms. See [[Screens#Frames]].
 
 ## Compliance
 Only the local player's own games, after they end (live ones and the client's match history of the active summoner). Never other players' games or names, nothing during a game, no call to the Riot API.
 
 ## How to try it
-`just dev` with the League client open and logged in: History fills from its match history. A throwaway data folder (`COOLDOWN_DATA_DIR=$(mktemp -d) just dev`) shows the first opening. A later game is seen when its end-of-game stats are read.
+`just dev` with the League client open and logged in: History fills from its match history. A throwaway data folder (`COOLDOWN_DATA_DIR=$(mktemp -d) just dev`) shows the first opening. Finish a game: History lists it once the end-of-game screen shows, or once back in the lobby. The refresh button reads the match history at once.
 
 ## Windows validation
 - [ ] History survives an app restart
@@ -97,6 +104,8 @@ Only the local player's own games, after they end (live ones and the client's ma
 - [ ] `history.sqlite` in `%APPDATA%\cooldown.lol\`, and gone with the folder when uninstalling with "Also delete my settings"
 - [ ] Games played before the install appear as *Skipped* cards with their computed amounts, newest first, in sessions with a neutral header
 - [ ] Reconnecting the client does not duplicate them
+- [ ] A game played while cooldown.lol is open appears after the end-of-game screen, without restarting anything
+- [ ] The refresh button shows "Updating…", then "Updated just now", and is disabled without the client
 - [ ] How many past games the client really returns (see open questions)
 
 ## Open questions

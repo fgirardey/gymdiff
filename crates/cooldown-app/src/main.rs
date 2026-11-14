@@ -18,6 +18,7 @@ mod build_info;
 mod champion_catalog;
 mod debug_events;
 mod history_import;
+mod history_refresh;
 mod history_screen;
 mod history_store;
 mod history_view;
@@ -136,6 +137,10 @@ fn main() -> anyhow::Result<()> {
     window.on_debug_event(|kind| debug_events::fire(kind.as_str()));
 
     let history_screen = start_history(&window, &data_dir);
+    // Kept alive until exit: it keeps "Updated … ago" current.
+    let _history_label_timer = history_screen
+        .as_ref()
+        .map(|history| history.refresh().bind(&window));
 
     let weak = window.as_weak();
     std::thread::Builder::new()

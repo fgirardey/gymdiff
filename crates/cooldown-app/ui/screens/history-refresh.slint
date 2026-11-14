@@ -1,0 +1,88 @@
+// The History refresh, at the right end of the title row: when History was last read from the
+// League client, and a button to read it again now.
+//
+// Frames in design/cooldown.pen: `History refresh`, `History refresh / Updating`,
+// `History refresh / Offline` and `History refresh / Hover` (History components).
+
+import { Theme } from "../theme.slint";
+import { Icon } from "../components/icon.slint";
+import { StateLayer } from "../components/state-layer.slint";
+
+export component HistoryRefresh inherits HorizontalLayout {
+    /// "Updated 2 min ago"; empty before the first read.
+    in property <string> updated;
+    /// A read is running: "Updating…", button disabled.
+    in property <bool> refreshing;
+    /// The client is there to read from.
+    in property <bool> enabled: true;
+    callback clicked;
+
+    property <bool> can-click: root.enabled && !root.refreshing;
+
+    spacing: Theme.space-m;
+    alignment: end;
+
+    VerticalLayout {
+        alignment: center;
+        Rectangle {
+            width: 1px;
+            height: 16px;
+            background: Theme.border;
+        }
+    }
+
+    HorizontalLayout {
+        spacing: Theme.space-s;
+
+        if root.refreshing || root.updated != "": Text {
+            font-family: Theme.font-body;
+            text: root.refreshing ? "Updating…" : root.updated;
+            color: Theme.text-secondary;
+            font-size: Theme.font-size-caption;
+            vertical-alignment: center;
+        }
+
+        VerticalLayout {
+            alignment: center;
+
+            button := Rectangle {
+                width: 32px;
+                height: 32px;
+                background: Theme.surface;
+                border-width: 1px;
+                border-color: Theme.border;
+                border-radius: Theme.radius-m;
+                opacity: root.can-click ? 1 : Theme.disabled-opacity;
+                transform-scale: touch.pressed ? Theme.press-scale : 1;
+                animate transform-scale {
+                    duration: Theme.motion-fast;
+                    easing: ease-out;
+                }
+
+                StateLayer {
+                    border-radius: parent.border-radius;
+                    tint: Theme.text-primary;
+                    hovered: touch.has-hover;
+                    pressed: touch.pressed;
+                }
+
+                Icon {
+                    source: @image-url("../images/icons/refresh-cw.svg");
+                    width: 16px;
+                    height: 16px;
+                    colorize: touch.has-hover ? Theme.text-primary : Theme.text-secondary;
+                    animate colorize {
+                        duration: Theme.motion-fast;
+                        easing: ease-out;
+                    }
+                }
+
+                touch := TouchArea {
+                    enabled: root.can-click;
+                    mouse-cursor: root.can-click ? pointer : default;
+                    clicked => { root.clicked(); }
+                }
+            }
+        }
+    }
+}

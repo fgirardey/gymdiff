@@ -1,5 +1,5 @@
-// History screen with games: the title row with the view switch, then the sessions, newest
-// first, each a header and one row per game.
+// History screen with games: the title row with the view switch and the refresh, then the
+// sessions, newest first, each a header and one row per game.
 //
 // Frames in design/cooldown.pen: `History / Main / Before cooldown.lol`,
 // `History / Main / Games view (desktop)`, `History / Main / Workouts view (desktop)`.
@@ -9,11 +9,19 @@ import { SessionData } from "../models.slint";
 import { ViewSwitch } from "../components/view-switch.slint";
 import { SessionHeader } from "../components/session-header.slint";
 import { GameRow } from "../components/game-row.slint";
+import { HistoryRefresh } from "history-refresh.slint";
 
 export component HistorySessions inherits VerticalLayout {
     in property <[SessionData]> sessions;
     /// The Workouts view is shown; the Games view otherwise.
     in-out property <bool> workouts;
+    /// The refresh at the end of the title row: "Updated 2 min ago", a read running, the client
+    /// there to read from.
+    in property <string> updated;
+    in property <bool> refreshing;
+    in property <bool> can-refresh: true;
+    /// The player asked to read the client's match history again.
+    callback refresh;
 
     padding-top: 20px;
     padding-left: Theme.space-xl;
@@ -56,6 +64,16 @@ export component HistorySessions inherits VerticalLayout {
             color: Theme.text-secondary;
             font-size: Theme.font-size-caption;
             vertical-alignment: center;
+            // Against the refresh: the push takes the free space.
+            horizontal-stretch: 0;
+        }
+
+        HistoryRefresh {
+            horizontal-stretch: 0;
+            updated: root.updated;
+            refreshing: root.refreshing;
+            enabled: root.can-refresh;
+            clicked => { root.refresh(); }
         }
     }
 
