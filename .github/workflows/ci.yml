@@ -48,9 +48,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
+    env:
+      # No debug info: faster builds and links, and a much smaller cache. A failing test still
+      # says where it panicked; only its backtrace loses its symbols.
+      CARGO_PROFILE_DEV_DEBUG: 0
     steps:
       - uses: actions/checkout@v5
+      # Only main writes the cache: pull requests read it, and do not fill the 10 GB of the
+      # repository with their own copies.
       - uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Clippy
         run: cargo clippy --workspace --all-targets -- -D warnings
       - name: Tests
@@ -65,9 +73,10 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       channel: alpha
+      velopack-channel: ${{ github.ref == 'refs/heads/main' && 'alpha' || '' }}
     secrets: inherit
 
-  # Packages the Windows build of main with Velopack and publishes it as its own pre-release,
+  # Publishes the Velopack package of main (built by build.yml) as its own pre-release,
   # v<version>-alpha.<build>: installer, update packages and the alpha feed, where installed alpha
   # builds look for updates (ADR-0011, docs/Workflow/Releasing.md). Keeps the last 10.
   publish-alpha:
@@ -81,32 +90,15 @@ jobs:
       REPO_URL: https://github.com/${{ github.repository }}
       VPK_TOKEN: ${{ github.token }}
     steps:
-      # The whole repository: the installer is built here, around the package.
       - uses: actions/checkout@v5
-      - uses: Swatinem/rust-cache@v2
         with:
-          key: installer
+          sparse-checkout: .github/scripts
       - uses: actions/download-artifact@v5
         with:
-          name: cooldown-windows-${{ github.sha }}
-          path: dist
+          name: cooldown-velopack-${{ github.sha }}
+          path: releases
       - name: Install vpk
         run: dotnet tool install --global vpk --version 1.2.161
-      # The previous alpha package lets vpk build a delta; none before the first Velopack alpha.
-      - name: Download the previous alpha
-        continue-on-error: true
-        run: vpk download github --repoUrl $env:REPO_URL --channel alpha --pre --outputDir releases
-      - name: Package
-        run: vpk pack --packId cooldown.lol --packVersion $env:PACK_VERSION --packDir dist --mainExe cooldown.exe --packTitle cooldown.lol --packAuthors "Florian Girardey" --icon design/brand/cooldown.ico --shortcuts None --noPortable --channel alpha --outputDir releases
-      # Our installer window (ADR-0012) embeds Velopack's setup and takes its name, so the
-      # release offers one cooldown.lol-alpha-Setup.exe that asks for the shortcuts.
-      - name: Build the installer
-        env:
-          COOLDOWN_VELOPACK_SETUP: ${{ github.workspace }}/releases/cooldown.lol-alpha-Setup.exe
-          COOLDOWN_INSTALLER_VERSION: ${{ needs.build.outputs.version }} (build ${{ needs.build.outputs.build }})
-        run: cargo build --release -p cooldown-installer
-      - name: Swap in the installer
-        run: Copy-Item target/release/cooldown-installer.exe releases/cooldown.lol-alpha-Setup.exe -Force
       - name: Publish
         run: vpk upload github --repoUrl $env:REPO_URL --channel alpha --outputDir releases --publish --pre --releaseName "v$env:PACK_VERSION" --tag "v$env:PACK_VERSION" --targetCommitish ${{ github.sha }}
       - name: Keep the last 10 alpha releases
