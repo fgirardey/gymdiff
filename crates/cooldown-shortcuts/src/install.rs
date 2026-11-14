@@ -15,8 +15,8 @@ pub fn install_root() -> Option<PathBuf> {
         .map(|folder| folder.join(PACK_ID))
 }
 
-/// Velopack's launcher, `%LOCALAPPDATA%\cooldown.lol\cooldown.exe`: it starts the
-/// current version with the arguments it gets, and stays in place across
+/// Velopack's launcher, `%LOCALAPPDATA%\cooldown.lol\cooldown.lol.exe`: it starts
+/// the current version with the arguments it gets, and stays in place across
 /// updates.
 #[must_use]
 pub fn launcher() -> Option<PathBuf> {
@@ -45,8 +45,9 @@ pub(crate) fn unsupported() -> io::Error {
 
 /// Velopack's pack id (`vpk pack --packId`), also the install folder's name.
 const PACK_ID: &str = "cooldown.lol";
-/// Velopack's stub at the install root.
-const LAUNCHER: &str = "cooldown.exe";
+/// Velopack's stub at the install root, named after the pack id, not after
+/// `--mainExe` (`setup` logs "Extracting stub ... to ...\cooldown.lol.exe").
+const LAUNCHER: &str = "cooldown.lol.exe";
 const UPDATE_EXE: &str = "Update.exe";
 const CURRENT_EXECUTABLE: &str = "current\\cooldown.exe";
 
@@ -67,7 +68,7 @@ mod tests {
     fn everything_lives_in_the_install_root() {
         let root = install_root().unwrap();
         assert!(root.ends_with("cooldown.lol"));
-        assert_eq!(launcher().unwrap(), root.join("cooldown.exe"));
+        assert_eq!(launcher().unwrap(), root.join("cooldown.lol.exe"));
         assert_eq!(update_exe().unwrap(), root.join("Update.exe"));
     }
 }
