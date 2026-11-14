@@ -8,9 +8,13 @@
 //! - everything must be unit-testable on any machine.
 
 pub mod event;
+pub mod game;
 pub mod phase;
+pub mod session;
 pub mod state;
 
 pub use event::Event;
+pub use game::{Game, GameResult, GameSource, NoWorkoutReason, Role};
 pub use phase::GamePhase;
+pub use session::{Session, group_into_sessions};
 pub use state::{CompanionState, ConnectionStatus};

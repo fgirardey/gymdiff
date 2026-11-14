@@ -17,10 +17,14 @@ mod error;
 mod http_client;
 pub mod live_client;
 pub mod lockfile;
+pub mod match_history;
 mod raw;
+pub mod summoner;
 
 pub use client::LolClient;
 pub use error::LolError;
 pub use http_client::{DEFAULT_LIVE_CLIENT_URL, HttpLolClient};
 pub use lockfile::Lockfile;
+pub use match_history::MatchHistory;
 pub use raw::Api;
+pub use summoner::Summoner;

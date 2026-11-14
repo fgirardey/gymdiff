@@ -40,6 +40,8 @@ cargo run -p gymdiff-simulator -- --help
 }
 ```
 
+The simulator serves a path whatever its query string. `synthetic-full-game` also answers `/lol-summoner/v1/current-summoner` and `/lol-match-history/v1/products/lol/current-summoner/matches` from its first step: five older games in two sessions, one ARAM game and one remake, for [[History#Games from before GymDiff]].
+
 | Field | Meaning |
 |---|---|
 | `synthetic` | `true` if hand-written, `false` if recorded from a real session |

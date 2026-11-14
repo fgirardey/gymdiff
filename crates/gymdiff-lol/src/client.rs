@@ -2,10 +2,11 @@
 
 use std::future::Future;
 
-use gymdiff_core::GamePhase;
+use gymdiff_core::{Game, GamePhase};
 
 use crate::LolError;
 use crate::live_client::GameStats;
+use crate::summoner::Summoner;
 
 /// Read access to the League client. Implemented by [`crate::HttpLolClient`] for both
 /// the real client and the simulator; tests can provide in-memory fakes.
@@ -15,4 +16,16 @@ pub trait LolClient: Send + Sync {
 
     /// `GET /liveclientdata/gamestats`. `Ok(None)` when no game is running.
     fn game_stats(&self) -> impl Future<Output = Result<Option<GameStats>, LolError>> + Send;
+
+    /// `GET /lol-summoner/v1/current-summoner` (LCU). `Ok(None)` while nobody is logged in.
+    fn current_summoner(&self) -> impl Future<Output = Result<Option<Summoner>, LolError>> + Send;
+
+    /// `GET /lol-match-history/v1/products/lol/current-summoner/matches` (LCU): the games at
+    /// positions `beg_index..end_index` of the active summoner's history, newest first, as
+    /// imported games. An empty list means there are no more games (or no history yet).
+    fn match_history(
+        &self,
+        beg_index: u32,
+        end_index: u32,
+    ) -> impl Future<Output = Result<Vec<Game>, LolError>> + Send;
 }

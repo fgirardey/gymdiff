@@ -33,6 +33,7 @@ Open the `docs/` folder as an **Obsidian vault**. This vault is the written memo
 - [[ADR-0011 Windows installer and updates with Velopack]]
 - [[ADR-0012 Installer window in Slint over Velopack]]
 - [[ADR-0013 Notification area, startup and uninstall from the app]]
+- [[ADR-0014 Import past games from the client]]
 
 ## Workflow
 - [[Development]] — the daily loop on macOS
