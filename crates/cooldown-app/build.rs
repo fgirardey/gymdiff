@@ -130,8 +130,7 @@ fn rustc_version() -> String {
         .ok()
         .filter(|output| output.status.success())
         .and_then(|output| String::from_utf8(output.stdout).ok())
-        .map(|version| version.trim().to_owned())
-        .unwrap_or_default()
+        .map_or_else(String::new, |version| version.trim().to_owned())
 }
 
 /// Output of a `git` command, trimmed; `None` if git is missing or fails.
