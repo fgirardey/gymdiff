@@ -37,7 +37,8 @@ export component SettingsUninstallDialog inherits Rectangle {
             spacing: Theme.space-m;
 
             Text {
-                text: "UNINSTALL COOLDOWN?";
+                font-family: Theme.font-display;
+                text: "UNINSTALL COOLDOWN.LOL?";
                 color: Theme.text-primary;
                 font-size: Theme.font-size-title;
                 font-weight: 800;
@@ -46,6 +47,7 @@ export component SettingsUninstallDialog inherits Rectangle {
             }
 
             Text {
+                font-family: Theme.font-body;
                 text: "cooldown.lol closes, then its app, shortcuts and logs are removed from this PC.";
                 color: Theme.text-secondary;
                 font-size: Theme.font-size-body;
@@ -53,6 +55,7 @@ export component SettingsUninstallDialog inherits Rectangle {
             }
 
             if root.failed: Text {
+                font-family: Theme.font-body;
                 text: "The uninstaller could not start. Uninstall from Windows Settings → Apps → cooldown.lol instead.";
                 color: Theme.danger;
                 font-size: Theme.font-size-body;

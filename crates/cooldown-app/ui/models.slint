@@ -1,38 +1,118 @@
 // Structs shared by the screens and the previews; Rust fills them (see src/history_view.rs).
+// Slint resolves names in declaration order: each struct comes after the ones it uses.
 
-/// One game of the History screen. A game with a workout shows its amounts; one without
-/// (`has-workout` false) shows the muted card with `reason`.
-export struct GameCardData {
+/// A stat behind an exercise, for its pictogram.
+export enum StatKind {
+    cs-per-minute,
+    damage-share,
+    kill-participation,
+    vision-per-minute,
+    deaths,
+}
+
+/// A piece of an exercise's formula: an operator ("(", "×", "−", ")", "÷"), or a number with its
+/// caption.
+export struct TermData {
+    operator: bool,
+    text: string,
+    /// "target CS / min", "your CS", "CS per burpee".
+    caption: string,
+    /// The player's own value under target: red.
+    under: bool,
+    /// The formula's constant (per burpee, per death): green.
+    factor: bool,
+}
+
+/// A stat of the Games view: its value and a gauge with the role's target.
+export struct StatData {
+    /// "8.5", "24 %".
+    value: string,
+    /// Under the role's target: the value and the gauge are red.
+    under: bool,
+    /// The gauge's filled part, 0 to 1.
+    fill: float,
+    /// Only the stats the formula judges for the role have a target.
+    has-target: bool,
+    /// Where the target tick sits on the gauge, 0 to 1.
+    target: float,
+}
+
+/// One exercise of a game: the stat that pays for it and the amount due.
+export struct ExerciseData {
+    /// "BURPEES".
+    name: string,
+    /// "Main stat · CS per minute".
+    pays-for: string,
+    stat: StatKind,
+    /// "CS per minute", "Deaths".
+    stat-label: string,
+    /// "3.0", "19 %", "7".
+    value: string,
+    /// "/ 8.0", "/ 28 %", "× 10 s".
+    target: string,
+    /// "−171 CS", "−9 pts", or empty on target.
+    gap: string,
+    under: bool,
+    done: int,
+    due: int,
+    /// "s" for the plank, empty for repetitions.
+    unit: string,
+    /// "burpees", "squats", "plank".
+    unit-label: string,
+    /// The game's cap applied: "max 30".
+    capped: bool,
+    cap-label: string,
+    /// The formula, left of the "=": operators and numbers with their captions.
+    terms: [TermData],
+}
+
+/// One game row of the History screen, for both views (Games and Workouts).
+export struct GameRowData {
     /// The champion played; the initials stand in until the image is downloaded (ADR-0004).
     champion-image: image,
     has-champion-image: bool,
     champion-initials: string,
+    champion-name: string,
     /// League's position symbol, hidden when the role is unknown.
     role-icon: image,
     has-role: bool,
+    /// "Bottom", or "Role not detected".
+    role-name: string,
+    /// "Ranked Solo/Duo".
+    queue: string,
     /// "WIN", "LOSS" or "REMAKE".
     result-label: string,
     win: bool,
-    /// "9/3/7".
-    kda: string,
+    remake: bool,
+    /// "34:12".
+    length: string,
+    kills: int,
+    deaths: int,
+    assists: int,
+    /// "1.1 KDA".
+    kda-ratio: string,
+    /// The Games view's stats: CS per minute, damage share, kill participation, vision per
+    /// minute. Empty when the game's stats could not be read.
+    stats: [StatData],
+    /// "SKIPPED" or "NO WORKOUT".
+    status: string,
     has-workout: bool,
-    burpees-done: int,
-    burpees-due: int,
-    squats-done: int,
-    squats-due: int,
-    plank-done: int,
-    plank-due: int,
-    /// Muted card only: "Remake", "Couldn't detect your role".
+    /// Without workout only: "Remake", "Couldn't detect your role".
     reason: string,
+    /// Burpees, squats, plank: the Workouts view's columns and the expanded details. Empty
+    /// without workout.
+    exercises: [ExerciseData],
 }
 
-/// A run of games with its header. `neutral` sessions (games from before cooldown.lol) have no ring
-/// and no totals.
+/// A run of games with its header. `neutral` sessions (games from before cooldown.lol) have no
+/// workout progress.
 export struct SessionData {
     /// "TODAY · #1".
     label: string,
-    /// "5 games · before cooldown.lol".
+    /// "3 games · before cooldown.lol".
     subtitle: string,
     neutral: bool,
-    games: [GameCardData],
+    wins: int,
+    losses: int,
+    games: [GameRowData],
 }

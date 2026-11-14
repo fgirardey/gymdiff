@@ -1,0 +1,82 @@
+// The game part of a History row: champion portrait, champion name, then the queue (Games
+// view) or the role (Workouts view), and the result with the game's length.
+//
+// `Game` of the `Game row / *` components in design/cooldown.pen. The linked champion of the
+// portrait is not shown yet (docs/Product/Champion portraits.md): its space stays empty.
+
+import { Theme } from "../theme.slint";
+import { GameRowData } from "../models.slint";
+import { ChampionPortrait } from "champion-portrait.slint";
+
+export component GameSummary inherits HorizontalLayout {
+    in property <GameRowData> game;
+    /// Workouts view: the role instead of the queue, and the K/D/A next to the length.
+    in property <bool> workouts;
+
+    width: 220px;
+    spacing: 12px;
+    alignment: start;
+
+    Rectangle {
+        width: 76px;
+        height: 54px;
+        y: (parent.height - self.height) / 2;
+
+        ChampionPortrait {
+            x: 0px;
+            y: 0px;
+            image: root.game.champion-image;
+            has-image: root.game.has-champion-image;
+            initials: root.game.champion-initials;
+            role-icon: root.game.role-icon;
+            has-role: root.game.has-role;
+        }
+    }
+
+    VerticalLayout {
+        spacing: 1px;
+        alignment: center;
+
+        Text {
+            font-family: Theme.font-body;
+            text: root.game.champion-name;
+            color: Theme.text-primary;
+            font-size: Theme.font-size-body;
+            font-weight: 600;
+            overflow: elide;
+        }
+
+        Text {
+            font-family: Theme.font-body;
+            text: root.workouts ? root.game.role-name : root.game.queue;
+            color: Theme.text-secondary;
+            font-size: Theme.font-size-caption;
+            overflow: elide;
+        }
+
+        HorizontalLayout {
+            spacing: 6px;
+            alignment: start;
+
+            Text {
+                font-family: Theme.font-display;
+                text: root.game.result-label;
+                color: root.game.remake ? Theme.text-secondary : root.game.win ? Theme.info : Theme.danger;
+                font-size: Theme.font-size-body;
+                font-weight: 800;
+                font-italic: true;
+                vertical-alignment: center;
+            }
+
+            Text {
+                font-family: Theme.font-body;
+                text: root.workouts
+                    ? root.game.kills + "/" + root.game.deaths + "/" + root.game.assists + " · " + root.game.length
+                    : root.game.length;
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-caption;
+                vertical-alignment: center;
+            }
+        }
+    }
+}

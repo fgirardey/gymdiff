@@ -47,7 +47,7 @@ Works like a matchmaking "match found" prompt: one obvious action, readable at a
   - two text actions: **Later** (closes the prompt, the workout stays *Pending*) and **Skip workout** (every exercise recorded as 0 done, status *Skipped*);
   - "Listen to your body. Skip anything that hurts." (no health claim).
 - No countdown: the prompt waits for the player.
-- There is no overview screen: why each number is due (stat, actual value, target, cap) is shown in each step and in the expanded History card ([[History#Workout cards]]).
+- There is no overview screen: why each number is due (stat, actual value, target, cap) is shown in each step and in the details of a History row ([[History#Game rows]]).
 
 #### Steps
 - After **Start workout**, the steps open as a sheet over History: full width, from under the top bar to the bottom of the window, over a dimmed History; header "POST-GAME WORKOUT" and a close button (×). See [[Screens#Layout]].

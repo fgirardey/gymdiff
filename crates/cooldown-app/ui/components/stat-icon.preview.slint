@@ -1,0 +1,49 @@
+// Previews of StatIcon: `just preview components/stat-icon`.
+
+import { Theme } from "../theme.slint";
+import { StatIcon } from "stat-icon.slint";
+import { StatKind } from "../models.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// Pencil components `Stat icon / *`, side by side.
+export component StatIconAll inherits Rectangle {
+    width: 160px;
+    height: 32px;
+    background: Theme.surface;
+
+    HorizontalLayout {
+        padding: Theme.space-s;
+        spacing: Theme.space-m;
+        alignment: start;
+        StatIcon { kind: StatKind.cs-per-minute; }
+        StatIcon { kind: StatKind.damage-share; }
+        StatIcon { kind: StatKind.kill-participation; }
+        StatIcon { kind: StatKind.vision-per-minute; }
+        StatIcon { kind: StatKind.deaths; }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "StatIcon";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Stat icon / Farming, Damage share, Kill participation, Vision, Deaths";
+            StatIconAll { }
+        }
+
+        PreviewCase {
+            label: "20 px, text-primary";
+            HorizontalLayout {
+                alignment: start;
+                StatIcon { kind: StatKind.cs-per-minute; width: 20px; height: 20px; tint: Theme.text-primary; }
+            }
+        }
+    }
+}

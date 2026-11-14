@@ -40,7 +40,7 @@ Layout of `crates/cooldown-app/ui/`:
 | `installer-step.slint` | `InstallerStep` enum (which step the installer shows). |
 | `installer/` | The installer's screen (`installer-screen.slint`), one story per installer frame. |
 | `theme.slint`, `role-icons.slint` | Globals: design tokens ([[Tokens]]), bundled images. |
-| `components/` | Reusable widgets with no app knowledge (`Icon`, `Crest`, `PrimaryButton`, `BackLink`). |
+| `components/` | Reusable widgets with no app knowledge (`Icon`, `Mark`, `PrimaryButton`, `BackLink`). |
 | `shell/` | The app shell around the screens (`AppShell`, `TopBar` and its parts). Pencil: `App shell / …`. |
 | `screens/` | One file per screen, plus its private parts (`welcome-rule.slint`). |
 | `*.preview.slint` | Next to each component, shell part, screen, installer screen, `app-window.slint` and `installer-window.slint`: its stories and `Preview` gallery. See [[Previews]]. Never imported by the app. |

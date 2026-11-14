@@ -1,0 +1,78 @@
+// A stat of the Games view: pictogram, value, a gauge with the role's target tick, and the
+// stat's name. Red when under the target.
+//
+// `Stat · *` columns of the `Game row / Games / *` components in design/cooldown.pen.
+
+import { Theme } from "../theme.slint";
+import { StatData, StatKind } from "../models.slint";
+import { StatIcon } from "stat-icon.slint";
+
+export component StatGauge inherits VerticalLayout {
+    in property <StatKind> kind;
+    in property <StatData> stat;
+    /// "CS per minute".
+    in property <string> caption;
+    /// False when the game's stats could not be read: a dash instead of the value.
+    in property <bool> known: true;
+
+    property <color> tone: root.known && root.stat.under ? Theme.danger : Theme.text-primary;
+
+    spacing: 5px;
+    alignment: center;
+
+    HorizontalLayout {
+        spacing: 6px;
+        alignment: start;
+
+        StatIcon {
+            kind: root.kind;
+            width: 20px;
+            height: 20px;
+            y: (parent.height - self.height) / 2;
+        }
+
+        // 40 px in the design, in Barlow Condensed; wider with the system font until it is bundled.
+        Text {
+            font-family: Theme.font-display;
+            min-width: 40px;
+            text: root.known ? root.stat.value : "—";
+            color: root.tone;
+            font-size: Theme.font-size-title;
+            font-weight: 800;
+            font-italic: true;
+            vertical-alignment: center;
+        }
+
+        // The track; the tick marks the role's target.
+        if root.known: Rectangle {
+            width: 62px;
+            height: 6px;
+            y: (parent.height - self.height) / 2;
+            border-radius: self.height / 2;
+            background: Theme.border;
+
+            Rectangle {
+                x: 0px;
+                width: parent.width * root.stat.fill;
+                border-radius: parent.border-radius;
+                background: root.tone;
+            }
+
+            if root.stat.has-target: Rectangle {
+                x: parent.width * root.stat.target - self.width / 2;
+                y: -3px;
+                width: 2px;
+                height: 12px;
+                border-radius: self.width / 2;
+                background: Theme.text-secondary;
+            }
+        }
+    }
+
+    Text {
+        font-family: Theme.font-body;
+        text: root.caption;
+        color: Theme.text-secondary;
+        font-size: Theme.font-size-caption;
+    }
+}

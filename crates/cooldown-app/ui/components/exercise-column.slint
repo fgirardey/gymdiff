@@ -1,0 +1,139 @@
+// An exercise of the Workouts view: the stat behind it (value, target, gap), an arrow, then the
+// amount done over due with a bar, and the cap when the game hit it.
+//
+// `Exercise B / S / P` of the `Game row / Workouts / *` components in design/cooldown.pen.
+
+import { Theme } from "../theme.slint";
+import { ExerciseData } from "../models.slint";
+import { Icon } from "icon.slint";
+import { StatIcon } from "stat-icon.slint";
+
+export component ExerciseColumn inherits HorizontalLayout {
+    in property <ExerciseData> exercise;
+    /// Burpee, squat or plank pictogram.
+    in property <image> exercise-icon;
+
+    spacing: 12px;
+    alignment: stretch;
+
+    // The cause: the stat, its value against the target, and the gap.
+    VerticalLayout {
+        spacing: Theme.space-xs;
+        alignment: center;
+        horizontal-stretch: 1;
+
+        HorizontalLayout {
+            spacing: 5px;
+            alignment: start;
+            StatIcon {
+                kind: root.exercise.stat;
+                y: (parent.height - self.height) / 2;
+            }
+            Text {
+                font-family: Theme.font-body;
+                text: root.exercise.stat-label;
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-caption;
+                vertical-alignment: center;
+                overflow: elide;
+            }
+        }
+
+        HorizontalLayout {
+            spacing: 6px;
+            alignment: start;
+            Text {
+                font-family: Theme.font-display;
+                text: root.exercise.value;
+                color: root.exercise.under ? Theme.danger : Theme.text-primary;
+                font-size: Theme.font-size-title;
+                font-weight: 800;
+                font-italic: true;
+                vertical-alignment: bottom;
+            }
+            Text {
+                font-family: Theme.font-body;
+                text: root.exercise.target;
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-caption;
+                vertical-alignment: bottom;
+            }
+            Text {
+                font-family: Theme.font-body;
+                text: root.exercise.gap;
+                color: Theme.danger;
+                font-size: Theme.font-size-caption;
+                font-weight: 600;
+                vertical-alignment: bottom;
+            }
+        }
+    }
+
+    Icon {
+        source: @image-url("../images/icons/arrow-right.svg");
+        width: 12px * 9 / 12;
+        height: 12px * 9 / 12;
+        colorize: Theme.text-secondary;
+        y: (parent.height - self.height) / 2;
+    }
+
+    // The amount: done over due, the bar, the cap.
+    VerticalLayout {
+        width: 84px;
+        spacing: 6px;
+        alignment: center;
+
+        HorizontalLayout {
+            spacing: 5px;
+            alignment: end;
+            Icon {
+                source: root.exercise-icon;
+                width: 16px;
+                height: 16px;
+                colorize: Theme.text-primary;
+                y: (parent.height - self.height) / 2;
+            }
+            HorizontalLayout {
+                spacing: 1px;
+                Text {
+                    font-family: Theme.font-display;
+                    text: root.exercise.done + root.exercise.unit;
+                    color: Theme.text-primary;
+                    font-size: Theme.font-size-title;
+                    font-weight: 800;
+                    font-italic: true;
+                    vertical-alignment: bottom;
+                }
+                Text {
+                    font-family: Theme.font-body;
+                    text: "/" + root.exercise.due + root.exercise.unit;
+                    color: root.exercise.capped ? Theme.warning : Theme.text-secondary;
+                    font-size: Theme.font-size-caption;
+                    vertical-alignment: bottom;
+                }
+            }
+        }
+
+        // The bar: the part done.
+        Rectangle {
+            height: 3px;
+            border-radius: 2px;
+            background: Theme.border;
+            clip: true;
+            Rectangle {
+                x: 0px;
+                width: root.exercise.due > 0 ? parent.width * min(1.0, root.exercise.done / root.exercise.due) : 0px;
+                background: Theme.success;
+            }
+        }
+
+        if root.exercise.capped: Text {
+            font-family: Theme.font-body;
+            text: root.exercise.cap-label;
+            color: Theme.warning;
+            font-size: Theme.font-size-micro;
+            font-weight: 600;
+            horizontal-alignment: right;
+        }
+    }
+}

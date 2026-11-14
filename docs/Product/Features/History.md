@@ -21,14 +21,19 @@ The workout only works as a habit if the player sees their streak, and their ski
 - Session label: day and rank of the session in that day, e.g. "Today · #1", "Yesterday · #2", "Sun 1 Nov · #1".
 - Sessions are listed newest first. The current session (if any) is on top.
 
-### Session summary
-Each session is **one panel** with rounded corners and no outline: the **summary** is the panel's header (tinted at ~12 %, separated by a line), and the session's game cards sit inside the panel below it, on a faint tint (~4 %) of the same colour. The summary holds:
-- a **ring** showing workouts done / workouts (e.g. "3/5"), partial workouts counting as not done;
-- the label (e.g. "Today · #1") and, for the current session, an "IN PROGRESS" chip;
-- "3 of 5 workouts done" in the session's colour;
-- totals done / due per exercise, each behind its pictogram (e.g. burpee 25/25 · squat 77/87 · plank 230/300 s).
+### Views
+The screen's title row holds "HISTORY", a **view switch** and a one-line legend on the right. The two views list the same sessions and games; only the middle of each row changes:
+- **Games** (default, swords icon): the stats of each game. Legend: "Red = under your target · tick = target for the role".
+- **Workouts** (dumbbell icon): the exercises each game turned into. Legend: "Each exercise pays for one stat under its target".
 
-Session colour (header tint at ~12 %, header separator at ~40 %, games area at ~4 %, ring, "x of y" line):
+The view picked stays while the app runs; it is not saved.
+
+### Session header
+Each session starts with a **header** line, not a panel: the label (display font, e.g. "TODAY · #1") on the left, then chips on the right:
+- a summary chip: "x of y workouts done" in the session's colour on a tint of it, partial workouts counting as not done (see the table); for a session of games from before cooldown.lol, "5 games · before cooldown.lol" in `text-secondary` on `surface`;
+- a wins and losses chip: "1 W" (`info`) and "2 L" (`danger`) on `surface`; remakes count in neither.
+
+Summary chip colour:
 | Session | Colour |
 |---|---|
 | Current session (still in progress) | `accent` |
@@ -36,30 +41,31 @@ Session colour (header tint at ~12 %, header separator at ~40 %, games area at ~
 | At least half done | `warning` |
 | Less than half done | `danger` |
 
-### Workout cards
-The workout is the main content; the game is kept, smaller, on the side. Inside the session panel, one **card** per game, newest first (about four to five cards fit in the window):
+### Game rows
+Under its header, one **row** per game, newest first: 64 px high, full width, `surface`, rounded. On the left a 3 px **stripe**; in the Games view a tint of the same colour fades from it to nothing at 60 % of the width (`info` for a win, `danger` for a loss, `text-secondary` for a remake or a game without workout; tints in [[Tokens]]).
 
-- **Left, the game**: played and linked champion portraits with their role symbols ([[Champion portraits]]), and WIN (`success`) / LOSS (`danger`) under them.
-- **Right, the workout**:
-  - status line: status icon and label in its colour — *Done* (`success`), *Partial* (`warning`), *Skipped* (`text-secondary`), *Pending* (`accent`) — and, on the right, the K/D/A, or a **Start** button while the workout is pending (reopens the workout modal where it was left, see [[Post-game workout#Workout modal]]);
-  - the three exercises side by side: number done (display font, title size), "/ due" next to it, then the pictogram and a progress bar (`success` when complete, `warning` when partial, empty track otherwise).
-- The pending card has an `accent` outline.
-- While the end-of-game stats are read, a "Game over · Computing your workout…" card (`accent` outline, spinner) sits on top of the current session.
-- A game of a mode out of scope (ARAM, arena, custom games, practice tool…) is **not shown at all**: no card, no place in a session, and it does not bridge two sessions (see [[Post-game workout#Scope]]).
-- A game without a workout (remake, role not detected, stats unreadable) shows a muted card: the game on the left, "NO WORKOUT", the reason, and "Not counted in the session".
-- Clicking a card expands it below the game and workout: one line per exercise with its pictogram, the stat that produced it, its value (`danger` under target) and "/ target", then "Champion · Role · with Linked · game length". Clicking again collapses it. One card expanded at a time.
+- **Game** (both views): the played champion portrait with its role symbol and the linked champion ([[Champion portraits]]), the champion's name, then the queue ("Ranked Solo/Duo", Games view) or the role ("Bottom · with Lulu", Workouts view), then the result (WIN `info`, LOSS `danger`, REMAKE `text-secondary`) with the game's length ("34:12"), preceded by the K/D/A in the Workouts view.
+- **Games view**, five equal columns:
+  - K/D/A in the display font, deaths in `danger`, with the KDA ratio ("1.1 KDA" = kills plus assists over deaths, deaths counted as 1 when 0);
+  - CS per minute, damage share, kill participation, vision per minute: pictogram, value, a gauge and the stat's name. The gauge is full at 10 CS per minute, 3 vision per minute and 100 % for the shares. The stats the [[Workout formula]] judges for the role (main and secondary) have a **tick** at the role's target, and their value and gauge turn `danger` under it; the others have no tick and stay `text-primary`. A game whose stats could not be read shows "—".
+- **Workouts view**, three equal columns, one per exercise: the stat that pays for it (pictogram and name), its value (`danger` under target), "/ target" and the gap in the stat's unit ("−171 CS", "−9 pts"); an arrow; then the amount: pictogram, number done (display font) and "/due", a progress bar, and "max 30" in `warning` when the game's cap applied. The plank's stat is the deaths, "× 10 s".
+- **Workout status**: status icon and label — *Done* (`success`), *Partial* (`warning`), *Skipped* (`text-secondary`), *Pending* (`accent`, with a small **Start** button that reopens the workout modal where it was left, see [[Post-game workout#Workout modal]]) — or "NO WORKOUT" and the reason.
+- A **chevron** at the end opens the row's **details** below it, and closes them. Details: one line per exercise — pictogram, name and what it pays for ("Main stat · CS per minute", "Secondary stat · Damage share", "Every death"), then the formula with its numbers and their captions, right-aligned against "=" (e.g. "( 8.0 target CS / min × 34.2 minutes − 103 your CS ) ÷ 5 CS per burpee", the player's value in `danger` under target, the formula's constant in `success`), then the amount and its status.
+- While the end-of-game stats are read, a "Game over · Computing your workout…" row sits on top of the current session.
+- A game of a mode out of scope (ARAM, arena, custom games, practice tool…) is **not shown at all**: no row, no place in a session, and it does not bridge two sessions (see [[Post-game workout#Scope]]).
+- A game without a workout (remake, role not detected, stats unreadable) has a muted row: `text-secondary` stripe and tint, the status "NO WORKOUT" and the reason. It has no details and is not counted in the session.
 
 ### Games from before cooldown.lol
 When cooldown.lol connects to the League client, it reads the **active summoner** and the client's **match history** (the player's own recent games) and lists the games it has not stored yet. This is the only way to show history from before the installation.
-- Such a game is **imported**. cooldown.lol was not there to offer the workout, so it is shown as **skipped**: the workout is computed with the [[Workout formula]] from the game's stats in the match history, and the game gets the usual *Skipped* card ("0/5", "0/35", "0s/30s"…). The played champion portrait has no linked champion (the match history does not give it).
-- An imported game whose role Riot did not detect cannot be computed: it shows the muted "No workout" card with the reason "Couldn't detect your role", like a tracked game.
-- Imported games group into sessions like any other game (same 1-hour rule), but they **never count in the session summary**: not in the ring, the "x of y workouts done" line, the totals or the session colour. A session made only of imported games has a **neutral header**: `text-secondary` tint, label ("Sun 1 Nov · #1"), "5 games · before cooldown.lol", no ring and no exercise totals. A session mixing both is summarised from its tracked games only.
+- Such a game is **imported**. cooldown.lol was not there to offer the workout, so it is shown as **skipped**: the workout is computed with the [[Workout formula]] from the game's stats in the match history, and the game gets the usual *Skipped* row (Workouts view: "0/5", "0/35", "0s/30s"…; details: "skipped"). The played champion portrait has no linked champion (the match history does not give it), and the Workouts view shows the role alone.
+- An imported game whose role Riot did not detect cannot be computed: it shows the muted "No workout" row with the reason "Couldn't detect your role", like a tracked game.
+- Imported games group into sessions like any other game (same 1-hour rule), but they **never count in the session summary**: not in the "x of y workouts done" chip or its colour. A session made only of imported games has a **neutral header**: label ("Sun 1 Nov · #1"), the "5 games · before cooldown.lol" chip and the wins and losses chip. A session mixing both is summarised from its tracked games only.
 - On first launch the client usually has recent games, so History opens already filled with these neutral sessions instead of the empty state.
 - Imported games from modes out of scope are not stored, and not shown (see above).
 - Kept from the match history: result, champion, role (when Riot detected one), K/D/A, queue, start and length, and the stats the [[Workout formula]] needs (CS, vision score, damage to champions, and the team's kills and damage to champions for damage share and kill participation). No linked champion. The current-summoner list only describes the player, so the team totals come from the game's detail (`GET /lol-match-history/v1/games/{gameId}`): only the two team sums are kept, never another player's stats or name.
 - The import runs once per client connection (retrying every 10 s until the player is logged in) and stores only games not stored yet (by game id). It also completes a game stored without its stats by an earlier version when the client lists it again. A game cooldown.lol tracked itself is never replaced by its imported copy.
-- The champion names and portraits come from Data Dragon, downloaded in the background ([[ADR-0004 Champion images from Data Dragon]]): until an image is there, the card shows the champion's initials.
-- Built so far: the neutral session headers, the *Skipped* cards and the muted "No workout" cards. The rings, colours, *Pending/Partial/Done* cards, "Computing" card and expanded card come with the post-game workout.
+- The champion names and portraits come from Data Dragon, downloaded in the background ([[ADR-0004 Champion images from Data Dragon]]): until an image is there, the row shows the champion's initials.
+- Built so far: both views, the neutral session headers, the *Skipped* rows with their details and the muted "No workout" rows. The "x of y workouts done" chip, the *Pending/Partial/Done* rows and the "Computing" row come with the post-game workout.
 - The match history of the client is limited (recent games only, see [[#Open questions]]): older games cannot be recovered.
 - Another summoner logging into the same client on the same PC: games are kept per player (`puuid`), History shows the active summoner's games only.
 
@@ -77,7 +83,7 @@ When cooldown.lol connects to the League client, it reads the **active summoner*
 - Sessions are computed from the stored games (pure function in `cooldown-core`), never stored.
 
 ## Design
-Pencil frames `History / Main / Before cooldown.lol`, `History / Main / Empty`, `History / Main / Nominal`, `History / Main / Game expanded`, `History / Main / Computing`, `History / Main / No workout`, built from the `Session header / *` and `Game row / *` components. See [[Screens#Frames]].
+Pencil frames `History / Main / Before cooldown.lol`, `History / Main / Empty`, `History / Main / Nominal`, `History / Main / Game expanded`, `History / Main / Computing`, `History / Main / No workout`, and the `History / Main / … (desktop)` frames of both views, built from the `Session header / *` and `Game row / *` components and the `Stat icon / *` pictograms. See [[Screens#Frames]].
 
 ## Compliance
 Only the local player's own games, after they end (live ones and the client's match history of the active summoner). Never other players' games or names, nothing during a game, no call to the Riot API.

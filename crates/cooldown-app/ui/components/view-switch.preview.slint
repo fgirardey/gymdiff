@@ -1,0 +1,49 @@
+// Previews of ViewSwitch: `just preview components/view-switch`.
+
+import { Theme } from "../theme.slint";
+import { ViewSwitch } from "view-switch.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// `View switch` of `History / Main / Games view (desktop)`.
+export component ViewSwitchGames inherits Rectangle {
+    width: 201px;
+    height: 32px;
+    background: Theme.background;
+
+    ViewSwitch { }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "ViewSwitch";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Games";
+            ViewSwitchGames { }
+        }
+
+        PreviewCase {
+            label: "Workouts";
+            HorizontalLayout {
+                alignment: start;
+                ViewSwitch { workouts: true; }
+            }
+        }
+
+        PreviewCase {
+            label: "Playground: click a segment";
+            HorizontalLayout {
+                alignment: start;
+                ViewSwitch {
+                    picked(workouts) => { self.workouts = workouts; }
+                }
+            }
+        }
+    }
+}

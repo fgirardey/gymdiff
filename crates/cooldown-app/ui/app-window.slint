@@ -9,22 +9,23 @@ import { AppShell } from "shell/app-shell.slint";
 import { WelcomeScreen } from "screens/welcome.slint";
 import { HistoryEmpty } from "screens/history.slint";
 import { HistorySessions } from "screens/history-sessions.slint";
-import { SessionData, GameCardData } from "models.slint";
+import { SessionData, GameRowData, StatData, ExerciseData, TermData, StatKind } from "models.slint";
 import { RoleIcons } from "role-icons.slint";
 import { AboutScreen } from "screens/about.slint";
 import { SettingsScreen } from "screens/settings.slint";
 import { SettingsUninstallDialog } from "screens/settings-uninstall-dialog.slint";
 import { DebugScreen } from "screens/debug.slint";
 
-export { Screen, SessionData, GameCardData, RoleIcons }
+export { Screen, SessionData, GameRowData, StatData, ExerciseData, TermData, StatKind, RoleIcons }
 
 export component AppWindow inherits Window {
     title: "cooldown.lol";
-    // Title bar and task bar: the crest (`docs/Design/Brand.md`, app icon).
+    // Title bar and task bar: the mark (`docs/Design/Brand.md`, app icon).
     icon: @image-url("images/app-icon.png");
-    preferred-width: 400px;
-    preferred-height: 640px;
+    preferred-width: 1280px;
+    preferred-height: 800px;
     background: Theme.background;
+    default-font-family: Theme.font-body;
 
     /// The screen shown. Rust picks `welcome` at start when the welcome has not been seen.
     in-out property <Screen> screen: Screen.history;
@@ -33,6 +34,8 @@ export component AppWindow inherits Window {
     in property <string> version;
     /// The games of the History screen, newest session first (set by Rust from the history).
     in property <[SessionData]> sessions;
+    /// History shows the Workouts view; the Games view otherwise.
+    in-out property <bool> history-workouts: false;
     /// Opt-in error reports (docs/Decisions/ADR-0006): set by Rust from the stored consent.
     in-out property <bool> crash-reports: false;
     in-out property <bool> all-logs: false;
@@ -95,6 +98,7 @@ export component AppWindow inherits Window {
         if root.screen == Screen.history && root.sessions.length > 0: HistorySessions {
             vertical-stretch: 1;
             sessions: root.sessions;
+            workouts <=> root.history-workouts;
         }
 
         if root.screen == Screen.about: AboutScreen {

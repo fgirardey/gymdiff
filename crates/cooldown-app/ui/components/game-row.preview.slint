@@ -1,0 +1,102 @@
+// Previews of GameRow: `just preview components/game-row`.
+
+import { Theme } from "../theme.slint";
+import { GameRow } from "game-row.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// Pencil frame `Game row / Games / Skipped`.
+export component GameRowGamesSkipped inherits Rectangle {
+    width: 1216px;
+    height: 64px;
+    background: Theme.background;
+
+    GameRow {
+        game: Fixtures.game-jinx;
+    }
+}
+
+// Pencil frame `Game row / Games / No workout`.
+export component GameRowGamesNoWorkout inherits Rectangle {
+    width: 1216px;
+    height: 64px;
+    background: Theme.background;
+
+    GameRow {
+        game: Fixtures.game-remake;
+    }
+}
+
+// Pencil frame `Game row / Workouts / Skipped`.
+export component GameRowWorkoutsSkipped inherits Rectangle {
+    width: 1216px;
+    height: 64px;
+    background: Theme.background;
+
+    GameRow {
+        game: Fixtures.game-jinx;
+        workouts: true;
+    }
+}
+
+// Pencil frame `Game row / Games / Done expanded`, with a game from before cooldown.lol.
+export component GameRowGamesExpanded inherits Rectangle {
+    width: 1216px;
+    height: row.height;
+    background: Theme.background;
+
+    row := GameRow {
+        game: Fixtures.game-miss-fortune;
+        expanded: true;
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "GameRow";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Game row / Games / Skipped";
+            GameRowGamesSkipped { }
+        }
+
+        PreviewCase {
+            label: "Win";
+            Rectangle {
+                width: 1216px;
+                height: 64px;
+                GameRow { game: Fixtures.game-kaisa; }
+            }
+        }
+
+        PreviewCase {
+            label: "Game row / Games / No workout";
+            GameRowGamesNoWorkout { }
+        }
+
+        PreviewCase {
+            label: "Game row / Workouts / Skipped";
+            GameRowWorkoutsSkipped { }
+        }
+
+        PreviewCase {
+            label: "Expanded (click the chevron of any row)";
+            GameRowGamesExpanded { }
+        }
+
+        PreviewCase {
+            label: "Role not detected, Workouts view";
+            Rectangle {
+                width: 1216px;
+                height: 64px;
+                GameRow { game: Fixtures.game-no-role; workouts: true; }
+            }
+        }
+    }
+}

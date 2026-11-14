@@ -1,48 +1,88 @@
-// History screen with games: the sessions, newest first, each a panel of workout cards.
+// History screen with games: the title row with the view switch, then the sessions, newest
+// first, each a header and one row per game.
 //
-// Frames in design/cooldown.pen: `History / Main / Before cooldown.lol`.
+// Frames in design/cooldown.pen: `History / Main / Before cooldown.lol`,
+// `History / Main / Games view (desktop)`, `History / Main / Workouts view (desktop)`.
 
 import { Theme } from "../theme.slint";
 import { SessionData } from "../models.slint";
-import { SessionPanel } from "../components/session-panel.slint";
-import { WorkoutCard } from "../components/workout-card.slint";
-import { NoWorkoutCard } from "../components/no-workout-card.slint";
+import { ViewSwitch } from "../components/view-switch.slint";
+import { SessionHeader } from "../components/session-header.slint";
+import { GameRow } from "../components/game-row.slint";
 
-export component HistorySessions inherits Flickable {
+export component HistorySessions inherits VerticalLayout {
     in property <[SessionData]> sessions;
+    /// The Workouts view is shown; the Games view otherwise.
+    in-out property <bool> workouts;
 
-    content-width: self.width;
-    content-height: content.preferred-height;
+    padding-top: 20px;
+    padding-left: Theme.space-xl;
+    padding-right: Theme.space-xl;
+    spacing: 6px;
 
-    content := VerticalLayout {
-        width: parent.width;
-        padding: Theme.space-m;
+    HorizontalLayout {
         spacing: Theme.space-m;
-        alignment: start;
+        padding-bottom: Theme.space-s;
+        height: 40px;
 
         Text {
+            font-family: Theme.font-display;
             text: "HISTORY";
             color: Theme.text-primary;
             font-size: Theme.font-size-title;
             font-weight: 800;
             font-italic: true;
             letter-spacing: 1px;
+            vertical-alignment: center;
         }
 
-        for session in root.sessions: SessionPanel {
-            label: session.label;
-            subtitle: session.subtitle;
+        VerticalLayout {
+            alignment: center;
+            ViewSwitch {
+                workouts: root.workouts;
+                picked(workouts) => { root.workouts = workouts; }
+            }
+        }
 
-            for game in session.games: VerticalLayout {
-                if game.has-workout: WorkoutCard {
-                    game: game;
-                    // Games from before cooldown.lol were never offered a workout: skipped.
-                    status: "SKIPPED";
-                    status-icon: @image-url("../images/icons/circle-x.svg");
+        Rectangle {
+            horizontal-stretch: 1;
+        }
+
+        Text {
+            font-family: Theme.font-body;
+            text: root.workouts
+                ? "Each exercise pays for one stat under its target"
+                : "Red = under your target · tick = target for the role";
+            color: Theme.text-secondary;
+            font-size: Theme.font-size-caption;
+            vertical-alignment: center;
+        }
+    }
+
+    Flickable {
+        vertical-stretch: 1;
+        content-width: self.width;
+        content-height: list.preferred-height;
+
+        list := VerticalLayout {
+            width: parent.width;
+            padding-bottom: 20px;
+            spacing: 6px;
+            alignment: start;
+
+            for session in root.sessions: VerticalLayout {
+                spacing: 6px;
+
+                SessionHeader {
+                    label: session.label;
+                    subtitle: session.subtitle;
+                    wins: session.wins;
+                    losses: session.losses;
                 }
 
-                if !game.has-workout: NoWorkoutCard {
+                for game in session.games: GameRow {
                     game: game;
+                    workouts: root.workouts;
                 }
             }
         }

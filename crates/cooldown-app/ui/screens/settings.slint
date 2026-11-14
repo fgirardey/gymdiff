@@ -54,7 +54,11 @@ export component SettingsScreen inherits Rectangle {
 
         content := VerticalLayout {
             width: parent.width;
-            padding: Theme.space-l;
+            // The About column: 720 px, centred in the window.
+            padding-top: Theme.space-l;
+            padding-bottom: Theme.space-l;
+            padding-left: max(Theme.space-l, (self.width - 720px) / 2);
+            padding-right: max(Theme.space-l, (self.width - 720px) / 2);
             spacing: Theme.space-m;
             alignment: start;
 
@@ -67,6 +71,7 @@ export component SettingsScreen inherits Rectangle {
             }
 
             Text {
+                font-family: Theme.font-display;
                 text: "SETTINGS";
                 color: Theme.text-primary;
                 font-size: Theme.font-size-title;
@@ -77,6 +82,7 @@ export component SettingsScreen inherits Rectangle {
 
             VerticalLayout {
                 Text {
+                    font-family: Theme.font-body;
                     text: "ERROR REPORTS";
                     color: Theme.text-secondary;
                     font-size: Theme.font-size-caption;
@@ -100,6 +106,7 @@ export component SettingsScreen inherits Rectangle {
             }
 
             Text {
+                font-family: Theme.font-body;
                 text: "Both are off by default. Reports are deleted after 30 days.";
                 color: Theme.text-secondary;
                 font-size: Theme.font-size-caption;
@@ -108,6 +115,7 @@ export component SettingsScreen inherits Rectangle {
 
             if root.update-visible: VerticalLayout {
                 Text {
+                    font-family: Theme.font-body;
                     text: "UPDATES";
                     color: Theme.text-secondary;
                     font-size: Theme.font-size-caption;
@@ -127,6 +135,7 @@ export component SettingsScreen inherits Rectangle {
                             spacing: Theme.space-xs;
 
                             Text {
+                                font-family: Theme.font-body;
                                 text: "Alpha channel";
                                 color: Theme.text-primary;
                                 font-size: Theme.font-size-body;
@@ -134,6 +143,7 @@ export component SettingsScreen inherits Rectangle {
                             }
 
                             Text {
+                                font-family: Theme.font-body;
                                 text: root.update-status;
                                 color: Theme.text-secondary;
                                 font-size: Theme.font-size-body;
@@ -163,6 +173,7 @@ export component SettingsScreen inherits Rectangle {
 
             if root.shortcuts-visible: VerticalLayout {
                 Text {
+                    font-family: Theme.font-body;
                     text: "SHORTCUTS";
                     color: Theme.text-secondary;
                     font-size: Theme.font-size-caption;
@@ -187,6 +198,7 @@ export component SettingsScreen inherits Rectangle {
 
             if root.startup-visible: VerticalLayout {
                 Text {
+                    font-family: Theme.font-body;
                     text: "STARTUP";
                     color: Theme.text-secondary;
                     font-size: Theme.font-size-caption;
@@ -203,6 +215,7 @@ export component SettingsScreen inherits Rectangle {
             }
 
             Text {
+                font-family: Theme.font-body;
                 text: "Closing the window keeps cooldown.lol running in the notification area. Quit from its icon.";
                 color: Theme.text-secondary;
                 font-size: Theme.font-size-caption;
@@ -211,6 +224,7 @@ export component SettingsScreen inherits Rectangle {
 
             if root.uninstall-visible: VerticalLayout {
                 Text {
+                    font-family: Theme.font-body;
                     text: "UNINSTALL";
                     color: Theme.text-secondary;
                     font-size: Theme.font-size-caption;
@@ -230,6 +244,7 @@ export component SettingsScreen inherits Rectangle {
                             spacing: Theme.space-xs;
 
                             Text {
+                                font-family: Theme.font-body;
                                 text: "Remove cooldown.lol from this PC";
                                 color: Theme.text-primary;
                                 font-size: Theme.font-size-body;
@@ -237,6 +252,7 @@ export component SettingsScreen inherits Rectangle {
                             }
 
                             Text {
+                                font-family: Theme.font-body;
                                 text: "The app, its shortcuts and its logs. You choose whether to keep your settings.";
                                 color: Theme.text-secondary;
                                 font-size: Theme.font-size-body;

@@ -5,10 +5,10 @@ import { WelcomeScreen } from "welcome.slint";
 import { PreviewCase } from "../preview-kit/preview-case.slint";
 import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
 
-// Pencil frame `First launch / Welcome / Default` (400 × 640).
+// Pencil frame `First launch / Welcome / Default` (1280 × 800).
 export component FirstLaunchWelcomeDefault inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -18,8 +18,8 @@ export component FirstLaunchWelcomeDefault inherits Rectangle {
 // The screen in a resizable window; "Let's go" shows as the last action.
 export component WelcomeScreenPlayground inherits Window {
     background: Theme.background;
-    preferred-width: 400px;
-    preferred-height: 640px;
+    preferred-width: 1280px;
+    preferred-height: 800px;
 
     playground := PreviewPlayground {
         padding: 0;

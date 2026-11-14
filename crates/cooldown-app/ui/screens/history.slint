@@ -15,13 +15,14 @@ export component HistoryEmpty inherits VerticalLayout {
         alignment: center;
         Icon {
             source: @image-url("../images/icons/history.svg");
-            width: 34px;
-            height: 34px;
+            width: 40px;
+            height: 40px;
             colorize: Theme.text-secondary;
         }
     }
 
     Text {
+        font-family: Theme.font-body;
         text: "No game yet";
         color: Theme.text-primary;
         font-size: Theme.font-size-title;
@@ -30,6 +31,7 @@ export component HistoryEmpty inherits VerticalLayout {
     }
 
     Text {
+        font-family: Theme.font-body;
         text: "Every Summoner's Rift game you finish while cooldown.lol is open is listed here, grouped by session.";
         color: Theme.text-secondary;
         font-size: Theme.font-size-body;

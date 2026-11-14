@@ -33,11 +33,10 @@ pub fn compute(game: &Game) -> Option<Workout> {
     let role = game.role?;
     let stats = game.stats?;
 
-    let minutes = f64::from(game.duration_secs) / 60.0;
-    let (main, secondary) = role_stats(role);
-    let burpees = main.gap(game, &stats, minutes) * main.burpees_per_unit();
-    let squats = secondary.gap(game, &stats, minutes) * secondary.squats_per_unit();
-    let plank = f64::from(game.deaths) * PLANK_SECS_PER_DEATH;
+    let (main, secondary) = role_targets(role);
+    let burpees = main.gap(game, &stats) * main.kind.burpees_per_unit();
+    let squats = secondary.gap(game, &stats) * secondary.kind.squats_per_unit();
+    let plank = f64::from(game.deaths) * f64::from(PLANK_SECS_PER_DEATH);
 
     Some(Workout {
         burpees: amount(burpees, BURPEES_CAP),
@@ -49,68 +48,114 @@ pub fn compute(game: &Game) -> Option<Workout> {
 /// A game shorter than this is a remake whatever the client says.
 const REMAKE_SECS: u32 = 5 * 60;
 
-const BURPEES_CAP: u32 = 30;
-const SQUATS_CAP: u32 = 50;
-const PLANK_CAP: u32 = 180;
-const PLANK_SECS_PER_DEATH: f64 = 10.0;
+/// The most burpees, squats and plank seconds one game can cost.
+pub const BURPEES_CAP: u32 = 30;
+pub const SQUATS_CAP: u32 = 50;
+pub const PLANK_CAP: u32 = 180;
+/// Plank seconds owed per death.
+pub const PLANK_SECS_PER_DEATH: u32 = 10;
 
-/// A stat the formula judges, with its target.
-#[derive(Debug, Clone, Copy)]
-enum Stat {
-    /// Creep score per minute.
-    CsPerMinute(f64),
+/// A stat the formula can judge.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum StatKind {
+    /// Creep score (minions plus monsters) per minute.
+    CsPerMinute,
     /// Vision score per minute.
-    VisionPerMinute(f64),
+    VisionPerMinute,
     /// Share of the team's damage to champions, in percent.
-    DamageShare(f64),
+    DamageShare,
     /// Kills plus assists over the team's kills, in percent.
-    KillParticipation(f64),
+    KillParticipation,
 }
 
-/// The (main, secondary) stats of a role: burpees pay for the first, squats for the second.
-fn role_stats(role: Role) -> (Stat, Stat) {
+/// A stat and the value a role is expected to reach.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Target {
+    pub kind: StatKind,
+    /// In the unit of [`StatKind::value`].
+    pub value: f64,
+}
+
+/// The (main, secondary) targets of a role: burpees pay for the first, squats for the second.
+#[must_use]
+pub fn role_targets(role: Role) -> (Target, Target) {
+    use StatKind::{CsPerMinute, DamageShare, KillParticipation, VisionPerMinute};
+    let target = |kind, value| Target { kind, value };
     match role {
-        Role::Top => (Stat::CsPerMinute(7.0), Stat::DamageShare(22.0)),
-        Role::Jungle => (Stat::KillParticipation(60.0), Stat::CsPerMinute(5.5)),
-        Role::Mid => (Stat::DamageShare(25.0), Stat::CsPerMinute(7.5)),
-        Role::Bottom => (Stat::CsPerMinute(8.0), Stat::DamageShare(28.0)),
-        Role::Support => (Stat::VisionPerMinute(2.0), Stat::KillParticipation(55.0)),
+        Role::Top => (target(CsPerMinute, 7.0), target(DamageShare, 22.0)),
+        Role::Jungle => (target(KillParticipation, 60.0), target(CsPerMinute, 5.5)),
+        Role::Mid => (target(DamageShare, 25.0), target(CsPerMinute, 7.5)),
+        Role::Bottom => (target(CsPerMinute, 8.0), target(DamageShare, 28.0)),
+        Role::Support => (
+            target(VisionPerMinute, 2.0),
+            target(KillParticipation, 55.0),
+        ),
     }
 }
 
-impl Stat {
-    /// How far under target the player is, in the stat's unit (missed CS, missed vision points
-    /// or percentage points), never below 0.
-    fn gap(self, game: &Game, stats: &PlayerStats, minutes: f64) -> f64 {
-        let gap = match self {
-            Self::CsPerMinute(target) => target * minutes - f64::from(stats.cs),
-            Self::VisionPerMinute(target) => target * minutes - f64::from(stats.vision_score),
-            Self::DamageShare(target) => {
-                target - percent(stats.damage_to_champions, stats.team_damage_to_champions)
-            }
-            Self::KillParticipation(target) => {
-                target - percent(game.kills + game.assists, stats.team_kills)
+impl StatKind {
+    /// The player's value in `game`: per minute, or in percent.
+    #[must_use]
+    pub fn value(self, game: &Game, stats: &PlayerStats) -> f64 {
+        let minutes = minutes(game);
+        match self {
+            Self::CsPerMinute => per_minute(stats.cs, minutes),
+            Self::VisionPerMinute => per_minute(stats.vision_score, minutes),
+            Self::DamageShare => percent(stats.damage_to_champions, stats.team_damage_to_champions),
+            Self::KillParticipation => percent(game.kills + game.assists, stats.team_kills),
+        }
+    }
+
+    /// Burpees owed per unit of gap (see [`Target::gap`]) when this is the main stat.
+    #[must_use]
+    pub fn burpees_per_unit(self) -> f64 {
+        match self {
+            Self::CsPerMinute => 1.0 / 5.0,
+            Self::VisionPerMinute | Self::KillParticipation => 1.0 / 2.0,
+            Self::DamageShare => 2.0,
+        }
+    }
+
+    /// Squats owed per unit of gap (see [`Target::gap`]) when this is the secondary stat.
+    #[must_use]
+    pub fn squats_per_unit(self) -> f64 {
+        match self {
+            Self::CsPerMinute => 1.0 / 2.0,
+            Self::DamageShare => 5.0,
+            Self::KillParticipation | Self::VisionPerMinute => 1.0,
+        }
+    }
+}
+
+impl Target {
+    /// How far under target the player is, never below 0: missed CS or vision points for the
+    /// per-minute stats (the target times the game's minutes, minus the total), percentage points
+    /// for the shares.
+    #[must_use]
+    pub fn gap(self, game: &Game, stats: &PlayerStats) -> f64 {
+        let minutes = minutes(game);
+        let gap = match self.kind {
+            StatKind::CsPerMinute => self.value * minutes - f64::from(stats.cs),
+            StatKind::VisionPerMinute => self.value * minutes - f64::from(stats.vision_score),
+            StatKind::DamageShare | StatKind::KillParticipation => {
+                self.value - self.kind.value(game, stats)
             }
         };
         gap.max(0.0)
     }
+}
 
-    /// Burpees owed per unit of gap when this is the main stat.
-    fn burpees_per_unit(self) -> f64 {
-        match self {
-            Self::CsPerMinute(_) => 1.0 / 5.0,
-            Self::VisionPerMinute(_) | Self::KillParticipation(_) => 1.0 / 2.0,
-            Self::DamageShare(_) => 2.0,
-        }
-    }
+/// The game's length in minutes.
+fn minutes(game: &Game) -> f64 {
+    f64::from(game.duration_secs) / 60.0
+}
 
-    /// Squats owed per unit of gap when this is the secondary stat.
-    fn squats_per_unit(self) -> f64 {
-        match self {
-            Self::CsPerMinute(_) => 1.0 / 2.0,
-            Self::DamageShare(_) => 5.0,
-            Self::KillParticipation(_) | Self::VisionPerMinute(_) => 1.0,
-        }
+/// `total` per minute, 0 for a game without length.
+fn per_minute(total: u32, minutes: f64) -> f64 {
+    if minutes > 0.0 {
+        f64::from(total) / minutes
+    } else {
+        0.0
     }
 }
 
@@ -310,5 +355,28 @@ mod tests {
             }),
             None
         );
+    }
+
+    #[test]
+    fn values_are_per_minute_or_in_percent() {
+        // 28 minutes, 168 CS, 14 vision, 22 % of the damage, 11 of 25 kills.
+        let game = game(Role::Mid, 7, 6, 4, stats(168, 14, 22_000, 25, 100_000));
+        let stats = game.stats.unwrap();
+        assert!((StatKind::CsPerMinute.value(&game, &stats) - 6.0).abs() < 1e-9);
+        assert!((StatKind::VisionPerMinute.value(&game, &stats) - 0.5).abs() < 1e-9);
+        assert!((StatKind::DamageShare.value(&game, &stats) - 22.0).abs() < 1e-9);
+        assert!((StatKind::KillParticipation.value(&game, &stats) - 44.0).abs() < 1e-9);
+    }
+
+    #[test]
+    fn the_gap_is_in_missed_units_and_never_negative() {
+        let game = game(Role::Mid, 7, 6, 4, stats(168, 14, 22_000, 25, 100_000));
+        let stats = game.stats.unwrap();
+        let (main, secondary) = role_targets(Role::Mid);
+        // Damage share: 25 - 22 = 3 points. CS: 7.5 x 28 - 168 = 42 CS.
+        assert!((main.gap(&game, &stats) - 3.0).abs() < 1e-9);
+        assert!((secondary.gap(&game, &stats) - 42.0).abs() < 1e-9);
+        let top = role_targets(Role::Top).1;
+        assert_eq!(Target { value: 10.0, ..top }.gap(&game, &stats), 0.0);
     }
 }
