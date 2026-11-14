@@ -54331,6 +54331,12 @@
                       "fontFamily": "$font-body",
                       "fontSize": 12,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "id": "cO14A",
+                      "type": "ref",
+                      "ref": "HLeGO",
+                      "name": "History refresh"
                     }
                   ]
                 },
@@ -55052,6 +55058,12 @@
                       "fontFamily": "$font-body",
                       "fontSize": 12,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "id": "arxqz",
+                      "type": "ref",
+                      "ref": "HLeGO",
+                      "name": "History refresh"
                     }
                   ]
                 },
@@ -56207,6 +56219,12 @@
                       "fontFamily": "$font-body",
                       "fontSize": 12,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "id": "vtOPs",
+                      "type": "ref",
+                      "ref": "HLeGO",
+                      "name": "History refresh"
                     }
                   ]
                 },
@@ -56933,6 +56951,12 @@
                       "fontFamily": "$font-body",
                       "fontSize": 12,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "id": "Ym8GT",
+                      "type": "ref",
+                      "ref": "HLeGO",
+                      "name": "History refresh"
                     }
                   ]
                 },
@@ -60826,6 +60850,12 @@
                       "fontFamily": "$font-body",
                       "fontSize": 12,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "id": "N8QG7",
+                      "type": "ref",
+                      "ref": "HLeGO",
+                      "name": "History refresh"
                     }
                   ]
                 },
@@ -61552,6 +61582,12 @@
                       "fontFamily": "$font-body",
                       "fontSize": 12,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "id": "Hlkfa",
+                      "type": "ref",
+                      "ref": "HLeGO",
+                      "name": "History refresh"
                     }
                   ]
                 },
@@ -65188,6 +65224,12 @@
                       "fontFamily": "$font-body",
                       "fontSize": 12,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "id": "i8R3x7",
+                      "type": "ref",
+                      "ref": "HLeGO",
+                      "name": "History refresh"
                     }
                   ]
                 },
@@ -65914,6 +65956,12 @@
                       "fontFamily": "$font-body",
                       "fontSize": 12,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "id": "ckLPn",
+                      "type": "ref",
+                      "ref": "HLeGO",
+                      "name": "History refresh"
                     }
                   ]
                 },
@@ -66640,6 +66688,12 @@
                       "fontFamily": "$font-body",
                       "fontSize": 12,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "id": "E8yBo",
+                      "type": "ref",
+                      "ref": "HLeGO",
+                      "name": "History refresh"
                     }
                   ]
                 },
@@ -67373,6 +67427,12 @@
                       "fontFamily": "$font-body",
                       "fontSize": 12,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "id": "uaLf1",
+                      "type": "ref",
+                      "ref": "HLeGO",
+                      "name": "History refresh"
                     }
                   ]
                 },
@@ -68151,6 +68211,12 @@
                       "fontFamily": "$font-body",
                       "fontSize": 12,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "id": "ACYLx",
+                      "type": "ref",
+                      "ref": "HLeGO",
+                      "name": "History refresh"
                     }
                   ]
                 },
@@ -83948,6 +84014,126 @@
                   "fontWeight": "normal"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "amCKB",
+          "name": "History refresh variants",
+          "gap": 48,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "HLeGO",
+              "name": "History refresh",
+              "reusable": true,
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "b3ssx",
+                  "name": "Divider",
+                  "width": 1,
+                  "height": 16,
+                  "fill": "$border"
+                },
+                {
+                  "type": "frame",
+                  "id": "pFef0",
+                  "name": "Refresh",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "A9remI",
+                      "name": "Updated label",
+                      "fill": "$text-secondary",
+                      "content": "Updated 2 min ago",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "id": "NV3FX",
+                      "type": "ref",
+                      "ref": "q3OpU",
+                      "name": "Refresh button",
+                      "width": 32,
+                      "height": 32,
+                      "fill": "$surface",
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "descendants": {
+                        "cU3ej": {
+                          "icon": "refresh-cw",
+                          "width": 16,
+                          "height": 16
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "KCxo9",
+              "type": "ref",
+              "reusable": true,
+              "ref": "HLeGO",
+              "name": "History refresh / Updating",
+              "descendants": {
+                "A9remI": {
+                  "content": "Updating…"
+                },
+                "NV3FX": {
+                  "opacity": 0.4
+                }
+              }
+            },
+            {
+              "id": "QaALt",
+              "type": "ref",
+              "reusable": true,
+              "ref": "HLeGO",
+              "name": "History refresh / Offline",
+              "descendants": {
+                "A9remI": {
+                  "content": "Updated 2 h ago"
+                },
+                "NV3FX": {
+                  "opacity": 0.4
+                }
+              }
+            },
+            {
+              "id": "Cr6JV",
+              "type": "ref",
+              "reusable": true,
+              "ref": "HLeGO",
+              "name": "History refresh / Hover",
+              "descendants": {
+                "NV3FX": {
+                  "fill": [
+                    "$surface",
+                    "#E6EDF314"
+                  ]
+                },
+                "NV3FX/cU3ej": {
+                  "fill": "$text-primary"
+                }
+              }
+            },
+            {
+              "type": "note",
+              "id": "WMg6m",
+              "name": "History refresh behaviour",
+              "width": 420,
+              "height": 120,
+              "content": "History refresh (right end of the History title row). The label says when History was last read from the League client (\"Updated just now\", \"Updated 2 min ago\", \"Updated 2 h ago\"), updated every minute. The button re-reads the client's match history now. Updating: label \"Updating…\", button disabled. Offline (no client): button disabled, label kept. Also runs on its own at connection and when a game ends. Hover: Icon button state layer."
             }
           ]
         }
