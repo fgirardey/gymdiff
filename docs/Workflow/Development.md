@@ -45,7 +45,7 @@ flowchart LR
 | `just test` | all tests |
 | `just check-windows` | type-check the Windows build |
 | `RUST_LOG=trace just dev` | verbose logs |
-| `GYMDIFF_DATA_DIR=$(mktemp -d) just dev` | start as on a first launch (welcome screen) |
+| `COOLDOWN_DATA_DIR=$(mktemp -d) just dev` | start as on a first launch (welcome screen) |
 | `just version` | full version of a build of the checkout (`0.2.0+57.a1b2c3d`, see [[Releasing]]) |
 | `just pr-screenshots` | screenshots of the changed UI for the PR body (see [[Pull requests]]) |
 

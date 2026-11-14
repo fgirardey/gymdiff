@@ -1,6 +1,6 @@
 # Riot policies
 
-What GymDiff may and may not do. **This is a working summary, not legal advice.** Riot's policies change: re-read the sources below before designing any feature that runs during champion select or a game, and before any public release.
+What cooldown.lol may and may not do. **This is a working summary, not legal advice.** Riot's policies change: re-read the sources below before designing any feature that runs during champion select or a game, and before any public release.
 
 Last reviewed: 2026-11-07.
 
@@ -10,10 +10,10 @@ Last reviewed: 2026-11-07.
 - Do not use the LCU to bypass Riot API rate limits. If an endpoint exists in both, use the Riot API.
 
 ## The recorder
-`gymdiff-recorder` is a development tool, not a product feature: it only issues `GET` requests to the local APIs every 2 s or more (an allowlist of endpoints, no write calls), like the app. Recordings are anonymised before they reach the disk, never shown in the UI, and never sent anywhere. Do not record champion select in modes that hide names unless you keep the anonymisation: the LCU can expose names the normal client hides ([[Riot policies#Game integrity (general policy)|de-anonymisation rule]]).
+`cooldown-recorder` is a development tool, not a product feature: it only issues `GET` requests to the local APIs every 2 s or more (an allowlist of endpoints, no write calls), like the app. Recordings are anonymised before they reach the disk, never shown in the UI, and never sent anywhere. Do not record champion select in modes that hide names unless you keep the anonymisation: the LCU can expose names the normal client hides ([[Riot policies#Game integrity (general policy)|de-anonymisation rule]]).
 
 ## Vanguard and third-party tools
-- Riot announced that game **memory access** is blocked by default for unknown third-party apps from 2026-10-06 (approved tools get a grace period until April 2027). GymDiff never reads memory, so this does not concern it. Source: Riot support, "game memory access removed for third party apps".
+- Riot announced that game **memory access** is blocked by default for unknown third-party apps from 2026-10-06 (approved tools get a grace period until April 2027). cooldown.lol never reads memory, so this does not concern it. Source: Riot support, "game memory access removed for third party apps".
 - Riot states that tools built on the LCU and in-game APIs keep working, but its Developer Relations team does not own those APIs and cannot guarantee them.
 - Nothing found says a player is banned for running a read-only local-API tool; bans target scripting, botting and memory/injection tools. This is an observation, not a guarantee.
 
@@ -36,14 +36,14 @@ Products must not:
 - Rule of thumb: if a feature tells the player something about opponents they could not see themselves, or tracks timers for them, it is out.
 
 ## Monetization
-GymDiff will never be monetized ([[Vision#Non-goals]]). For reference:
+cooldown.lol will never be monetized ([[Vision#Non-goals]]). For reference:
 - A **free tier** is mandatory; paid content must be transformative.
 - No betting or gambling.
 - The product must be approved/acknowledged on the developer portal before monetizing.
 
 ## Branding
 - Include Riot's "Legal Jibber Jabber" disclaimer (done in `README.md`; add it to the About screen and any website).
-- Do not use Riot logos or present GymDiff as official.
+- Do not use Riot logos or present cooldown.lol as official.
 
 ## Checklist for a new feature
 - [ ] Does it run during champion select or a game? Which data does it show?

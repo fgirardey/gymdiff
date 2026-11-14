@@ -104,7 +104,7 @@ Feat: Added new parser.
 - NEVER bypass the hook with `git commit --no-verify` — fixing the message is
   always the correct action.
 
-## In this repository (GymDiff)
+## In this repository (cooldown.lol)
 
 - Config: `commitlint.config.mjs`. Allowed types and scopes are listed in `docs/Workflow/Development.md` (*Branches and commits*).
 - Validate with `printf '%s' "<message>" | npx --no -- commitlint` (or `just commitlint "<message>"`).
@@ -117,11 +117,11 @@ Scope from the paths the commit touches (omit it when a commit spans several are
 
 | Paths | Scope |
 |---|---|
-| `crates/gymdiff-core/` | `core` |
-| `crates/gymdiff-lol/` | `lol` |
-| `crates/gymdiff-simulator/` | `simulator` |
-| `crates/gymdiff-app/ui/` | `ui` |
-| `crates/gymdiff-app/` (other) | `app` |
+| `crates/cooldown-core/` | `core` |
+| `crates/cooldown-lol/` | `lol` |
+| `crates/cooldown-simulator/` | `simulator` |
+| `crates/cooldown-app/ui/` | `ui` |
+| `crates/cooldown-app/` (other) | `app` |
 | `fixtures/` | `fixtures` |
 | `design/` | `design` |
 | `docs/` only | `docs` (or no scope) |

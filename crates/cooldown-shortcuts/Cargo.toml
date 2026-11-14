@@ -1,0 +1,24 @@
+[package]
+name = "cooldown-shortcuts"
+description = "cooldown.lol's Start menu and Desktop shortcuts and startup entry on Windows (ADR-0012, ADR-0013)."
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[dependencies]
+# Known folders (Desktop redirection included).
+dirs = "6"
+
+[target.'cfg(windows)'.dependencies]
+# Writes .lnk files in safe Rust (Windows only: it encodes paths as UTF-16).
+mslnk = "0.1.8"
+# The startup entry in the user's registry (safe bindings).
+winreg = "0.56"
+
+[dev-dependencies]
+tempfile = "3"
+
+[lints]
+workspace = true

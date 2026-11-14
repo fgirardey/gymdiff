@@ -19,7 +19,7 @@ As a …, I want … so that …
 *Which API endpoints / events feed this feature? See [[League APIs]].*
 
 ## Design
-*Pencil frames: `<Feature> / <Screen> / <State>` in `design/gymdiff.pen`.*
+*Pencil frames: `<Feature> / <Screen> / <State>` in `design/cooldown.pen`.*
 
 ## Compliance
 *Does this show information during a game? Check [[Riot policies]].*

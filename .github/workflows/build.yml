@@ -1,6 +1,6 @@
 name: Build
 
-# Release builds of GymDiff for Windows and macOS, called by ci.yml (channel `alpha`, main),
+# Release builds of cooldown.lol for Windows and macOS, called by ci.yml (channel `alpha`, main),
 # pr-build.yml (channel `preview`) and release.yml (channel `release`). Uploads the debug files
 # and sources to Sentry so its stack traces are symbolicated (see docs/Workflow/Releasing.md
 # and ADR-0008).
@@ -20,7 +20,7 @@ on:
         description: Build number, e.g. 57.
         value: ${{ jobs.build.outputs.build }}
       sentry-release:
-        description: Sentry release of the build, e.g. gymdiff@0.2.0+57.
+        description: Sentry release of the build, e.g. cooldown@0.2.0+57.
         value: ${{ jobs.build.outputs.sentry-release }}
 
 env:
@@ -43,8 +43,8 @@ jobs:
       build: ${{ steps.sentry.outputs.build }}
       sentry-release: ${{ steps.sentry.outputs.sentry-release }}
     env:
-      GYMDIFF_CHANNEL: ${{ inputs.channel }}
-      GYMDIFF_SENTRY_DSN: ${{ vars.GYMDIFF_SENTRY_DSN }}
+      COOLDOWN_CHANNEL: ${{ inputs.channel }}
+      COOLDOWN_SENTRY_DSN: ${{ vars.COOLDOWN_SENTRY_DSN }}
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       SENTRY_ORG: ${{ vars.SENTRY_ORG }}
       SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT }}
@@ -60,13 +60,13 @@ jobs:
 
       - name: Release build (Windows)
         if: runner.os == 'Windows'
-        run: cargo build --release -p gymdiff-app -p gymdiff-recorder
+        run: cargo build --release -p cooldown-app -p cooldown-recorder
       - name: Release build (macOS)
         if: runner.os == 'macOS'
         # Tarred so the binary keeps its executable bit inside the artifact zip.
         run: |
-          cargo build --release -p gymdiff-app
-          tar -czf gymdiff-macos.tar.gz -C target/release gymdiff
+          cargo build --release -p cooldown-app
+          tar -czf cooldown-macos.tar.gz -C target/release cooldown
 
       - name: Upload debug files to Sentry
         id: sentry
@@ -79,10 +79,10 @@ jobs:
             const { default: sentryUpload } = await import(script.href)
             const windows = process.platform === 'win32'
             await sentryUpload({ core, exec }, {
-              binary: windows ? 'target/release/gymdiff.exe' : 'target/release/gymdiff',
+              binary: windows ? 'target/release/cooldown.exe' : 'target/release/cooldown',
               debugFiles: windows
-                ? ['target/release/gymdiff.exe', 'target/release/gymdiff.pdb']
-                : ['target/release/gymdiff', 'target/release/gymdiff.dSYM'],
+                ? ['target/release/cooldown.exe', 'target/release/cooldown.pdb']
+                : ['target/release/cooldown', 'target/release/cooldown.dSYM'],
               createRelease: windows,
             })
 
@@ -90,20 +90,20 @@ jobs:
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4
         with:
-          name: gymdiff-windows-${{ env.BUILD_SHA }}
-          path: target/release/gymdiff.exe
+          name: cooldown-windows-${{ env.BUILD_SHA }}
+          path: target/release/cooldown.exe
           retention-days: 14
       - name: Upload Windows recorder
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v4
         with:
-          name: gymdiff-recorder-windows-${{ env.BUILD_SHA }}
-          path: target/release/gymdiff-recorder.exe
+          name: cooldown-recorder-windows-${{ env.BUILD_SHA }}
+          path: target/release/cooldown-recorder.exe
           retention-days: 14
       - name: Upload macOS build
         if: runner.os == 'macOS'
         uses: actions/upload-artifact@v4
         with:
-          name: gymdiff-macos-${{ env.BUILD_SHA }}
-          path: gymdiff-macos.tar.gz
+          name: cooldown-macos-${{ env.BUILD_SHA }}
+          path: cooldown-macos.tar.gz
           retention-days: 14

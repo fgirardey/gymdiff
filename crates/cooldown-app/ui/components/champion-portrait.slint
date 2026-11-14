@@ -1,0 +1,64 @@
+// The champion a game was played with: a rounded square with its role badge in the bottom
+// corner (docs/Product/Champion portraits.md). The linked champion is not shown yet.
+//
+// Component `Champion portrait` in design/cooldown.pen (played part).
+
+import { Theme } from "../theme.slint";
+import { Icon } from "icon.slint";
+
+export component ChampionPortrait inherits Rectangle {
+    in property <image> image;
+    in property <bool> has-image;
+    /// Shown until the image is there, or when it never will be (offline, new champion).
+    in property <string> initials;
+    in property <image> role-icon;
+    in property <bool> has-role;
+
+    width: 54px;
+    height: 54px;
+
+    Rectangle {
+        x: 1px;
+        y: 0px;
+        width: 52px;
+        height: 52px;
+        border-radius: Theme.radius-panel;
+        background: Theme.border;
+        border-width: 2px;
+        border-color: Theme.background;
+        clip: true;
+
+        if !root.has-image: Text {
+            text: root.initials;
+            color: Theme.text-primary;
+            font-size: Theme.font-size-title;
+            font-weight: 800;
+            horizontal-alignment: center;
+            vertical-alignment: center;
+        }
+
+        if root.has-image: Image {
+            source: root.image;
+            image-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    if root.has-role: Rectangle {
+        x: 0px;
+        y: 36px;
+        width: 18px;
+        height: 18px;
+        border-radius: 9px;
+        background: Theme.background;
+        border-width: 1px;
+        border-color: Theme.border;
+
+        Icon {
+            source: root.role-icon;
+            width: 12px;
+            height: 12px;
+        }
+    }
+}

@@ -56,7 +56,7 @@ Preview files are the one exception to "main item first" (see [[Code organisatio
 4. Implement the component until each Pencil story matches its frame (`just preview <path> <Story>` next to Pencil), then wire it in `app-window.slint`.
 
 ## Checks
-`cargo test -p gymdiff-app --test previews` (part of `just test` and CI) fails when:
+`cargo test -p cooldown-app --test previews` (part of `just test` and CI) fails when:
 - a file of `components/`, `shell/`, `screens/` or `app-window.slint` has no `.preview.slint` next to it, or a preview has no component file next to it;
 - a preview doesn't compile;
 - a preview's last exported component isn't `Preview`;

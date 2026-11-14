@@ -1,0 +1,19 @@
+// Hover and pressed feedback of an interactive control: a tint of its content colour
+// laid over its background. Fills its parent; the parent passes its corner radius.
+//
+// Section in design/cooldown.pen: `Interaction states` on the `Foundations` page.
+
+import { Theme } from "../theme.slint";
+
+export component StateLayer inherits Rectangle {
+    /// Content colour of the control: its label or icon colour.
+    in property <color> tint;
+    in property <bool> hovered;
+    in property <bool> pressed;
+
+    background: root.tint.with-alpha(root.pressed ? Theme.state-opacity-pressed : root.hovered ? Theme.state-opacity-hover : 0);
+    animate background {
+        duration: Theme.motion-fast;
+        easing: ease-out;
+    }
+}

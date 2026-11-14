@@ -1,0 +1,54 @@
+// Previews of SessionPanel: `just preview components/session-panel`.
+
+import { Theme } from "../theme.slint";
+import { SessionPanel } from "session-panel.slint";
+import { WorkoutCard } from "workout-card.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// Pencil frame `Session / Before cooldown.lol` (368 wide).
+export component SessionBeforeCooldown inherits Rectangle {
+    width: 368px;
+    background: Theme.background;
+    height: panel.height;
+
+    panel := SessionPanel {
+        label: "TODAY · #1";
+        subtitle: "3 games · before cooldown.lol";
+
+        WorkoutCard {
+            game: Fixtures.game-jinx;
+            status: "SKIPPED";
+            status-icon: @image-url("../images/icons/circle-x.svg");
+        }
+
+        WorkoutCard {
+            game: Fixtures.game-ashe;
+            status: "SKIPPED";
+            status-icon: @image-url("../images/icons/circle-x.svg");
+        }
+
+        WorkoutCard {
+            game: Fixtures.game-kaisa;
+            status: "SKIPPED";
+            status-icon: @image-url("../images/icons/circle-x.svg");
+        }
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "SessionPanel";
+    background: Theme.background;
+
+    HorizontalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Session / Before cooldown.lol";
+            SessionBeforeCooldown { }
+        }
+    }
+}

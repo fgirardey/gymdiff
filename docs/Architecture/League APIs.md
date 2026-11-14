@@ -1,6 +1,6 @@
 # League APIs
 
-GymDiff uses two **local** APIs exposed by League of Legends on `127.0.0.1`, and possibly the **Riot Games API** (remote, needs an API key) later.
+cooldown.lol uses two **local** APIs exposed by League of Legends on `127.0.0.1`, and possibly the **Riot Games API** (remote, needs an API key) later.
 
 > The LCU API is **not officially supported** by Riot. Endpoints can change or disappear with any patch. Deserialize leniently and never crash on unexpected data. See [[Riot policies]].
 
@@ -25,7 +25,7 @@ Typical locations (the install folder can be changed by the user):
 
 Fallback (not implemented yet): read the `LeagueClientUx` process command line and extract `--app-port=` and `--remoting-auth-token=`.
 
-Implementation: `gymdiff-lol/src/lockfile.rs`.
+Implementation: `cooldown-lol/src/lockfile.rs`.
 
 ### REST
 - Base URL: `https://127.0.0.1:<port>`
@@ -38,9 +38,9 @@ Endpoints used:
 | `GET /lol-gameflow/v1/gameflow-phase` | JSON string: `None`, `Lobby`, `Matchmaking`, `ReadyCheck`, `ChampSelect`, `GameStart`, `InProgress`, `Reconnect`, `WaitingForStats`, `PreEndOfGame`, `EndOfGame` | [[Client status]] |
 | `GET /lol-champ-select/v1/session` *(planned)* | Champion select session; `myTeam[].assignedPosition` | [[Post-game workout]] (role) |
 | `GET /lol-end-of-game/v1/eog-stats-block` *(planned)* | End-of-game stats of every player (position field to confirm) | [[Post-game workout]] |
-| `GET /lol-summoner/v1/current-summoner` | The active summoner: `puuid`, `gameName`, `tagLine` | [[History#Games from before GymDiff]] (whose games to list) |
-| `GET /lol-match-history/v1/products/lol/current-summoner/matches?begIndex=&endIndex=` | The active summoner's recent games, newest first, each with one participant (the summoner): champion, result, K/D/A, lane/role, queue, creation date, duration | [[History#Games from before GymDiff]] |
-| `GET /lol-match-history/v1/games/{gameId}` | The game with its ten participants (team, kills, damage to champions, lane/role, summoner spells, CS, vision score) | [[History#Games from before GymDiff]]: only the sums of the player's team are kept. Also planned as a fallback for [[Post-game workout]] (role) |
+| `GET /lol-summoner/v1/current-summoner` | The active summoner: `puuid`, `gameName`, `tagLine` | [[History#Games from before cooldown.lol]] (whose games to list) |
+| `GET /lol-match-history/v1/products/lol/current-summoner/matches?begIndex=&endIndex=` | The active summoner's recent games, newest first, each with one participant (the summoner): champion, result, K/D/A, lane/role, queue, creation date, duration | [[History#Games from before cooldown.lol]] |
+| `GET /lol-match-history/v1/games/{gameId}` | The game with its ten participants (team, kills, damage to champions, lane/role, summoner spells, CS, vision score) | [[History#Games from before cooldown.lol]]: only the sums of the player's team are kept. Also planned as a fallback for [[Post-game workout]] (role) |
 
 ### WebSocket events (not used yet)
 - URL: `wss://127.0.0.1:<port>/`, same Basic auth
@@ -71,7 +71,7 @@ Endpoints (under `/liveclientdata/`):
 
 Used today: `gamestats` → `gameTime` ([[Client status]]).
 
-Implementation: `gymdiff-lol/src/live_client.rs` (models), `gymdiff-lol/src/client.rs` (`LolClient` trait), `gymdiff-lol/src/http_client.rs` (HTTP).
+Implementation: `cooldown-lol/src/live_client.rs` (models), `cooldown-lol/src/client.rs` (`LolClient` trait), `cooldown-lol/src/http_client.rs` (HTTP).
 
 ## Data Dragon (remote, static)
 Riot's static CDN for game assets: `https://ddragon.leagueoflegends.com`. No key. Used for champion images ([[ADR-0004 Champion images from Data Dragon]]).

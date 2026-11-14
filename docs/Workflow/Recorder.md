@@ -1,6 +1,6 @@
 # Recorder
 
-`gymdiff-recorder` captures a real League session into a simulator scenario, so it can be replayed on the Mac ([[Simulator]]). It exists because the real payloads (champ select session, end-of-game stats) are only available on the Windows PC during real games.
+`cooldown-recorder` captures a real League session into a simulator scenario, so it can be replayed on the Mac ([[Simulator]]). It exists because the real payloads (champ select session, end-of-game stats) are only available on the Windows PC during real games.
 
 ## Safety
 - **Read-only**: only `GET` requests, to a fixed list of endpoints plus the ones you add with `--lcu` / `--live`. It never writes to the client, never touches the game process. See [[Riot policies#The recorder]].
@@ -9,11 +9,11 @@
 
 ## Recording
 ### From a CI download (nothing to install)
-1. GitHub → *Actions* → the latest run → *Artifacts* → `gymdiff-recorder-windows-<sha>`, unzip it.
+1. GitHub → *Actions* → the latest run → *Artifacts* → `cooldown-recorder-windows-<sha>`, unzip it.
 2. In PowerShell, in the folder where you want the recording:
    ```powershell
-   Unblock-File .\gymdiff-recorder.exe   # removes the Mark of the Web (no SmartScreen warning)
-   .\gymdiff-recorder.exe 2026-11-07-ranked-support
+   Unblock-File .\cooldown-recorder.exe   # removes the Mark of the Web (no SmartScreen warning)
+   .\cooldown-recorder.exe 2026-11-07-ranked-support
    ```
    The scenario lands in `.\fixtures\scenarios\recorded-<name>\scenario.json` (change it with `--out-dir`).
 

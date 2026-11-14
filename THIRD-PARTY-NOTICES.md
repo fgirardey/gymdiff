@@ -1,22 +1,22 @@
 # Third-party notices
 
-GymDiff's own code and assets are licensed under MIT OR Apache-2.0 (see `LICENSE-MIT` and `LICENSE-APACHE`). The files below are **not** covered by that license.
+cooldown.lol's own code and assets are licensed under MIT OR Apache-2.0 (see `LICENSE-MIT` and `LICENSE-APACHE`). The files below are **not** covered by that license.
 
 ## Riot Games assets
-- `crates/gymdiff-app/ui/images/roles/*.png`, `design/assets/roles/*.png`: League of Legends role symbols.
+- `crates/cooldown-app/ui/images/roles/*.png`, `design/assets/roles/*.png`: League of Legends role symbols.
 - `design/assets/champions/*.png`: champion portraits from Data Dragon, used in the design mock-ups only.
 
 League of Legends and all associated properties are trademarks or registered trademarks of Riot Games, Inc. These files are used under Riot's ["Legal Jibber Jabber"](https://www.riotgames.com/en/legal) policy for free, non-commercial community projects (see `docs/Decisions/ADR-0005 Bundle the role symbols.md`). They grant no rights to reuse them elsewhere.
 
-GymDiff isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties.
+cooldown.lol isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties.
 
-## GymDiff name and logo
-- `design/brand/*`, `crates/gymdiff-app/ui/images/crest.svg`: the GymDiff name, crest and lockup.
+## cooldown.lol name and logo
+- `design/brand/*`, `crates/cooldown-app/ui/images/crest.svg`: the cooldown.lol name, crest and lockup.
 
-The code license does not grant the right to use the GymDiff name or logo for another product or a modified version presented as GymDiff. Forks must use their own name and logo.
+The code license does not grant the right to use the cooldown.lol name or logo for another product or a modified version presented as cooldown.lol. Forks must use their own name and logo.
 
 ## Lucide
-- `crates/gymdiff-app/ui/images/icons/settings.svg`, from [Lucide](https://lucide.dev), under the ISC License:
+- `crates/cooldown-app/ui/images/icons/settings.svg`, from [Lucide](https://lucide.dev), under the ISC License:
 
 ```
 ISC License

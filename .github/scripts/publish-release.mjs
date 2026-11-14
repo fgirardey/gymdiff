@@ -15,9 +15,9 @@ const SENTRY_CLI = ['--yes', '@sentry/cli@3.8.2'];
 
 /** Artifact name prefix and file inside → asset name, `{v}` being the version. */
 const ASSETS = [
-  { artifact: 'gymdiff-windows-', file: 'gymdiff.exe', asset: 'gymdiff-{v}-windows-x64.exe' },
-  { artifact: 'gymdiff-recorder-windows-', file: 'gymdiff-recorder.exe', asset: 'gymdiff-recorder-{v}-windows-x64.exe' },
-  { artifact: 'gymdiff-macos-', file: 'gymdiff-macos.tar.gz', asset: 'gymdiff-{v}-macos-arm64.tar.gz' },
+  { artifact: 'cooldown-windows-', file: 'cooldown.exe', asset: 'cooldown-{v}-windows-x64.exe' },
+  { artifact: 'cooldown-recorder-windows-', file: 'cooldown-recorder.exe', asset: 'cooldown-recorder-{v}-windows-x64.exe' },
+  { artifact: 'cooldown-macos-', file: 'cooldown-macos.tar.gz', asset: 'cooldown-{v}-macos-arm64.tar.gz' },
 ];
 
 export default async function publishRelease({ github, context, core, exec }, { tag, version, sentryRelease, dist }) {

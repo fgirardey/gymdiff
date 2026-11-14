@@ -11,7 +11,7 @@ set -euo pipefail
 
 base="${PR_BASE:-main}"
 assets_branch="pr-assets"
-ui="crates/gymdiff-app/ui"
+ui="crates/cooldown-app/ui"
 root="$(git rev-parse --show-toplevel)"
 cd "$root"
 
@@ -50,7 +50,7 @@ elif [[ $# -eq 0 ]]; then
 fi
 
 rm -rf "$out"
-cargo run --quiet -p gymdiff-app --example screenshots -- --out "$out" ${previews[@]+"${previews[@]}"} >/dev/null
+cargo run --quiet -p cooldown-app --example screenshots -- --out "$out" ${previews[@]+"${previews[@]}"} >/dev/null
 if [[ ! -s "$out/index.tsv" ]]; then
     echo "The changed previews have no Pencil story: nothing to screenshot." >&2
     exit 0

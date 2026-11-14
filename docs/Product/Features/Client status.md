@@ -9,7 +9,7 @@ design: "App shell / Top bar / Default"
 Skeleton feature proving the end-to-end pipeline (client discovery → polling → state → UI). Expected to be redesigned once [[Vision]] is written.
 
 ## User story
-As a player, I can see whether GymDiff is connected to my League client, which phase the client is in, and the in-game clock during a game.
+As a player, I can see whether cooldown.lol is connected to my League client, which phase the client is in, and the in-game clock during a game.
 
 ## Behaviour
 Shown in the top bar, on every screen except Welcome (see [[Screens]]).

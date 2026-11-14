@@ -1,0 +1,60 @@
+// A setting: label and explanation on the left, a switch on the right.
+//
+// Frames in design/cooldown.pen: `Setting / Crash reports`, `Setting / All logs`
+// in `App shell / Settings / Default`; without divider, `Option / Delete data` in
+// `App shell / Settings / Uninstall confirm`.
+
+import { Theme } from "../theme.slint";
+import { Switch } from "switch.slint";
+
+export component SettingRow inherits Rectangle {
+    in property <string> label;
+    in property <string> detail;
+    in property <bool> checked;
+    /// The line under the row, as in Settings' lists; off inside a dialog.
+    in property <bool> divider: true;
+    /// The player clicked the switch: the parent decides whether `checked` changes.
+    callback toggled;
+
+    min-height: layout.preferred-height;
+
+    layout := HorizontalLayout {
+        padding-top: Theme.space-m;
+        padding-bottom: Theme.space-m;
+        spacing: Theme.space-m;
+
+        VerticalLayout {
+            horizontal-stretch: 1;
+            spacing: Theme.space-xs;
+
+            Text {
+                text: root.label;
+                color: Theme.text-primary;
+                font-size: Theme.font-size-body;
+                font-weight: 600;
+            }
+
+            if root.detail != "": Text {
+                text: root.detail;
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-body;
+                wrap: word-wrap;
+            }
+        }
+
+        VerticalLayout {
+            alignment: center;
+            Switch {
+                checked: root.checked;
+                toggled => { root.toggled(); }
+            }
+        }
+    }
+
+    // Bottom border
+    if root.divider: Rectangle {
+        y: parent.height - self.height;
+        height: 1px;
+        background: Theme.border;
+    }
+}

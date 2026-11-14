@@ -4,7 +4,7 @@ status: draft
 
 # Workout formula
 
-How a finished game becomes a workout. Used by [[Post-game workout]]. Implemented as a pure function in `gymdiff-core` (game stats + role → workout), so every rule below gets a unit test.
+How a finished game becomes a workout. Used by [[Post-game workout]]. Implemented as a pure function in `cooldown-core` (game stats + role → workout), so every rule below gets a unit test.
 
 All numbers are **starting defaults to tune after real games**, not final values.
 
@@ -20,7 +20,7 @@ Each role has one **main stat**, the thing that role is judged on first. It driv
 | Plank | seconds | Deaths (every role) |
 
 ## Inputs
-From the end-of-game stats of the local player (see [[Post-game workout#Data]]), or, for a game imported from the client's match history, from that history (see [[History#Games from before GymDiff]]):
+From the end-of-game stats of the local player (see [[Post-game workout#Data]]), or, for a game imported from the client's match history, from that history (see [[History#Games from before cooldown.lol]]):
 - `minutes` = game length in seconds / 60
 - `deaths`
 - `cs` = minions killed + neutral minions killed

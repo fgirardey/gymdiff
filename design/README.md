@@ -1,12 +1,12 @@
 # Design
 
-Pencil design files for GymDiff. This folder is the **design memory** of the project: Claude Code reads it through the Pencil MCP server when implementing UI.
+Pencil design files for cooldown.lol. This folder is the **design memory** of the project: Claude Code reads it through the Pencil MCP server when implementing UI.
 
 ## Files
 
 | File | Content |
 |---|---|
-| `gymdiff.pen` | Main design file |
+| `cooldown.pen` | Main design file |
 | `brand/` | Logo files exported from the `Logo / *` components (see [`docs/Design/Brand.md`](../docs/Design/Brand.md)) |
 | `assets/roles/` | League position symbols (`top`, `jungle`, `middle`, `bottom`, `utility`), from CommunityDragon's mirror of the client files, used in the role badges of `Champion portrait`. Also bundled in the app (ADR-0005) |
 | `assets/champions/` | Champion square images from Riot's Data Dragon (version 16.22.1), used as image fills by the `Champion portrait` instances. Same source as the app ([ADR-0004](../docs/Decisions/ADR-0004%20Champion%20images%20from%20Data%20Dragon.md)) |

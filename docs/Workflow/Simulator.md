@@ -1,6 +1,6 @@
 # Simulator
 
-`gymdiff-simulator` is a fake League client for development (see [[ADR-0003 macOS-first development with a simulator]]).
+`cooldown-simulator` is a fake League client for development (see [[ADR-0003 macOS-first development with a simulator]]).
 
 ## What it does
 - Writes a **lockfile** (default `target/simulator/lockfile`, protocol `http`), so the app discovers it exactly like the real client.
@@ -15,7 +15,7 @@ Not emulated yet: HTTPS with Riot's certificate, the LCU WebSocket event stream 
 ```sh
 just dev                       # simulator + app, 10× speed, looping
 just sim --speed 2 --loop      # simulator only
-cargo run -p gymdiff-simulator -- --help
+cargo run -p cooldown-simulator -- --help
 ```
 
 ## Scenario format
@@ -40,7 +40,7 @@ cargo run -p gymdiff-simulator -- --help
 }
 ```
 
-The simulator serves a path whatever its query string. `synthetic-full-game` also answers `/lol-summoner/v1/current-summoner` and `/lol-match-history/v1/products/lol/current-summoner/matches` from its first step: five older games in two sessions, one ARAM game (never shown) and one remake, for [[History#Games from before GymDiff]].
+The simulator serves a path whatever its query string. `synthetic-full-game` also answers `/lol-summoner/v1/current-summoner` and `/lol-match-history/v1/products/lol/current-summoner/matches` from its first step: five older games in two sessions, one ARAM game (never shown) and one remake, for [[History#Games from before cooldown.lol]].
 
 | Field | Meaning |
 |---|---|
@@ -58,4 +58,4 @@ The state at time *t* is the result of applying all steps with `at <= t`, in ord
 - `cargo test` validates every scenario file.
 
 ## Recording real sessions
-`gymdiff-recorder` captures a real session into a scenario with `"synthetic": false`. See [[Recorder]].
+`cooldown-recorder` captures a real session into a scenario with `"synthetic": false`. See [[Recorder]].

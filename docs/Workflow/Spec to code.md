@@ -6,7 +6,7 @@ How a feature travels from idea to a validated Windows build.
 |---|---|---|---|
 | 1. Idea | line in [[Roadmap]] | you | — |
 | 2. Spec | `Product/Features/<Feature>.md` from `_templates/Feature.md` | you (+ Claude to challenge it) | behaviour covers every state, compliance checked ([[Riot policies]]) |
-| 3. Design | frames `<Feature> / <Screen> / <State>` in `design/gymdiff.pen` | you (+ Claude via Pencil MCP) | every state has a frame, tokens only |
+| 3. Design | frames `<Feature> / <Screen> / <State>` in `design/cooldown.pen` | you (+ Claude via Pencil MCP) | every state has a frame, tokens only |
 | 4. Decision (if any) | `Decisions/ADR-XXXX ….md` | you + Claude | status `accepted` |
 | 5. Implementation | code, tests, scenario | Claude Code | `just check` passes, works in `just dev` |
 | 6. Windows validation | checklist in the feature note | you, on the PC | boxes ticked, status `validated on Windows` |
@@ -14,7 +14,7 @@ How a feature travels from idea to a validated Windows build.
 ## Prompting Claude Code
 Point it at the artifacts rather than re-explaining:
 
-> Implement [[Client status]] as specified in `docs/Product/Features/Client status.md`, using the frames `Client status / Main / *` in `design/gymdiff.pen`. Follow CLAUDE.md.
+> Implement [[Client status]] as specified in `docs/Product/Features/Client status.md`, using the frames `Client status / Main / *` in `design/cooldown.pen`. Follow CLAUDE.md.
 
 Ask it to list open questions before writing code when the feature is large.
 

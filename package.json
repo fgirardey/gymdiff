@@ -1,7 +1,7 @@
 {
-  "name": "gymdiff-tooling",
+  "name": "cooldown-tooling",
   "private": true,
-  "description": "Node tooling for the GymDiff repository (commit message linting only). The app itself is Rust.",
+  "description": "Node tooling for the cooldown.lol repository (commit message linting only). The app itself is Rust.",
   "scripts": {
     "prepare": "git config core.hooksPath .githooks",
     "commitlint": "commitlint"

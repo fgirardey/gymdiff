@@ -6,7 +6,7 @@
 - [x] Simulator with scenario replay
 - [x] CI on Windows and macOS with a Windows build artifact
 - [x] Write the [[Vision]] (draft)
-- [x] Create `design/gymdiff.pen` with the `Foundations` page and real [[Tokens]]
+- [x] Create `design/cooldown.pen` with the `Foundations` page and real [[Tokens]]
 - [x] Brand: logo and app icon ([[Brand]])
 - [x] App shell with the M0 screens: [[First launch]] welcome, empty [[History]], About; macOS and Windows release builds in CI
 - [ ] Bundle the brand fonts (Barlow Condensed, Inter) in the app
@@ -18,7 +18,7 @@
 - [ ] Trust Riot's root certificate (`riotgames.pem`) instead of accepting any certificate
 - [ ] LCU WebSocket event stream (WAMP) instead of polling, emulated by the simulator
 - [ ] Process-based client discovery (fallback when the install folder is not the default)
-- [x] `gymdiff-recorder`: record real sessions on Windows into scenarios ([[Recorder]]); WebSocket events not recorded yet
+- [x] `cooldown-recorder`: record real sessions on Windows into scenarios ([[Recorder]]); WebSocket events not recorded yet
 - [ ] Overlay window on Windows (always on top, click-through, positioned over the game)
 - [x] Settings persistence (`settings.json`, [[ADR-0007 Local persistence]])
 - [x] Versioning (SemVer + build number), releases with release-please, symbolicated Sentry issues ([[ADR-0008 Versioning and releases]])

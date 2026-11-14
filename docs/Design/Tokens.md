@@ -1,6 +1,6 @@
 # Design tokens
 
-Single reference for the visual foundations. **Mirrored 1:1** in `crates/gymdiff-app/ui/theme.slint` (global `Theme`) and in the `Foundations` page of `design/gymdiff.pen`.
+Single reference for the visual foundations. **Mirrored 1:1** in `crates/cooldown-app/ui/theme.slint` (global `Theme`) and in the `Foundations` page of `design/cooldown.pen`.
 
 When a value changes: update Pencil, this note and `theme.slint` in the same commit.
 
@@ -39,7 +39,7 @@ Colours come from the brand direction chosen in Pencil (see [[Brand]]): a K/DA r
 | `radius-panel` | 10px (session panel, champion portrait) |
 
 ## Session panel
-Tints of a session panel ([[History#Session summary]]): the session's colour (`text-secondary` for a session of games from before GymDiff) at these opacities. These values are literal in the Pencil `Session / *` components, not variables yet.
+Tints of a session panel ([[History#Session summary]]): the session's colour (`text-secondary` for a session of games from before cooldown.lol) at these opacities. They are Pencil variables, but the `Session / *` components still use literal values.
 
 | Token | Value | Usage |
 |---|---|---|
@@ -49,7 +49,7 @@ Tints of a session panel ([[History#Session summary]]): the session's colour (`t
 | `muted-opacity` | 0.75 | "No workout" card |
 
 ## Interaction
-Hover and pressed states, shown in the `Interaction states` section of the `Foundations` page. Every interactive control adds a **state layer** in its content colour (Material), filled and outlined buttons also **shrink** while pressed (iOS), and every change eases out.
+Hover, pressed, focus, disabled and selected states. Buttons, icon buttons and text links are Pencil components in `Controls library`, with one reusable instance per state (`Button / Primary / Hover`, …) and a **State rules** table (trigger, visual change, tokens, motion, cursor); switches and workout cards are in the `Interaction states` section of the `Foundations` page. Every interactive control adds a **state layer** in its content colour (Material), filled and outlined buttons also **shrink** while pressed (iOS), and every change eases out.
 
 | Token | Value | Usage |
 |---|---|---|
@@ -59,6 +59,8 @@ Hover and pressed states, shown in the `Interaction states` section of the `Foun
 | `disabled-opacity` | 0.4 | Opacity of a disabled control (e.g. **Check now** while a check runs) |
 | `motion-fast` | 100ms | Hover and press transitions (ease-out) |
 | `motion-medium` | 200ms | Switch toggle, card expand and collapse (ease-out) |
+| `focus-ring` | `#58a6ff` | Keyboard focus ring (Tab only, never on click) |
+| `focus-ring-width` | 2px | Focus ring thickness, drawn outside the control and following its radius; replaces the border of outlined buttons |
 
 The state layer colour is the control's content colour: `background` on `accent` buttons and on the "on" switch track, `text-primary` everywhere else. Text links have no layer: they turn `text-primary` on hover and drop to 60% opacity while pressed. In Pencil the durations are plain numbers in milliseconds.
 
@@ -69,7 +71,7 @@ In Slint, `components/state-layer.slint` (`StateLayer`) draws the layer: every i
 |---|---|---|
 | `font-size-caption` | 12px | Small labels (top bar status) |
 | `font-size-body` | 14px | Body text |
-| `font-size-wordmark` | 18px | "GYMDIFF" wordmark in the top bar |
+| `font-size-wordmark` | 18px | "COOLDOWN.LOL" wordmark in the top bar |
 | `font-size-title` | 20px | Titles |
 | `font-size-headline` | 32px | Welcome headline |
 | `font-size-display` | 40px | Big numbers (clock, stats) |

@@ -30,13 +30,13 @@ Slint resolves names in **declaration order**: a component or enum must be decla
 - the root file `app-window.slint` re-exports what Rust needs (`export { Screen }`), since `slint::include_modules!()` only sees what the root file exports;
 - exception: a `*.preview.slint` file exports several stories and ends with its `Preview` gallery, which uses them (see [[Previews]]).
 
-Layout of `crates/gymdiff-app/ui/`:
+Layout of `crates/cooldown-app/ui/`:
 
 | Path | What |
 |---|---|
 | `app-window.slint` | `AppWindow`, the root compiled by `build.rs`. Routes between screens. |
 | `screen.slint` | `Screen` enum (which screen is shown). |
-| `installer-window.slint` | `InstallerWindow`, the root compiled by `gymdiff-installer`'s `build.rs`. |
+| `installer-window.slint` | `InstallerWindow`, the root compiled by `cooldown-installer`'s `build.rs`. |
 | `installer-step.slint` | `InstallerStep` enum (which step the installer shows). |
 | `installer/` | The installer's screen (`installer-screen.slint`), one story per installer frame. |
 | `theme.slint`, `role-icons.slint` | Globals: design tokens ([[Tokens]]), bundled images. |

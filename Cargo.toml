@@ -11,10 +11,10 @@ publish = false
 
 [workspace.dependencies]
 # Internal crates
-gymdiff-core = { path = "crates/gymdiff-core" }
-gymdiff-lol = { path = "crates/gymdiff-lol" }
-gymdiff-diagnostics = { path = "crates/gymdiff-diagnostics" }
-gymdiff-shortcuts = { path = "crates/gymdiff-shortcuts" }
+cooldown-core = { path = "crates/cooldown-core" }
+cooldown-lol = { path = "crates/cooldown-lol" }
+cooldown-diagnostics = { path = "crates/cooldown-diagnostics" }
+cooldown-shortcuts = { path = "crates/cooldown-shortcuts" }
 
 # Async runtime & HTTP
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "time", "sync", "signal", "fs"] }
@@ -60,7 +60,7 @@ missing_panics_doc = "allow"
 lto = "thin"
 codegen-units = 1
 # Symbols for Sentry (ADR-0008): functions, lines and inlined frames, in a
-# separate file (gymdiff.pdb on Windows, gymdiff.dSYM on macOS) that CI
+# separate file (cooldown.pdb on Windows, cooldown.dSYM on macOS) that CI
 # uploads and does not ship. No `strip`: on MSVC it stops the PDB from
 # being written.
 debug = "limited"
