@@ -138,11 +138,11 @@ mod tests {
     #[test]
     fn the_command_line_quotes_the_launcher() {
         let line = command_line(Path::new(
-            r"C:\Users\Me Too\AppData\Local\cooldown.lol\cooldown.exe",
+            r"C:\Users\Me Too\AppData\Local\cooldown.lol\cooldown.lol.exe",
         ));
         assert_eq!(
             line,
-            r#""C:\Users\Me Too\AppData\Local\cooldown.lol\cooldown.exe" --background"#
+            r#""C:\Users\Me Too\AppData\Local\cooldown.lol\cooldown.lol.exe" --background"#
         );
     }
 

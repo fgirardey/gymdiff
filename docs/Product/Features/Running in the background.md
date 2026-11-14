@@ -31,7 +31,7 @@ cooldown.lol reacts to games ([[Post-game workout]]): closed by mistake, it miss
 **Not installed.** A pull request's `cooldown.exe` and local builds also hide in the notification area and stay single, but offer no Startup section (Windows would start a file that may move).
 
 ## Data
-None from League. Start with Windows is the value `cooldown.lol` in `HKCU\Software\Microsoft\Windows\CurrentVersion\Run` (per user, no administrator rights): `"%LOCALAPPDATA%\cooldown.lol\cooldown.exe" --background`. Task Manager's choice is in `…\Explorer\StartupApproved\Run`. Nothing in `settings.json`: the registry is the truth.
+None from League. Start with Windows is the value `cooldown.lol` in `HKCU\Software\Microsoft\Windows\CurrentVersion\Run` (per user, no administrator rights): `"%LOCALAPPDATA%\cooldown.lol\cooldown.lol.exe" --background`. Task Manager's choice is in `…\Explorer\StartupApproved\Run`. Nothing in `settings.json`: the registry is the truth.
 
 ## Design
 - Icon and menu: native (Windows notification area, macOS menu bar), no Pencil frame. Icon: the crest (`ui/images/app-icon.png`).
