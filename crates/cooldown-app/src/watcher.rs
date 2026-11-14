@@ -56,6 +56,10 @@ pub async fn run(window: slint::Weak<AppWindow>, history: Option<HistoryScreen>)
         tracing::debug!(%source, "lockfile found");
 
         state = poll_until_disconnected(&client, state, &window, &source, history.as_ref()).await;
+        if let Some(history) = &history {
+            // An import still running stopped with the connection.
+            history.refresh().stopped();
+        }
         state = state.apply(Event::ClientDisconnected);
         push(&window, &state, "");
     }
@@ -91,16 +95,19 @@ async fn poll_until_disconnected(
                 if state.connection != ConnectionStatus::Connected {
                     state = state.apply(Event::ClientConnected);
                 }
+                // The import at connection answers a refresh asked before it.
+                let asked = history.is_some_and(|history| history.refresh().take_request());
+                let game_ended = !just_connected && phase.may_list_a_new_game(&state.phase);
+                // Read the match history again, replacing an import still running (which would
+                // read the same games).
+                if let Some(history) = history
+                    && !just_connected
+                    && (asked || game_ended)
+                {
+                    _import = Some(spawn_past_games_import(client.clone(), history.clone()));
+                }
                 if phase != state.phase {
                     tracing::info!(phase = phase.label(), "phase changed");
-                    // The game just played: read the match history again (replacing an import
-                    // still running, which would read the same games).
-                    if let Some(history) = history
-                        && !just_connected
-                        && phase.may_list_a_new_game(&state.phase)
-                    {
-                        _import = Some(spawn_past_games_import(client.clone(), history.clone()));
-                    }
                     state = state.apply(Event::PhaseChanged(phase));
                 }
             }
@@ -142,10 +149,11 @@ async fn poll_until_disconnected(
     }
 }
 
-/// Imports the games the client already knows, without holding up the poll: at connection, and
-/// again when a game ends. It retries until the player is logged in, and stops with the
+/// Imports the games the client already knows, without holding up the poll: at connection, when
+/// a game ends and when the player asks (History refresh). It retries until the player is logged in, and stops with the
 /// connection (when the returned task is dropped).
 fn spawn_past_games_import(client: impl LolClient + 'static, history: HistoryScreen) -> ImportTask {
+    history.refresh().started();
     ImportTask(tokio::spawn(async move {
         let imported = history_import::import_when_ready(&client, history.store()).await;
         tracing::info!(
@@ -153,6 +161,7 @@ fn spawn_past_games_import(client: impl LolClient + 'static, history: HistoryScr
             "past games imported from the client"
         );
         history.show(&imported.puuid).await;
+        history.refresh().finished();
     }))
 }
 

@@ -7,6 +7,7 @@ use slint::Weak;
 
 use crate::AppWindow;
 use crate::champion_catalog::ChampionCatalog;
+use crate::history_refresh::HistoryRefresh;
 use crate::history_store::HistoryStore;
 use crate::history_view::{SessionView, session_views};
 
@@ -15,6 +16,7 @@ use crate::history_view::{SessionView, session_views};
 pub struct HistoryScreen {
     store: HistoryStore,
     champions: ChampionCatalog,
+    refresh: HistoryRefresh,
     window: Weak<AppWindow>,
 }
 
@@ -23,12 +25,18 @@ impl HistoryScreen {
         Self {
             store,
             champions,
+            refresh: HistoryRefresh::new(window.clone()),
             window,
         }
     }
 
     pub fn store(&self) -> &HistoryStore {
         &self.store
+    }
+
+    /// The refresh button and the "Updated … ago" label.
+    pub fn refresh(&self) -> &HistoryRefresh {
+        &self.refresh
     }
 
     /// The history of the player of the most recent stored game: what to show before the client

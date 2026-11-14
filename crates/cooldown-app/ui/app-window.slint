@@ -36,12 +36,17 @@ export component AppWindow inherits Window {
     in property <[SessionData]> sessions;
     /// History shows the Workouts view; the Games view otherwise.
     in-out property <bool> history-workouts: false;
+    /// When History was last read from the client ("Updated 2 min ago"), and whether a read runs.
+    in property <string> history-updated;
+    in-out property <bool> history-refreshing;
     /// Opt-in error reports (docs/Decisions/ADR-0006): set by Rust from the stored consent.
     in-out property <bool> crash-reports: false;
     in-out property <bool> all-logs: false;
     /// Throwaway debug screen, linked from Settings. Rust sets it in debug builds only.
     in property <bool> debug-tools: false;
 
+    /// The player asked History to read the client's match history again.
+    callback history-refresh;
     /// The player clicked "Let's go" on the welcome screen.
     callback welcome-done;
     /// The player flipped a switch in Settings; `enabled` is the new value.
@@ -99,6 +104,10 @@ export component AppWindow inherits Window {
             vertical-stretch: 1;
             sessions: root.sessions;
             workouts <=> root.history-workouts;
+            updated: root.history-updated;
+            refreshing: root.history-refreshing;
+            can-refresh: root.connected;
+            refresh => { root.history-refresh(); }
         }
 
         if root.screen == Screen.about: AboutScreen {

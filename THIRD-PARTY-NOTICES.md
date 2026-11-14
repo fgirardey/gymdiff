@@ -22,7 +22,7 @@ The code license does not grant the right to use the cooldown.lol name or logo f
 Both are embedded in the app and installer executables.
 
 ## Lucide
-- `crates/cooldown-app/ui/images/icons/settings.svg`, and `arrow-right`, `chevron-down`, `dumbbell`, `eye`, `flame`, `skull`, `swords` and `wheat` in the same folder (exported as outlines from `design/cooldown.pen`), from [Lucide](https://lucide.dev), under the ISC License:
+- `crates/cooldown-app/ui/images/icons/settings.svg` and `refresh-cw.svg`, and `arrow-right`, `chevron-down`, `dumbbell`, `eye`, `flame`, `skull`, `swords` and `wheat` in the same folder (exported as outlines from `design/cooldown.pen`), from [Lucide](https://lucide.dev), under the ISC License:
 
 ```
 ISC License
