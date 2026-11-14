@@ -64,9 +64,12 @@ export component HistorySessions inherits VerticalLayout {
             color: Theme.text-secondary;
             font-size: Theme.font-size-caption;
             vertical-alignment: center;
+            // Against the refresh: the push takes the free space.
+            horizontal-stretch: 0;
         }
 
         HistoryRefresh {
+            horizontal-stretch: 0;
             updated: root.updated;
             refreshing: root.refreshing;
             enabled: root.can-refresh;
