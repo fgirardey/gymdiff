@@ -16,6 +16,8 @@
 
 mod build_info;
 mod debug_events;
+mod history_import;
+mod history_store;
 mod platform;
 mod reporting;
 mod settings;
@@ -130,6 +132,15 @@ fn main() -> anyhow::Result<()> {
     window.set_debug_tools(cfg!(debug_assertions));
     window.on_debug_event(|kind| debug_events::fire(kind.as_str()));
 
+    // Without a readable history the app still works, it just has none (see `HistoryStore::open`).
+    let history = match history_store::HistoryStore::open(&data_dir) {
+        Ok(store) => Some(store),
+        Err(error) => {
+            tracing::warn!(%error, "cannot open the history: going on without it");
+            None
+        }
+    };
+
     let weak = window.as_weak();
     std::thread::Builder::new()
         .name("watcher".into())
@@ -138,7 +149,7 @@ fn main() -> anyhow::Result<()> {
                 .enable_all()
                 .build()
                 .expect("failed to build the Tokio runtime");
-            runtime.block_on(watcher::run(weak));
+            runtime.block_on(watcher::run(weak, history));
         })?;
 
     let tray = start_tray(&window);

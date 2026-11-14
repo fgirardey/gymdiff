@@ -38,8 +38,13 @@ tray-icon = "0.26"
 png = { workspace = true }
 # One GymDiff at a time: a second one asks the first to show its window (ADR-0013).
 interprocess = "2"
+# Game history in a local SQLite database, built in so nothing is installed (ADR-0007).
+rusqlite = { version = "0.41.1", features = ["bundled"] }
+thiserror = { workspace = true }
 
 [dev-dependencies]
+# Paused clock, to test the import's retries without waiting.
+tokio = { workspace = true, features = ["test-util"] }
 # tests/previews.rs compiles every ui/**/*.preview.slint file.
 slint-interpreter = { workspace = true }
 spin_on = { workspace = true }
