@@ -29,6 +29,7 @@ export component ChampionPortrait inherits Rectangle {
         clip: true;
 
         if !root.has-image: Text {
+            font-family: Theme.font-display;
             text: root.initials;
             color: Theme.text-primary;
             font-size: Theme.font-size-title;

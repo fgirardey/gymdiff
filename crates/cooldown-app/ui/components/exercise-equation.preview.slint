@@ -1,0 +1,74 @@
+// Previews of ExerciseEquation: `just preview components/exercise-equation`.
+
+import { Theme } from "../theme.slint";
+import { ExerciseEquation } from "exercise-equation.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// `Equation · BURPEES` of an expanded `Game row / *`.
+export component ExerciseEquationBurpees inherits Rectangle {
+    width: 1181px;
+    height: 44px;
+    background: Theme.surface;
+
+    ExerciseEquation {
+        exercise: Fixtures.game-miss-fortune.exercises[0];
+        exercise-icon: @image-url("../images/icons/burpee.svg");
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "ExerciseEquation";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Equation · BURPEES (per-minute stat)";
+            ExerciseEquationBurpees { }
+        }
+
+        PreviewCase {
+            label: "Equation · SQUATS (share)";
+            Rectangle {
+                width: 1181px;
+                height: 44px;
+                background: Theme.surface;
+                ExerciseEquation {
+                    exercise: Fixtures.game-miss-fortune.exercises[1];
+                    exercise-icon: @image-url("../images/icons/squat.svg");
+                }
+            }
+        }
+
+        PreviewCase {
+            label: "Equation · PLANK";
+            Rectangle {
+                width: 1181px;
+                height: 44px;
+                background: Theme.surface;
+                ExerciseEquation {
+                    exercise: Fixtures.game-miss-fortune.exercises[2];
+                    exercise-icon: @image-url("../images/icons/plank.svg");
+                }
+            }
+        }
+
+        PreviewCase {
+            label: "Capped";
+            Rectangle {
+                width: 1181px;
+                height: 44px;
+                background: Theme.surface;
+                ExerciseEquation {
+                    exercise: Fixtures.game-jinx.exercises[0];
+                    exercise-icon: @image-url("../images/icons/burpee.svg");
+                }
+            }
+        }
+    }
+}

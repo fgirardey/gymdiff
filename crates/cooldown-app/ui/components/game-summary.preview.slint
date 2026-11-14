@@ -1,0 +1,91 @@
+// Previews of GameSummary: `just preview components/game-summary`.
+
+import { Theme } from "../theme.slint";
+import { GameSummary } from "game-summary.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// `Game` of `Game row / Games / Skipped`.
+export component GameSummaryGames inherits Rectangle {
+    width: 220px;
+    height: 64px;
+    background: Theme.surface;
+
+    GameSummary {
+        game: Fixtures.game-jinx;
+    }
+}
+
+// `Game` of `Game row / Workouts / Skipped`.
+export component GameSummaryWorkouts inherits Rectangle {
+    width: 220px;
+    height: 64px;
+    background: Theme.surface;
+
+    GameSummary {
+        game: Fixtures.game-jinx;
+        workouts: true;
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "GameSummary";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Games view";
+            GameSummaryGames { }
+        }
+
+        PreviewCase {
+            label: "Workouts view";
+            GameSummaryWorkouts { }
+        }
+
+        PreviewCase {
+            label: "Win";
+            Rectangle {
+                width: 220px;
+                height: 64px;
+                background: Theme.surface;
+                GameSummary { game: Fixtures.game-kaisa; }
+            }
+        }
+
+        PreviewCase {
+            label: "Remake, portrait not downloaded";
+            HorizontalLayout {
+                alignment: start;
+                spacing: Theme.space-m;
+                Rectangle {
+                    width: 220px;
+                    height: 64px;
+                    background: Theme.surface;
+                    GameSummary { game: Fixtures.game-remake; }
+                }
+                Rectangle {
+                    width: 220px;
+                    height: 64px;
+                    background: Theme.surface;
+                    GameSummary { game: Fixtures.game-ahri-no-image; }
+                }
+            }
+        }
+
+        PreviewCase {
+            label: "Role not detected (Workouts view)";
+            Rectangle {
+                width: 220px;
+                height: 64px;
+                background: Theme.surface;
+                GameSummary { game: Fixtures.game-no-role; workouts: true; }
+            }
+        }
+    }
+}

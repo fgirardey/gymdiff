@@ -1,0 +1,28 @@
+// The pictogram of a stat (Lucide glyphs): wheat for CS, flame for damage share, swords for kill
+// participation, eye for vision, skull for deaths.
+//
+// Components `Stat icon / *` in design/cooldown.pen.
+
+import { Theme } from "../theme.slint";
+import { StatKind } from "../models.slint";
+
+export component StatIcon inherits Rectangle {
+    in property <StatKind> kind;
+    in property <color> tint: Theme.text-secondary;
+
+    width: 16px;
+    height: 16px;
+
+    // The glyphs are exported trimmed: they fill 14/16 of the box, as in Lucide.
+    Image {
+        width: parent.width * 14 / 16;
+        height: parent.height * 14 / 16;
+        image-fit: contain;
+        colorize: root.tint;
+        source: root.kind == StatKind.cs-per-minute ? @image-url("../images/icons/wheat.svg")
+            : root.kind == StatKind.damage-share ? @image-url("../images/icons/flame.svg")
+            : root.kind == StatKind.kill-participation ? @image-url("../images/icons/swords.svg")
+            : root.kind == StatKind.vision-per-minute ? @image-url("../images/icons/eye.svg")
+            : @image-url("../images/icons/skull.svg");
+    }
+}

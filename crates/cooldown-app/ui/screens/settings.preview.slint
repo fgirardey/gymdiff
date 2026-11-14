@@ -7,10 +7,10 @@ import { Fixtures } from "../preview-kit/fixtures.slint";
 import { PreviewCase } from "../preview-kit/preview-case.slint";
 import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
 
-// Pencil frame `App shell / Settings / Default` (400 × 640).
+// Pencil frame `App shell / Settings / Default` (1280 × 800).
 export component AppShellSettingsDefault inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -31,10 +31,10 @@ export component AppShellSettingsDefault inherits Rectangle {
     }
 }
 
-// Pencil frame `App shell / Settings / Crash reports on` (400 × 640).
+// Pencil frame `App shell / Settings / Crash reports on` (1280 × 800).
 export component AppShellSettingsCrashReportsOn inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -56,10 +56,10 @@ export component AppShellSettingsCrashReportsOn inherits Rectangle {
     }
 }
 
-// Pencil frame `App shell / Settings / Updates checking` (400 × 640).
+// Pencil frame `App shell / Settings / Updates checking` (1280 × 800).
 export component AppShellSettingsUpdatesChecking inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -81,10 +81,10 @@ export component AppShellSettingsUpdatesChecking inherits Rectangle {
     }
 }
 
-// Pencil frame `App shell / Settings / Updates ready` (400 × 640).
+// Pencil frame `App shell / Settings / Updates ready` (1280 × 800).
 export component AppShellSettingsUpdatesReady inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -105,10 +105,10 @@ export component AppShellSettingsUpdatesReady inherits Rectangle {
     }
 }
 
-// Pencil frame `App shell / Settings / Updates failed` (400 × 640).
+// Pencil frame `App shell / Settings / Updates failed` (1280 × 800).
 export component AppShellSettingsUpdatesFailed inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -129,10 +129,10 @@ export component AppShellSettingsUpdatesFailed inherits Rectangle {
     }
 }
 
-// Pencil frame `App shell / Settings / Scrolled to the bottom` (400 × 640).
+// Pencil frame `App shell / Settings / Scrolled to the bottom` (1280 × 800).
 export component AppShellSettingsScrolledToTheBottom inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -170,8 +170,8 @@ export component SettingsScreenPlayground inherits Window {
     in-out property <bool> uninstall-visible: true;
 
     background: Theme.background;
-    preferred-width: 400px;
-    preferred-height: 640px;
+    preferred-width: 1280px;
+    preferred-height: 800px;
 
     playground := PreviewPlayground {
         padding: 0;
@@ -256,8 +256,8 @@ export component Preview inherits Window {
         PreviewCase {
             label: "Not installed: no updates, shortcuts, startup or uninstall";
             AppShell {
-                width: 400px;
-                height: 640px;
+                width: 1280px;
+                height: 800px;
                 connected: true;
                 status-label: Fixtures.status-lobby;
                 settings-active: true;
@@ -268,8 +268,8 @@ export component Preview inherits Window {
         PreviewCase {
             label: "With the debug link (debug builds)";
             AppShell {
-                width: 400px;
-                height: 640px;
+                width: 1280px;
+                height: 800px;
                 connected: true;
                 status-label: Fixtures.status-lobby;
                 settings-active: true;

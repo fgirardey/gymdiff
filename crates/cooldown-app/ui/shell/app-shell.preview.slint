@@ -6,10 +6,10 @@ import { Fixtures } from "../preview-kit/fixtures.slint";
 import { PreviewCase } from "../preview-kit/preview-case.slint";
 import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
 
-// Pencil frame `App shell / Top bar / Default` (400 × 640).
+// Pencil frame `App shell / Top bar / Default` (1280 × 800).
 export component AppShellTopBarDefault inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -36,8 +36,8 @@ export component AppShellPlayground inherits Window {
     in-out property <bool> about-active;
 
     background: Theme.background;
-    preferred-width: 400px;
-    preferred-height: 640px;
+    preferred-width: 1280px;
+    preferred-height: 800px;
 
     playground := PreviewPlayground {
         padding: 0;

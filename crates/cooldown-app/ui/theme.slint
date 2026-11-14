@@ -3,6 +3,13 @@
 // SOURCE OF TRUTH: docs/Design/Tokens.md (mirrored from the Pencil design).
 // Keep this file in sync with that note: same names, same values.
 
+// The fonts (docs/Design/Tokens.md), bundled under the SIL Open Font License (fonts/*-OFL.txt).
+import "fonts/BarlowCondensed-ExtraBoldItalic.ttf";
+import "fonts/BarlowCondensed-BoldItalic.ttf";
+import "fonts/BarlowCondensed-ExtraBold.ttf";
+import "fonts/BarlowCondensed-SemiBold.ttf";
+import "fonts/Inter-VariableFont.ttf";
+
 export global Theme {
     // Colors
     out property <color> background: #0d1117;
@@ -14,6 +21,7 @@ export global Theme {
     out property <color> success: #3fb950;
     out property <color> danger: #f85149;
     out property <color> warning: #d29922;
+    out property <color> info: #58a6ff;
     out property <color> scrim: #010409c7;
 
     // Spacing (logical pixels)
@@ -24,6 +32,8 @@ export global Theme {
     out property <length> space-xl: 32px;
 
     // Radius
+    out property <length> radius-chip: 4px;
+    out property <length> radius-s: 6px;
     out property <length> radius-m: 8px;
     out property <length> radius-dialog: 16px;
     out property <length> radius-panel: 10px;
@@ -34,6 +44,13 @@ export global Theme {
     out property <float> tint-line: 0.4;
     out property <float> tint-games: 0.04;
     out property <float> muted-opacity: 0.75;
+
+    // Tints of a game row: its result colour (or `text-secondary` without workout) fades from
+    // the stripe on the left, at these opacities at 0 % and 28 % of the width, gone at 60 %.
+    out property <float> tint-row: 0.22;
+    out property <float> tint-row-mid: 0.08;
+    out property <float> tint-row-muted: 0.15;
+    out property <float> tint-row-muted-mid: 0.05;
 
     // Interaction
     out property <float> state-opacity-hover: 0.08;
@@ -46,10 +63,16 @@ export global Theme {
     out property <length> focus-ring-width: 2px;
 
     // Typography
+    out property <string> font-display: "Barlow Condensed";
+    out property <string> font-body: "Inter";
+    out property <length> font-size-micro: 10px;
+    out property <length> font-size-small: 11px;
     out property <length> font-size-caption: 12px;
+    out property <length> font-size-label: 13px;
     out property <length> font-size-body: 14px;
     out property <length> font-size-wordmark: 18px;
     out property <length> font-size-title: 20px;
+    out property <length> font-size-equation: 22px;
     out property <length> font-size-headline: 32px;
     out property <length> font-size-display: 40px;
     out property <length> font-size-hero: 96px;

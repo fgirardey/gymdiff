@@ -1,0 +1,72 @@
+// The History view switch: Games (the stats of each game) or Workouts (the exercises they turned
+// into).
+//
+// `View switch` of the `History / Main / *` frames in design/cooldown.pen.
+
+import { Theme } from "../theme.slint";
+import { Icon } from "icon.slint";
+import { StateLayer } from "state-layer.slint";
+
+export component ViewSwitch inherits Rectangle {
+    /// The Workouts view is shown.
+    in property <bool> workouts;
+    /// The player picked a view; `workouts` is the one picked.
+    callback picked(workouts: bool);
+
+    background: Theme.surface;
+    border-width: 1px;
+    border-color: Theme.border;
+    border-radius: Theme.radius-m;
+    height: 32px;
+    width: row.preferred-width;
+
+    row := HorizontalLayout {
+        padding: 3px;
+        spacing: 2px;
+
+        for segment in [
+            { label: "Games", workouts: false, icon: @image-url("../images/icons/swords.svg") },
+            { label: "Workouts", workouts: true, icon: @image-url("../images/icons/dumbbell.svg") },
+        ]: Rectangle {
+            property <bool> selected: segment.workouts == root.workouts;
+
+            border-radius: Theme.radius-s;
+            background: self.selected ? Theme.border : transparent;
+            width: label.preferred-width;
+
+            StateLayer {
+                border-radius: parent.border-radius;
+                tint: Theme.text-primary;
+                hovered: touch.has-hover && !parent.selected;
+                pressed: touch.pressed && !parent.selected;
+            }
+
+            label := HorizontalLayout {
+                padding-left: 12px;
+                padding-right: 12px;
+                spacing: 6px;
+
+                Icon {
+                    source: segment.icon;
+                    width: 14px * 12 / 14;
+                    height: 14px * 12 / 14;
+                    colorize: segment.workouts == root.workouts ? Theme.text-primary : Theme.text-secondary;
+                    y: (parent.height - self.height) / 2;
+                }
+                Text {
+                    font-family: Theme.font-body;
+                    text: segment.label;
+                    color: segment.workouts == root.workouts ? Theme.text-primary : Theme.text-secondary;
+                    font-size: Theme.font-size-label;
+                    font-weight: 600;
+                    vertical-alignment: center;
+                }
+            }
+
+            touch := TouchArea {
+                mouse-cursor: pointer;
+                clicked => { root.picked(segment.workouts); }
+            }
+        }
+    }
+}

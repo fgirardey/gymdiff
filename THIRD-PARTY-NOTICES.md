@@ -11,12 +11,18 @@ League of Legends and all associated properties are trademarks or registered tra
 cooldown.lol isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties.
 
 ## cooldown.lol name and logo
-- `design/brand/*`, `crates/cooldown-app/ui/images/crest.svg`: the cooldown.lol name, crest and lockup.
+- `design/brand/*`, `crates/cooldown-app/ui/images/mark.svg`, `crates/cooldown-app/ui/images/app-icon.png`: the cooldown.lol name, mark and lockup.
 
 The code license does not grant the right to use the cooldown.lol name or logo for another product or a modified version presented as cooldown.lol. Forks must use their own name and logo.
 
+## Fonts
+- `crates/cooldown-app/ui/fonts/BarlowCondensed-*.ttf`: [Barlow Condensed](https://github.com/jpt/barlow), Copyright 2017 The Barlow Project Authors, under the SIL Open Font License 1.1 (`crates/cooldown-app/ui/fonts/BarlowCondensed-OFL.txt`). From the Google Fonts repository.
+- `crates/cooldown-app/ui/fonts/Inter-VariableFont.ttf`: [Inter](https://github.com/rsms/inter), Copyright 2020 The Inter Project Authors, under the SIL Open Font License 1.1 (`crates/cooldown-app/ui/fonts/Inter-OFL.txt`). The copy Slint ships in `i-slint-common`.
+
+Both are embedded in the app and installer executables.
+
 ## Lucide
-- `crates/cooldown-app/ui/images/icons/settings.svg`, from [Lucide](https://lucide.dev), under the ISC License:
+- `crates/cooldown-app/ui/images/icons/settings.svg`, and `arrow-right`, `chevron-down`, `dumbbell`, `eye`, `flame`, `skull`, `swords` and `wheat` in the same folder (exported as outlines from `design/cooldown.pen`), from [Lucide](https://lucide.dev), under the ISC License:
 
 ```
 ISC License

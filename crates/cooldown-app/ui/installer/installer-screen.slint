@@ -4,7 +4,7 @@
 // `Installer / Window / Done`, `Installer / Window / Failed`.
 
 import { Theme } from "../theme.slint";
-import { Crest } from "../components/crest.slint";
+import { Mark } from "../components/mark.slint";
 import { SettingRow } from "../components/setting-row.slint";
 import { PrimaryButton } from "../components/primary-button.slint";
 import { SecondaryButton } from "../components/secondary-button.slint";
@@ -39,15 +39,16 @@ export component InstallerScreen inherits Rectangle {
 
         HorizontalLayout {
             alignment: start;
-            Crest { }
+            Mark { }
         }
 
         VerticalLayout {
             spacing: Theme.space-s;
             Text {
-                text: root.step == InstallerStep.options ? "INSTALL COOLDOWN"
+                font-family: Theme.font-display;
+                text: root.step == InstallerStep.options ? "INSTALL COOLDOWN.LOL"
                     : root.step == InstallerStep.installing ? "INSTALLING…"
-                    : root.step == InstallerStep.done ? "COOLDOWN IS INSTALLED"
+                    : root.step == InstallerStep.done ? "COOLDOWN.LOL IS INSTALLED"
                     : "INSTALLATION FAILED";
                 color: Theme.text-primary;
                 font-size: Theme.font-size-headline;
@@ -56,6 +57,7 @@ export component InstallerScreen inherits Rectangle {
                 wrap: word-wrap;
             }
             Text {
+                font-family: Theme.font-body;
                 text: root.step == InstallerStep.options ? "For your Windows account only. No administrator rights needed."
                     : root.step == InstallerStep.installing ? "cooldown.lol \{root.version} is being installed."
                     : root.step == InstallerStep.done ? "Open it any time from the shortcuts you chose."
@@ -68,6 +70,7 @@ export component InstallerScreen inherits Rectangle {
 
         if root.step == InstallerStep.options: VerticalLayout {
             Text {
+                font-family: Theme.font-body;
                 text: "OPTIONS";
                 color: Theme.text-secondary;
                 font-size: Theme.font-size-caption;

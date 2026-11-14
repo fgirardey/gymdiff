@@ -7,10 +7,10 @@ import { HistorySessions } from "history-sessions.slint";
 import { Fixtures } from "../preview-kit/fixtures.slint";
 import { PreviewCase } from "../preview-kit/preview-case.slint";
 
-// Pencil frame `History / Main / Empty` (400 × 640).
+// Pencil frame `History / Main / Empty` (1280 × 800).
 export component HistoryMainEmpty inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -24,10 +24,10 @@ export component HistoryMainEmpty inherits Rectangle {
     }
 }
 
-// Pencil frame `History / Main / Before cooldown.lol` (400 × 640).
+// Pencil frame `History / Main / Before cooldown.lol` (1280 × 800).
 export component HistoryMainBeforeCooldown inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -42,12 +42,49 @@ export component HistoryMainBeforeCooldown inherits Rectangle {
     }
 }
 
+// Pencil frame `History / Main / Workouts view (desktop)` (1280 × 800), games of Before cooldown.lol.
+export component HistoryMainWorkoutsView inherits Rectangle {
+    width: 1280px;
+    height: 800px;
+    background: Theme.background;
+    clip: true;
+
+    AppShell {
+        connected: true;
+        status-label: Fixtures.status-lobby;
+
+        HistorySessions {
+            vertical-stretch: 1;
+            sessions: Fixtures.sessions-before-cooldown;
+            workouts: true;
+        }
+    }
+}
+
+// Pencil frame `History / Main / No workout` (1280 × 800).
+export component HistoryMainNoWorkout inherits Rectangle {
+    width: 1280px;
+    height: 800px;
+    background: Theme.background;
+    clip: true;
+
+    AppShell {
+        connected: true;
+        status-label: Fixtures.status-lobby;
+
+        HistorySessions {
+            vertical-stretch: 1;
+            sessions: Fixtures.sessions-no-workout;
+        }
+    }
+}
+
 // Gallery of every state (default component of the file).
 export component Preview inherits Window {
     title: "History";
     background: Theme.background;
 
-    HorizontalLayout {
+    VerticalLayout {
         padding: Theme.space-m;
         spacing: Theme.space-m;
         alignment: start;
@@ -60,6 +97,16 @@ export component Preview inherits Window {
         PreviewCase {
             label: "History / Main / Before cooldown.lol";
             HistoryMainBeforeCooldown { }
+        }
+
+        PreviewCase {
+            label: "History / Main / Workouts view (desktop)";
+            HistoryMainWorkoutsView { }
+        }
+
+        PreviewCase {
+            label: "History / Main / No workout";
+            HistoryMainNoWorkout { }
         }
     }
 }

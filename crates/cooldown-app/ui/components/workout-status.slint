@@ -1,0 +1,51 @@
+// The workout status of a History row: icon and status ("SKIPPED", "NO WORKOUT"), and the
+// reason when there is no workout.
+//
+// `Workout` of the `Game row / *` components in design/cooldown.pen.
+
+import { Theme } from "../theme.slint";
+import { Icon } from "icon.slint";
+
+export component WorkoutStatus inherits VerticalLayout {
+    in property <string> status;
+    in property <bool> has-workout;
+    /// Without workout: "Remake".
+    in property <string> reason;
+
+    width: 112px;
+    spacing: 2px;
+    alignment: center;
+
+    HorizontalLayout {
+        spacing: Theme.space-xs;
+        alignment: start;
+
+        Icon {
+            source: root.has-workout
+                ? @image-url("../images/icons/circle-x.svg")
+                : @image-url("../images/icons/circle-slash.svg");
+            width: 14px;
+            height: 14px;
+            colorize: Theme.text-secondary;
+            y: (parent.height - self.height) / 2;
+        }
+
+        Text {
+            font-family: Theme.font-body;
+            text: root.status;
+            color: Theme.text-secondary;
+            font-size: Theme.font-size-label;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            vertical-alignment: center;
+        }
+    }
+
+    if !root.has-workout: Text {
+        font-family: Theme.font-body;
+        text: root.reason;
+        color: Theme.text-secondary;
+        font-size: Theme.font-size-caption;
+        overflow: elide;
+    }
+}

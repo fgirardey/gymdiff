@@ -1,0 +1,46 @@
+// Previews of KdaStat: `just preview components/kda-stat`.
+
+import { Theme } from "../theme.slint";
+import { KdaStat } from "kda-stat.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// `Stat · KDA` of `Game row / Games / Skipped`.
+export component KdaStatSkipped inherits Rectangle {
+    width: 136px;
+    height: 40px;
+    background: Theme.surface;
+
+    KdaStat {
+        kills: 2;
+        deaths: 7;
+        assists: 6;
+        ratio: "1.1 KDA";
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "KdaStat";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Stat · KDA";
+            KdaStatSkipped { }
+        }
+
+        PreviewCase {
+            label: "Double digits";
+            KdaStat {
+                kills: 14;
+                deaths: 12;
+                assists: 21;
+                ratio: "2.9 KDA";
+            }
+        }
+    }
+}

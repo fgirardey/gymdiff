@@ -1,0 +1,50 @@
+// Previews of SessionHeader: `just preview components/session-header`.
+
+import { Theme } from "../theme.slint";
+import { SessionHeader } from "session-header.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// Pencil component `Session header / Games`, for games from before cooldown.lol.
+export component SessionHeaderGames inherits Rectangle {
+    width: 1216px;
+    height: 40px;
+    background: Theme.background;
+
+    SessionHeader {
+        label: "TODAY · #1";
+        subtitle: "3 games · before cooldown.lol";
+        wins: 1;
+        losses: 2;
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "SessionHeader";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Session header / Games";
+            SessionHeaderGames { }
+        }
+
+        PreviewCase {
+            label: "One game, narrow";
+            Rectangle {
+                width: 400px;
+                height: 40px;
+                SessionHeader {
+                    label: "SUN 1 NOV · #2";
+                    subtitle: "1 game · before cooldown.lol";
+                    wins: 0;
+                    losses: 1;
+                }
+            }
+        }
+    }
+}

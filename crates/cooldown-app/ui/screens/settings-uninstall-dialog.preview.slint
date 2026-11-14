@@ -8,10 +8,10 @@ import { Fixtures } from "../preview-kit/fixtures.slint";
 import { PreviewCase } from "../preview-kit/preview-case.slint";
 import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
 
-// Pencil frame `App shell / Settings / Uninstall confirm` (400 × 640).
+// Pencil frame `App shell / Settings / Uninstall confirm` (1280 × 800).
 export component AppShellSettingsUninstallConfirm inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -35,10 +35,10 @@ export component AppShellSettingsUninstallConfirm inherits Rectangle {
     SettingsUninstallDialog { }
 }
 
-// Pencil frame `App shell / Settings / Uninstall failed` (400 × 640).
+// Pencil frame `App shell / Settings / Uninstall failed` (1280 × 800).
 export component AppShellSettingsUninstallFailed inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -68,8 +68,8 @@ export component SettingsUninstallDialogPlayground inherits Window {
     in-out property <bool> failed;
 
     background: Theme.background;
-    preferred-width: 400px;
-    preferred-height: 640px;
+    preferred-width: 1280px;
+    preferred-height: 800px;
 
     playground := PreviewPlayground {
         padding: 0;
@@ -110,8 +110,8 @@ export component Preview inherits Window {
         PreviewCase {
             label: "Also delete my settings on";
             Rectangle {
-                width: 400px;
-                height: 640px;
+                width: 1280px;
+                height: 800px;
                 background: Theme.background;
                 SettingsUninstallDialog { delete-data: true; }
             }

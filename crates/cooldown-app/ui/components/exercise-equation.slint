@@ -1,0 +1,154 @@
+// One line of a History row's details: the exercise and the stat it pays for, the formula
+// with its numbers, and the amount it came to.
+//
+// `Equation · *` of the expanded `Game row / *` components in design/cooldown.pen. Games from
+// before cooldown.lol were never offered their workout: the result says *skipped*.
+
+import { Theme } from "../theme.slint";
+import { ExerciseData } from "../models.slint";
+import { Icon } from "icon.slint";
+
+export component ExerciseEquation inherits HorizontalLayout {
+    in property <ExerciseData> exercise;
+    /// Burpee, squat or plank pictogram.
+    in property <image> exercise-icon;
+
+    spacing: 20px;
+
+    // The exercise and what it pays for.
+    HorizontalLayout {
+        width: 220px;
+        spacing: 10px;
+        alignment: start;
+
+        Icon {
+            source: root.exercise-icon;
+            width: 28px;
+            height: 28px;
+            colorize: Theme.text-primary;
+            y: (parent.height - self.height) / 2;
+        }
+
+        VerticalLayout {
+            spacing: 1px;
+            alignment: center;
+            Text {
+                font-family: Theme.font-body;
+                text: root.exercise.name;
+                color: Theme.text-primary;
+                font-size: Theme.font-size-label;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+            }
+            Text {
+                font-family: Theme.font-body;
+                text: root.exercise.pays-for;
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-caption;
+                overflow: elide;
+            }
+        }
+    }
+
+    // The formula, right-aligned against the "=".
+    HorizontalLayout {
+        spacing: Theme.space-m;
+        alignment: end;
+        horizontal-stretch: 1;
+
+        for term in root.exercise.terms: VerticalLayout {
+            spacing: 6px;
+            alignment: start;
+
+            Text {
+                font-family: Theme.font-display;
+                text: term.text;
+                color: term.operator ? Theme.text-secondary
+                    : term.factor ? Theme.success
+                    : term.under ? Theme.danger
+                    : Theme.text-primary;
+                font-size: Theme.font-size-equation;
+                font-weight: term.operator ? 600 : 800;
+                font-italic: !term.operator;
+                horizontal-alignment: center;
+            }
+
+            if !term.operator: Text {
+                font-family: Theme.font-body;
+                text: term.caption;
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-small;
+                horizontal-alignment: center;
+            }
+        }
+
+        Text {
+            font-family: Theme.font-display;
+            text: "=";
+            color: Theme.text-primary;
+            font-size: Theme.font-size-equation;
+            font-weight: 600;
+        }
+    }
+
+    // The result.
+    HorizontalLayout {
+        width: 210px;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        HorizontalLayout {
+            spacing: 10px;
+
+            Icon {
+                source: root.exercise-icon;
+                width: 44px;
+                height: 44px;
+                colorize: Theme.text-primary;
+            }
+
+            VerticalLayout {
+                width: 58px;
+                spacing: 6px;
+                alignment: center;
+
+                Text {
+                    font-family: Theme.font-display;
+                    text: root.exercise.due + root.exercise.unit;
+                    color: root.exercise.capped ? Theme.warning : Theme.text-primary;
+                    font-size: Theme.font-size-equation;
+                    font-weight: 800;
+                    font-italic: true;
+                }
+                Text {
+                    font-family: Theme.font-body;
+                    text: root.exercise.capped ? root.exercise.cap-label : root.exercise.unit-label;
+                    color: root.exercise.capped ? Theme.warning : Theme.text-primary;
+                    font-size: Theme.font-size-small;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        HorizontalLayout {
+            spacing: Theme.space-xs;
+            alignment: start;
+
+            Icon {
+                source: @image-url("../images/icons/circle-x.svg");
+                width: 14px;
+                height: 14px;
+                colorize: Theme.text-secondary;
+                y: (parent.height - self.height) / 2;
+            }
+            Text {
+                font-family: Theme.font-body;
+                text: "skipped";
+                color: Theme.text-secondary;
+                font-size: Theme.font-size-caption;
+                font-weight: 600;
+                vertical-alignment: center;
+            }
+        }
+    }
+}

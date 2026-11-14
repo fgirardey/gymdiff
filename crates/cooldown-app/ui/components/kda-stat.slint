@@ -1,0 +1,43 @@
+// The K/D/A of a game in the Games view: kills, deaths in red, assists, and the KDA ratio.
+//
+// `Stat · KDA` column of the `Game row / Games / *` components in design/cooldown.pen.
+
+import { Theme } from "../theme.slint";
+
+export component KdaStat inherits VerticalLayout {
+    in property <int> kills;
+    in property <int> deaths;
+    in property <int> assists;
+    /// "1.1 KDA".
+    in property <string> ratio;
+
+    spacing: 5px;
+    alignment: center;
+
+    HorizontalLayout {
+        spacing: 5px;
+        alignment: start;
+
+        for part in [
+            { text: "" + root.kills, color: Theme.text-primary },
+            { text: "/", color: Theme.border },
+            { text: "" + root.deaths, color: Theme.danger },
+            { text: "/", color: Theme.border },
+            { text: "" + root.assists, color: Theme.text-primary },
+        ]: Text {
+            font-family: Theme.font-display;
+            text: part.text;
+            color: part.color;
+            font-size: Theme.font-size-title;
+            font-weight: 800;
+            font-italic: true;
+        }
+    }
+
+    Text {
+        font-family: Theme.font-body;
+        text: root.ratio;
+        color: Theme.text-secondary;
+        font-size: Theme.font-size-caption;
+    }
+}

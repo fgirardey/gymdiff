@@ -1,0 +1,153 @@
+// A game of the History screen: a 64 px row (game, then the stats in the Games view or the
+// exercises in the Workouts view, the workout status and a chevron), opening on the formula of
+// each exercise. A stripe on the left and a tint fading from it show the result in the Games
+// view.
+//
+// Components `Game row / Games / *` and `Game row / Workouts / *` in design/cooldown.pen; only
+// the states of games from before cooldown.lol (*Skipped*, *No workout*) are wired for now.
+
+import { Theme } from "../theme.slint";
+import { GameRowData, StatKind } from "../models.slint";
+import { GameSummary } from "game-summary.slint";
+import { KdaStat } from "kda-stat.slint";
+import { StatGauge } from "stat-gauge.slint";
+import { ExerciseColumn } from "exercise-column.slint";
+import { ExerciseEquation } from "exercise-equation.slint";
+import { WorkoutStatus } from "workout-status.slint";
+import { ExpandButton } from "expand-button.slint";
+
+export component GameRow inherits Rectangle {
+    in property <GameRowData> game;
+    /// Workouts view; the Games view otherwise.
+    in property <bool> workouts;
+    /// Details open. The row keeps it while it lives.
+    in-out property <bool> expanded;
+
+    // The result's colour, `text-secondary` without workout and in the Workouts view.
+    property <color> tone: root.workouts || !root.game.has-workout || root.game.remake
+        ? Theme.text-secondary
+        : root.game.win ? Theme.info : Theme.danger;
+    property <bool> muted: !root.workouts && !root.game.has-workout;
+    property <[image]> exercise-icons: [
+        @image-url("../images/icons/burpee.svg"),
+        @image-url("../images/icons/squat.svg"),
+        @image-url("../images/icons/plank.svg"),
+    ];
+
+    background: Theme.surface;
+    border-radius: Theme.radius-m;
+    clip: true;
+    height: content.preferred-height;
+
+    // The tint, fading from the stripe.
+    if !root.workouts: Rectangle {
+        background: @linear-gradient(90deg,
+            root.tone.with-alpha(root.muted ? Theme.tint-row-muted : Theme.tint-row) 0%,
+            root.tone.with-alpha(root.muted ? Theme.tint-row-muted-mid : Theme.tint-row-mid) 28%,
+            root.tone.with-alpha(0) 60%);
+    }
+
+    content := VerticalLayout {
+        HorizontalLayout {
+            height: 64px;
+            padding-left: 3px + 20px;
+            padding-right: 12px;
+            spacing: 20px;
+
+            GameSummary {
+                game: root.game;
+                workouts: root.workouts;
+            }
+
+            if !root.workouts: HorizontalLayout {
+                horizontal-stretch: 5;
+                spacing: 20px;
+
+                // Equal columns, whatever their content.
+                KdaStat {
+                    horizontal-stretch: 1;
+                    preferred-width: 120px;
+                    kills: root.game.kills;
+                    deaths: root.game.deaths;
+                    assists: root.game.assists;
+                    ratio: root.game.kda-ratio;
+                }
+
+                for kind[index] in [
+                    StatKind.cs-per-minute,
+                    StatKind.damage-share,
+                    StatKind.kill-participation,
+                    StatKind.vision-per-minute,
+                ]: StatGauge {
+                    horizontal-stretch: 1;
+                    preferred-width: 120px;
+                    kind: kind;
+                    known: root.game.stats.length > index;
+                    stat: root.game.stats[index];
+                    caption: ["CS per minute", "Damage share", "Kill participation", "Vision per minute"][index];
+                }
+            }
+
+            if root.workouts && root.game.has-workout: HorizontalLayout {
+                horizontal-stretch: 3;
+                spacing: 20px;
+                for exercise[index] in root.game.exercises: ExerciseColumn {
+                    horizontal-stretch: 1;
+                    preferred-width: 200px;
+                    exercise: exercise;
+                    exercise-icon: root.exercise-icons[index];
+                }
+            }
+
+            if root.workouts && !root.game.has-workout: Rectangle {
+                horizontal-stretch: 3;
+            }
+
+            WorkoutStatus {
+                status: root.game.status;
+                has-workout: root.game.has-workout;
+                reason: root.game.reason;
+            }
+
+            VerticalLayout {
+                alignment: center;
+                width: 28px;
+                if root.game.has-workout: ExpandButton {
+                    expanded: root.expanded;
+                    clicked => { root.expanded = !root.expanded; }
+                }
+            }
+        }
+
+        if root.expanded && root.game.has-workout: Rectangle {
+            height: details.preferred-height;
+
+            // The line between the row and its details.
+            Rectangle {
+                y: 0px;
+                height: 1px;
+                background: Theme.border;
+            }
+
+            details := VerticalLayout {
+                padding-top: 22px;
+                padding-right: 12px;
+                padding-bottom: Theme.space-l;
+                padding-left: 3px + 20px;
+                spacing: Theme.space-l;
+
+                for exercise[index] in root.game.exercises: ExerciseEquation {
+                    exercise: exercise;
+                    exercise-icon: root.exercise-icons[index];
+                }
+            }
+        }
+    }
+
+    // The stripe, along the whole row.
+    Rectangle {
+        x: 0px;
+        width: 3px;
+        background: root.tone;
+    }
+}

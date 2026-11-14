@@ -1,9 +1,9 @@
-// Top bar: crest, wordmark, client status and the About button.
+// Top bar: mark, wordmark, client status and the Settings and About buttons.
 //
 // Frame in design/cooldown.pen: `App shell / Top bar / Default`.
 
 import { Theme } from "../theme.slint";
-import { Crest } from "../components/crest.slint";
+import { Mark } from "../components/mark.slint";
 import { NavButton } from "../components/nav-button.slint";
 import { ConnectionStatus } from "connection-status.slint";
 
@@ -25,17 +25,32 @@ export component TopBar inherits Rectangle {
 
         VerticalLayout {
             alignment: center;
-            Crest { }
+            Mark { }
         }
 
-        Text {
-            text: "COOLDOWN";
-            color: Theme.text-primary;
-            font-size: Theme.font-size-wordmark;
-            font-weight: 800;
-            font-italic: true;
-            letter-spacing: 1px;
-            vertical-alignment: center;
+        // `COOLDOWN` and its `.LOL` in the accent colour.
+        HorizontalLayout {
+            padding-left: Theme.space-xs;
+            Text {
+                font-family: Theme.font-display;
+                text: "COOLDOWN";
+                color: Theme.text-primary;
+                font-size: Theme.font-size-wordmark;
+                font-weight: 800;
+                font-italic: true;
+                letter-spacing: 1px;
+                vertical-alignment: center;
+            }
+            Text {
+                font-family: Theme.font-display;
+                text: ".LOL";
+                color: Theme.accent;
+                font-size: Theme.font-size-wordmark;
+                font-weight: 800;
+                font-italic: true;
+                letter-spacing: 1px;
+                vertical-alignment: center;
+            }
         }
 
         Rectangle {

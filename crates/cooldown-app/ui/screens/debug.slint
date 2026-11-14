@@ -24,6 +24,7 @@ export component DebugScreen inherits VerticalLayout {
     }
 
     Text {
+        font-family: Theme.font-display;
         text: "DEBUG EVENTS";
         color: Theme.text-primary;
         font-size: Theme.font-size-title;
@@ -53,6 +54,7 @@ export component DebugScreen inherits VerticalLayout {
     }
 
     Text {
+        font-family: Theme.font-body;
         text: "Reaches Sentry only if crash reports were on at launch and COOLDOWN_SENTRY_DSN is set. Errors are sent at most once a minute. The personal data one must arrive scrubbed.";
         color: Theme.text-secondary;
         font-size: Theme.font-size-caption;

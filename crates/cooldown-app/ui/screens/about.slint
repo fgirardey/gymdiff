@@ -10,7 +10,11 @@ export component AboutScreen inherits VerticalLayout {
     in property <string> version;
     callback back;
 
-    padding: Theme.space-l;
+    // A 720 px column, centred in the window.
+    padding-top: Theme.space-l;
+    padding-bottom: Theme.space-l;
+    padding-left: max(Theme.space-l, (self.width - 720px) / 2);
+    padding-right: max(Theme.space-l, (self.width - 720px) / 2);
     spacing: Theme.space-m;
     alignment: start;
 
@@ -23,6 +27,7 @@ export component AboutScreen inherits VerticalLayout {
     }
 
     Text {
+        font-family: Theme.font-display;
         text: "ABOUT";
         color: Theme.text-primary;
         font-size: Theme.font-size-title;
@@ -32,6 +37,7 @@ export component AboutScreen inherits VerticalLayout {
     }
 
     Text {
+        font-family: Theme.font-body;
         text: "cooldown.lol " + root.version;
         color: Theme.text-primary;
         font-size: Theme.font-size-body;
@@ -51,6 +57,7 @@ export component AboutScreen inherits VerticalLayout {
     }
 
     Text {
+        font-family: Theme.font-body;
         text: "cooldown.lol isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.";
         color: Theme.text-secondary;
         font-size: Theme.font-size-body;

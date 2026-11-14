@@ -1,0 +1,61 @@
+// Previews of WorkoutStatus: `just preview components/workout-status`.
+
+import { Theme } from "../theme.slint";
+import { WorkoutStatus } from "workout-status.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// `Workout` of `Game row / Games / Skipped`.
+export component WorkoutStatusSkipped inherits Rectangle {
+    width: 112px;
+    height: 40px;
+    background: Theme.surface;
+
+    WorkoutStatus {
+        status: "SKIPPED";
+        has-workout: true;
+    }
+}
+
+// `Workout` of `Game row / Games / No workout`.
+export component WorkoutStatusNoWorkout inherits Rectangle {
+    width: 112px;
+    height: 40px;
+    background: Theme.surface;
+
+    WorkoutStatus {
+        status: "NO WORKOUT";
+        reason: "Remake";
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "WorkoutStatus";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Skipped";
+            WorkoutStatusSkipped { }
+        }
+
+        PreviewCase {
+            label: "No workout";
+            WorkoutStatusNoWorkout { }
+        }
+
+        PreviewCase {
+            label: "Long reason";
+            Rectangle {
+                width: 112px;
+                height: 40px;
+                background: Theme.surface;
+                WorkoutStatus { status: "NO WORKOUT"; reason: "Couldn't detect your role"; }
+            }
+        }
+    }
+}

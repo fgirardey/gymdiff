@@ -1,0 +1,49 @@
+// Previews of ExpandButton: `just preview components/expand-button`.
+
+import { Theme } from "../theme.slint";
+import { ExpandButton } from "expand-button.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// `Expand` of the `Game row / *` components, closed.
+export component ExpandButtonClosed inherits Rectangle {
+    width: 28px;
+    height: 28px;
+    background: Theme.surface;
+
+    ExpandButton { }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "ExpandButton";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Closed";
+            ExpandButtonClosed { }
+        }
+
+        PreviewCase {
+            label: "Open";
+            HorizontalLayout {
+                alignment: start;
+                ExpandButton { expanded: true; }
+            }
+        }
+
+        PreviewCase {
+            label: "Playground: click to toggle";
+            HorizontalLayout {
+                alignment: start;
+                toggle := ExpandButton {
+                    clicked => { self.expanded = !self.expanded; }
+                }
+            }
+        }
+    }
+}

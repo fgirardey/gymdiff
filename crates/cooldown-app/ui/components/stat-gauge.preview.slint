@@ -1,0 +1,64 @@
+// Previews of StatGauge: `just preview components/stat-gauge`.
+
+import { Theme } from "../theme.slint";
+import { StatGauge } from "stat-gauge.slint";
+import { StatKind } from "../models.slint";
+import { Fixtures } from "../preview-kit/fixtures.slint";
+import { PreviewCase } from "../preview-kit/preview-case.slint";
+
+// `Stat · CS per minute` of `Game row / Games / Skipped`: under the target.
+export component StatGaugeUnder inherits Rectangle {
+    width: 136px;
+    height: 40px;
+    background: Theme.surface;
+
+    StatGauge {
+        kind: StatKind.cs-per-minute;
+        stat: Fixtures.game-jinx.stats[0];
+        caption: "CS per minute";
+    }
+}
+
+// Gallery of every variant (default component of the file).
+export component Preview inherits Window {
+    title: "StatGauge";
+    background: Theme.background;
+
+    VerticalLayout {
+        padding: Theme.space-m;
+        spacing: Theme.space-m;
+        alignment: start;
+
+        PreviewCase {
+            label: "Under the target";
+            StatGaugeUnder { }
+        }
+
+        PreviewCase {
+            label: "On target";
+            StatGauge {
+                kind: StatKind.cs-per-minute;
+                stat: Fixtures.game-kaisa.stats[0];
+                caption: "CS per minute";
+            }
+        }
+
+        PreviewCase {
+            label: "Not judged for the role: no tick";
+            StatGauge {
+                kind: StatKind.kill-participation;
+                stat: Fixtures.game-jinx.stats[2];
+                caption: "Kill participation";
+            }
+        }
+
+        PreviewCase {
+            label: "Stats unreadable";
+            StatGauge {
+                kind: StatKind.vision-per-minute;
+                known: false;
+                caption: "Vision per minute";
+            }
+        }
+    }
+}

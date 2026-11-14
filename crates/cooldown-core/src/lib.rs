@@ -19,4 +19,4 @@ pub use game::{Game, GameResult, GameSource, NoWorkoutReason, PlayerStats, Role}
 pub use phase::GamePhase;
 pub use session::{Session, group_into_sessions};
 pub use state::{CompanionState, ConnectionStatus};
-pub use workout::{Amount, Workout};
+pub use workout::{Amount, StatKind, Target, Workout, role_targets};

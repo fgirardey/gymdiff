@@ -3,7 +3,7 @@
 // Frame in design/cooldown.pen: `First launch / Welcome / Default`.
 
 import { Theme } from "../theme.slint";
-import { Crest } from "../components/crest.slint";
+import { Mark } from "../components/mark.slint";
 import { Icon } from "../components/icon.slint";
 import { PrimaryButton } from "../components/primary-button.slint";
 import { WelcomeRule } from "welcome-rule.slint";
@@ -11,17 +11,23 @@ import { WelcomeRule } from "welcome-rule.slint";
 export component WelcomeScreen inherits VerticalLayout {
     callback lets-go;
 
-    padding: Theme.space-xl;
+    // A 560 px column, centred in the window.
+    padding-top: Theme.space-xl;
+    padding-bottom: Theme.space-xl;
+    padding-left: max(Theme.space-xl, (self.width - 560px) / 2);
+    padding-right: max(Theme.space-xl, (self.width - 560px) / 2);
     spacing: Theme.space-l;
+    alignment: center;
 
     HorizontalLayout {
         alignment: start;
-        Crest { }
+        Mark { }
     }
 
     VerticalLayout {
         spacing: Theme.space-s;
         Text {
+            font-family: Theme.font-display;
             text: "THE DIFF YOU GAVE AWAY, YOU PAY IN REPS.";
             color: Theme.text-primary;
             font-size: Theme.font-size-headline;
@@ -30,6 +36,7 @@ export component WelcomeScreen inherits VerticalLayout {
             wrap: word-wrap;
         }
         Text {
+            font-family: Theme.font-body;
             text: "After each Summoner's Rift game, cooldown.lol turns what you missed into a short workout.";
             color: Theme.text-secondary;
             font-size: Theme.font-size-body;
@@ -57,10 +64,11 @@ export component WelcomeScreen inherits VerticalLayout {
     }
 
     Rectangle {
-        vertical-stretch: 1;
+        height: Theme.space-m;
     }
 
     Text {
+        font-family: Theme.font-body;
         text: "Listen to your body. Skip anything that hurts. cooldown.lol isn't a health app. Not endorsed by Riot Games.";
         color: Theme.text-secondary;
         font-size: Theme.font-size-body;

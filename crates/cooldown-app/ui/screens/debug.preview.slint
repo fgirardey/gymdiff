@@ -7,10 +7,10 @@ import { Fixtures } from "../preview-kit/fixtures.slint";
 import { PreviewCase } from "../preview-kit/preview-case.slint";
 import { PreviewPlayground } from "../preview-kit/preview-playground.slint";
 
-// No Pencil frame: this screen is a throwaway. Same size as the others (400 × 640).
+// No Pencil frame: this screen is a throwaway. Same size as the others (1280 × 800).
 export component DebugScreenStory inherits Rectangle {
-    width: 400px;
-    height: 640px;
+    width: 1280px;
+    height: 800px;
     background: Theme.background;
     clip: true;
 
@@ -26,8 +26,8 @@ export component DebugScreenStory inherits Rectangle {
 // Clicks show as the last action.
 export component DebugScreenPlayground inherits Window {
     background: Theme.background;
-    preferred-width: 400px;
-    preferred-height: 640px;
+    preferred-width: 1280px;
+    preferred-height: 800px;
 
     playground := PreviewPlayground {
         padding: 0;
